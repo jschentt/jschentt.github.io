@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>23_函数的柯里化了解吗？说下函数柯里化应用的场景 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="23_函数的柯里化了解吗？说下函数柯里化应用的场景" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-23_函数的柯里化了解吗？说下函数柯里化应用的场景" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:16.000Z"><a href="/2020/05/29/23_函数的柯里化了解吗？说下函数柯里化应用的场景/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">23_函数的柯里化了解吗？说下函数柯里化应用的场景</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、什么是柯里化"><a href="#一、什么是柯里化" class="headerlink" title="一、什么是柯里化?"></a>一、什么是柯里化?</h2><p>我们先来看看维基百科中是如何定义的:<strong>在计算机科学中，柯里化（英语：Currying），又译为卡瑞化或加里化，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。</strong></p>
+<p>我们可以举个简单的例子,如下函数 add 是一般的一个函数,就是将传进来的参数 a 和 b 相加;函数 curryingAdd 就是对函数 add 进行柯里化的函数;<br>这样一来,原来我们需要直接传进去两个参数来进行运算的函数,现在需要分别传入参数 a 和 b,函数如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function add(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function curryingAdd(a) &#123;</span><br><span class="line">    return function(b) &#123;</span><br><span class="line">        return a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(1, 2); &#x2F;&#x2F; 3</span><br><span class="line">curryingAdd(1)(2); &#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
+
+<p>看到这里你可能会想,这样做有什么用?为什么要这样做?这样做能够给我们的应用带来什么样的好处?先别着急,我们接着往下看。</p>
+<h2 id="二、为什么要对函数进行柯里化"><a href="#二、为什么要对函数进行柯里化" class="headerlink" title="二、为什么要对函数进行柯里化?"></a>二、为什么要对函数进行柯里化?</h2><ul>
+<li>可以使用一些小技巧(见下文)</li>
+<li>提前绑定好函数里面的某些参数,达到参数复用的效果,提高了适用性.</li>
+<li>固定易变因素</li>
+<li>延迟计算</li>
+</ul>
+<p>总之,函数的柯里化能够让你重新组合你的应用,把你的复杂功能拆分成一个一个的小部分,每一个小的部分都是简单的,便于理解的,而且是容易测试的;</p>
+<h2 id="三、如何对函数进行柯里化"><a href="#三、如何对函数进行柯里化" class="headerlink" title="三、如何对函数进行柯里化?"></a>三、如何对函数进行柯里化?</h2><p>在这一部分里,我们由浅入深的一步步来告诉大家如何对一个多参数的函数进行柯里化.其中用到的知识有闭包,高阶函数,不完全函数等等.</p>
+<h3 id="1、开胃菜"><a href="#1、开胃菜" class="headerlink" title="1、开胃菜"></a>1、开胃菜</h3><p>假如我们要实现一个功能,就是输出语句 name 喜欢 song,其中 name 和 song 都是可变参数;那么一般情况下我们会这样写:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function printInfo(name, song) &#123;</span><br><span class="line">    console.log(name + &#39;喜欢的歌曲是: &#39; + song);</span><br><span class="line">&#125;</span><br><span class="line">printInfo(&#39;Tom&#39;, &#39;七里香&#39;);</span><br><span class="line">printInfo(&#39;Jerry&#39;, &#39;雅俗共赏&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>对上面的函数进行柯里化之后,我们可以这样写:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function curryingPrintInfo(name) &#123;</span><br><span class="line">    return function(song) &#123;</span><br><span class="line">        console.log(name + &#39;喜欢的歌曲是: &#39; + song);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var tomLike &#x3D; curryingPrintInfo(&#39;Tom&#39;);</span><br><span class="line">tomLike(&#39;七里香&#39;);</span><br><span class="line">var jerryLike &#x3D; curryingPrintInfo(&#39;Jerry&#39;);</span><br><span class="line">jerryLike(&#39;雅俗共赏&#39;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、小鸡炖蘑菇"><a href="#2、小鸡炖蘑菇" class="headerlink" title="2、小鸡炖蘑菇"></a>2、小鸡炖蘑菇</h3><p>上面我们虽然对函数 printInfo 进行了柯里化,但是我们可不想在需要柯里化的时候,都像上面那样不断地进行函数的嵌套,那简直是噩梦;<br>所以我们要创造一些帮助其它函数进行柯里化的函数,我们暂且叫它为 curryingHelper 吧,一个简单的 curryingHelper 函数如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function curryingHelper(fn) &#123;</span><br><span class="line">    var _args &#x3D; Array.prototype.slice.call(arguments, 1);</span><br><span class="line">    return function() &#123;</span><br><span class="line">        var _newArgs &#x3D; Array.prototype.slice.call(arguments);</span><br><span class="line">        var _totalArgs &#x3D; _args.concat(_newArgs);</span><br><span class="line">        return fn.apply(this, _totalArgs);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里解释一点东西,首先函数的 arguments 表示的是传递到函数中的参数对象,它不是一个数组,它是一个类数组对象;<br>所以我们可以使用函数的 Array.prototype.slice 方法，然后使用.call 方法来获取 arguments 里面的内容。<br>我们使用 fn.apply(this, _totalArgs)来给函数 fn 传递正确的参数.</p>
+<p>接下来我们来写一个简单的函数验证上面的辅助柯里化函数的正确性， 代码部分如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function showMsg(name, age, fruit) &#123;</span><br><span class="line">    console.log(&#39;My name is &#39; + name + &#39;, I\&#39;m &#39; + age + &#39; years old, &#39; + &#39; and I like eat &#39; + fruit);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var curryingShowMsg1 &#x3D; curryingHelper(showMsg, &#39;dreamapple&#39;);</span><br><span class="line">curryingShowMsg1(22, &#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line"></span><br><span class="line">var curryingShowMsg2 &#x3D; curryingHelper(showMsg, &#39;dreamapple&#39;, 20);</span><br><span class="line">curryingShowMsg2(&#39;watermelon&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 20 years old,  and I like eat watermelon</span><br></pre></td></tr></table></figure>
+
+<p>上面的结果表示，我们的这个柯里化的函数是正确的。上面的 curryingHelper 就是一个高阶函数。</p>
+<h3 id="3、牛肉火锅"><a href="#3、牛肉火锅" class="headerlink" title="3、牛肉火锅"></a>3、牛肉火锅</h3><p>上面的柯里化帮助函数确实已经能够达到我们的一般性需求了,但是它还不够好,我们希望那些经过柯里化后的函数可以每次只传递进去一个参数,<br>然后可以进行多次参数的传递,那么应该怎么办呢?我们可以再花费一些脑筋,写出一个 betterCurryingHelper 函数,实现我们上面说的那些功能.代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function betterCurryingHelper(fn, len) &#123;</span><br><span class="line">    var length &#x3D; len || fn.length;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        var allArgsFulfilled &#x3D; (arguments.length &gt;&#x3D; length);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 如果参数全部满足,就可以终止递归调用</span><br><span class="line">        if (allArgsFulfilled) &#123;</span><br><span class="line">            return fn.apply(this, arguments);</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            var argsNeedFulfilled &#x3D; [fn].concat(Array.prototype.slice.call(arguments));</span><br><span class="line">            return betterCurryingHelper(curryingHelper.apply(this, argsNeedFulfilled), length - arguments.length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 curryingHelper 就是上面 II 小鸡炖蘑菇中提及的那个函数.需要注意的是 fn.length 表示的是这个函数的参数长度.<br>接下来我们来检验一下这个函数的正确性:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var betterShowMsg &#x3D; betterCurryingHelper(showMsg);</span><br><span class="line">betterShowMsg(&#39;dreamapple&#39;, 22, &#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line">betterShowMsg(&#39;dreamapple&#39;, 22)(&#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line">betterShowMsg(&#39;dreamapple&#39;)(22, &#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line">betterShowMsg(&#39;dreamapple&#39;)(22)(&#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br></pre></td></tr></table></figure>
+
+<p>其中 showMsg 就是 II 小鸡炖蘑菇部分提及的那个函数.<br>我们可以看出来,这个 betterCurryingHelper 确实实现了我们想要的那个功能.并且我们也可以像使用原来的那个函数一样使用柯里化后的函数。</p>
+<h3 id="4、泡椒凤爪"><a href="#4、泡椒凤爪" class="headerlink" title="4、泡椒凤爪"></a>4、泡椒凤爪</h3><p>我们已经能够写出很好的柯里化辅助函数了,但是这还不算是最刺激的,如果我们在传递参数的时候可以不按照顺序来那一定很酷;当然我们也可以写出这样的函数来,<br>这个 crazyCurryingHelper 函数如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">var _ &#x3D; &#123;&#125;;</span><br><span class="line">function crazyCurryingHelper(fn, length, args, holes) &#123;</span><br><span class="line">    length &#x3D; length || fn.length;</span><br><span class="line">    args   &#x3D; args   || [];</span><br><span class="line">    holes  &#x3D; holes  || [];</span><br><span class="line"></span><br><span class="line">    return function() &#123;</span><br><span class="line">        var _args       &#x3D; args.slice(),</span><br><span class="line">            _holes      &#x3D; holes.slice();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 存储接收到的args和holes的长度</span><br><span class="line">        var argLength   &#x3D; _args.length,</span><br><span class="line">            holeLength  &#x3D; _holes.length;</span><br><span class="line"></span><br><span class="line">        var allArgumentsSpecified &#x3D; false;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 循环</span><br><span class="line">        var arg     &#x3D; null,</span><br><span class="line">            i       &#x3D; 0,</span><br><span class="line">            aLength &#x3D; arguments.length;</span><br><span class="line"></span><br><span class="line">        for(; i &lt; aLength; i++) &#123;</span><br><span class="line">            arg &#x3D; arguments[i];</span><br><span class="line"></span><br><span class="line">            if(arg &#x3D;&#x3D;&#x3D; _ &amp;&amp; holeLength) &#123;</span><br><span class="line">                &#x2F;&#x2F; 循环holes的位置</span><br><span class="line">                holeLength--;</span><br><span class="line">                _holes.push(_holes.shift());</span><br><span class="line">            &#125; else if (arg &#x3D;&#x3D;&#x3D; _) &#123;</span><br><span class="line">                &#x2F;&#x2F; 存储hole就是_的位置</span><br><span class="line">                _holes.push(argLength + i);</span><br><span class="line">            &#125; else if (holeLength) &#123;</span><br><span class="line">                &#x2F;&#x2F; 是否还有没有填补的hole</span><br><span class="line">                &#x2F;&#x2F; 在参数列表指定hole的地方插入当前参数</span><br><span class="line">                holeLength--;</span><br><span class="line">                _args.splice(_holes.shift(), 0, arg);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F; 不需要填补hole,直接添加到参数列表里面</span><br><span class="line">                _args.push(arg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 判断是否所有的参数都已满足</span><br><span class="line">        allArgumentsSpecified &#x3D; (_args.length &gt;&#x3D; length);</span><br><span class="line">        if(allArgumentsSpecified) &#123;</span><br><span class="line">            return fn.apply(this, _args);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 递归的进行柯里化</span><br><span class="line">        return crazyCurryingHelper.call(this, fn, length, _args, _holes);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一些解释,我们使用_来表示参数中的那些缺失的参数,如果你使用了 lodash 的话,会有冲突的;那么你可以使用别的符号替代.<br>按照一贯的尿性,我们还是要验证一下这个 crazyCurryingHelper 是不是实现了我们所说的哪些功能,代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var crazyShowMsg &#x3D; crazyCurryingHelper(showMsg);</span><br><span class="line">crazyShowMsg(_, 22)(&#39;dreamapple&#39;)(&#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line">crazyShowMsg( _, 22, &#39;apple&#39;)(&#39;dreamapple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line">crazyShowMsg( _, 22, _)(&#39;dreamapple&#39;, _, &#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line">crazyShowMsg( &#39;dreamapple&#39;, _, _)(22)(&#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br><span class="line">crazyShowMsg(&#39;dreamapple&#39;)(22)(&#39;apple&#39;); &#x2F;&#x2F; My name is dreamapple, I&#39;m 22 years old,  and I like eat apple</span><br></pre></td></tr></table></figure>
+
+<p>结果显示,我们这个函数也实现了我们所说的那些功能。</p>
+<h2 id="四、柯里化的一些应用场景"><a href="#四、柯里化的一些应用场景" class="headerlink" title="四、柯里化的一些应用场景"></a>四、柯里化的一些应用场景</h2><p>说了那么多,其实这部分才是最重要的部分;学习某个知识要一定可以用得到,不然学习它干嘛。</p>
+<h3 id="1、关于函数柯里化的一些小技巧"><a href="#1、关于函数柯里化的一些小技巧" class="headerlink" title="1、关于函数柯里化的一些小技巧"></a>1、关于函数柯里化的一些小技巧</h3><h4 id="（1）给-setTimeout-传递进来的函数添加参数"><a href="#（1）给-setTimeout-传递进来的函数添加参数" class="headerlink" title="（1）给 setTimeout 传递进来的函数添加参数"></a>（1）给 setTimeout 传递进来的函数添加参数</h4><p>一般情况下,我们如果想给一个 setTimeout 传递进来的函数添加参数的话,一般会使用这种方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function hello(name) &#123;</span><br><span class="line">    console.log(&#39;Hello, &#39; + name);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(hello(&#39;dreamapple&#39;), 3600); &#x2F;&#x2F;立即执行,不会在3.6s后执行</span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">    hello(&#39;dreamapple&#39;);</span><br><span class="line">&#125;, 3600); &#x2F;&#x2F; 3.6s 后执行</span><br></pre></td></tr></table></figure>
+
+<p>我们使用了一个新的匿名函数包裹我们要执行的函数,然后在函数体里面给那个函数传递参数值。</p>
+<p>当然,在 ES5 里面,我们也可以使用函数的 bind 方法,如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(hello.bind(this, &#39;dreamapple&#39;), 3600); &#x2F;&#x2F; 3.6s 之后执行函数</span><br></pre></td></tr></table></figure>
+
+<p>这样也是非常的方便快捷,并且可以绑定函数执行的上下文.</p>
+<p>我们本篇文章是讨论函数的柯里化,当然我们这里也可以使用函数的柯里化来达到这个效果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(curryingHelper(hello, &#39;dreamapple&#39;), 3600); &#x2F;&#x2F; 其中curryingHelper是上面已经提及过的</span><br></pre></td></tr></table></figure>
+
+<p>这样也是可以的,是不是很酷.</p>
+<h4 id="（2）写出这样一个函数-multiply-1-2-3-6-结果为-true-multiply-1-2-3-…-n-1-2-3-…-n-结果为-true"><a href="#（2）写出这样一个函数-multiply-1-2-3-6-结果为-true-multiply-1-2-3-…-n-1-2-3-…-n-结果为-true" class="headerlink" title="（2）写出这样一个函数 multiply(1)(2)(3) == 6 结果为 true,multiply(1)(2)(3)(…)(n) == (1)(2)(3)(…)(n)结果为 true"></a>（2）写出这样一个函数 multiply(1)(2)(3) == 6 结果为 true,multiply(1)(2)(3)(…)(n) == (1)<em>(2)</em>(3)<em>(…)</em>(n)结果为 true</h4><p>这个题目不知道大家碰到过没有,不过通过函数的柯里化,也是有办法解决的,看下面的代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function multiply(x) &#123;</span><br><span class="line">    var y &#x3D; function(x) &#123;</span><br><span class="line">        return multiply(x * y);</span><br><span class="line">    &#125;;</span><br><span class="line">    y.toString &#x3D; y.valueOf &#x3D; function() &#123;</span><br><span class="line">        return x;</span><br><span class="line">    &#125;;</span><br><span class="line">    return y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(multiply(1)(2)(3) &#x3D;&#x3D; 6); &#x2F;&#x2F; true</span><br><span class="line">console.log(multiply(1)(2)(3)(4)(5) &#x3D;&#x3D; 120); &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<p>因为 multiply(1)(2)(3)的直接结果并不是 6,而是一个函数对象{ [Number: 6] valueOf: [Function], toString: [Function] },我们之后使用了==会将左边这个函数对象转换成为一个数字,所以就达到了我们想要的结果.还有关于为什么使用 toString 和 valueOf 方法<br>可以看看这里的解释<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/valueOf" target="_blank" rel="noopener">Number.prototype.valueOf(),Function.prototype.toString()</a>.</p>
+<h4 id="（3）上面的那个函数不够纯粹-我们也可以实现一个更纯粹的函数-但是可以会不太符合题目的要求。我们可以这样做-先把函数的参数存储-然后再对这些参数做处理-一旦有了这个思路-我们就不难写出下面的代码"><a href="#（3）上面的那个函数不够纯粹-我们也可以实现一个更纯粹的函数-但是可以会不太符合题目的要求。我们可以这样做-先把函数的参数存储-然后再对这些参数做处理-一旦有了这个思路-我们就不难写出下面的代码" class="headerlink" title="（3）上面的那个函数不够纯粹,我们也可以实现一个更纯粹的函数,但是可以会不太符合题目的要求。我们可以这样做,先把函数的参数存储,然后再对这些参数做处理,一旦有了这个思路,我们就不难写出下面的代码:"></a>（3）上面的那个函数不够纯粹,我们也可以实现一个更纯粹的函数,但是可以会不太符合题目的要求。我们可以这样做,先把函数的参数存储,然后再对这些参数做处理,一旦有了这个思路,我们就不难写出下面的代码:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function add() &#123;</span><br><span class="line">    var args &#x3D; Array.prototype.slice.call(arguments);</span><br><span class="line">    var _that &#x3D; this;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        var newArgs &#x3D; Array.prototype.slice.call(arguments);</span><br><span class="line">        var total &#x3D; args.concat(newArgs);</span><br><span class="line">        if(!arguments.length) &#123;</span><br><span class="line">            var result &#x3D; 1;</span><br><span class="line">            for(var i &#x3D; 0; i &lt; total.length; i++) &#123;</span><br><span class="line">                result *&#x3D; total[i];</span><br><span class="line">            &#125;</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return add.apply(_that, total);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(add(1)(2)(3)()); &#x2F;&#x2F; 6</span><br><span class="line">console.log(add(1, 2, 3)()); &#x2F;&#x2F; 6</span><br></pre></td></tr></table></figure>
+
+<h4 id="（4）当我们的需要兼容-IE9-之前版本的-IE-浏览器的话-我们可能需要写出一些兼容的方案-比如事件监听-一般情况下我们应该会这样写"><a href="#（4）当我们的需要兼容-IE9-之前版本的-IE-浏览器的话-我们可能需要写出一些兼容的方案-比如事件监听-一般情况下我们应该会这样写" class="headerlink" title="（4）当我们的需要兼容 IE9 之前版本的 IE 浏览器的话,我们可能需要写出一些兼容的方案 ,比如事件监听;一般情况下我们应该会这样写:"></a>（4）当我们的需要兼容 IE9 之前版本的 IE 浏览器的话,我们可能需要写出一些兼容的方案 ,比如事件监听;一般情况下我们应该会这样写:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var addEvent &#x3D; function (el, type, fn, capture) &#123;</span><br><span class="line">    if (window.addEventListener) &#123;</span><br><span class="line">        el.addEventListener(type, fn, capture);</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        el.attachEvent(&#39;on&#39; + type, fn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这样写也是可以的,但是性能上会差一点,因为如果是在低版本的 IE 浏览器上每一次都会运行 if()语句,产生了不必要的性能开销.<br>我们也可以这样写:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var addEvent &#x3D; (function () &#123;</span><br><span class="line">    if (window.addEventListener) &#123;</span><br><span class="line">        return function (el, type, fn, capture) &#123;</span><br><span class="line">            el.addEventListener(type, fn, capture);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        return function (el, type, fn) &#123;</span><br><span class="line">            var IEtype &#x3D; &#39;on&#39; + type;</span><br><span class="line">            el.attachEvent(IEtype, fn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>这样就减少了不必要的开支,整个函数运行一次就可以了.</p>
+<h3 id="2、延迟计算-上面的那两个函数-multiply-和-add-实际上就是延迟计算的例子"><a href="#2、延迟计算-上面的那两个函数-multiply-和-add-实际上就是延迟计算的例子" class="headerlink" title="2、延迟计算 上面的那两个函数 multiply()和 add()实际上就是延迟计算的例子."></a>2、延迟计算 上面的那两个函数 multiply()和 add()实际上就是延迟计算的例子.</h3><h3 id="3、提前绑定好函数里面的某些参数-达到参数复用的效果-提高了适用性"><a href="#3、提前绑定好函数里面的某些参数-达到参数复用的效果-提高了适用性" class="headerlink" title="3、提前绑定好函数里面的某些参数,达到参数复用的效果,提高了适用性."></a>3、提前绑定好函数里面的某些参数,达到参数复用的效果,提高了适用性.</h3><p>我们的 I 开胃菜部分的 tomLike 和 jerryLike 其实就是属于这种的,绑定好函数里面的第一个参数,然后后面根据情况分别使用不同的函数.</p>
+<h3 id="4、固定易变因素"><a href="#4、固定易变因素" class="headerlink" title="4、固定易变因素"></a>4、固定易变因素</h3><p>我们经常使用的函数的 bind 方法就是一个固定易变因素的很好的例子.</p>
+<h2 id="五、关于柯里化的性能"><a href="#五、关于柯里化的性能" class="headerlink" title="五、关于柯里化的性能"></a>五、关于柯里化的性能</h2><p>当然,使用柯里化意味着有一些额外的开销;这些开销一般涉及到这些方面,首先是关于函数参数的调用,操作 arguments 对象通常会比操作命名的参数要慢一点;<br>还有,在一些老的版本的浏览器中 arguments.length 的实现是很慢的;直接调用函数 fn 要比使用 fn.apply()或者 fn.call()要快一点;产生大量的嵌套作用域还有闭包会带来一些性能还有速度的降低.<strong>但是,大多数的 web 应用的性能瓶颈是发生在操作 DOM 上的,所以上面的那些开销比起 DOM 操作的开销还是比较小的.</strong></p>
+<h2 id="六、一些知识点的解释"><a href="#六、一些知识点的解释" class="headerlink" title="六、一些知识点的解释"></a>六、一些知识点的解释</h2><h3 id="1、琐碎的知识点"><a href="#1、琐碎的知识点" class="headerlink" title="1、琐碎的知识点"></a>1、琐碎的知识点</h3><p>fn.length: 表示的是这个函数中参数的个数.<br>arguments.callee: 指向的是当前运行的函数.callee 是 arguments 对象的属性。</p>
+<p>在该函数的函数体内,它可以指向当前正在执行的函数.当函数是匿名函数时,这是很有用的,比如没有名字的函数表达式(也被叫做”匿名函数”).<br>详细解释可以看这里 arguments.callee.我们可以看一下下面的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function hello() &#123;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        console.log(&#39;hello&#39;);</span><br><span class="line">        if(!arguments.length) &#123;</span><br><span class="line">            console.log(&#39;from a anonymous function.&#39;);</span><br><span class="line">            return arguments.callee;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello()(1); &#x2F;&#x2F; hello</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line"> * hello</span><br><span class="line"> * from a anonymous function.</span><br><span class="line"> * hello</span><br><span class="line"> * from a anonymous function.</span><br><span class="line"> *&#x2F;</span><br><span class="line">hello()()();</span><br></pre></td></tr></table></figure>
+
+<p>fn.caller: 返回调用指定函数的函数.详细的解释可以看这里 Function.caller,下面是示例代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function hello() &#123;</span><br><span class="line">    console.log(&#39;hello&#39;);</span><br><span class="line">    console.log(hello.caller);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function callHello(fn) &#123;</span><br><span class="line">    return fn();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callHello(hello); &#x2F;&#x2F; hello [Function: callHello]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、高阶函数-high-order-function"><a href="#2、高阶函数-high-order-function" class="headerlink" title="2、高阶函数(high-order function)"></a>2、高阶函数(high-order function)</h3><p><strong>高阶函数就是操作函数的函数,它接受一个或多个函数作为参数,并返回一个新的函数.</strong></p>
+<p>我们来看一个例子,来帮助我们理解这个概念.就举一个我们高中经常遇到的场景,如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f1(x, y) &#x3D; x + y;</span><br><span class="line">f2(x) &#x3D; x * x;</span><br><span class="line">f3 &#x3D; f2(f3(x, y));</span><br></pre></td></tr></table></figure>
+
+<p>我们来实现 f3 函数,看看应该如何实现,具体的代码如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function f1(x, y) &#123;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function f2(x) &#123;</span><br><span class="line">    return x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function func3(func1, func2) &#123;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        return func2.call(this, func1.apply(this, arguments));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var f3 &#x3D; func3(f1, f2);</span><br><span class="line">console.log(f3(2, 3)); &#x2F;&#x2F; 25</span><br></pre></td></tr></table></figure>
+
+<p>我们通过函数 func3 将函数 f1,f2 结合到了一起,然后返回了一个新的函数 f3;这个函数就是我们期望的那个函数.</p>
+<h3 id="3、不完全函数-partial-function"><a href="#3、不完全函数-partial-function" class="headerlink" title="3、不完全函数(partial function)"></a>3、不完全函数(partial function)</h3><p>什么是不完全函数呢?所谓的不完全函数和我们上面所说的柯里化基本差不多;所谓的不完全函数,就是给你想要运行的那个函数绑定一个固定的参数值;<br>然后后面的运行或者说传递参数都是在前面的基础上进行运行的.看下面的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 一个将函数的arguments对象变成一个数组的方法</span><br><span class="line">function array(a, n) &#123;</span><br><span class="line">    return Array.prototype.slice.call(a, n || 0);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 我们要运行的函数</span><br><span class="line">function showMsg(a, b, c)&#123;</span><br><span class="line">    return a * (b - c);</span><br><span class="line">&#125;</span><br><span class="line">function partialLeft(f) &#123;</span><br><span class="line">    var args &#x3D; arguments;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        var a &#x3D; array(args, 1);</span><br><span class="line">        a &#x3D; a.concat(array(arguments));</span><br><span class="line">        console.log(a); &#x2F;&#x2F; 打印实际传递到函数中的参数列表</span><br><span class="line">        return f.apply(this, a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function partialRight(f) &#123;</span><br><span class="line">    var args &#x3D; arguments;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        var a &#x3D; array(arguments);</span><br><span class="line">        a &#x3D; a.concat(array(args, 1));</span><br><span class="line">        console.log(a); &#x2F;&#x2F; 打印实际传递到函数中的参数列表</span><br><span class="line">        return f.apply(this, a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function partial(f) &#123;</span><br><span class="line">    var args &#x3D; arguments;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        var a &#x3D; array(args, 1);</span><br><span class="line">        var i &#x3D; 0; j &#x3D; 0;</span><br><span class="line">        for(; i &lt; a.length; i++) &#123;</span><br><span class="line">            if(a[i] &#x3D;&#x3D;&#x3D; undefined) &#123;</span><br><span class="line">                a[i] &#x3D; arguments[j++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        a &#x3D; a.concat(array(arguments, j));</span><br><span class="line">        console.log(a); &#x2F;&#x2F; 打印实际传递到函数中的参数列表</span><br><span class="line">        return f.apply(this, a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">partialLeft(showMsg, 1)(2, 3); &#x2F;&#x2F; 实际参数列表: [1, 2, 3] 所以结果是 1 * (2 - 3) &#x3D; -1</span><br><span class="line">partialRight(showMsg, 1)(2, 3); &#x2F;&#x2F; 实际参数列表: [2, 3, 1] 所以结果是 2 * (3 - 1) &#x3D; 4</span><br><span class="line">partial(showMsg, undefined, 1)(2, 3); &#x2F;&#x2F; 实际参数列表: [2, 1, 3] 所以结果是 2 * (1 - 3) &#x3D; -4</span><br></pre></td></tr></table></figure>
+
+<h2 id="七、一些-JS-库"><a href="#七、一些-JS-库" class="headerlink" title="七、一些 JS 库"></a>七、一些 JS 库</h2><p>JavaScript 的柯里化与 JavaScript 的函数式编程密不可分,下面列举了一些关于 JavaScript 函数式编程的库,大家可以看一下:</p>
+<ul>
+<li><a href="https://github.com/jashkenas/underscore" target="_blank" rel="noopener">underscore</a></li>
+<li><a href="https://github.com/lodash/lodash/" target="_blank" rel="noopener">lodash</a></li>
+<li><a href="https://github.com/ramda/ramda" target="_blank" rel="noopener">ramda</a></li>
+<li><a href="https://github.com/baconjs/bacon.js" target="_blank" rel="noopener">bacon.js</a></li>
+<li><a href="https://github.com/CrowdHailer/fn.js" target="_blank" rel="noopener">fn.js</a></li>
+<li><a href="https://github.com/functionaljs/functional-js/" target="_blank" rel="noopener">functional-js</a></li>
+</ul>
+<h2 id="八、参考资料"><a href="#八、参考资料" class="headerlink" title="八、参考资料"></a>八、参考资料</h2><ul>
+<li><a href="https://www.ibm.com/developerworks/cn/web/1006_qiujt_jsfunctional/" target="_blank" rel="noopener">JavaScript 中的函数式编程实践</a></li>
+<li><a href="https://segmentfault.com/a/1190000006096034#comment-area" target="_blank" rel="noopener">掌握 JavaScript 函数的柯里化</a></li>
+<li><a href="https://segmentfault.com/a/1190000018265172" target="_blank" rel="noopener">高级函数技巧-函数柯里化</a></li>
+<li><a href="https://segmentfault.com/a/1190000016654033" target="_blank" rel="noopener">高阶函数应用 —— 柯里化与反柯里化</a></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2020/05/29/23_%E5%87%BD%E6%95%B0%E7%9A%84%E6%9F%AF%E9%87%8C%E5%8C%96%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E8%AF%B4%E4%B8%8B%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96%E5%BA%94%E7%94%A8%E7%9A%84%E5%9C%BA%E6%99%AF/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

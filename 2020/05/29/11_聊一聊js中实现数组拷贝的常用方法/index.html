@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>11_聊一聊js中实现数组拷贝的常用方法 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="11_聊一聊js中实现数组拷贝的常用方法" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-11_聊一聊js中实现数组拷贝的常用方法" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:28.000Z"><a href="/2020/05/29/11_聊一聊js中实现数组拷贝的常用方法/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">11_聊一聊js中实现数组拷贝的常用方法</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、数组赋值"><a href="#一、数组赋值" class="headerlink" title="一、数组赋值"></a>一、数组赋值</h2><h3 id="1、要点"><a href="#1、要点" class="headerlink" title="1、要点"></a>1、要点</h3><p>用数组直接赋值的方式实现数组的拷贝，改变拷贝后的数组的元素，被拷贝的数组的元素也会发生改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr1 &#x3D; [&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;];</span><br><span class="line">var arr2 &#x3D; arr1;</span><br><span class="line">arr2[1] &#x3D; &quot;green&quot;;</span><br><span class="line">console.log(&quot;数组的原始值：&quot; + arr1 ); &#x2F;&#x2F; 数组的原始值：red,green,blue</span><br><span class="line">console.log(&quot;数组的新值：&quot; + arr2);   &#x2F;&#x2F; 数组的新值：red,green,blue</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、引用数据类型"><a href="#2、引用数据类型" class="headerlink" title="2、引用数据类型"></a>2、引用数据类型</h3><p>Object 、Array 、Function</p>
+<p>javascript 的引用数据类型是保存在堆内存中的对象。</p>
+<p>与其他语言的不同是，你不可以直接访问堆内存空间中的位置和操作堆内存空间。只能操作对象在栈内存中的引用地址。</p>
+<p>所以，引用类型数据在栈内存中保存的实际上是对象在堆内存中的引用地址。通过这个引用地址可以快速查找到保存中堆内存中的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 &#x3D; new Object();</span><br><span class="line">var obj2 &#x3D; obj1;</span><br><span class="line">obj2.name &#x3D; &quot;李雷&quot;;</span><br><span class="line">console.log(obj1.name); &#x2F;&#x2F; 李雷</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://images2017.cnblogs.com/blog/1042553/201711/1042553-20171108152756013-944224581.jpg" alt="image"></p>
+<h2 id="二、数组浅拷贝"><a href="#二、数组浅拷贝" class="headerlink" title="二、数组浅拷贝"></a>二、数组浅拷贝</h2><table>
+    <tbody>
+        <tr>
+            <th colspan="4">Array拷贝方法总结</th>
+        </tr>
+        <tr>
+            <td>Array.slice</td>
+            <td>for() 、while</td>
+            <td>map、 filter</td>
+        </tr>
+        <tr>
+            <td>Array.cancat</td>
+            <td>Array.reduce()</td>
+            <td>Object.assign() Es6</td>
+        </tr>
+          <tr>
+          <td>扩展运算符 Es6</td>
+            <td>Array.from() Es6</td>    <td>JSON.parse(JSON.stringify())（深拷贝）</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 id="1、ES5-Array-复制方法总结"><a href="#1、ES5-Array-复制方法总结" class="headerlink" title="1、ES5 Array 复制方法总结"></a>1、ES5 Array 复制方法总结</h3><h4 id="（1）Array-slice（浅拷贝）"><a href="#（1）Array-slice（浅拷贝）" class="headerlink" title="（1）Array.slice（浅拷贝）"></a>（1）Array.slice（浅拷贝）</h4><p>slice 方法根据我们指定的 start、end 的 index 从原数组中返回一个浅拷贝的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> [1, 2, 3, 4, 5].slice(0, 3);</span><br><span class="line">&#x2F;&#x2F; [1, 2, 3]</span><br><span class="line">&#x2F;&#x2F; Starts at index 0, stops at index 3</span><br></pre></td></tr></table></figure>
+
+<p>测试：当不给定参数时，就返回了原数组的拷贝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [2, 4, 6, 8];</span><br><span class="line">let arr1 &#x3D; arr.slice();</span><br><span class="line">console.log(arr1); &#x2F;&#x2F; (4) [2, 4, 6, 8]</span><br><span class="line">arr[0] &#x3D; &#39;a&#39;;</span><br><span class="line">console.log(arr, arr1); &#x2F;&#x2F; (4) [&quot;a&quot;, 4, 6, 8] (4) [2, 4, 6, 8]</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）Array-cancat（浅拷贝）"><a href="#（2）Array-cancat（浅拷贝）" class="headerlink" title="（2）Array.cancat（浅拷贝）"></a>（2）Array.cancat（浅拷贝）</h4><p>concat 将数组与值或其他数组进行组合。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].concat(4); &#x2F;&#x2F; [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#39;a&#39;, 2, 4];</span><br><span class="line">Array.prototype.clone &#x3D; function () &#123;</span><br><span class="line">  return [].concat(this);</span><br><span class="line">&#125;</span><br><span class="line">let arr1 &#x3D; arr.clone();</span><br><span class="line">console.log(arr1) &#x2F;&#x2F; (3) [&quot;a&quot;, 2, 4]</span><br></pre></td></tr></table></figure>
+
+<p>如果我们不指定参数或者提供一个空数组作为参数，就可以进行浅拷贝。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1, 2, 3];</span><br><span class="line">let arr1 &#x3D; [1, 2, 3].concat();</span><br><span class="line">let arr2 &#x3D; [1, 2, 3].concat([]);</span><br><span class="line">console.log(arr1, arr2); &#x2F;&#x2F; (3) [1, 2, 3]  (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）遍历复制数组：for-、while、map、-filter、-reduce"><a href="#（3）遍历复制数组：for-、while、map、-filter、-reduce" class="headerlink" title="（3）遍历复制数组：for() 、while、map、 filter、 reduce"></a>（3）遍历复制数组：for() 、while、map、 filter、 reduce</h4><h4 id="for-循环（浅拷贝）"><a href="#for-循环（浅拷贝）" class="headerlink" title="for()循环（浅拷贝）"></a>for()循环（浅拷贝）</h4><p>测试 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#39;a&#39;, 2, 4];</span><br><span class="line"> Array.prototype.clone &#x3D; function () &#123;</span><br><span class="line">  	let a &#x3D; [];</span><br><span class="line">  	for (let i &#x3D; 0, l &#x3D; this.length; i&lt;l; i++) &#123;</span><br><span class="line">  		a.push(this[i]);</span><br><span class="line">  	&#125;</span><br><span class="line">  	return a;</span><br><span class="line">  &#125;</span><br><span class="line">let arr2 &#x3D; arr.clone();</span><br><span class="line">console.log(arr2) &#x2F;&#x2F; (3) [&quot;a&quot;, 2, 4]</span><br></pre></td></tr></table></figure>
+
+<p>测试 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; [];</span><br><span class="line">for (let i &#x3D; 0; i &lt; numbers.length; i++) &#123;</span><br><span class="line"> numbersCopy[i] &#x3D; numbers[i];</span><br><span class="line">&#125;</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="while-循环（浅拷贝）"><a href="#while-循环（浅拷贝）" class="headerlink" title="while()循环（浅拷贝）"></a>while()循环（浅拷贝）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; [];</span><br><span class="line">let i &#x3D; -1;</span><br><span class="line">while (++i &lt; numbers.length) &#123;</span><br><span class="line"> numbersCopy[i] &#x3D; numbers[i];</span><br><span class="line">&#125;</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Array-map（浅拷贝）"><a href="#Array-map（浅拷贝）" class="headerlink" title="Array.map（浅拷贝）"></a>Array.map（浅拷贝）</h4><p>当我们使用 map 方法时，需要给出一个 callback 函数用于处理当前的数组，并返回一个新的数组元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; numbers.map(x &#x3D;&gt; x);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Array-filter（浅拷贝）"><a href="#Array-filter（浅拷贝）" class="headerlink" title="Array.filter（浅拷贝）"></a>Array.filter（浅拷贝）</h4><p>Array.filter 方法同样会返回一个新数组，但是并不一定是返回同样长度的，这和我们的过滤条件有关。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; numbers.filter(x &#x3D;&gt; x);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Array-reduce（浅拷贝）"><a href="#Array-reduce（浅拷贝）" class="headerlink" title="Array.reduce（浅拷贝）"></a>Array.reduce（浅拷贝）</h4><p>其实用 reduce 来拷贝数组并没有展示出它的实际功能，但是我们还是要将其能够拷贝数组的能力说一下的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; numbers.reduce((newArray, element) &#x3D;&gt; &#123;</span><br><span class="line"> newArray.push(element);</span><br><span class="line"> return newArray;</span><br><span class="line">&#125;, []);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<p>reduce() 方法对数组中的每个元素执行一个由您提供的 reducer 函数，将其结果汇总为单个返回值。</p>
+<h3 id="2、ES6-方法总结"><a href="#2、ES6-方法总结" class="headerlink" title="2、ES6 方法总结"></a>2、ES6 方法总结</h3><h4 id="（1）Object-assign-浅拷贝"><a href="#（1）Object-assign-浅拷贝" class="headerlink" title="（1）Object.assign() 浅拷贝"></a>（1）Object.assign() 浅拷贝</h4><p>Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#39;张三&#39;, 24, &#39;前端工程师&#39;, &#39;男&#39;];</span><br><span class="line">let arr1 &#x3D; [];</span><br><span class="line">Object.assign(arr1, arr);</span><br><span class="line">console.log(arr1); &#x2F;&#x2F; (4) [&quot;张三&quot;, 24, &quot;前端工程师&quot;, &quot;男&quot;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）扩展运算符（浅拷贝）"><a href="#（2）扩展运算符（浅拷贝）" class="headerlink" title="（2）扩展运算符（浅拷贝）"></a>（2）扩展运算符（浅拷贝）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1, 2, 3];</span><br><span class="line">let arr1 &#x3D; [...arr];</span><br><span class="line">console.log(arr1) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<p>这个方法不能有效的拷贝多维数组。数组/对象值的拷贝是通过引用而不是值复制。</p>
+<h4 id="（3）Array-from（浅拷贝）"><a href="#（3）Array-from（浅拷贝）" class="headerlink" title="（3）Array.from（浅拷贝）"></a>（3）Array.from（浅拷贝）</h4><p>可以将任何可迭代对象转换为数组。给一个数组返回一个浅拷贝。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(Array.from(&#39;foo&#39;)); &#x2F;&#x2F; (3) [&quot;f&quot;, &quot;o&quot;, &quot;o&quot;]</span><br><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; Array.from(numbers);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、数组深拷贝"><a href="#三、数组深拷贝" class="headerlink" title="三、数组深拷贝"></a>三、数组深拷贝</h2><h3 id="JSON-parse-amp-JSON-stringify（深拷贝）"><a href="#JSON-parse-amp-JSON-stringify（深拷贝）" class="headerlink" title="JSON.parse &amp; JSON.stringify（深拷贝）"></a>JSON.parse &amp; JSON.stringify（深拷贝）</h3><ul>
+<li>JSON.stringify 将一个对象转成字符串</li>
+<li>JSON.parse 将转成的字符串转回对象</li>
+</ul>
+<p>将它们组合起来可以将对象转换成字符串，然后反转这个过程来创建一个全新的数据结构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let nestedNumbers &#x3D; [[1], [2]];</span><br><span class="line">let numbersCopy &#x3D; JSON.parse(</span><br><span class="line"> JSON.stringify(nestedNumbers)</span><br><span class="line">);</span><br><span class="line">numbersCopy[0].push(300);</span><br><span class="line">console.log(nestedNumbers, numbersCopy);</span><br><span class="line">&#x2F;&#x2F; [[1], [2]]</span><br><span class="line">&#x2F;&#x2F; [[1, 300], [2]]</span><br></pre></td></tr></table></figure>
+
+<p>这个可以安全地拷贝深度嵌套的对象/数组</p>
+<h4 id="几种特殊情况："><a href="#几种特殊情况：" class="headerlink" title="几种特殊情况："></a>几种特殊情况：</h4><h5 id="（1）如果-obj-里面有时间对象，则-JSON-stringify-后再-JSON-parse-的结果，时间将只是字符串的形式。而不是时间对象"><a href="#（1）如果-obj-里面有时间对象，则-JSON-stringify-后再-JSON-parse-的结果，时间将只是字符串的形式。而不是时间对象" class="headerlink" title="（1）如果 obj 里面有时间对象，则 JSON.stringify 后再 JSON.parse 的结果，时间将只是字符串的形式。而不是时间对象"></a>（1）如果 obj 里面有时间对象，则 JSON.stringify 后再 JSON.parse 的结果，时间将只是字符串的形式。而不是时间对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: [new Date(1536627600000), new Date(1540047600000)],</span><br><span class="line">&#125;;</span><br><span class="line">let b &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">console.log(b)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-f624b9a998004afd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="（2）如果-obj-里有-RegExp、Error-对象，则序列化的结果将只得到空对象"><a href="#（2）如果-obj-里有-RegExp、Error-对象，则序列化的结果将只得到空对象" class="headerlink" title="（2）如果 obj 里有 RegExp、Error 对象，则序列化的结果将只得到空对象"></a>（2）如果 obj 里有 RegExp、Error 对象，则序列化的结果将只得到空对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: new RegExp(&#39;\\w+&#39;),</span><br><span class="line">&#125;;</span><br><span class="line">const copyed &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">test.name &#x3D; &#39;test&#39;;</span><br><span class="line">console.log(test, copyed)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-199f2a77a8adeb85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="（3）如果-obj-里有函数，undefined，则序列化的结果会把函数或-undefined-丢失"><a href="#（3）如果-obj-里有函数，undefined，则序列化的结果会把函数或-undefined-丢失" class="headerlink" title="（3）如果 obj 里有函数，undefined，则序列化的结果会把函数或 undefined 丢失"></a>（3）如果 obj 里有函数，undefined，则序列化的结果会把函数或 undefined 丢失</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: function help() &#123;</span><br><span class="line">	 	console.log(&#39;message&#39;)</span><br><span class="line"> 	&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">const copyed &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">test.name &#x3D; &#39;test&#39;</span><br><span class="line">console.log(test, copyed)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-27939d1be7b3905a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="11-4.png"></p>
+<h5 id="（4）如果-obj-里有-NaN、Infinity-和-Infinity，则序列化的结果会变成-null"><a href="#（4）如果-obj-里有-NaN、Infinity-和-Infinity，则序列化的结果会变成-null" class="headerlink" title="（4）如果 obj 里有 NaN、Infinity 和-Infinity，则序列化的结果会变成 null"></a>（4）如果 obj 里有 NaN、Infinity 和-Infinity，则序列化的结果会变成 null</h5><h5 id="（5）JSON-stringify-只能序列化对象的可枚举的自有属性"><a href="#（5）JSON-stringify-只能序列化对象的可枚举的自有属性" class="headerlink" title="（5）JSON.stringify()只能序列化对象的可枚举的自有属性"></a>（5）JSON.stringify()只能序列化对象的可枚举的自有属性</h5><p>例如 如果 obj 中的对象是有构造函数生成的， 则使用 JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的 constructor；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line"> 	this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line">const lilei &#x3D; new Person(&#39;lilei&#39;);</span><br><span class="line">const test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: lilei,</span><br><span class="line">&#125;;</span><br><span class="line">const copyed &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">test.name &#x3D; &#39;test&#39;</span><br><span class="line">console.log(test, copyed)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-68fbc670b59ffb19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2020/05/29/11_%E8%81%8A%E4%B8%80%E8%81%8Ajs%E4%B8%AD%E5%AE%9E%E7%8E%B0%E6%95%B0%E7%BB%84%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

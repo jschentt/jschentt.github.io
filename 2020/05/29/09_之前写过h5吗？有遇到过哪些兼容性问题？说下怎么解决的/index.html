@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>09_之前写过h5吗？有遇到过哪些兼容性问题？说下怎么解决的 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="09_之前写过h5吗？有遇到过哪些兼容性问题？说下怎么解决的" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-09_之前写过h5吗？有遇到过哪些兼容性问题？说下怎么解决的" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:30.000Z"><a href="/2020/05/29/09_之前写过h5吗？有遇到过哪些兼容性问题？说下怎么解决的/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">09_之前写过h5吗？有遇到过哪些兼容性问题？说下怎么解决的</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、H5-兼容性问题"><a href="#一、H5-兼容性问题" class="headerlink" title="一、H5 兼容性问题"></a>一、H5 兼容性问题</h2><p>H5 在安卓机型和 IOS 机型或者相同机型的不同浏览器中的某些样式会存在不一样的表现，所以需要解决相应的兼容性问题</p>
+<h2 id="二、IOS-常见兼容性问题"><a href="#二、IOS-常见兼容性问题" class="headerlink" title="二、IOS 常见兼容性问题"></a>二、IOS 常见兼容性问题</h2><h3 id="1、IOS-端兼容-input-光标高度"><a href="#1、IOS-端兼容-input-光标高度" class="headerlink" title="1、IOS 端兼容 input 光标高度"></a>1、IOS 端兼容 input 光标高度</h3><ul>
+<li>问题症状：input 输入框光标，在安卓手机上显示没有问题，但是在苹果手机上当点击输入的时候，光标的高度和父盒子的高度一样</li>
+<li>原因分析：通常我们习惯用 height 属性设置行间的高度和 line-height 属性设置行间的距离（行高），当点击输入的时候，光标的高度就自动和父盒子的高度一样了。（谷歌浏览器的设计原则，还有一种可能就是当没有内容的时候光标的高度等于 input 的 line-height 的值，当有内容时，光标从 input 的顶端到文字的底部）</li>
+<li>解决方案：高度 height 和行高 line-height 内容用 padding 撑开</li>
+</ul>
+<h3 id="2、IOS-键盘唤起，键盘收起以后页面不归位"><a href="#2、IOS-键盘唤起，键盘收起以后页面不归位" class="headerlink" title="2、IOS 键盘唤起，键盘收起以后页面不归位"></a>2、IOS 键盘唤起，键盘收起以后页面不归位</h3><ul>
+<li>问题症状：输入内容，软键盘弹出，页面内容整体上移，但是键盘收起，页面内容不下滑</li>
+<li>原因分析：固定定位的元素 在元素内 input 框聚焦的时候 弹出的软键盘占位 失去焦点的时候软键盘消失 但是还是占位的 导致 input 框不能再次输入 在失去焦点的时候给一个事件</li>
+<li>解决方案：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">changeBlur () &#123;</span><br><span class="line">     let u &#x3D; navigator.userAgent, app &#x3D; navigator.appVersion;</span><br><span class="line">     let isIOS &#x3D; !!u.match(&#x2F;\(i[^;]+;( U;)? CPU.+Mac OS X&#x2F;);</span><br><span class="line">     if(isIOS)&#123;</span><br><span class="line">        setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">          const scrollHeight &#x3D; document.documentElement.scrollTop || document.body.scrollTop || 0</span><br><span class="line">          window.scrollTo(0, Math.max(scrollHeight - 1, 0))</span><br><span class="line">          &#125;, 200)</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>拓展知识： position: fixed 的元素在 IOS 里，收起键盘的时候会被顶上去，特别是第三方键盘</li>
+</ul>
+<h3 id="3、IOS-端-h5-页面上下滑动时卡顿、页面缺失"><a href="#3、IOS-端-h5-页面上下滑动时卡顿、页面缺失" class="headerlink" title="3、IOS 端 h5 页面上下滑动时卡顿、页面缺失"></a>3、IOS 端 h5 页面上下滑动时卡顿、页面缺失</h3><ul>
+<li>问题描述：在 IOS 端，上下滑动页面时，如果页面高度超出了一屏，就会出现明显的卡顿，页面有部分内容显示不全的情况</li>
+<li>解决方案：只需要在公共样式加入下面这行代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  -webkit-overflow-scrolling: touch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>扩展知识：-webkit-overflow-scrolling 是什么？</strong></p>
+<p>-webkit-overflow-scrolling 属性控制元素在移动设备上是否使用滚动回弹效果.<br/><br>auto: 使用普通滚动, 当手指从触摸屏上移开，滚动会立即停止。<br/><br>touch: 使用具有回弹效果的滚动, 当手指从触摸屏上移开，内容会继续保持一段时间的滚动效果。继续滚动的速度和持续的时间和滚动手势的强烈程度成正比。同时也会创建一个新的堆栈上下文。</p>
+<h3 id="4、IOS-移动端-click-事件-300ms-的延迟响应"><a href="#4、IOS-移动端-click-事件-300ms-的延迟响应" class="headerlink" title="4、IOS 移动端 click 事件 300ms 的延迟响应"></a>4、IOS 移动端 click 事件 300ms 的延迟响应</h3><ul>
+<li><p>问题描述：移动设备上的 web 网页是有 300ms 延迟的，往往会造成按钮点击延迟甚至是点击失效<br>解决方案：</p>
+</li>
+<li><p>fastclick 可以解决在手机上点击事件的 300ms 延迟</p>
+</li>
+<li><p>zepto 的 touch 模块，tap 事件也是为了解决在 click 的延迟问题</p>
+</li>
+<li><p>触摸事件的响应顺序为 touchstart –&gt; touchmove –&gt; touchend –&gt; click,也可以通过绑定 ontouchstart 事件，加快对事件的响应，解决 300ms 延迟问题</p>
+</li>
+</ul>
+<h3 id="5、IOS-双击页面缩放禁止"><a href="#5、IOS-双击页面缩放禁止" class="headerlink" title="5、IOS 双击页面缩放禁止"></a>5、IOS 双击页面缩放禁止</h3><ul>
+<li>问题描述：IOS10 中自带的 Safari 浏览器不识别 meta viewport</li>
+<li>IOS10 以外解决移动端禁止页面缩放的方法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width,initial-scale&#x3D;1.0,maximum-scale&#x3D;1.0,minimum-scale&#x3D;1.0,user-scalable&#x3D;no&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IOS10 解决方案：</li>
+</ul>
+<h4 id="（1）禁用双指缩放"><a href="#（1）禁用双指缩放" class="headerlink" title="（1）禁用双指缩放"></a>（1）禁用双指缩放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">document.documentElement.addEventListener(&#39;touchstart&#39;, function (event) &#123;</span><br><span class="line">  if (event.touches.length &gt; 1) &#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, false);</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）禁用手指双击缩放"><a href="#（2）禁用手指双击缩放" class="headerlink" title="（2）禁用手指双击缩放"></a>（2）禁用手指双击缩放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var lastTouchEnd &#x3D; 0;</span><br><span class="line">document.documentElement.addEventListener(&#39;touchend&#39;, function (event) &#123;</span><br><span class="line">  var now &#x3D; Date.now();</span><br><span class="line">  if (now - lastTouchEnd &lt;&#x3D; 300) &#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line">  lastTouchEnd &#x3D; now;</span><br><span class="line">&#125;, false);</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、微信浏览器常见兼容性问题"><a href="#三、微信浏览器常见兼容性问题" class="headerlink" title="三、微信浏览器常见兼容性问题"></a>三、微信浏览器常见兼容性问题</h2><h3 id="1、填写表单信息弹出键盘会把页面顶上去，键盘消失的时候页面不自动下来"><a href="#1、填写表单信息弹出键盘会把页面顶上去，键盘消失的时候页面不自动下来" class="headerlink" title="1、填写表单信息弹出键盘会把页面顶上去，键盘消失的时候页面不自动下来"></a>1、填写表单信息弹出键盘会把页面顶上去，键盘消失的时候页面不自动下来</h3><p>解决方案：使用 onblur 方法在表单失去焦点的时候让页面滚动到最顶部。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form class&#x3D;&quot;form&quot; action&#x3D;&quot;&quot; method&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;label for&#x3D;&quot;idNumber&quot;&gt;身份证号&lt;&#x2F;label&gt;&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;idNumber&quot; onblur&#x3D;&quot;window.scrollTo(0, 0);&quot; id&#x3D;&quot;idNumber&quot;&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、去除移动端点击时的背景"><a href="#2、去除移动端点击时的背景" class="headerlink" title="2、去除移动端点击时的背景"></a>2、去除移动端点击时的背景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">    -webkit-tap-highlight-color: rgba(0,0,0,0);</span><br><span class="line">    -webkit-tap-highlight-color: transparent;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、去掉-input-框的默认样式"><a href="#3、去掉-input-框的默认样式" class="headerlink" title="3、去掉 input 框的默认样式"></a>3、去掉 input 框的默认样式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">    background-color: transparent;&#x2F;*背景变透明*&#x2F;</span><br><span class="line">    filter: alpha(opacity&#x3D;0); &#x2F;*androd*&#x2F;</span><br><span class="line">    appearance: none;  &#x2F;*去除系统默认appearance的样式,常用于IOS下移除原生样式(下拉框去掉右侧图标等)*&#x2F;</span><br><span class="line">    -moz-appearance: none;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、音视频不自动播放"><a href="#4、音视频不自动播放" class="headerlink" title="4、音视频不自动播放"></a>4、音视频不自动播放</h3><ul>
+<li>原因分析：出于节省流量的初衷，IOS 系统禁止音视频自动播放</li>
+<li>解决方案：使用微信的 JS-SDK</li>
+</ul>
+<h4 id="（1）先引入微信的-JS-SDK"><a href="#（1）先引入微信的-JS-SDK" class="headerlink" title="（1）先引入微信的 JS-SDK"></a>（1）先引入微信的 JS-SDK</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;res.wx.qq.com&#x2F;open&#x2F;js&#x2F;jweixin-1.4.0.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）然后在-wx-ready-中调用-play-方法播放"><a href="#（2）然后在-wx-ready-中调用-play-方法播放" class="headerlink" title="（2）然后在 wx.ready 中调用 play 方法播放"></a>（2）然后在 wx.ready 中调用 play 方法播放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var audio &#x3D; document.getElementById(&#39;bgmusic&#39;);</span><br><span class="line">    autoPlayAudio();</span><br><span class="line">    function autoPlayAudio() &#123;</span><br><span class="line">        wx.config(&#123;</span><br><span class="line">            &#x2F;&#x2F; 配置信息, 即使不正确也能使用 wx.ready</span><br><span class="line">            debug: false,</span><br><span class="line">            appId: &#39;&#39;,</span><br><span class="line">            timestamp: 1,</span><br><span class="line">            nonceStr: &#39;&#39;,</span><br><span class="line">            signature: &#39;&#39;,</span><br><span class="line">            jsApiList: []</span><br><span class="line">        &#125;);</span><br><span class="line">        wx.ready(function() &#123;</span><br><span class="line">            audio.play();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、其他兼容性问题"><a href="#四、其他兼容性问题" class="headerlink" title="四、其他兼容性问题"></a>四、其他兼容性问题</h2><h3 id="1、在-IOS-手机上，绑定-click-事件到非-button-元素的元素上，IOS-下不会触发"><a href="#1、在-IOS-手机上，绑定-click-事件到非-button-元素的元素上，IOS-下不会触发" class="headerlink" title="1、在 IOS 手机上，绑定 click 事件到非 button 元素的元素上，IOS 下不会触发"></a>1、在 IOS 手机上，绑定 click 事件到非 button 元素的元素上，IOS 下不会触发</h3><p>解决方案：元素样式添加 cursor:pointer</p>
+<h3 id="2、在-IOS-中-li-元素按下会有阴影效果"><a href="#2、在-IOS-中-li-元素按下会有阴影效果" class="headerlink" title="2、在 IOS 中 li 元素按下会有阴影效果"></a>2、在 IOS 中 li 元素按下会有阴影效果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-webkit-tap-highlight-color: transparent;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、在-IOS-中，input-会有内阴影"><a href="#3、在-IOS-中，input-会有内阴影" class="headerlink" title="3、在 IOS 中，input 会有内阴影"></a>3、在 IOS 中，input 会有内阴影</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-webkit-appearance:none;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、IOS-下取消-input-在输入的时候英文首字母的默认大写"><a href="#4、IOS-下取消-input-在输入的时候英文首字母的默认大写" class="headerlink" title="4、IOS 下取消 input 在输入的时候英文首字母的默认大写"></a>4、IOS 下取消 input 在输入的时候英文首字母的默认大写</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input autocapitalize&#x3D;&quot;off&quot; autocorrect&#x3D;&quot;off&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、禁止-IOS-弹出各种操作窗口"><a href="#5、禁止-IOS-弹出各种操作窗口" class="headerlink" title="5、禁止 IOS 弹出各种操作窗口"></a>5、禁止 IOS 弹出各种操作窗口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-webkit-touch-callout:none</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、禁止-IOS-和-android-用户选中文字"><a href="#6、禁止-IOS-和-android-用户选中文字" class="headerlink" title="6、禁止 IOS 和 android 用户选中文字"></a>6、禁止 IOS 和 android 用户选中文字</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-webkit-user-select:none</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、禁止-IOS-识别长串数字为电话"><a href="#7、禁止-IOS-识别长串数字为电话" class="headerlink" title="7、禁止 IOS 识别长串数字为电话"></a>7、禁止 IOS 识别长串数字为电话</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta content&#x3D;&quot;telephone&#x3D;no&quot; name&#x3D;&quot;format-detection&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、禁止-IOS-手机识别邮箱"><a href="#8、禁止-IOS-手机识别邮箱" class="headerlink" title="8、禁止 IOS 手机识别邮箱"></a>8、禁止 IOS 手机识别邮箱</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta content&#x3D;&quot;email&#x3D;no&quot; name&#x3D;&quot;format-detection&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="9、IOS-系统中文输入法输入英文时，字母之间可能会出现一个六分之一空格"><a href="#9、IOS-系统中文输入法输入英文时，字母之间可能会出现一个六分之一空格" class="headerlink" title="9、IOS 系统中文输入法输入英文时，字母之间可能会出现一个六分之一空格"></a>9、IOS 系统中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h3><p>解决方案：可以通过正则去掉 this.value = this.value.replace(/\u2006/g, ‘’);</p>
+<h3 id="10、阻止旋转屏幕时自动调整字体大小"><a href="#10、阻止旋转屏幕时自动调整字体大小" class="headerlink" title="10、阻止旋转屏幕时自动调整字体大小"></a>10、阻止旋转屏幕时自动调整字体大小</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 &#123;-webkit-text-size-adjust:none;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11、在移动端修改难看的点击的高亮效果，IOS-和安卓下都有效"><a href="#11、在移动端修改难看的点击的高亮效果，IOS-和安卓下都有效" class="headerlink" title="11、在移动端修改难看的点击的高亮效果，IOS 和安卓下都有效"></a>11、在移动端修改难看的点击的高亮效果，IOS 和安卓下都有效</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* &#123;-webkit-tap-highlight-color:rgba(0,0,0,0);&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="12、往返缓存问题"><a href="#12、往返缓存问题" class="headerlink" title="12、往返缓存问题"></a>12、往返缓存问题</h3><p>点击浏览器的回退，有时候不会自动执行 js，特别是在 mobilesafari 中。这与往返缓存(bfcache)有关系。</p>
+<p>解决方法 ：window.onunload = function(){};</p>
+<h3 id="13、Input-的-placeholder-会出现文本位置偏上的情况"><a href="#13、Input-的-placeholder-会出现文本位置偏上的情况" class="headerlink" title="13、Input 的 placeholder 会出现文本位置偏上的情况"></a>13、Input 的 placeholder 会出现文本位置偏上的情况</h3><p>input 的 placeholder 会出现文本位置偏上的情况：PC 端设置 line-height 等于 height 能够对齐，而移动端仍然是偏上，解决是设置 line-height：normal</p>
+<h3 id="14、在-IOS-和-andriod-中-audio-元素和-video-元素无法自动播放"><a href="#14、在-IOS-和-andriod-中-audio-元素和-video-元素无法自动播放" class="headerlink" title="14、在 IOS 和 andriod 中,audio 元素和 video 元素无法自动播放"></a>14、在 IOS 和 andriod 中,audio 元素和 video 元素无法自动播放</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.addEventListener(&#39;touchstart&#39;,function()&#123;</span><br><span class="line">    audio.play()</span><br><span class="line">&#125;,false)</span><br></pre></td></tr></table></figure>
+
+<h3 id="15、消除-transition-闪屏"><a href="#15、消除-transition-闪屏" class="headerlink" title="15、消除 transition 闪屏"></a>15、消除 transition 闪屏</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-webkit-transform-style: preserve-3d;     &#x2F;*设置内嵌的元素在 3D 空间如何呈现：保留 3D*&#x2F;</span><br><span class="line">-webkit-backface-visibility: hidden;      &#x2F;*(设置进行转换的元素的背面在面对用户时是否可见：隐藏)*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="16、CSS-动画页面闪白，动画卡顿"><a href="#16、CSS-动画页面闪白，动画卡顿" class="headerlink" title="16、CSS 动画页面闪白，动画卡顿"></a>16、CSS 动画页面闪白，动画卡顿</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">解决方法:</span><br><span class="line">1.尽可能地使用合成属性transform和opacity来设计CSS3动画，不使用position的left和top来定位</span><br><span class="line">2.开启硬件加速</span><br><span class="line">  -webkit-transform: translate3d(0, 0, 0);</span><br><span class="line">     -moz-transform: translate3d(0, 0, 0);</span><br><span class="line">      -ms-transform: translate3d(0, 0, 0);</span><br><span class="line">          transform: translate3d(0, 0, 0);</span><br></pre></td></tr></table></figure>
+
+<h3 id="17、fixed-定位缺陷"><a href="#17、fixed-定位缺陷" class="headerlink" title="17、fixed 定位缺陷"></a>17、fixed 定位缺陷</h3><p>原因分析：</p>
+<ul>
+<li>IOS 下 fixed 元素容易定位出错，软键盘弹出时，影响 fixed 元素定位</li>
+<li>android 下 fixed 表现要比 iOS 更好，软键盘弹出时，不会影响 fixed 元素定位</li>
+<li>IOS4 下不支持 position:fixed</li>
+</ul>
+<p>解决方案： 可用 iScroll 插件解决这个问题</p>
+<h3 id="18、calc-的兼容性处理"><a href="#18、calc-的兼容性处理" class="headerlink" title="18、calc 的兼容性处理"></a>18、calc 的兼容性处理</h3><p>CSS3 中的 calc 变量在 iOS6 浏览器中必须加-webkit-前缀，目前的 FF 浏览器已经无需-moz-前缀。<br>Android 浏览器目前仍然不支持 calc，所以要在之前增加一个保守尺寸。</p>
+<p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">div &#123;</span><br><span class="line">    width: 95%;</span><br><span class="line">    width: -webkit-calc(100% - 50px);</span><br><span class="line">    width: calc(100% - 50px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2020/05/29/09_%E4%B9%8B%E5%89%8D%E5%86%99%E8%BF%87h5%E5%90%97%EF%BC%9F%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87%E5%93%AA%E4%BA%9B%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9F%E8%AF%B4%E4%B8%8B%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E7%9A%84/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

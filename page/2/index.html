@@ -1,0 +1,1299 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Page 2 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-11_聊一聊js中实现数组拷贝的常用方法" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:28.000Z"><a href="/2020/05/29/11_聊一聊js中实现数组拷贝的常用方法/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/11_聊一聊js中实现数组拷贝的常用方法/">11_聊一聊js中实现数组拷贝的常用方法</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、数组赋值"><a href="#一、数组赋值" class="headerlink" title="一、数组赋值"></a>一、数组赋值</h2><h3 id="1、要点"><a href="#1、要点" class="headerlink" title="1、要点"></a>1、要点</h3><p>用数组直接赋值的方式实现数组的拷贝，改变拷贝后的数组的元素，被拷贝的数组的元素也会发生改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr1 &#x3D; [&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;];</span><br><span class="line">var arr2 &#x3D; arr1;</span><br><span class="line">arr2[1] &#x3D; &quot;green&quot;;</span><br><span class="line">console.log(&quot;数组的原始值：&quot; + arr1 ); &#x2F;&#x2F; 数组的原始值：red,green,blue</span><br><span class="line">console.log(&quot;数组的新值：&quot; + arr2);   &#x2F;&#x2F; 数组的新值：red,green,blue</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、引用数据类型"><a href="#2、引用数据类型" class="headerlink" title="2、引用数据类型"></a>2、引用数据类型</h3><p>Object 、Array 、Function</p>
+<p>javascript 的引用数据类型是保存在堆内存中的对象。</p>
+<p>与其他语言的不同是，你不可以直接访问堆内存空间中的位置和操作堆内存空间。只能操作对象在栈内存中的引用地址。</p>
+<p>所以，引用类型数据在栈内存中保存的实际上是对象在堆内存中的引用地址。通过这个引用地址可以快速查找到保存中堆内存中的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 &#x3D; new Object();</span><br><span class="line">var obj2 &#x3D; obj1;</span><br><span class="line">obj2.name &#x3D; &quot;李雷&quot;;</span><br><span class="line">console.log(obj1.name); &#x2F;&#x2F; 李雷</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://images2017.cnblogs.com/blog/1042553/201711/1042553-20171108152756013-944224581.jpg" alt="image"></p>
+<h2 id="二、数组浅拷贝"><a href="#二、数组浅拷贝" class="headerlink" title="二、数组浅拷贝"></a>二、数组浅拷贝</h2><table>
+    <tbody>
+        <tr>
+            <th colspan="4">Array拷贝方法总结</th>
+        </tr>
+        <tr>
+            <td>Array.slice</td>
+            <td>for() 、while</td>
+            <td>map、 filter</td>
+        </tr>
+        <tr>
+            <td>Array.cancat</td>
+            <td>Array.reduce()</td>
+            <td>Object.assign() Es6</td>
+        </tr>
+          <tr>
+          <td>扩展运算符 Es6</td>
+            <td>Array.from() Es6</td>    <td>JSON.parse(JSON.stringify())（深拷贝）</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 id="1、ES5-Array-复制方法总结"><a href="#1、ES5-Array-复制方法总结" class="headerlink" title="1、ES5 Array 复制方法总结"></a>1、ES5 Array 复制方法总结</h3><h4 id="（1）Array-slice（浅拷贝）"><a href="#（1）Array-slice（浅拷贝）" class="headerlink" title="（1）Array.slice（浅拷贝）"></a>（1）Array.slice（浅拷贝）</h4><p>slice 方法根据我们指定的 start、end 的 index 从原数组中返回一个浅拷贝的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> [1, 2, 3, 4, 5].slice(0, 3);</span><br><span class="line">&#x2F;&#x2F; [1, 2, 3]</span><br><span class="line">&#x2F;&#x2F; Starts at index 0, stops at index 3</span><br></pre></td></tr></table></figure>
+
+<p>测试：当不给定参数时，就返回了原数组的拷贝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [2, 4, 6, 8];</span><br><span class="line">let arr1 &#x3D; arr.slice();</span><br><span class="line">console.log(arr1); &#x2F;&#x2F; (4) [2, 4, 6, 8]</span><br><span class="line">arr[0] &#x3D; &#39;a&#39;;</span><br><span class="line">console.log(arr, arr1); &#x2F;&#x2F; (4) [&quot;a&quot;, 4, 6, 8] (4) [2, 4, 6, 8]</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）Array-cancat（浅拷贝）"><a href="#（2）Array-cancat（浅拷贝）" class="headerlink" title="（2）Array.cancat（浅拷贝）"></a>（2）Array.cancat（浅拷贝）</h4><p>concat 将数组与值或其他数组进行组合。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].concat(4); &#x2F;&#x2F; [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#39;a&#39;, 2, 4];</span><br><span class="line">Array.prototype.clone &#x3D; function () &#123;</span><br><span class="line">  return [].concat(this);</span><br><span class="line">&#125;</span><br><span class="line">let arr1 &#x3D; arr.clone();</span><br><span class="line">console.log(arr1) &#x2F;&#x2F; (3) [&quot;a&quot;, 2, 4]</span><br></pre></td></tr></table></figure>
+
+<p>如果我们不指定参数或者提供一个空数组作为参数，就可以进行浅拷贝。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1, 2, 3];</span><br><span class="line">let arr1 &#x3D; [1, 2, 3].concat();</span><br><span class="line">let arr2 &#x3D; [1, 2, 3].concat([]);</span><br><span class="line">console.log(arr1, arr2); &#x2F;&#x2F; (3) [1, 2, 3]  (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）遍历复制数组：for-、while、map、-filter、-reduce"><a href="#（3）遍历复制数组：for-、while、map、-filter、-reduce" class="headerlink" title="（3）遍历复制数组：for() 、while、map、 filter、 reduce"></a>（3）遍历复制数组：for() 、while、map、 filter、 reduce</h4><h4 id="for-循环（浅拷贝）"><a href="#for-循环（浅拷贝）" class="headerlink" title="for()循环（浅拷贝）"></a>for()循环（浅拷贝）</h4><p>测试 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#39;a&#39;, 2, 4];</span><br><span class="line"> Array.prototype.clone &#x3D; function () &#123;</span><br><span class="line">  	let a &#x3D; [];</span><br><span class="line">  	for (let i &#x3D; 0, l &#x3D; this.length; i&lt;l; i++) &#123;</span><br><span class="line">  		a.push(this[i]);</span><br><span class="line">  	&#125;</span><br><span class="line">  	return a;</span><br><span class="line">  &#125;</span><br><span class="line">let arr2 &#x3D; arr.clone();</span><br><span class="line">console.log(arr2) &#x2F;&#x2F; (3) [&quot;a&quot;, 2, 4]</span><br></pre></td></tr></table></figure>
+
+<p>测试 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; [];</span><br><span class="line">for (let i &#x3D; 0; i &lt; numbers.length; i++) &#123;</span><br><span class="line"> numbersCopy[i] &#x3D; numbers[i];</span><br><span class="line">&#125;</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="while-循环（浅拷贝）"><a href="#while-循环（浅拷贝）" class="headerlink" title="while()循环（浅拷贝）"></a>while()循环（浅拷贝）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; [];</span><br><span class="line">let i &#x3D; -1;</span><br><span class="line">while (++i &lt; numbers.length) &#123;</span><br><span class="line"> numbersCopy[i] &#x3D; numbers[i];</span><br><span class="line">&#125;</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Array-map（浅拷贝）"><a href="#Array-map（浅拷贝）" class="headerlink" title="Array.map（浅拷贝）"></a>Array.map（浅拷贝）</h4><p>当我们使用 map 方法时，需要给出一个 callback 函数用于处理当前的数组，并返回一个新的数组元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; numbers.map(x &#x3D;&gt; x);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Array-filter（浅拷贝）"><a href="#Array-filter（浅拷贝）" class="headerlink" title="Array.filter（浅拷贝）"></a>Array.filter（浅拷贝）</h4><p>Array.filter 方法同样会返回一个新数组，但是并不一定是返回同样长度的，这和我们的过滤条件有关。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; numbers.filter(x &#x3D;&gt; x);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Array-reduce（浅拷贝）"><a href="#Array-reduce（浅拷贝）" class="headerlink" title="Array.reduce（浅拷贝）"></a>Array.reduce（浅拷贝）</h4><p>其实用 reduce 来拷贝数组并没有展示出它的实际功能，但是我们还是要将其能够拷贝数组的能力说一下的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; numbers.reduce((newArray, element) &#x3D;&gt; &#123;</span><br><span class="line"> newArray.push(element);</span><br><span class="line"> return newArray;</span><br><span class="line">&#125;, []);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<p>reduce() 方法对数组中的每个元素执行一个由您提供的 reducer 函数，将其结果汇总为单个返回值。</p>
+<h3 id="2、ES6-方法总结"><a href="#2、ES6-方法总结" class="headerlink" title="2、ES6 方法总结"></a>2、ES6 方法总结</h3><h4 id="（1）Object-assign-浅拷贝"><a href="#（1）Object-assign-浅拷贝" class="headerlink" title="（1）Object.assign() 浅拷贝"></a>（1）Object.assign() 浅拷贝</h4><p>Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#39;张三&#39;, 24, &#39;前端工程师&#39;, &#39;男&#39;];</span><br><span class="line">let arr1 &#x3D; [];</span><br><span class="line">Object.assign(arr1, arr);</span><br><span class="line">console.log(arr1); &#x2F;&#x2F; (4) [&quot;张三&quot;, 24, &quot;前端工程师&quot;, &quot;男&quot;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）扩展运算符（浅拷贝）"><a href="#（2）扩展运算符（浅拷贝）" class="headerlink" title="（2）扩展运算符（浅拷贝）"></a>（2）扩展运算符（浅拷贝）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1, 2, 3];</span><br><span class="line">let arr1 &#x3D; [...arr];</span><br><span class="line">console.log(arr1) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<p>这个方法不能有效的拷贝多维数组。数组/对象值的拷贝是通过引用而不是值复制。</p>
+<h4 id="（3）Array-from（浅拷贝）"><a href="#（3）Array-from（浅拷贝）" class="headerlink" title="（3）Array.from（浅拷贝）"></a>（3）Array.from（浅拷贝）</h4><p>可以将任何可迭代对象转换为数组。给一个数组返回一个浅拷贝。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(Array.from(&#39;foo&#39;)); &#x2F;&#x2F; (3) [&quot;f&quot;, &quot;o&quot;, &quot;o&quot;]</span><br><span class="line">let numbers &#x3D; [1, 2, 3];</span><br><span class="line">let numbersCopy &#x3D; Array.from(numbers);</span><br><span class="line">console.log(numbersCopy) &#x2F;&#x2F; (3) [1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、数组深拷贝"><a href="#三、数组深拷贝" class="headerlink" title="三、数组深拷贝"></a>三、数组深拷贝</h2><h3 id="JSON-parse-amp-JSON-stringify（深拷贝）"><a href="#JSON-parse-amp-JSON-stringify（深拷贝）" class="headerlink" title="JSON.parse &amp; JSON.stringify（深拷贝）"></a>JSON.parse &amp; JSON.stringify（深拷贝）</h3><ul>
+<li>JSON.stringify 将一个对象转成字符串</li>
+<li>JSON.parse 将转成的字符串转回对象</li>
+</ul>
+<p>将它们组合起来可以将对象转换成字符串，然后反转这个过程来创建一个全新的数据结构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let nestedNumbers &#x3D; [[1], [2]];</span><br><span class="line">let numbersCopy &#x3D; JSON.parse(</span><br><span class="line"> JSON.stringify(nestedNumbers)</span><br><span class="line">);</span><br><span class="line">numbersCopy[0].push(300);</span><br><span class="line">console.log(nestedNumbers, numbersCopy);</span><br><span class="line">&#x2F;&#x2F; [[1], [2]]</span><br><span class="line">&#x2F;&#x2F; [[1, 300], [2]]</span><br></pre></td></tr></table></figure>
+
+<p>这个可以安全地拷贝深度嵌套的对象/数组</p>
+<h4 id="几种特殊情况："><a href="#几种特殊情况：" class="headerlink" title="几种特殊情况："></a>几种特殊情况：</h4><h5 id="（1）如果-obj-里面有时间对象，则-JSON-stringify-后再-JSON-parse-的结果，时间将只是字符串的形式。而不是时间对象"><a href="#（1）如果-obj-里面有时间对象，则-JSON-stringify-后再-JSON-parse-的结果，时间将只是字符串的形式。而不是时间对象" class="headerlink" title="（1）如果 obj 里面有时间对象，则 JSON.stringify 后再 JSON.parse 的结果，时间将只是字符串的形式。而不是时间对象"></a>（1）如果 obj 里面有时间对象，则 JSON.stringify 后再 JSON.parse 的结果，时间将只是字符串的形式。而不是时间对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: [new Date(1536627600000), new Date(1540047600000)],</span><br><span class="line">&#125;;</span><br><span class="line">let b &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">console.log(b)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-f624b9a998004afd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="（2）如果-obj-里有-RegExp、Error-对象，则序列化的结果将只得到空对象"><a href="#（2）如果-obj-里有-RegExp、Error-对象，则序列化的结果将只得到空对象" class="headerlink" title="（2）如果 obj 里有 RegExp、Error 对象，则序列化的结果将只得到空对象"></a>（2）如果 obj 里有 RegExp、Error 对象，则序列化的结果将只得到空对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: new RegExp(&#39;\\w+&#39;),</span><br><span class="line">&#125;;</span><br><span class="line">const copyed &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">test.name &#x3D; &#39;test&#39;;</span><br><span class="line">console.log(test, copyed)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-199f2a77a8adeb85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="（3）如果-obj-里有函数，undefined，则序列化的结果会把函数或-undefined-丢失"><a href="#（3）如果-obj-里有函数，undefined，则序列化的结果会把函数或-undefined-丢失" class="headerlink" title="（3）如果 obj 里有函数，undefined，则序列化的结果会把函数或 undefined 丢失"></a>（3）如果 obj 里有函数，undefined，则序列化的结果会把函数或 undefined 丢失</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: function help() &#123;</span><br><span class="line">	 	console.log(&#39;message&#39;)</span><br><span class="line"> 	&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">const copyed &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">test.name &#x3D; &#39;test&#39;</span><br><span class="line">console.log(test, copyed)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-27939d1be7b3905a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="11-4.png"></p>
+<h5 id="（4）如果-obj-里有-NaN、Infinity-和-Infinity，则序列化的结果会变成-null"><a href="#（4）如果-obj-里有-NaN、Infinity-和-Infinity，则序列化的结果会变成-null" class="headerlink" title="（4）如果 obj 里有 NaN、Infinity 和-Infinity，则序列化的结果会变成 null"></a>（4）如果 obj 里有 NaN、Infinity 和-Infinity，则序列化的结果会变成 null</h5><h5 id="（5）JSON-stringify-只能序列化对象的可枚举的自有属性"><a href="#（5）JSON-stringify-只能序列化对象的可枚举的自有属性" class="headerlink" title="（5）JSON.stringify()只能序列化对象的可枚举的自有属性"></a>（5）JSON.stringify()只能序列化对象的可枚举的自有属性</h5><p>例如 如果 obj 中的对象是有构造函数生成的， 则使用 JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的 constructor；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line"> 	this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line">const lilei &#x3D; new Person(&#39;lilei&#39;);</span><br><span class="line">const test &#x3D; &#123;</span><br><span class="line">	name: &#39;a&#39;,</span><br><span class="line">	date: lilei,</span><br><span class="line">&#125;;</span><br><span class="line">const copyed &#x3D; JSON.parse(JSON.stringify(test));</span><br><span class="line">test.name &#x3D; &#39;test&#39;</span><br><span class="line">console.log(test, copyed)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-68fbc670b59ffb19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-12_聊聊js中的数据类型，如何用js实现一个对象的深拷贝" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:27.000Z"><a href="/2020/05/29/12_聊聊js中的数据类型，如何用js实现一个对象的深拷贝/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/12_聊聊js中的数据类型，如何用js实现一个对象的深拷贝/">12_聊聊js中的数据类型，如何用js实现一个对象的深拷贝</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、栈堆，基本数据类型与引用数据类型"><a href="#一、栈堆，基本数据类型与引用数据类型" class="headerlink" title="一、栈堆，基本数据类型与引用数据类型"></a>一、栈堆，基本数据类型与引用数据类型</h2><p>1、栈(stack)和堆（heap）:stack 为自动分配的内存空间，它由系统自动释放；而 heap 则是动态分配的内存，大小也不一定会自动释放。</p>
+<p>2、基本的数据类型:String, Number, Boolean, Null, Undefined,Symbol(ES6 新增)</p>
+<p>特点： <strong>存储的是该对象的实际数据，（存放在栈中）</strong></p>
+<p>3、对象数据类型(也称为引用数据类型):Array,Object,Function</p>
+<p>特点： <strong>存储的是该对象在栈中引用，真实的数据存放在堆内存里，（存放在堆内存中的对象，每个空间大小不一样，要根据情况进行特定的配置）</strong></p>
+<p>注：<strong>在 JS 中除了基本数据类型以外的都是对象，数据是对象，函数是对象，正则表达式是对象</strong></p>
+<h2 id="二、基本数据类型和引用数据类型区别"><a href="#二、基本数据类型和引用数据类型区别" class="headerlink" title="二、基本数据类型和引用数据类型区别"></a>二、基本数据类型和引用数据类型区别</h2><h3 id="1、声明变量时内存分配不同"><a href="#1、声明变量时内存分配不同" class="headerlink" title="1、声明变量时内存分配不同"></a>1、声明变量时内存分配不同</h3><ul>
+<li>原始类型：在栈中，因为占据空间是固定的，可以将他们存在较小的内存中-栈中，这样便于迅速查询变量的值</li>
+<li>引用类型：存在堆中，栈中存储的变量，只是用来查找堆中的引用地址。</li>
+</ul>
+<p>这是因为：引用值的大小会改变，所以不能把它放在栈中，否则会降低变量查寻的速度。相反，放在变量的栈空间中的值是该对象存储在堆中的地址。地址的大小是固定的，所以把它存储在栈中对变量性能无任何负面影响</p>
+<h3 id="2、不同的内存分配带来不同的访问机制"><a href="#2、不同的内存分配带来不同的访问机制" class="headerlink" title="2、不同的内存分配带来不同的访问机制"></a>2、不同的内存分配带来不同的访问机制</h3><p>在 javascript 中是不允许直接访问保存在堆内存中的对象的，所以在访问一个对象时，首先得到的是这个对象在堆内存中的地址，然后再按照这个地址去获得这个对象中的值，这就是按引用访问。</p>
+<p>而原始类型的值则可以直接访问。</p>
+<h3 id="3、复制变量时的不同"><a href="#3、复制变量时的不同" class="headerlink" title="3、复制变量时的不同"></a>3、复制变量时的不同</h3><ul>
+<li><p>原始值：在将一个保存着原始值的变量复制给另一个变量时，会将原始值的副本赋值给新变量，此后这两个变量是完全独立的，他们只是拥有相同的 value 而已。</p>
+</li>
+<li><p>引用值：在将一个保存着对象内存地址的变量复制给另一个变量时，会把这个内存地址赋值给新变量，也就是说这两个变量都指向了堆内存中的同一个对象，他们中任何一个作出的改变都会反映在另一个身上。（这里要理解的一点就是，复制对象时并不会在堆内存中新生成一个一模一样的对象，只是多了一个保存指向这个对象指针的变量）。多了一个指针</p>
+</li>
+</ul>
+<h3 id="4、参数传递的不同（把实参复制给形参的过程）"><a href="#4、参数传递的不同（把实参复制给形参的过程）" class="headerlink" title="4、参数传递的不同（把实参复制给形参的过程）"></a>4、参数传递的不同（把实参复制给形参的过程）</h3><p>首先我们应该明确一点：ECMAScript 中所有函数的参数都是按值来传递的。但是为什么涉及到原始类型与引用类型的值时仍然有区别呢？这是因为内存分配时的差别。</p>
+<ul>
+<li>原始值：只是把变量里的值传递给参数，之后参数和这个变量互不影响。</li>
+<li>引用值：对象变量它里面的值是这个对象在堆内存中的内存地址。</li>
+</ul>
+<p>因此它传递的值也就是这个内存地址，这也就是为什么函数内部对这个参数的修改会体现在外部的原因，因为它们都指向同一个对象。</p>
+<h2 id="三、对象深拷贝"><a href="#三、对象深拷贝" class="headerlink" title="三、对象深拷贝"></a>三、对象深拷贝</h2><h3 id="1、深拷贝与浅拷贝区别"><a href="#1、深拷贝与浅拷贝区别" class="headerlink" title="1、深拷贝与浅拷贝区别"></a>1、深拷贝与浅拷贝区别</h3><p>深拷贝和浅拷贝最根本的区别在于是否是真正获取了一个对象的复制实体，而不是引用。对象数据存放的是对象在栈内存的引用，直接复制的是对象的引用。深拷贝和浅拷贝是只针对 Object 和 Array 这样的引用数据类型的。</p>
+<ul>
+<li>浅拷贝 —-只是拷贝了基本类型的数据，而引用类型数据，复制后也是会发生引用，我们把这种拷贝叫做“浅拷贝”，换句话说，浅拷贝仅仅是指向被复制的内存地址，如果原地址中对象被改变了，那么浅拷贝出来的对象也会相应改变。</li>
+<li>深拷贝 —-在计算机中开辟了一块新的内存地址用于存放复制的对象。</li>
+</ul>
+<p>通俗一点理解就是浅拷贝出来的数据并不独立，如果被复制的对象改变了，那么浅拷贝的对象也会改变，深拷贝之后就会完全独立，与浅拷贝断绝关系。</p>
+<h3 id="2、对象深拷贝的实现方式"><a href="#2、对象深拷贝的实现方式" class="headerlink" title="2、对象深拷贝的实现方式"></a>2、对象深拷贝的实现方式</h3><h4 id="（1）JSON-parse-JSON-stringify"><a href="#（1）JSON-parse-JSON-stringify" class="headerlink" title="（1）JSON.parse(JSON.stringify())"></a>（1）JSON.parse(JSON.stringify())</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1, 3, &#123;</span><br><span class="line">    username: &#39;kobe&#39;</span><br><span class="line">  &#125;];</span><br><span class="line">let arr2 &#x3D; JSON.parse(JSON.stringify(arr));</span><br><span class="line">arr2[2].username &#x3D; &#39;小林老师&#39;;</span><br><span class="line">console.log(arr, arr2)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-2490bea1e5733cca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>原理： 用 JSON.stringify 将对象转成 JSON 字符串，再用 JSON.parse()把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。</p>
+<p><strong>这种方法虽然可以实现数组或对象深拷贝，但不能处理函数。</strong></p>
+<h4 id="（2）手写递归方法实现拷贝所有层级属性"><a href="#（2）手写递归方法实现拷贝所有层级属性" class="headerlink" title="（2）手写递归方法实现拷贝所有层级属性"></a>（2）手写递归方法实现拷贝所有层级属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function deepCopyTwo(obj) &#123;</span><br><span class="line">    let objClone &#x3D; Array.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">    if (obj &amp;&amp; typeof obj &#x3D;&#x3D; &#39;object&#39;) &#123;</span><br><span class="line">        for (const key in obj) &#123;</span><br><span class="line">            &#x2F;&#x2F;判断obj子元素是否为对象，如果是，递归复制</span><br><span class="line">            if (obj[key] &amp;&amp; typeof obj[key] &#x3D;&#x3D;&#x3D; &quot;object&quot;) &#123;</span><br><span class="line">                objClone[key] &#x3D; deepCopyTwo(obj[key]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F;如果不是，简单复制</span><br><span class="line">                objClone[key] &#x3D; obj[key];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return objClone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let obj1 &#x3D; &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    b: &#123; f: &#123; g: 1 &#125; &#125;,</span><br><span class="line">    c: [1, 2, 3]</span><br><span class="line">  &#125;</span><br><span class="line">let obj2 &#x3D; obj1;</span><br><span class="line">let obj3 &#x3D; deepCopyTwo(obj1)</span><br><span class="line">console.log(obj1.b.f &#x3D;&#x3D;&#x3D; obj2.b.f) &#x2F;&#x2F; true</span><br><span class="line">console.log(obj1.b.f &#x3D;&#x3D;&#x3D; obj3.b.f) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）函数库-lodash"><a href="#（3）函数库-lodash" class="headerlink" title="（3）函数库 lodash"></a>（3）函数库 lodash</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const _ &#x3D; require(&#39;lodash&#39;);</span><br><span class="line">let obj1 &#x3D; &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    b: &#123; f:  &#123; g: 1&#125; &#125;,</span><br><span class="line">    c: [1, 2, 3]</span><br><span class="line">&#125;</span><br><span class="line">let obj2 &#x3D; _.cloneDeep(obj1);</span><br><span class="line">console.log(obj1.b.f &#x3D;&#x3D;&#x3D; obj2.b.f) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-13_伪数组和数组的区别？相互转化的方法有哪些" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:26.000Z"><a href="/2020/05/29/13_伪数组和数组的区别？相互转化的方法有哪些/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/13_伪数组和数组的区别？相互转化的方法有哪些/">13_伪数组和数组的区别？相互转化的方法有哪些</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、数组"><a href="#一、数组" class="headerlink" title="一、数组"></a>一、数组</h2><h3 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h3><p>在 JavaScript 中，除了 5 种原始数据类型之外，其他所有的都是对象，包括函数（Function）。</p>
+<p>基本数据类型：String,boolean,Number,Undefined, Null</p>
+<p>引用数据类型：Object(Array,Date,RegExp,Function)</p>
+<h3 id="2、创建数组"><a href="#2、创建数组" class="headerlink" title="2、创建数组"></a>2、创建数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [];&#x2F;&#x2F;这是使用数组直接量（Array Literal）创建数组</span><br><span class="line">var arr &#x3D; new Array();&#x2F;&#x2F;构造函数Array() 创建数组对象</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、什么是数组"><a href="#3、什么是数组" class="headerlink" title="3、什么是数组"></a>3、什么是数组</h3><ul>
+<li>数组就是一组数据的集合</li>
+<li>其表现形式就是内存中的一段连续的内存地址</li>
+<li>数组名称其实就是连续内存地址的首地址</li>
+</ul>
+<p><strong>注：数组具有一个最基本特征：索引，这是对象所没有的</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;&#125;;</span><br><span class="line">var arr &#x3D; [];</span><br><span class="line"></span><br><span class="line">obj[2] &#x3D; &#39;a&#39;;</span><br><span class="line">arr[2] &#x3D; &#39;a&#39;;</span><br><span class="line"></span><br><span class="line">console.log(obj[2]); &#x2F;&#x2F; 输出 a</span><br><span class="line">console.log(arr[2]); &#x2F;&#x2F; 输出 a</span><br><span class="line">console.log(obj.length); &#x2F;&#x2F; 输出 undefined</span><br><span class="line">console.log(arr.length); &#x2F;&#x2F; 输出 3</span><br></pre></td></tr></table></figure>
+
+<h5 id="（1）obj-2-与-arr-2-的区别"><a href="#（1）obj-2-与-arr-2-的区别" class="headerlink" title="（1）obj[2]与 arr[2]的区别"></a>（1）obj[2]与 arr[2]的区别</h5><ul>
+<li>obj[2]输出’a’，是因为对象就是普通的键值对存取数据</li>
+<li>而 arr[2]输出’a’ 则不同，数组是通过索引来存取数据，arr[2]之所以输出’a’，是因为数组 arr 索引 2 的位置已经存储了数据</li>
+</ul>
+<h5 id="（2）obj-length-与-arr-length-的区别"><a href="#（2）obj-length-与-arr-length-的区别" class="headerlink" title="（2）obj.length 与 arr.length 的区别"></a>（2）obj.length 与 arr.length 的区别</h5><ul>
+<li>obj.length 并不具有数组的特性，并且 obj 没有保存属性 length，那么自然就会输出 undefined</li>
+<li>而对于数组来说，length 是数组的一个内置属性，数组会根据索引长度来更改 length 的值。</li>
+</ul>
+<h5 id="（3）为什么-arr-length-输出-3，而不是-1-呢？"><a href="#（3）为什么-arr-length-输出-3，而不是-1-呢？" class="headerlink" title="（3）为什么 arr.length 输出 3，而不是 1 呢？"></a>（3）为什么 arr.length 输出 3，而不是 1 呢？</h5><ul>
+<li>这是由于数组的特殊实现机制，对于普通的数组，如果它的索引是从 0 开始连续的，那么 length 的值就会等于数组中元素个数</li>
+<li>而对于上面例子中 arr，在给数组添加元素时，并没有按照连续的索引添加，所以导致数组的索引不连续，那么就导致索引长度大于元素个数，那么我们称之为稀疏数组。</li>
+</ul>
+<h2 id="二、伪数组"><a href="#二、伪数组" class="headerlink" title="二、伪数组"></a>二、伪数组</h2><h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><ul>
+<li>拥有 length 属性，其它属性（索引）为非负整数(对象中的索引会被当做字符串来处理，这里你可以当做是个非负整数串来理解)</li>
+<li>不具有数组所具有的方法</li>
+</ul>
+<p>伪数组，就是像数组一样有 length 属性，也有 0、1、2、3 等属性的对象，看起来就像数组一样，但不是数组，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var fakeArray &#x3D; &#123;</span><br><span class="line">    length: 3,</span><br><span class="line">    &quot;0&quot;: &quot;first&quot;,</span><br><span class="line">    &quot;1&quot;: &quot;second&quot;,</span><br><span class="line">    &quot;2&quot;: &quot;third&quot;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (var i &#x3D; 0; i &lt; fakeArray.length; i++) &#123;</span><br><span class="line">    console.log(fakeArray[i]);  &#x2F;&#x2F;first second third</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(Array.prototype.join.call(fakeArray,&#39;+&#39;)) &#x2F;&#x2F; first+second+third</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：伪数组是一个 Object，而真实的数组是一个 Array</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(fakeArray instanceof Array &#x3D;&#x3D;&#x3D; false); &#x2F;&#x2F; true</span><br><span class="line">console.log(Object.prototype.toString.call(fakeArray) &#x3D;&#x3D;&#x3D; &quot;[object Object]&quot;) ; &#x2F;&#x2F; true</span><br><span class="line"></span><br><span class="line">var arr &#x3D; [1,2,3,4,6];</span><br><span class="line">console.log(arr instanceof Array &#x3D;&#x3D;&#x3D; true); &#x2F;&#x2F; true</span><br><span class="line">console.log(Object.prototype.toString.call(arr) &#x3D;&#x3D;&#x3D; &quot;[object Array]&quot;); &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、伪数组的常见种类"><a href="#2、伪数组的常见种类" class="headerlink" title="2、伪数组的常见种类"></a>2、伪数组的常见种类</h3><ul>
+<li>arguments 参数列表</li>
+<li>DOM 对象列表（比如通过 document.getElementsByTags 得到的列表）</li>
+<li>jQuery 对象（比如 $(“div”)）</li>
+</ul>
+<h3 id="3、判断伪数组"><a href="#3、判断伪数组" class="headerlink" title="3、判断伪数组"></a>3、判断伪数组</h3><h4 id="（1）《javascript-权威指南》上给出了代码用来判断一个对象是否属于“类数组”"><a href="#（1）《javascript-权威指南》上给出了代码用来判断一个对象是否属于“类数组”" class="headerlink" title="（1）《javascript 权威指南》上给出了代码用来判断一个对象是否属于“类数组”"></a>（1）《javascript 权威指南》上给出了代码用来判断一个对象是否属于“类数组”</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Determine if o is an array-like object.</span><br><span class="line">&#x2F;&#x2F; Strings and functions have numeric length properties, but are</span><br><span class="line">&#x2F;&#x2F; excluded by the typeof test. In client-side JavaScript, DOM text</span><br><span class="line">&#x2F;&#x2F; nodes have a numeric length property, and may need to be excluded</span><br><span class="line">&#x2F;&#x2F; with an additional o.nodeType !&#x3D; 3 test.</span><br><span class="line">function isArrayLike(o) &#123;</span><br><span class="line">    if (o &amp;&amp;                                &#x2F;&#x2F; o is not null, undefined, etc.</span><br><span class="line">            typeof o &#x3D;&#x3D;&#x3D; &#39;object&#39; &amp;&amp;            &#x2F;&#x2F; o is an object</span><br><span class="line">            isFinite(o.length) &amp;&amp;               &#x2F;&#x2F; o.length is a finite number</span><br><span class="line">            o.length &gt;&#x3D; 0 &amp;&amp;                    &#x2F;&#x2F; o.length is non-negative</span><br><span class="line">            o.length&#x3D;&#x3D;&#x3D;Math.floor(o.length) &amp;&amp;  &#x2F;&#x2F; o.length is an integer</span><br><span class="line">            o.length &lt; 4294967296)              &#x2F;&#x2F; o.length &lt; 2^32</span><br><span class="line">            return true;                        &#x2F;&#x2F; Then o is array-like</span><br><span class="line">    else</span><br><span class="line">            return false;                       &#x2F;&#x2F; Otherwise it is not</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）-Array-isArray-方法"><a href="#（2）-Array-isArray-方法" class="headerlink" title="（2） Array.isArray 方法"></a>（2） Array.isArray 方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Array.isArray(fakeArray) &#x3D;&#x3D;&#x3D; false;</span><br><span class="line">Array.isArray(arr) &#x3D;&#x3D;&#x3D; true;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、伪数组转化为数组"><a href="#4、伪数组转化为数组" class="headerlink" title="4、伪数组转化为数组"></a>4、伪数组转化为数组</h3><h4 id="（1）-slice-call"><a href="#（1）-slice-call" class="headerlink" title="（1）[].slice.call"></a>（1）[].slice.call</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">;(function(a, b, c) &#123;</span><br><span class="line">	let arr &#x3D; [].slice.call(arguments)</span><br><span class="line">	console.log(arr) &#x2F;&#x2F; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">&#125;)(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）-Array-prototype-slice-call"><a href="#（2）-Array-prototype-slice-call" class="headerlink" title="（2） Array.prototype.slice.call"></a>（2） Array.prototype.slice.call</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">;(function(a, b, c) &#123;</span><br><span class="line">	let arr  &#x3D; Array.prototype.slice.call(arguments)</span><br><span class="line">	console.log(arr) &#x2F;&#x2F; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">&#125;)(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）for-循环"><a href="#（3）for-循环" class="headerlink" title="（3）for 循环"></a>（3）for 循环</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">;(function(a, b, c) &#123;</span><br><span class="line">	let arr &#x3D; [], len &#x3D; arguments.length;</span><br><span class="line">	for (let i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">	    arr.push(arguments[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	console.log(arr) &#x2F;&#x2F; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">&#125;)(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（4）Function-prototype-call-bind"><a href="#（4）Function-prototype-call-bind" class="headerlink" title="（4）Function.prototype.call.bind"></a>（4）Function.prototype.call.bind</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">;(function(a, b, c) &#123;</span><br><span class="line">	var func &#x3D; Function.prototype.call.bind(Array.prototype.slice);</span><br><span class="line">	console.log(func(arguments)) &#x2F;&#x2F; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">&#125;)(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（5）…解构赋值"><a href="#（5）…解构赋值" class="headerlink" title="（5）…解构赋值"></a>（5）…解构赋值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;(function(a, b, c) &#123;</span><br><span class="line">	console.log(arguments); &#x2F;&#x2F; Arguments(3) [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, callee: ƒ, Symbol(Symbol.iterator): ƒ]</span><br><span class="line">	let arr &#x3D; [...arguments];</span><br><span class="line">	console.log(arr); &#x2F;&#x2F; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">&#125;)(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（6）Array-from"><a href="#（6）Array-from" class="headerlink" title="（6）Array.from"></a>（6）Array.from</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;(function(a, b, c) &#123;</span><br><span class="line">	console.log(arguments); &#x2F;&#x2F; Arguments(3) [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, callee: ƒ, Symbol(Symbol.iterator): ƒ]</span><br><span class="line">	let arr &#x3D; Array.from(arguments);</span><br><span class="line">	console.log(arr); &#x2F;&#x2F; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">&#125;)(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-14_请介绍Js中有哪些循环遍历的方法，关于数组常用的方法有哪些" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:25.000Z"><a href="/2020/05/29/14_请介绍Js中有哪些循环遍历的方法，关于数组常用的方法有哪些/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/14_请介绍Js中有哪些循环遍历的方法，关于数组常用的方法有哪些/">14_请介绍Js中有哪些循环遍历的方法，关于数组常用的方法有哪些</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、JavaScript-中循环遍历的方法"><a href="#一、JavaScript-中循环遍历的方法" class="headerlink" title="一、JavaScript 中循环遍历的方法"></a>一、JavaScript 中循环遍历的方法</h2><h3 id="1、for-循环"><a href="#1、for-循环" class="headerlink" title="1、for 循环"></a>1、for 循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">for (let i&#x3D;0; i&lt;arr.length; i++)&#123;</span><br><span class="line">  console.log(i,arr[i])</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 0 1</span><br><span class="line">&#x2F;&#x2F; 1 2</span><br><span class="line">&#x2F;&#x2F; 2 3</span><br></pre></td></tr></table></figure>
+
+<p>for 循环是 Js 中最常用的一个循环工具，经常用于数组的循环遍历。</p>
+<h3 id="2、for-in-循环"><a href="#2、for-in-循环" class="headerlink" title="2、for in 循环"></a>2、for in 循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let obj &#x3D; &#123;name:&#39;张三&#39;,age:18&#125;</span><br><span class="line">for(let i in obj)&#123;</span><br><span class="line">  console.log(i,obj[i])</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; name 张三</span><br><span class="line">&#x2F;&#x2F; age 18</span><br></pre></td></tr></table></figure>
+
+<p>for in 循环主要用于遍历普通对象，i 代表对象的 key 值，obj[i] 代表对应的 value,当用它来遍历数组时候，多数情况下也能达到同样的效果，但是你不要这么做，这是有风险的，因为 i 输出为字符串形式，而不是数组需要的数字下标，这意味着在某些情况下，会发生字符串运算，导致数据错误，比如：’52’+1 = ‘521’ 而不是我们需要的 53。</p>
+<p>另外 for in 循环的时候，不仅遍历自身的属性，还会找到 prototype 上去，所以最好在循环体内加一个判断，就用 obj[i].hasOwnProperty(i)，这样就避免遍历出太多不需要的属性。</p>
+<h3 id="3、while-循环"><a href="#3、while-循环" class="headerlink" title="3、while 循环"></a>3、while 循环</h3><p>同样的遍历 cars 数组，先用 for 循环方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let cars&#x3D;[&quot;BMW&quot;,&quot;Volvo&quot;,&quot;Saab&quot;,&quot;Ford&quot;];</span><br><span class="line">let i&#x3D;0;</span><br><span class="line">for (;cars[i];)</span><br><span class="line">&#123;</span><br><span class="line">    console.log(cars[i])</span><br><span class="line">    i++;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; BMW</span><br><span class="line">&#x2F;&#x2F; Volvo</span><br><span class="line">&#x2F;&#x2F; Saab</span><br><span class="line">&#x2F;&#x2F; Ford</span><br></pre></td></tr></table></figure>
+
+<p>然后是 while 循环方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let cars&#x3D;[&quot;BMW&quot;,&quot;Volvo&quot;,&quot;Saab&quot;,&quot;Ford&quot;];</span><br><span class="line">let i&#x3D;0;</span><br><span class="line">while (cars[i])</span><br><span class="line">&#123;</span><br><span class="line">    console.log(cars[i])</span><br><span class="line">    i++;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; BMW</span><br><span class="line">&#x2F;&#x2F; Volvo</span><br><span class="line">&#x2F;&#x2F; Saab</span><br><span class="line">&#x2F;&#x2F; Ford</span><br></pre></td></tr></table></figure>
+
+<p>我们发现，它们可以实现同样的效果，事实上它们底层的处理是一样的，不过 for 循环可以把定义、条件判断、自增自减操作放到一个条件里执行，代码看起来方便一些，仅此而已。</p>
+<h3 id="4、do-while-循环"><a href="#4、do-while-循环" class="headerlink" title="4、do while 循环"></a>4、do while 循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let i &#x3D; 3;</span><br><span class="line">do &#123;</span><br><span class="line"> console.log(i)</span><br><span class="line"> i--;</span><br><span class="line">&#125;</span><br><span class="line">while(i&gt;0)</span><br><span class="line">&#x2F;&#x2F; 3</span><br><span class="line">&#x2F;&#x2F; 2</span><br><span class="line">&#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
+
+<p>do while 循环是 while 循环的一个变体，它首先执行一次操作，然后才进行条件判断，是 true 的话再继续执行操作，是 false 的话循环结束。</p>
+<h3 id="5、Array-forEach-循环"><a href="#5、Array-forEach-循环" class="headerlink" title="5、Array forEach 循环"></a>5、Array forEach 循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">arr.forEach(function(i,index)&#123;</span><br><span class="line">  console.log(i,index)</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 1 0</span><br><span class="line">&#x2F;&#x2F; 2 1</span><br><span class="line">&#x2F;&#x2F; 3 2</span><br></pre></td></tr></table></figure>
+
+<p>forEach 循环，循环数组中每一个元素并采取操作， 没有返回值， 可以不用知道数组长度,他有三个参数，只有第一个是必需的，代表当前下标下的 value。</p>
+<p>另外请注意，forEach 循环在所有元素调用完毕之前是不能停止的，它没有 break 语句，如果你必须要停止，可以尝试 try catch 语句，就是在要强制退出的时候，抛出一个 error 给 catch 捕捉到，然后在 catch 里面 return，这样就能中止循环了，如果你经常用这个方法，最好自定义一个这样的 forEach 函数在你的库里。</p>
+<h3 id="6、Array-map-方法"><a href="#6、Array-map-方法" class="headerlink" title="6、Array map()方法"></a>6、Array map()方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">let tt &#x3D; arr.map(function(i)&#123;</span><br><span class="line">  console.log(i)</span><br><span class="line">  return i*2;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(tt) &#x2F;&#x2F; [2, 4, 6]</span><br></pre></td></tr></table></figure>
+
+<p>map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。<br>注意：map 和 forEach 方法都是只能用来遍历数组，不能用来遍历普通对象。</p>
+<h3 id="7、Array-filter-方法"><a href="#7、Array-filter-方法" class="headerlink" title="7、Array filter() 方法"></a>7、Array filter() 方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">let tt &#x3D; arr.filter(function(i)&#123;</span><br><span class="line">  return i&gt;1;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(tt) &#x2F;&#x2F; [2,3]</span><br></pre></td></tr></table></figure>
+
+<p>filter 方法是 Array 对象内置方法，它会返回通过过滤的元素，不改变原来的数组。</p>
+<h3 id="8、Array-some-方法"><a href="#8、Array-some-方法" class="headerlink" title="8、Array some() 方法"></a>8、Array some() 方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">let tt &#x3D; arr.some(function(i)&#123;</span><br><span class="line">  return i&gt;1;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(tt) &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<p>some() 方法用于检测数组中的元素是否满足指定条件（函数提供）,返回 boolean 值，不改变原数组。</p>
+<h3 id="9、Array-every-方法"><a href="#9、Array-every-方法" class="headerlink" title="9、Array every() 方法"></a>9、Array every() 方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">let tt &#x3D; arr.every(function(i)&#123;</span><br><span class="line">  return i&gt;1;</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 检测数组中元素是否都大于1</span><br><span class="line">console.log(tt) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
+
+<p>every() 方法用于检测数组所有元素是否都符合指定条件（通过函数提供），返回 boolean 值，不改变原数组。</p>
+<h3 id="10、Array-reduce-方法"><a href="#10、Array-reduce-方法" class="headerlink" title="10、Array reduce()方法"></a>10、Array reduce()方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">let ad &#x3D; arr.reduce(function(i,j)&#123;</span><br><span class="line">  return i+j;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(ad); &#x2F;&#x2F;6</span><br></pre></td></tr></table></figure>
+
+<p>reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。</p>
+<h3 id="11、Array-reduceRight-方法"><a href="#11、Array-reduceRight-方法" class="headerlink" title="11、Array reduceRight()方法"></a>11、Array reduceRight()方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3];</span><br><span class="line">let ad &#x3D; arr.reduceRight(function(i,j)&#123;</span><br><span class="line">  return i+j;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(ad); &#x2F;&#x2F;6</span><br></pre></td></tr></table></figure>
+
+<p>reduceRight()方法,和 reduce() 功能是一样的，它是从数组的末尾处向前开始计算。</p>
+<h3 id="12、for-of-循环"><a href="#12、for-of-循环" class="headerlink" title="12、for of 循环"></a>12、for of 循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#39;name&#39;,&#39;age&#39;];</span><br><span class="line">for(let i of arr)&#123;</span><br><span class="line">  console.log(i)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; name</span><br><span class="line">&#x2F;&#x2F; age</span><br></pre></td></tr></table></figure>
+
+<p>for of 循环是 Es6 中新增的语句，用来替代 for in 和 forEach，它允许你遍历 Arrays（数组）, Strings（字符串）, Maps（映射）, Sets（集合）等可迭代(Iterable data)的数据结构,注意它的兼容性。</p>
+<h2 id="二、JavaScript-中数组的方法"><a href="#二、JavaScript-中数组的方法" class="headerlink" title="二、JavaScript 中数组的方法"></a>二、JavaScript 中数组的方法</h2><h3 id="1、arr-push"><a href="#1、arr-push" class="headerlink" title="1、arr.push()"></a>1、arr.push()</h3><ul>
+<li>从后面添加元素，返回值为添加完后的数组的长度</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.push(5))   &#x2F;&#x2F; 6</span><br><span class="line">console.log(arr) &#x2F;&#x2F; [1,2,3,4,5,5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、arr-pop"><a href="#2、arr-pop" class="headerlink" title="2、arr.pop()"></a>2、arr.pop()</h3><ul>
+<li>从后面删除元素，只能是一个，返回值是删除的元素</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.pop())     &#x2F;&#x2F; 5</span><br><span class="line">console.log(arr)  &#x2F;&#x2F;[1,2,3,4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、arr-shift"><a href="#3、arr-shift" class="headerlink" title="3、arr.shift()"></a>3、arr.shift()</h3><ul>
+<li>从前面删除元素，只能删除一个 返回值是删除的元素</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.shift())  &#x2F;&#x2F; 1</span><br><span class="line">console.log(arr)   &#x2F;&#x2F; [2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、arr-unshift"><a href="#4、arr-unshift" class="headerlink" title="4、arr.unshift()"></a>4、arr.unshift()</h3><ul>
+<li>从前面添加元素, 返回值是添加完后的数组的长度</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.unshift(2))    &#x2F;&#x2F; 6</span><br><span class="line">console.log(arr)  &#x2F;&#x2F;[2,1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、arr-splice-i-n"><a href="#5、arr-splice-i-n" class="headerlink" title="5、arr.splice(i,n)"></a>5、arr.splice(i,n)</h3><ul>
+<li>删除从 i(索引值)开始之后的那个元素。返回值是删除的元素</li>
+<li>参数：i 索引值；n 个数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     &#x2F;&#x2F;[3,4]</span><br><span class="line">console.log(arr)    &#x2F;&#x2F; [1,2,5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、arr-concat"><a href="#6、arr-concat" class="headerlink" title="6、arr.concat()"></a>6、arr.concat()</h3><ul>
+<li>连接两个数组 返回值为连接后的新数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  &#x2F;&#x2F; [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   &#x2F;&#x2F; [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、str-split"><a href="#7、str-split" class="headerlink" title="7、str.split()"></a>7、str.split()</h3><ul>
+<li>将字符串转化为数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let str &#x3D; &#39;123456&#39;</span><br><span class="line">console.log(str.split(&#39;&#39;)) &#x2F;&#x2F; [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、arr-sort"><a href="#8、arr-sort" class="headerlink" title="8、arr.sort()"></a>8、arr.sort()</h3><ul>
+<li>将数组进行排序,返回值是排好的数组，默认是按照最左边的数字进行排序，不是按照数字大小排序的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   &#x2F;&#x2F; [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 &#x3D; arr.sort((a, b) &#x3D;&gt;a - b)</span><br><span class="line">console.log(arr1)   &#x2F;&#x2F; [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 &#x3D; arr.sort((a, b) &#x3D;&gt;b-a)</span><br><span class="line">console.log(arr2)  &#x2F;&#x2F; [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
+
+<h3 id="9、arr-reverse"><a href="#9、arr-reverse" class="headerlink" title="9、arr.reverse()"></a>9、arr.reverse()</h3><ul>
+<li>将数组反转,返回值是反转后的数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    &#x2F;&#x2F; [5,4,3,2,1]</span><br><span class="line">console.log(arr)    &#x2F;&#x2F; [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<h3 id="10、arr-slice-start-end"><a href="#10、arr-slice-start-end" class="headerlink" title="10、arr.slice(start,end)"></a>10、arr.slice(start,end)</h3><ul>
+<li>切去索引值 start 到索引值 end 的数组，不包含 end 索引的值，返回值是切出来的数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   &#x2F;&#x2F; [2,3]</span><br><span class="line">console.log(arr)    &#x2F;&#x2F;  [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="11、arr-forEach-callback"><a href="#11、arr-forEach-callback" class="headerlink" title="11、arr.forEach(callback)"></a>11、arr.forEach(callback)</h3><ul>
+<li>遍历数组,无 return 即使有 return，也不会返回任何值，并且会影响原来的数组</li>
+<li>callback 的参数：<ul>
+<li>value –当前索引的值</li>
+<li>index –索引</li>
+<li>array –原数组</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">arr.forEach( (value,index,array)&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#96;value:$&#123;value&#125;    index:$&#123;index&#125;     array:$&#123;array&#125;&#96;)</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F;  value:1    index:0     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F;  value:2    index:1     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F;  value:3    index:2     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F;  value:4    index:3     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F;  value:5    index:4     array:1,2,3,4,5</span><br><span class="line"></span><br><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">arr.forEach( (value,index,array)&#x3D;&gt;&#123;</span><br><span class="line">    value &#x3D; value * 2</span><br><span class="line">    console.log(&#96;value:$&#123;value&#125;    index:$&#123;index&#125;     array:$&#123;array&#125;&#96;)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(arr)</span><br><span class="line">&#x2F;&#x2F; value:2    index:0     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:4    index:1     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:6    index:2     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:8    index:3     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:10   index:4     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; [1, 2, 3, 4, 5]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var arr &#x3D; [1,2,3,4];</span><br><span class="line">var res &#x3D; arr.forEach((item,index,arr)&#x3D;&gt;&#123;</span><br><span class="line"> arr[index] &#x3D; item * 2;</span><br><span class="line"> return arr</span><br><span class="line">&#125;)</span><br><span class="line">console.log(arr); &#x2F;&#x2F; [2,4,6,8]</span><br><span class="line">console.log(res); &#x2F;&#x2F; undefined</span><br></pre></td></tr></table></figure>
+
+<h3 id="12、arr-map-callback"><a href="#12、arr-map-callback" class="headerlink" title="12、arr.map(callback)"></a>12、arr.map(callback)</h3><ul>
+<li>映射数组(遍历数组),有 return 返回一个新数组 。</li>
+<li>callback 的参数：<ul>
+<li>value –当前索引的值</li>
+<li>index –索引</li>
+<li>array –原数组</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">arr.map( (value,index,array)&#x3D;&gt;&#123;</span><br><span class="line">    value &#x3D; value * 2</span><br><span class="line">    console.log(&#96;value:$&#123;value&#125;    index:$&#123;index&#125;     array:$&#123;array&#125;&#96;)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(arr)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; value:2    index:0     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:4    index:1     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:6    index:2     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:8    index:3     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; value:10    index:4     array:1,2,3,4,5</span><br><span class="line">&#x2F;&#x2F; [1, 2, 3, 4, 5]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var arr1 &#x3D; [1,2,3,4];</span><br><span class="line">var res1 &#x3D; arr1.map((item,index,arr)&#x3D;&gt;&#123;</span><br><span class="line">    item &#x3D; item * 3;</span><br><span class="line">    return item;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(arr1); &#x2F;&#x2F; [1,2,3,4]</span><br><span class="line">console.log(res1); &#x2F;&#x2F; [3,6,9,12]</span><br></pre></td></tr></table></figure>
+
+<p>注: arr.forEach()和 arr.map()的区别</p>
+<ul>
+<li>arr.forEach()是和 for 循环一样，是代替 for。arr.map()是修改数组其中的数据，并返回新的数据。</li>
+<li>arr.forEach() 没有 return； arr.map() 有 return</li>
+</ul>
+<h3 id="13、arr-filter-callback"><a href="#13、arr-filter-callback" class="headerlink" title="13、arr.filter(callback)"></a>13、arr.filter(callback)</h3><ul>
+<li>过滤数组，返回一个满足要求的数组</li>
+<li>callback 的参数：<ul>
+<li>value –当前索引的值</li>
+<li>index –索引</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">let arr1 &#x3D; arr.filter( (value, index) &#x3D;&gt; value&lt;3)</span><br><span class="line">console.log(arr1)    &#x2F;&#x2F; [1, 2]</span><br></pre></td></tr></table></figure>
+
+<h3 id="14、arr-every-callback"><a href="#14、arr-every-callback" class="headerlink" title="14、arr.every(callback)"></a>14、arr.every(callback)</h3><ul>
+<li>依据判断条件，数组的元素是否全满足，若满足则返回 ture</li>
+<li>callback 的参数：<ul>
+<li>value –当前索引的值</li>
+<li>index –索引</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">let arr1 &#x3D; arr.every( (value, index) &#x3D;&gt;value&lt;3)</span><br><span class="line">console.log(arr1) &#x2F;&#x2F; false</span><br><span class="line">let arr2 &#x3D; arr.every( (value, index) &#x3D;&gt;value&lt;6)</span><br><span class="line">console.log(arr2)  &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<h3 id="15、arr-some"><a href="#15、arr-some" class="headerlink" title="15、arr.some()"></a>15、arr.some()</h3><ul>
+<li>依据判断条件，数组的元素是否有一个满足，若有一个满足则返回 ture</li>
+<li>callback 的参数：<ul>
+<li>value –当前索引的值</li>
+<li>index –索引</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line"></span><br><span class="line">let arr1 &#x3D; arr.some( (value, index) &#x3D;&gt;value&lt;3)</span><br><span class="line">console.log(arr1) &#x2F;&#x2F; true</span><br><span class="line">let arr2 &#x3D; arr.some( (value, index) &#x3D;&gt;value&gt;6)</span><br><span class="line">console.log(arr2) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
+
+<h3 id="16、arr-indexOf"><a href="#16、arr-indexOf" class="headerlink" title="16、arr.indexOf()"></a>16、arr.indexOf()</h3><ul>
+<li>查找某个元素的索引值，若有重复的，则返回第一个查到的索引值若不存在，则返回 -1</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5,2]</span><br><span class="line">let arr1 &#x3D; arr.indexOf(2)</span><br><span class="line">console.log(arr1)  &#x2F;&#x2F; 1</span><br><span class="line">let arr2 &#x3D; arr.indexOf(9)</span><br><span class="line">console.log(arr2)  &#x2F;&#x2F; -1</span><br></pre></td></tr></table></figure>
+
+<h3 id="17、arr-lastIndexOf"><a href="#17、arr-lastIndexOf" class="headerlink" title="17、arr.lastIndexOf()"></a>17、arr.lastIndexOf()</h3><ul>
+<li>和 arr.indexOf()的功能一样，不同的是从后往前查找</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5,2]</span><br><span class="line">let arr1 &#x3D; arr.lastIndexOf(2)</span><br><span class="line">console.log(arr1)  &#x2F;&#x2F; 5</span><br><span class="line">let arr2 &#x3D; arr.lastIndexOf(9)</span><br><span class="line">console.log(arr2)  &#x2F;&#x2F; -1</span><br></pre></td></tr></table></figure>
+
+<h3 id="18、Array-from"><a href="#18、Array-from" class="headerlink" title="18、Array.from()"></a>18、Array.from()</h3><ul>
+<li>将伪数组变成数组，就是只要有 length 的就可以转成数组。 —es6</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let str &#x3D; &#39;12345&#39;</span><br><span class="line">console.log(Array.from(str))    &#x2F;&#x2F; [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;]</span><br><span class="line">let obj &#x3D; &#123;0:&#39;a&#39;,1:&#39;b&#39;,length:2&#125;</span><br><span class="line">console.log(Array.from(obj))   &#x2F;&#x2F; [&quot;a&quot;, &quot;b&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="19、Array-of"><a href="#19、Array-of" class="headerlink" title="19、Array.of()"></a>19、Array.of()</h3><ul>
+<li>将一组值转换成数组，类似于声明数组 —es6</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let str &#x3D; &#39;11&#39;</span><br><span class="line">console.log(Array.of(str))   &#x2F;&#x2F; [&#39;11&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>等价于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(new Array(&#39;11&#39;))  &#x2F;&#x2F; [&#39;11]</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong></p>
+<p>但是 new Array()有缺点，就是参数问题引起的重载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(new Array(2))   &#x2F;&#x2F;[empty × 2]  是个空数组</span><br><span class="line">console.log(Array.of(2))    &#x2F;&#x2F; [2]</span><br></pre></td></tr></table></figure>
+
+<h3 id="20、arr-copyWithin"><a href="#20、arr-copyWithin" class="headerlink" title="20、arr.copyWithin()"></a>20、arr.copyWithin()</h3><ul>
+<li>在当前数组内部，将制定位置的数组复制到其他位置，会覆盖原数组项，返回当前数组</li>
+<li>参数:<ul>
+<li>target –必选 索引从该位置开始替换数组项</li>
+<li>start –可选 索引从该位置开始读取数组项，默认为 0.如果为负值，则从右往左读。</li>
+<li>end –可选 索引到该位置停止读取的数组项，默认是 Array.length,如果是负值，表示倒数</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5,6,7]</span><br><span class="line">let arr1 &#x3D; arr.copyWithin(1)</span><br><span class="line">console.log(arr1)   &#x2F;&#x2F; [1, 1, 2, 3, 4, 5, 6]</span><br><span class="line">let arr2 &#x3D; arr.copyWithin(1,2)</span><br><span class="line">console.log(arr2)   &#x2F;&#x2F; [1, 2, 3, 4, 5, 6, 6]</span><br><span class="line">let arr3 &#x3D; arr.copyWithin(1,2,4)</span><br><span class="line">console.log(arr3)   &#x2F;&#x2F; [1, 3, 4, 4, 5, 6, 6]</span><br></pre></td></tr></table></figure>
+
+<h3 id="21、arr-find-callback"><a href="#21、arr-find-callback" class="headerlink" title="21、arr.find(callback)"></a>21、arr.find(callback)</h3><ul>
+<li>找到第一个符合条件的数组成员</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5,2,4]</span><br><span class="line">let arr1 &#x3D; arr.find((value, index, array) &#x3D;&gt;value &gt; 2)</span><br><span class="line">console.log(arr1)   &#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
+
+<h3 id="22、arr-findIndex-callback"><a href="#22、arr-findIndex-callback" class="headerlink" title="22、arr.findIndex(callback)"></a>22、arr.findIndex(callback)</h3><ul>
+<li>找到第一个符合条件的数组成员的索引值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">let arr1 &#x3D; arr.findIndex((value, index, array) &#x3D;&gt; value &gt; 3)</span><br><span class="line">console.log(arr1)  &#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
+
+<h3 id="23、arr-fill-target-start-end"><a href="#23、arr-fill-target-start-end" class="headerlink" title="23、arr.fill(target, start, end)"></a>23、arr.fill(target, start, end)</h3><ul>
+<li>使用给定的值，填充一个数组,ps:填充完后会改变原数组</li>
+<li>参数：<ul>
+<li>target – 待填充的元素</li>
+<li>start – 开始填充的位置-索引</li>
+<li>end – 终止填充的位置-索引（不包括该位置)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">let arr1 &#x3D; arr.fill(5)</span><br><span class="line">console.log(arr1)  &#x2F;&#x2F; [5, 5, 5, 5, 5]</span><br><span class="line">console.log(arr)   &#x2F;&#x2F; [5, 5, 5, 5, 5]</span><br><span class="line">let arr2 &#x3D; arr.fill(5,2)</span><br><span class="line">console.log(arr2)  &#x2F;&#x2F; [5, 5, 5, 5, 5]</span><br><span class="line">let arr3 &#x3D; arr.fill(5,1,3)</span><br><span class="line">console.log(arr3)  &#x2F;&#x2F; [5, 5, 5, 5, 5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="24、arr-includes"><a href="#24、arr-includes" class="headerlink" title="24、arr.includes()"></a>24、arr.includes()</h3><ul>
+<li>判断数中是否包含给定的值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,5]</span><br><span class="line">let arr1 &#x3D; arr.includes(2)</span><br><span class="line">console.log(arr1)   &#x2F;&#x2F; ture</span><br><span class="line">let arr2 &#x3D; arr.includes(9)</span><br><span class="line">console.log(arr2)    &#x2F;&#x2F; false</span><br><span class="line">let arr3 &#x3D; [1,2,3,NaN].includes(NaN)</span><br><span class="line">console.log(arr3)  &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<p>注:与 indexOf()的区别：</p>
+<ul>
+<li>indexOf()返回的是数值，而 includes()返回的是布尔值</li>
+<li>indexOf() 不能判断 NaN，返回为-1 ，includes()则可以判断</li>
+</ul>
+<h3 id="25、arr-keys"><a href="#25、arr-keys" class="headerlink" title="25、arr.keys()"></a>25、arr.keys()</h3><ul>
+<li>遍历数组的键名</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4]</span><br><span class="line">let arr2 &#x3D; arr.keys()</span><br><span class="line">for (let key of arr2) &#123;</span><br><span class="line">    console.log(key);   &#x2F;&#x2F; 0,1,2,3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="26、arr-values"><a href="#26、arr-values" class="headerlink" title="26、arr.values()"></a>26、arr.values()</h3><ul>
+<li>遍历数组键值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4]</span><br><span class="line">let arr1 &#x3D; arr.values()</span><br><span class="line">for (let val of arr1) &#123;</span><br><span class="line">     console.log(val);   &#x2F;&#x2F; 1,2,3,4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="27-arr-entries"><a href="#27-arr-entries" class="headerlink" title="27 arr.entries()"></a>27 arr.entries()</h3><ul>
+<li>遍历数组的键名和键值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4]</span><br><span class="line">let arr1 &#x3D; arr.entries()</span><br><span class="line">for (let e of arr1) &#123;</span><br><span class="line">    console.log(e);   &#x2F;&#x2F; [0,1] [1,2] [2,3] [3,4]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>entries() 方法返回迭代数组。</p>
+<p>迭代数组中每个值 前一个是索引值作为 key， 数组后一个值作为 value。</p>
+<h3 id="28、arr-reduce-callback-initialValue"><a href="#28、arr-reduce-callback-initialValue" class="headerlink" title="28、arr.reduce(callback, initialValue)"></a>28、arr.reduce(callback, initialValue)</h3><ul>
+<li><p>迭代数组的所有项，累加器，数组中的每个值（从左到右）合并，最终计算为一个值</p>
+</li>
+<li><p>参数：</p>
+<ul>
+<li>callback: previousValue 必选 –上一次调用回调返回的值，或者是提供的初始值（initialValue）</li>
+<li>currentValue 必选 –数组中当前被处理的数组项</li>
+<li>index 可选 –当前数组项在数组中的索引值</li>
+<li>array 可选 –原数组</li>
+<li>initialValue: 可选 –初始值</li>
+</ul>
+</li>
+<li><p>实行方法：回调函数第一次执行时，preValue 和 curValue 可以是一个值，如果 initialValue 在调用 reduce() 时被提供，那么第一个 preValue 等于 initialValue ，并且 curValue 等于数组中的第一个值；如果 initialValue 未被提供，那么 preValue 等于数组中的第一个值.</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [0,1,2,3,4]</span><br><span class="line">let arr1 &#x3D; arr.reduce((preValue, curValue) &#x3D;&gt;</span><br><span class="line">    preValue + curValue</span><br><span class="line">)</span><br><span class="line">console.log(arr1)    &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-9ce1de66087c0043.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr2 &#x3D; arr.reduce((preValue,curValue)&#x3D;&gt;preValue + curValue,5)</span><br><span class="line">console.log(arr2)    &#x2F;&#x2F; 15</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-42eb51590e2a2adb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="29、arr-reduceRight-callback-initialValue"><a href="#29、arr-reduceRight-callback-initialValue" class="headerlink" title="29、arr.reduceRight(callback, initialValue)"></a>29、arr.reduceRight(callback, initialValue)</h3><ul>
+<li>与 arr.reduce()功能一样，不同的是，reduceRight()从数组的末尾向前将数组中的数组项做累加。</li>
+<li>实行方法：reduceRight()首次调用回调函数 callbackfn 时，prevValue 和 curValue 可以是两个值之一。如果调用 reduceRight() 时提供了 initialValue 参数，则 prevValue 等于 initialValue，curValue 等于数组中的最后一个值。如果没有提供 initialValue 参数，则 prevValue 等于数组最后一个值， curValue 等于数组中倒数第二个值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [0,1,2,3,4]</span><br><span class="line">let arr1 &#x3D; arr.reduceRight((preValue, curValue) &#x3D;&gt;</span><br><span class="line">    preValue + curValue</span><br><span class="line">)</span><br><span class="line">console.log(arr1)    &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-c0df19c0ab3b6661.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr2 &#x3D; arr.reduceRight((preValue,curValue)&#x3D;&gt;preValue + curValue,5)</span><br><span class="line">console.log(arr2)    &#x2F;&#x2F; 15</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-8dfca214e128b53e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-15_js中的reduce了解吗？都用他解决过什么问题" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:24.000Z"><a href="/2020/05/29/15_js中的reduce了解吗？都用他解决过什么问题/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/15_js中的reduce了解吗？都用他解决过什么问题/">15_js中的reduce了解吗？都用他解决过什么问题</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、介绍-reduce"><a href="#一、介绍-reduce" class="headerlink" title="一、介绍 reduce"></a>一、介绍 reduce</h2><p>arr.reduce(callback, initialValue) 迭代数组的所有项，累加器，数组中的每个值（从左到右）合并，最终计算为一个值</p>
+<h3 id="1、参数"><a href="#1、参数" class="headerlink" title="1、参数"></a>1、参数</h3><ul>
+<li>callback: previousValue 必选 –上一次调用回调返回的值，或者是提供的初始值（initialValue）</li>
+<li>currentValue 必选 –数组中当前被处理的数组项</li>
+<li>index 可选 –当前数组项在数组中的索引值</li>
+<li>array 可选 –原数组</li>
+<li>initialValue: 可选 –初始值</li>
+</ul>
+<h3 id="2、实现方法"><a href="#2、实现方法" class="headerlink" title="2、实现方法"></a>2、实现方法</h3><p>回调函数第一次执行时，preValue 和 curValue 可以是一个值，如果 initialValue 在调用 reduce() 时被提供，那么第一个 preValue 等于 initialValue ，并且 curValue 等于数组中的第一个值；如果 initialValue 未被提供，那么 preValue 等于数组中的第一个值.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [0,1,2,3,4]</span><br><span class="line">let arr1 &#x3D; arr.reduce((preValue, curValue) &#x3D;&gt;</span><br><span class="line">    preValue + curValue</span><br><span class="line">)</span><br><span class="line">console.log(arr1)    &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-1993a24640ae0193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr2 &#x3D; arr.reduce((preValue,curValue)&#x3D;&gt;preValue + curValue,5)</span><br><span class="line">console.log(arr2)    &#x2F;&#x2F; 15</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-dd6fd9ccfe91507e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="二、reduce-的高级用法"><a href="#二、reduce-的高级用法" class="headerlink" title="二、reduce 的高级用法"></a>二、reduce 的高级用法</h2><h3 id="1、计算数组中每个元素出现的次数"><a href="#1、计算数组中每个元素出现的次数" class="headerlink" title="1、计算数组中每个元素出现的次数"></a>1、计算数组中每个元素出现的次数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let names &#x3D; [&#39;peter&#39;, &#39;tom&#39;, &#39;mary&#39;, &#39;bob&#39;, &#39;tom&#39;,&#39;peter&#39;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let nameNum &#x3D; names.reduce((pre,cur)&#x3D;&gt;&#123;</span><br><span class="line">  if(cur in pre)&#123;</span><br><span class="line">    pre[cur]++</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    pre[cur] &#x3D; 1</span><br><span class="line">  &#125;</span><br><span class="line">  return pre</span><br><span class="line">&#125;,&#123;&#125;)</span><br><span class="line">console.log(nameNum); &#x2F;&#x2F;&#123; peter: 2, tom: 2, mary: 1, bob: 1 &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、计算一个字符串中每个字母出现次数"><a href="#2、计算一个字符串中每个字母出现次数" class="headerlink" title="2、计算一个字符串中每个字母出现次数"></a>2、计算一个字符串中每个字母出现次数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const str &#x3D; &#39;jshdjsihh&#39;;</span><br><span class="line">const obj &#x3D; str.split(&#39;&#39;).reduce((pre,item) &#x3D;&gt; &#123;</span><br><span class="line">     pre[item] ? pre[item] ++ : pre[item] &#x3D; 1</span><br><span class="line">    return pre</span><br><span class="line">    &#125;,&#123;&#125;)</span><br><span class="line">console.log(obj) &#x2F;&#x2F; &#123;j: 2, s: 2, h: 3, d: 1, i: 1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、数组去重"><a href="#3、数组去重" class="headerlink" title="3、数组去重"></a>3、数组去重</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,4,1]</span><br><span class="line">let newArr &#x3D; arr.reduce((pre,cur)&#x3D;&gt;&#123;</span><br><span class="line">    if(!pre.includes(cur))&#123;</span><br><span class="line">      return pre.concat(cur)</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      return pre</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,[])</span><br><span class="line">console.log(newArr);&#x2F;&#x2F; [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、求数组项最大值"><a href="#4、求数组项最大值" class="headerlink" title="4、求数组项最大值"></a>4、求数组项最大值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [2, 44, 96, 86];</span><br><span class="line">var max &#x3D; arr.reduce(function (prev, cur) &#123;</span><br><span class="line">    return Math.max(prev,cur);</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&#39;max&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;&#39;,max); &#x2F;&#x2F; 96</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、将多维数组转化为一维"><a href="#5、将多维数组转化为一维" class="headerlink" title="5、将多维数组转化为一维"></a>5、将多维数组转化为一维</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [[0, 1], [2, 3], [4,[5,6,7]]]</span><br><span class="line">const newArr &#x3D; function(arr)&#123;</span><br><span class="line">   return arr.reduce((pre,cur)&#x3D;&gt;pre.concat(Array.isArray(cur)?newArr(cur):cur),[])</span><br><span class="line">&#125;</span><br><span class="line">console.log(newArr(arr)); &#x2F;&#x2F;[0, 1, 2, 3, 4, 5, 6, 7]</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、过滤对象中指定的属性值"><a href="#6、过滤对象中指定的属性值" class="headerlink" title="6、过滤对象中指定的属性值"></a>6、过滤对象中指定的属性值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var only &#x3D; function(obj, keys)&#123;</span><br><span class="line">  obj &#x3D; obj || &#123;&#125;;</span><br><span class="line">  if (&#39;string&#39; &#x3D;&#x3D; typeof keys) keys &#x3D; keys.split(&#x2F; +&#x2F;);</span><br><span class="line">  return keys.reduce(function(ret, key)&#123;</span><br><span class="line">    if (null &#x3D;&#x3D; obj[key]) return ret; &#x2F;&#x2F;如果对象obj中存在key 字段,则赋值给ret 否则直接返回</span><br><span class="line">    ret[key] &#x3D; obj[key];</span><br><span class="line">    return ret;</span><br><span class="line">  &#125;, &#123;&#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var a &#x3D; &#123;</span><br><span class="line">    env : &#39;development&#39;,</span><br><span class="line">    proxy : false,</span><br><span class="line">    subdomainOffset : 2</span><br><span class="line">&#125;</span><br><span class="line">only(a,[&#39;env&#39;,&#39;proxy&#39;])   &#x2F;&#x2F; &#123;env:&#39;development&#39;,proxy : false&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、计算总成绩，且学科的占比不同"><a href="#7、计算总成绩，且学科的占比不同" class="headerlink" title="7、计算总成绩，且学科的占比不同"></a>7、计算总成绩，且学科的占比不同</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const scores &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">        subject: &#39;math&#39;,</span><br><span class="line">        score: 88</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        subject: &#39;chinese&#39;,</span><br><span class="line">        score: 95</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        subject: &#39;english&#39;,</span><br><span class="line">        score: 80</span><br><span class="line">    &#125;</span><br><span class="line">];</span><br><span class="line">const dis &#x3D; &#123;</span><br><span class="line">    math: 0.5,</span><br><span class="line">    chinese: 0.3,</span><br><span class="line">    english: 0.2</span><br><span class="line">&#125;</span><br><span class="line">const sum &#x3D; scores.reduce((pre,item) &#x3D;&gt; &#123;</span><br><span class="line">    return pre + item.score * dis[item.subject]</span><br><span class="line">&#125;,0)</span><br><span class="line">console.log(sum) &#x2F;&#x2F; 88.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、递归利用-reduce-处理-tree-树形"><a href="#8、递归利用-reduce-处理-tree-树形" class="headerlink" title="8、递归利用 reduce 处理 tree 树形"></a>8、递归利用 reduce 处理 tree 树形</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">var data &#x3D; [&#123;</span><br><span class="line">            id: 1,</span><br><span class="line">            name: &quot;办公管理&quot;,</span><br><span class="line">            pid: 0,</span><br><span class="line">            children: [&#123;</span><br><span class="line">                    id: 2,</span><br><span class="line">                    name: &quot;请假申请&quot;,</span><br><span class="line">                    pid: 1,</span><br><span class="line">                    children: [</span><br><span class="line">                        &#123; id: 4, name: &quot;请假记录&quot;, pid: 2 &#125;,</span><br><span class="line">                    ],</span><br><span class="line">                &#125;,</span><br><span class="line">                &#123; id: 3, name: &quot;出差申请&quot;, pid: 1 &#125;,</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            id: 5,</span><br><span class="line">            name: &quot;系统设置&quot;,</span><br><span class="line">            pid: 0,</span><br><span class="line">            children: [&#123;</span><br><span class="line">                id: 6,</span><br><span class="line">                name: &quot;权限管理&quot;,</span><br><span class="line">                pid: 5,</span><br><span class="line">                children: [</span><br><span class="line">                    &#123; id: 7, name: &quot;用户角色&quot;, pid: 6 &#125;,</span><br><span class="line">                    &#123; id: 8, name: &quot;菜单设置&quot;, pid: 6 &#125;,</span><br><span class="line">                ]</span><br><span class="line">            &#125;, ]</span><br><span class="line">        &#125;,</span><br><span class="line">    ];</span><br><span class="line">    const arr &#x3D; data.reduce(function(pre,item)&#123;</span><br><span class="line">        const callee &#x3D; arguments.callee &#x2F;&#x2F;将运行函数赋值给一个变量备用</span><br><span class="line">        pre.push(item)</span><br><span class="line">        if(item.children &amp;&amp; item.children.length &gt; 0) item.children.reduce(callee,pre); &#x2F;&#x2F;判断当前参数中是否存在children，有则递归处理</span><br><span class="line">        return pre;</span><br><span class="line">    &#125;,[]).map((item) &#x3D;&gt; &#123;</span><br><span class="line">        item.children &#x3D; []</span><br><span class="line">        return item</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(arr)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-16_事件冒泡和捕获的执行顺序了解吗？什么是事件委托" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:23.000Z"><a href="/2020/05/29/16_事件冒泡和捕获的执行顺序了解吗？什么是事件委托/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/16_事件冒泡和捕获的执行顺序了解吗？什么是事件委托/">16_事件冒泡和捕获的执行顺序了解吗？什么是事件委托</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、事件冒泡和捕获"><a href="#一、事件冒泡和捕获" class="headerlink" title="一、事件冒泡和捕获"></a>一、事件冒泡和捕获</h2><p><img src="https://upload-images.jianshu.io/upload_images/3959476-7692ca8d824bbabf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>运行条件：当一个事件发生在具有父元素的的元素上时，现代浏览器根据事件添加时的设置来执行（冒泡或者捕获）</p>
+<p>通过 addEventListener() 的第三个属性来设置事件是通过捕获阶段注册的（true），还是冒泡阶段注册的（false）。默认情况下是 false。</p>
+<h3 id="1、事件冒泡"><a href="#1、事件冒泡" class="headerlink" title="1、事件冒泡"></a>1、事件冒泡</h3><blockquote>
+<p>从实际操作的元素（事件）向上级父元素一级一级执行下去，直到达到<code>&lt;html&gt;</code></p>
+</blockquote>
+<p>有些时候父元素和子元素都定义了 click 事件，但是不希望点击子元素的时候执行父元素的 click 事件（例如 dialog 弹窗的遮罩层如果是父元素，而 dialog 弹窗内容层是子元素，同时可以通过点击遮罩层来关闭弹窗，但是点击内容层不关闭弹窗），可以通过 stopPropagation()在子元素上阻止冒泡。</p>
+<h3 id="2、事件捕获（一般不会用到）"><a href="#2、事件捕获（一般不会用到）" class="headerlink" title="2、事件捕获（一般不会用到）"></a>2、事件捕获（一般不会用到）</h3><blockquote>
+<p>浏览器检查元素的最外层祖先<code>&lt;html&gt;</code>，是否在捕获阶段中注册了一个 onclick 事件处理程序，如果是，则运行它。<br>然后，它移动到<code>&lt;html&gt;</code>中的下一个元素(点击的元素的父元素)，并执行相同的操作，然后是下一个元素(点击的元素的父元素)，依此类推，直到到达实际点击的元素。</p>
+</blockquote>
+<h2 id="二、事件捕获和冒泡的区别（执行顺序的不同）"><a href="#二、事件捕获和冒泡的区别（执行顺序的不同）" class="headerlink" title="二、事件捕获和冒泡的区别（执行顺序的不同）"></a>二、事件捕获和冒泡的区别（执行顺序的不同）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; css</span><br><span class="line">#div1 &#123;</span><br><span class="line">	width: 400px;</span><br><span class="line">	height: 400px;</span><br><span class="line">	background: #f00;</span><br><span class="line">&#125;</span><br><span class="line">#div2 &#123;</span><br><span class="line">	width: 300px;</span><br><span class="line">	height: 300px;</span><br><span class="line">	background: #0f0;</span><br><span class="line">&#125;</span><br><span class="line">#div3 &#123;</span><br><span class="line">	width: 200px;</span><br><span class="line">	height: 200px;</span><br><span class="line">	background: #00f;</span><br><span class="line">&#125;</span><br><span class="line">#div4 &#123;</span><br><span class="line">	width: 100px;</span><br><span class="line">	height: 100px;</span><br><span class="line">	background: #f0f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; html</span><br><span class="line">&lt;div id&#x3D;&quot;div1&quot;&gt;我是div1</span><br><span class="line">&lt;div id&#x3D;&quot;div2&quot;&gt;我是div2</span><br><span class="line">&lt;div id&#x3D;&quot;div3&quot;&gt;我是div3</span><br><span class="line">&lt;div id&#x3D;&quot;div4&quot;&gt;我是div4&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; javascript</span><br><span class="line">var div1&#x3D;document.getElementById(&quot;div1&quot;);</span><br><span class="line">var div2&#x3D;document.getElementById(&quot;div2&quot;);</span><br><span class="line">var div3&#x3D;document.getElementById(&quot;div3&quot;);</span><br><span class="line">var div4&#x3D;document.getElementById(&quot;div4&quot;);</span><br><span class="line"></span><br><span class="line">div1.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;我是div1&quot;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">div2.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;我是div2&quot;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">div3.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;我是div3&quot;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">div4.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;我是div4&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>冒泡的执行顺序：当我们点击 div1 的时候，只弹出“我是 div1”，但是当我们点击 div2 的时候，就先弹出“我是 div2”，再弹出“我是 div1”，当我们点击 div4 的时候，则是 4-3-2-1 这样的顺序，这样就叫做冒泡，它就像鱼儿吐泡泡一样，从下到上，泡泡从水下上来泡泡会变得越来越大，从这个角度思考，先从子元素开始执行，然后是父元素，再然后是祖先元素，他们的等级也是越来越大的。在 addEventListener 里，false 是默认的，表示的是冒泡。</p>
+<p>捕获的执行顺序：在 addEventListener 里，第三个参数设置为 true，表示的是捕获。将上面的代码中添加进第三个参数 true，再运行代码，会发现这时，当我们点击 div4 的时候，出现的顺序是 1-2-3-4，它是从祖先元素开始慢慢找，最后找到我们的点击目标，可以将这个行为理解为就像警察叔叔抓坏人一样，逐渐的缩小抓捕范围，最后确定到某一个人身上，所以这个过程叫做捕获。</p>
+<p>dom 元素中，既有冒泡，又有捕获的执行顺序：w3c 规定，任何发生在 w3c 事件模型中的事件，首是进入捕获阶段，直到达到目标元素，再进入冒泡阶段。示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">div1.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div1&quot;);</span><br><span class="line">&#125;, false);</span><br><span class="line">div2.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div2&quot;);</span><br><span class="line">&#125;, true);</span><br><span class="line">div3.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div3&quot;);</span><br><span class="line">&#125;, false);</span><br><span class="line">div4.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div4&quot;);</span><br><span class="line">&#125;, true);</span><br></pre></td></tr></table></figure>
+
+<p>这时的 div1 和 div3 是冒泡事件，div2 和 div4 是捕获事件，当我们点击 div4 以后，弹出的顺序是 2-4-3-1。因为我们先执行捕获过程，在这个例子中 div2 和 div4 是捕获的，那么捕获又是从大到小，所以，先弹出 div2，再弹出 div4，捕获结束以后就该是冒泡了。冒泡的顺序是从小到大，从子到父，所以就先弹出 div3，再就是 div1，所以最后的顺序是 2-4-3-1。如果我们点击 div3，结果会是 2-3-1，同样的道理，先捕获，捕获是从 div1 开始到 div3，这中间只有 div2 是捕获，div4 并没有执行到，因为我们点击的目标是 div3，后面的步骤和前面的过程一样，先 3 后 1。</p>
+<p>最后一个问题，代码示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">div1.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div1&quot;);</span><br><span class="line">&#125;, false);</span><br><span class="line">div2.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div2_捕获&quot;);</span><br><span class="line">&#125;, true);</span><br><span class="line">div2.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div2_冒泡&quot;);</span><br><span class="line">&#125;, false);</span><br></pre></td></tr></table></figure>
+
+<p>那么，当我们点击 div2 的时候，结果是 div2_捕获 -&gt; div_2 冒泡 -&gt; div1 的顺序，代码修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">div1.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div1&quot;);</span><br><span class="line">&#125;, false);</span><br><span class="line">div2.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div2_冒泡&quot;);</span><br><span class="line">&#125;, false);</span><br><span class="line">div2.addEventListener(&quot;click&quot;,function()&#123;</span><br><span class="line">	alert(&quot;div2_捕获&quot;);</span><br><span class="line">&#125;, true);</span><br></pre></td></tr></table></figure>
+
+<p>这时当我们点击 div2 的时候，结果是 div2_冒泡   -&gt; div_2 捕获  -&gt; div1 的顺序</p>
+<p>综上结论：绑定在被点击元素的事件是按照代码的顺序发生的，其他非绑定的元素则是通过冒泡或者捕获的触发。按照 W3C 的标准，先发生捕获事件，后发生冒泡事件。</p>
+<p>事件的整体顺序是：非目标元素捕获 -&gt; 目标元素代码顺序 -&gt; 非目标元素冒泡。</p>
+<h2 id="三、事件委托"><a href="#三、事件委托" class="headerlink" title="三、事件委托"></a>三、事件委托</h2><h3 id="1、使用场景"><a href="#1、使用场景" class="headerlink" title="1、使用场景"></a>1、使用场景</h3><blockquote>
+<p>如果你想要在大量子元素（包括动态添加的）中单击任何一个就可以运行一段代码，这个时候可以把事件监听器设置在父节点上。</p>
+</blockquote>
+<h3 id="2、好处"><a href="#2、好处" class="headerlink" title="2、好处"></a>2、好处</h3><ul>
+<li>只在内存中开辟了一块空间，节省资源同时减少了 dom 操作，提高性能</li>
+<li>对于新添加的元素也会有之前的事件</li>
+</ul>
+<h3 id="3、事件委托同捕获和冒泡的关系"><a href="#3、事件委托同捕获和冒泡的关系" class="headerlink" title="3、事件委托同捕获和冒泡的关系"></a>3、事件委托同捕获和冒泡的关系</h3><ul>
+<li>事件捕获和冒泡是现代浏览器的执行事件的两个不同阶段</li>
+<li>事件委托是利用冒泡阶段的运行机制来实现的</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-898586937a58533d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="4、实例：ul-中触发每个-li-来改变他们的背景颜色"><a href="#4、实例：ul-中触发每个-li-来改变他们的背景颜色" class="headerlink" title="4、实例：ul 中触发每个 li 来改变他们的背景颜色"></a>4、实例：ul 中触发每个 li 来改变他们的背景颜色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; html</span><br><span class="line">&lt;ul id&#x3D;&#39;ul&#39;&gt;</span><br><span class="line">    &lt;li&gt;111111&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;222222&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;333333&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line">&lt;button id&#x3D;&#39;button&#39;&gt;添加元素&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; javascript</span><br><span class="line">window.onload &#x3D; function() &#123;</span><br><span class="line">      let oUl &#x3D; document.getElementById(&#39;ul&#39;);</span><br><span class="line">      let aLi &#x3D; oUl.getElementsByTagName(&#39;li&#39;);</span><br><span class="line">      let but &#x3D; document.getElementById(&#39;button&#39;);</span><br><span class="line">      let now &#x3D; 3;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; 事件源：event对象，不管在哪个事件中，只要你操作的哪个元素就是事件源</span><br><span class="line">      &#x2F;&#x2F; ie：window.event.srcElement</span><br><span class="line">      &#x2F;&#x2F; 标准：event.target</span><br><span class="line">      oUl.onmouseover &#x3D; function(e)&#123;</span><br><span class="line">        let ev &#x3D; e || window.event;</span><br><span class="line">        let target &#x3D; ev.target || ev.srcElement;</span><br><span class="line">        if(target.nodeName.toLowerCase() &#x3D;&#x3D; &#39;li&#39;)&#123;</span><br><span class="line">          target.style.background &#x3D; &#39;red&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      oUl.onmouseout &#x3D; function(e)&#123;</span><br><span class="line">        let ev &#x3D; e || window.event;</span><br><span class="line">        let target &#x3D; ev.target || ev.srcElement;</span><br><span class="line">        if(target.nodeName.toLowerCase() &#x3D;&#x3D; &#39;li&#39;)&#123;</span><br><span class="line">          target.style.background &#x3D; &#39;&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      but.onclick &#x3D; function()&#123;</span><br><span class="line">        now ++;</span><br><span class="line">        let newLi &#x3D; document.createElement(&#39;li&#39;);</span><br><span class="line">        newLi.innerHTML &#x3D; 111111 * now;</span><br><span class="line">        oUl.appendChild(newLi);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-17_call和apply的区别是什么？caller和callee的区别有哪些" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:22.000Z"><a href="/2020/05/29/17_call和apply的区别是什么？caller和callee的区别有哪些/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/17_call和apply的区别是什么？caller和callee的区别有哪些/">17_call和apply的区别是什么？caller和callee的区别有哪些</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、call-和-apply-的区别"><a href="#一、call-和-apply-的区别" class="headerlink" title="一、call 和 apply 的区别"></a>一、call 和 apply 的区别</h2><p>ECMAScript 规范给所有函数都定义了 call 与 apply 两个方法，它们的应用非常广泛，它们的作用也是一模一样，只是传参的形式有区别而已。</p>
+<h3 id="1、call"><a href="#1、call" class="headerlink" title="1、call"></a>1、call</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Function.call(obj,[param1[,param2[,…[,paramN]]]])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>调用 call 的对象，必须是个函数 Function。</li>
+<li>call 的第一个参数，是一个对象。 Function 的调用者，将会指向这个对象。如果不传，则默认为全局对象 window。</li>
+<li>第二个参数开始，可以接收任意个参数。每个参数会映射到相应位置的 Function 的参数上。但是如果将所有的参数作为数组传入，它们会作为一个整体映射到 Function 对应的第一个参数上，之后参数都为空。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function func (a,b,c) &#123;&#125;</span><br><span class="line"></span><br><span class="line">func.call(obj, 1,2,3)</span><br><span class="line">&#x2F;&#x2F; func 接收到的参数实际上是 1,2,3</span><br><span class="line"></span><br><span class="line">func.call(obj, [1,2,3])</span><br><span class="line">&#x2F;&#x2F; func 接收到的参数实际上是 [1,2,3],undefined,undefined</span><br></pre></td></tr></table></figure>
+
+<p>call 方法第一个参数也是作为函数上下文的对象，但是后面传入的是一个参数列表，而不是单个数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;</span><br><span class="line">    name: &#39;小林老师&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function func(firstName, lastName) &#123;</span><br><span class="line">  console.log(firstName + &#39; &#39; + this.name + &#39; &#39; + lastName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func.call(obj, &#39;A&#39;, &#39;B&#39;);       &#x2F;&#x2F; A 小林老师 B</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、apply"><a href="#2、apply" class="headerlink" title="2、apply"></a>2、apply</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Function.apply(obj[,argArray])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>它的调用者必须是函数 Function，并且只接收两个参数，第一个参数是作为函数上下文的对象。</li>
+<li>第二个参数，必须是数组或者类数组，它们会被转换成类数组，传入 Function 中，并且会被映射到 Function 对应的参数上。这也是 call 和 apply 之间，很重要的一个区别。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">func.apply(obj, [1,2,3])</span><br><span class="line">&#x2F;&#x2F; func 接收到的参数实际上是 1,2,3</span><br><span class="line"></span><br><span class="line">func.apply(obj, &#123;</span><br><span class="line">    0: 1,</span><br><span class="line">    1: 2,</span><br><span class="line">    2: 3,</span><br><span class="line">    length: 3</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; func 接收到的参数实际上是 1,2,3</span><br></pre></td></tr></table></figure>
+
+<p>obj 作为函数上下文的对象，函数 func 中的 this 指向了 obj 这个对象。参数 A 和 B 是放在数组中传入了 func 函数,分别对应 func 参数的列表元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;</span><br><span class="line">  	name: &#39;小林老师&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function func(firstName, lastName)&#123;</span><br><span class="line">    console.log(firstName + &#39; &#39; + this.name + &#39; &#39; + lastName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func.apply(obj, [&#39;A&#39;, &#39;B&#39;]);    &#x2F;&#x2F; A 小林老师 B</span><br></pre></td></tr></table></figure>
+
+<p>当使用 call 或者 apply 的时候,如果我们传入的第一个参数为 null,函数体内的 this 会指 向默认的宿主对象,在浏览器中则是 window。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var func &#x3D; function( a, b, c )&#123;</span><br><span class="line">    console.log(this &#x3D;&#x3D;&#x3D; window); &#x2F;&#x2F; 输出:true</span><br><span class="line">&#125;;</span><br><span class="line">func.apply( null, [ 1, 2, 3 ] );</span><br></pre></td></tr></table></figure>
+
+<p>但是如果是在严格模式下(use strict)，函数体内的 this 还是为 null。</p>
+<h2 id="二、call-和-apply-的用途"><a href="#二、call-和-apply-的用途" class="headerlink" title="二、call 和 apply 的用途"></a>二、call 和 apply 的用途</h2><h3 id="1、改变-this-的指向"><a href="#1、改变-this-的指向" class="headerlink" title="1、改变 this 的指向"></a>1、改变 this 的指向</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;</span><br><span class="line">	name: &#39;小林老师&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function func() &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func.call(obj);       &#x2F;&#x2F; 小林老师</span><br></pre></td></tr></table></figure>
+
+<p>call 方法的第一个参数是作为函数上下文的对象，这里把 obj 作为参数传给了 func，此时函数里的 this 便指向了 obj 对象。此处 func 函数里其实相当于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function func() &#123;</span><br><span class="line">    console.log(obj.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、对象的继承"><a href="#2、对象的继承" class="headerlink" title="2、对象的继承"></a>2、对象的继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var Person1  &#x3D; function () &#123;</span><br><span class="line">	this.name &#x3D; &#39;小林老师&#39;;</span><br><span class="line">&#125;</span><br><span class="line">var Person2 &#x3D; function () &#123;</span><br><span class="line">    this.getname &#x3D; function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">    Person1.call(this);</span><br><span class="line">&#125;</span><br><span class="line">var person &#x3D; new Person2();</span><br><span class="line">person.getname();       &#x2F;&#x2F; 小林老师</span><br></pre></td></tr></table></figure>
+
+<p>Person2 实例化出来的对象 person 通过 getname 方法拿到了 Person1 中的 name。因为在 Person2 中，Person1.call(this) 的作用就是使用 Person1 对象代替 this 对象，那么 Person2 就有了 Person1 中的所有属性和方法了，相当于 Person2 继承了 Person1 的属性和方法。</p>
+<h3 id="3、调用函数"><a href="#3、调用函数" class="headerlink" title="3、调用函数"></a>3、调用函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function func() &#123;</span><br><span class="line">    console.log(&#39;小林老师&#39;);</span><br><span class="line">&#125;</span><br><span class="line">func.call();            &#x2F;&#x2F; 小林老师</span><br></pre></td></tr></table></figure>
+
+<p>apply、call 方法都会使函数立即执行，因此它们也可以用来调用函数。</p>
+<h2 id="三、call-的常见用法"><a href="#三、call-的常见用法" class="headerlink" title="三、call 的常见用法"></a>三、call 的常见用法</h2><h3 id="1、Object-prototype-toString-call"><a href="#1、Object-prototype-toString-call" class="headerlink" title="1、Object.prototype.toString.call()"></a>1、Object.prototype.toString.call()</h3><h4 id="（1）判断基本类型"><a href="#（1）判断基本类型" class="headerlink" title="（1）判断基本类型"></a>（1）判断基本类型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call(null);&#x2F;&#x2F;&#39;[object Null]&#39;</span><br><span class="line">Object.prototype.toString.call(undefined);&#x2F;&#x2F;&#39;[object Undefined]&#39;</span><br><span class="line">Object.prototype.toString.call(&#39;abc&#39;);&#x2F;&#x2F;&#39;[object String]&#39;</span><br><span class="line">Object.prototype.toString.call(123);&#x2F;&#x2F;&#39;[object Number]&#39;</span><br><span class="line">Object.prototype.toString.call(true);&#x2F;&#x2F;&#39;[object Boolean]&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）判断原生引用类型"><a href="#（2）判断原生引用类型" class="headerlink" title="（2）判断原生引用类型"></a>（2）判断原生引用类型</h4><h5 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function fn()&#123; console.log(&#39;test&#39;) &#125;</span><br><span class="line">Object.prototype.toString.call(fn);&#x2F;&#x2F;&#39;[object Function]&#39;</span><br></pre></td></tr></table></figure>
+
+<h5 id="日期类型"><a href="#日期类型" class="headerlink" title="日期类型"></a>日期类型</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var date &#x3D; new Date();</span><br><span class="line">Object.prototype.toString.call(date);&#x2F;&#x2F;&#39;[object Date]&#39;</span><br></pre></td></tr></table></figure>
+
+<h5 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [1,2,3];</span><br><span class="line">Object.prototype.toString.call(arr);&#x2F;&#x2F;&#39;[object Array]&#39;</span><br></pre></td></tr></table></figure>
+
+<h5 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var reg &#x3D; &#x2F;[hbc]at&#x2F;gi;</span><br><span class="line">Object.prototype.toString.call(arr);&#x2F;&#x2F;&#39;[object RegExp]&#39;</span><br></pre></td></tr></table></figure>
+
+<h5 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person(name, age) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">&#125;</span><br><span class="line">var person &#x3D; new Person(&quot;Rose&quot;, 18);</span><br><span class="line">Object.prototype.toString.call(person); &#x2F;&#x2F;&#39;[object Object]&#39;</span><br></pre></td></tr></table></figure>
+
+<p>很明显这种方法不能准确判断 person 是 Person 类的实例，而只能用 instanceof 操作符来进行判断，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(person instanceof Person);&#x2F;&#x2F;输出结果为true</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）判断原生-JSON-对象"><a href="#（3）判断原生-JSON-对象" class="headerlink" title="（3）判断原生 JSON 对象"></a>（3）判断原生 JSON 对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var isNativeJSON &#x3D; window.JSON &amp;&amp; Object.prototype.toString.call(JSON);</span><br><span class="line">console.log(isNativeJSON);&#x2F;&#x2F;输出结果为&#39;[object JSON]&#39;说明JSON是原生的，否则不是</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、Array-prototype-slice-call"><a href="#2、Array-prototype-slice-call" class="headerlink" title="2、Array.prototype.slice.call()"></a>2、Array.prototype.slice.call()</h3><p>Array.prototype.slice.call(arguments)能将具有 length 属性的对象(key 值为数字)转成数组。[]是 Array 的示例，所以可以直接使用[].slice（）方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;0:&#39;hello&#39;,1:&#39;world&#39;,length:2&#125;;</span><br><span class="line">console.log(Array.prototype.slice.call(obj,0));&#x2F;&#x2F;[&quot;hello&quot;, &quot;world&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>没有 length 属性的对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;0:&#39;hello&#39;,1:&#39;world&#39;&#125;;&#x2F;&#x2F;没有length属性</span><br><span class="line">console.log(Array.prototype.slice.call(obj,0));&#x2F;&#x2F;[]</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、apply-的常见用法"><a href="#四、apply-的常见用法" class="headerlink" title="四、apply 的常见用法"></a>四、apply 的常见用法</h2><p>apply 的妙用,可以将一个数组默认的转换为一个参数列表，一般在目标函数只需要 n 个参数列表，但是不接收一个数组的形式（[param1[,param2[,…[,paramN]]]]），我们就可以通过 apply 的方式来巧妙地解决。</p>
+<h3 id="1、Math-max-可以实现得到数组中最大的一项"><a href="#1、Math-max-可以实现得到数组中最大的一项" class="headerlink" title="1、Math.max 可以实现得到数组中最大的一项"></a>1、Math.max 可以实现得到数组中最大的一项</h3><p>因为 Math.max 参数里面不支持 Math.max([param1,param2])，也就是数组，但是它支持 Math.max(param1,param2,param3…)，所以可以根据 apply 的那个特点来解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var array &#x3D; [1, 2, 3];</span><br><span class="line">var max &#x3D; Math.max.apply(null, array);</span><br><span class="line">console.log(max);&#x2F;&#x2F;3</span><br></pre></td></tr></table></figure>
+
+<p>这样轻易的可以得到一个数组中最大的一项，apply 会将一个数组装换为一个参数接一个参数的传递给方法，这块在调用的时候第一个参数给了一个 null，这个是因为没有对象去调用这个方法，我们只需要用这个方法来帮我们运算，得到返回的结果就行，所以直接传递了一个 null 过去，当然，第一个参数使用 this 也是可以的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var array &#x3D; [1, 2, 3];</span><br><span class="line">var max &#x3D; Math.max.apply(this, array);</span><br><span class="line">console.log(max);&#x2F;&#x2F;3</span><br></pre></td></tr></table></figure>
+
+<p>使用 this 就相当于用全局对象去调用 Math.max，所以也是一样的。</p>
+<h3 id="2、Math-min-可以实现得到数组中最小的一项"><a href="#2、Math-min-可以实现得到数组中最小的一项" class="headerlink" title="2、Math.min 可以实现得到数组中最小的一项"></a>2、Math.min 可以实现得到数组中最小的一项</h3><p>同样的 Math.min 和 Math.max 是一个思想：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var array &#x3D; [1, 2, 3];</span><br><span class="line">var min &#x3D; Math.min.apply(null, array);</span><br><span class="line">console.log(min);&#x2F;&#x2F;1</span><br></pre></td></tr></table></figure>
+
+<p>当然，apply 的第一个参数可以用 null 也可以用 this，这个是和 Math.max 一样的。</p>
+<h3 id="3、Array-prototype-push-可以实现两个数组合并"><a href="#3、Array-prototype-push-可以实现两个数组合并" class="headerlink" title="3、Array.prototype.push 可以实现两个数组合并"></a>3、Array.prototype.push 可以实现两个数组合并</h3><p>同样的，push 方法没有提供 push 一个数组，但是它提供了 push(param1,param,…paramN)所以同样也可以通过 apply 来装换一下这个数组，即:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr1 &#x3D; [1, 2, 3];</span><br><span class="line">var arr2 &#x3D; [4, 5, 6];</span><br><span class="line">Array.prototype.push.apply(arr1, arr2);</span><br><span class="line">console.log(arr1);&#x2F;&#x2F;[ 1, 2, 3, 4, 5, 6 ]</span><br></pre></td></tr></table></figure>
+
+<p>可以这样理解，arr1 调用了 Array 的 push 方法，参数是通过 apply 将数组转换为参数列表的集合，其实，arr1 也可以调用自己的 push 方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr1 &#x3D; [1, 2, 3];</span><br><span class="line">var arr2 &#x3D; [4, 5, 6];</span><br><span class="line">arr1.push.apply(arr1, arr2);</span><br><span class="line">console.log(arr1);&#x2F;&#x2F;[ 1, 2, 3, 4, 5, 6 ]</span><br></pre></td></tr></table></figure>
+
+<p>也就是只要有 push 方法，arr1 就可以利用 apply 方法来调用该方法，以及使用 apply 方法将数组转换为一系列参数，所以也可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr1 &#x3D; [1, 2, 3];</span><br><span class="line">var arr2 &#x3D; [4, 5, 6];</span><br><span class="line">[].push.apply(arr1, arr2);</span><br><span class="line">console.log(arr1);&#x2F;&#x2F;[ 1, 2, 3, 4, 5, 6 ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、Array-prototype-reduce-apply-对复杂问题的解决"><a href="#4、Array-prototype-reduce-apply-对复杂问题的解决" class="headerlink" title="4、Array.prototype.reduce.apply 对复杂问题的解决"></a>4、Array.prototype.reduce.apply 对复杂问题的解决</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var o &#x3D; &#123;&#39;0&#39;: &#39;a&#39;, &#39;1&#39;:&#39;b&#39;, &#39;2&#39;:&#39;c&#39;, length: 3&#125;;</span><br><span class="line">var result &#x3D; Array.prototype.reduce.apply(o, [function(a, b)&#123;</span><br><span class="line">    return a+b;</span><br><span class="line">&#125;]);  &#x2F;&#x2F;result &#x3D; &#39;abc&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、call、apply-和-bind-的区别"><a href="#五、call、apply-和-bind-的区别" class="headerlink" title="五、call、apply 和 bind 的区别"></a>五、call、apply 和 bind 的区别</h2><p>call 和 apply 改变了函数的 this 上下文后便执行该函数,而 bind 则是返回改变了上下文后的一个函数。</p>
+<h3 id="1、bind-的返回值是一个函数"><a href="#1、bind-的返回值是一个函数" class="headerlink" title="1、bind 的返回值是一个函数"></a>1、bind 的返回值是一个函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;</span><br><span class="line">  name: &#39;小林老师&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function func() &#123;</span><br><span class="line">  console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var func1 &#x3D; func.bind(obj);</span><br><span class="line">func1();</span><br><span class="line"></span><br><span class="line">function add (a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line">function sub (a, b) &#123;</span><br><span class="line">    return a - b;</span><br><span class="line">&#125;</span><br><span class="line">add.bind(sub, 5, 3); &#x2F;&#x2F; 这时，并不会返回 8</span><br><span class="line">add.bind(sub, 5, 3)(); &#x2F;&#x2F; 调用后，返回 8</span><br></pre></td></tr></table></figure>
+
+<p>bind 方法不会立即执行，而是返回一个改变了上下文 this 后的函数。而原函数 func 中的 this 并没有被改变，依旧指向全局对象 window。</p>
+<h3 id="2、参数的使用"><a href="#2、参数的使用" class="headerlink" title="2、参数的使用"></a>2、参数的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function func(a, b, c) &#123;</span><br><span class="line">  console.log(a, b, c);</span><br><span class="line">&#125;</span><br><span class="line">var func1 &#x3D; func.bind(null,&#39;小林老师&#39;);</span><br><span class="line"></span><br><span class="line">func(&#39;A&#39;, &#39;B&#39;, &#39;C&#39;);            &#x2F;&#x2F; A B C</span><br><span class="line">func1(&#39;A&#39;, &#39;B&#39;, &#39;C&#39;);           &#x2F;&#x2F; 小林老师 A B</span><br><span class="line">func1(&#39;B&#39;, &#39;C&#39;);                &#x2F;&#x2F; 小林老师 B C</span><br><span class="line">func.call(null, &#39;小林老师&#39;);      &#x2F;&#x2F; 小林老师 undefined undefined</span><br></pre></td></tr></table></figure>
+
+<p>call 是把第二个及以后的参数作为 func 方法的实参传进去，而 func1 方法的实参实则是在 bind 中参数的基础上再往后排。</p>
+<h2 id="六、caller-和-callee-的区别"><a href="#六、caller-和-callee-的区别" class="headerlink" title="六、caller 和 callee 的区别"></a>六、caller 和 callee 的区别</h2><h3 id="1、caller-用法"><a href="#1、caller-用法" class="headerlink" title="1、caller 用法"></a>1、caller 用法</h3><ul>
+<li>返回一个调用当前函数的引用 如果是由顶层调用的话 则返回 null</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var callerTest &#x3D; function() &#123;</span><br><span class="line">    console.log(callerTest.caller) ;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function a() &#123;</span><br><span class="line">    callerTest() ;</span><br><span class="line">&#125;</span><br><span class="line">a() ;&#x2F;&#x2F;输出function a() &#123;callerTest();&#125;</span><br><span class="line">callerTest() ;&#x2F;&#x2F;输出null</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、callee-用法"><a href="#2、callee-用法" class="headerlink" title="2、callee 用法"></a>2、callee 用法</h3><ul>
+<li>返回一个正在被执行函数的引用 （这里常用来递归匿名函数本身 但是在严格模式下不可行）</li>
+</ul>
+<p>callee 是 arguments 对象的一个成员 表示对函数对象本身的引用 它有个 length 属性（代表形参的长度）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var c &#x3D; function(x,y) &#123;</span><br><span class="line">     console.log(arguments.length,arguments.callee.length,arguments.callee)</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">c(1,2,3) ;&#x2F;&#x2F;输出3 2 function(x,y) &#123;console.log(arguments.length,arguments.callee.length,arguments.callee)&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（1）arguments-callee-用法"><a href="#（1）arguments-callee-用法" class="headerlink" title="（1）arguments.callee 用法"></a>（1）arguments.callee 用法</h4><p>早期版本的 JavaScript 不允许使用命名函数表达式，出于这样的原因, 你不能创建一个递归函数表达式。<br>例如，下边这个语法就是行的通的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function factorial (n) &#123;</span><br><span class="line">    return !(n &gt; 1) ? 1 : factorial(n - 1) * n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[1,2,3,4,5].map(factorial);</span><br></pre></td></tr></table></figure>
+
+<p>但是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3,4,5].map(function (n) &#123;</span><br><span class="line">    return !(n &gt; 1) ? 1 : &#x2F;* 这里写什么? *&#x2F; (n - 1) * n;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这个不行。为了解决这个问题， arguments.callee 添加进来了。然后你可以这么做</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3,4,5].map(function (n) &#123;</span><br><span class="line">    return !(n &gt; 1) ? 1 : arguments.callee(n - 1) * n;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>ECMAScript 3 通过允许命名函数表达式解决这些问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3,4,5].map(function factorial (n) &#123;</span><br><span class="line">    return !(n &gt; 1) ? 1 : factorial(n-1)*n;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这有很多好处：</p>
+<ul>
+<li>该函数可以像代码内部的任何其他函数一样被调用</li>
+<li>它不会在外部作用域中创建一个变量 (除了 IE 8 及以下)</li>
+<li>它具有比访问 arguments 对象更好的性能</li>
+</ul>
+<h4 id="（2）在匿名递归函数中使用-arguments-callee"><a href="#（2）在匿名递归函数中使用-arguments-callee" class="headerlink" title="（2）在匿名递归函数中使用 arguments.callee"></a>（2）在匿名递归函数中使用 arguments.callee</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function create() &#123;</span><br><span class="line">   return function(n) &#123;</span><br><span class="line">      if (n &lt;&#x3D; 1)</span><br><span class="line">         return 1;</span><br><span class="line">      return n * arguments.callee(n - 1);</span><br><span class="line">   &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var result &#x3D; create()(5);</span><br><span class="line">console.log(result) &#x2F;&#x2F; 返回120 (5 * 4 * 3 * 2 * 1)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-18_javascript中的this都有哪些用法" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:21.000Z"><a href="/2020/05/29/18_javascript中的this都有哪些用法/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/18_javascript中的this都有哪些用法/">18_javascript中的this都有哪些用法</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、this-的用法"><a href="#一、this-的用法" class="headerlink" title="一、this 的用法"></a>一、this 的用法</h2><h3 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h3><ul>
+<li>什么是 this：在调用函数时，引用正在调用函数的对象的关键字</li>
+<li>何时使用：只要对象自己的方法，要使用自己的属性时，就用 this</li>
+</ul>
+<p>简而言之，就是 function 的 this 永远指向调用它的对象。而鉴于 JS 所谓的“万物皆对象”，这个 this 因此可以是任何物件，比如 Global 对象。</p>
+<h3 id="2、使用方法"><a href="#2、使用方法" class="headerlink" title="2、使用方法"></a>2、使用方法</h3><h4 id="（1）单独的-this，指向的是-window-这个对象"><a href="#（1）单独的-this，指向的是-window-这个对象" class="headerlink" title="（1）单独的 this，指向的是 window 这个对象"></a>（1）单独的 this，指向的是 window 这个对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(this); &#x2F;&#x2F; this -&gt; window</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）全局函数中的-this"><a href="#（2）全局函数中的-this" class="headerlink" title="（2）全局函数中的 this"></a>（2）全局函数中的 this</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function test()&#123; 　　　　</span><br><span class="line">    this.x &#x3D; 1; 　　</span><br><span class="line">    alert(this); &#x2F;&#x2F; this -&gt; window</span><br><span class="line">    alert(this.x); &#x2F;&#x2F; 1 　 　</span><br><span class="line">&#125; 　　</span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+
+<p>在严格模式下，this 是 undefined.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function demo() &#123;</span><br><span class="line"> &#39;use strict&#39;;</span><br><span class="line">  alert(this); &#x2F;&#x2F; undefined</span><br><span class="line">&#125;</span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）作为构造函数调用，this-指代-new-出的对象"><a href="#（3）作为构造函数调用，this-指代-new-出的对象" class="headerlink" title="（3）作为构造函数调用，this 指代 new 出的对象"></a>（3）作为构造函数调用，this 指代 new 出的对象</h4><p>所谓构造函数，就是通过这个函数生成一个新对象，这时，this 就指向这个对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function demo() &#123;</span><br><span class="line"> &#x2F;&#x2F;alert(this); &#x2F;&#x2F; this -&gt; object</span><br><span class="line"> this.testStr &#x3D; &#39;this is a test&#39;;</span><br><span class="line">&#125;</span><br><span class="line">let a &#x3D; new demo();</span><br><span class="line">alert(a.testStr); &#x2F;&#x2F; &#39;this is a test&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（4）对象中的方法，该方法被哪个对象调用了，那么方法中的-this-就指向该对象"><a href="#（4）对象中的方法，该方法被哪个对象调用了，那么方法中的-this-就指向该对象" class="headerlink" title="（4）对象中的方法，该方法被哪个对象调用了，那么方法中的 this 就指向该对象"></a>（4）对象中的方法，该方法被哪个对象调用了，那么方法中的 this 就指向该对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let name &#x3D; &#39;finget&#39;</span><br><span class="line">let obj &#x3D; &#123;</span><br><span class="line"> name: &#39;FinGet&#39;,</span><br><span class="line"> getName: function() &#123;</span><br><span class="line">    alert(this.name);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.getName(); &#x2F;&#x2F; FinGet</span><br></pre></td></tr></table></figure>
+
+<h4 id="（5）用-call-与-apply-的方式调用函数"><a href="#（5）用-call-与-apply-的方式调用函数" class="headerlink" title="（5）用 call 与 apply 的方式调用函数"></a>（5）用 call 与 apply 的方式调用函数</h4><p>作用是改变函数的调用对象，此方法的第一个参数为改变后调用这个函数的对象，this 指代第一个参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var x &#x3D; 0;</span><br><span class="line">function test() &#123;</span><br><span class="line">　　alert(this.x);</span><br><span class="line">&#125;</span><br><span class="line">var o &#x3D; &#123;&#125;;</span><br><span class="line">o.x &#x3D; 1;</span><br><span class="line">o.m &#x3D; test;</span><br><span class="line">o.m.apply(); &#x2F;&#x2F;0</span><br><span class="line">&#x2F;&#x2F;apply()的参数为空时，默认调用全局对象。因此，这时的运行结果为0，证明this指的是全局对象。如果把最后一行代码修改为</span><br><span class="line"></span><br><span class="line">o.m.apply(o); &#x2F;&#x2F;1</span><br></pre></td></tr></table></figure>
+
+<h4 id="（6）定时器中的-this，指向的是-window"><a href="#（6）定时器中的-this，指向的是-window" class="headerlink" title="（6）定时器中的 this，指向的是 window"></a>（6）定时器中的 this，指向的是 window</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line"> alert(this); &#x2F;&#x2F; this -&gt; window ，严格模式 也是指向window</span><br><span class="line">&#125;,500)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（7）元素绑定事件，事件触发后，执行的函数中的-this，指向的是当前元素"><a href="#（7）元素绑定事件，事件触发后，执行的函数中的-this，指向的是当前元素" class="headerlink" title="（7）元素绑定事件，事件触发后，执行的函数中的 this，指向的是当前元素"></a>（7）元素绑定事件，事件触发后，执行的函数中的 this，指向的是当前元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">window.onload &#x3D; function() &#123;</span><br><span class="line"> let $btn &#x3D; document.getElementById(&#39;btn&#39;);</span><br><span class="line"> $btn.onclick &#x3D; function()&#123;</span><br><span class="line">    alert(this); &#x2F;&#x2F; this -&gt; 当前触发</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（8）函数调用时如果绑定了-bind，那么函数中的-this-指向了-bind-中绑定的元素"><a href="#（8）函数调用时如果绑定了-bind，那么函数中的-this-指向了-bind-中绑定的元素" class="headerlink" title="（8）函数调用时如果绑定了 bind，那么函数中的 this 指向了 bind 中绑定的元素"></a>（8）函数调用时如果绑定了 bind，那么函数中的 this 指向了 bind 中绑定的元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">window.onload &#x3D; function() &#123;</span><br><span class="line"> let $btn &#x3D; document.getElementById(&#39;btn&#39;);</span><br><span class="line"> $btn.addEventListener(&#39;click&#39;,function() &#123;</span><br><span class="line">    alert(this); &#x2F;&#x2F; window</span><br><span class="line"> &#125;.bind(window))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、面试题"><a href="#二、面试题" class="headerlink" title="二、面试题"></a>二、面试题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var x &#x3D; 20;</span><br><span class="line">var a &#x3D; &#123;</span><br><span class="line"> x: 15,</span><br><span class="line"> fn: function() &#123;</span><br><span class="line"> var x &#x3D; 30;</span><br><span class="line"> return function() &#123;</span><br><span class="line">  return this.x</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a.fn());</span><br><span class="line">console.log((a.fn())());</span><br><span class="line">console.log(a.fn()());</span><br><span class="line">console.log(a.fn()() &#x3D;&#x3D; (a.fn())());</span><br><span class="line">console.log(a.fn().call(this));</span><br><span class="line">console.log(a.fn().call(a));</span><br></pre></td></tr></table></figure>
+
+<h3 id="1、console-log-a-fn"><a href="#1、console-log-a-fn" class="headerlink" title="1、console.log(a.fn());"></a>1、console.log(a.fn());</h3><p>对象调用方法，返回了一个方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># function() &#123;return this.x&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、console-log-a-fn"><a href="#2、console-log-a-fn" class="headerlink" title="2、console.log((a.fn())());"></a>2、console.log((a.fn())());</h3><p>a.fn()返回的是一个函数，()()这是自执行表达式。this -&gt; window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 20</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、console-log-a-fn"><a href="#3、console-log-a-fn" class="headerlink" title="3、console.log(a.fn()());"></a>3、console.log(a.fn()());</h3><p>a.fn()相当于在全局定义了一个函数，然后再自己调用执行。this -&gt; window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 20</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、console-log-a-fn-a-fn"><a href="#4、console-log-a-fn-a-fn" class="headerlink" title="4、console.log(a.fn()() == (a.fn())());"></a>4、console.log(a.fn()() == (a.fn())());</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># true</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、console-log-a-fn-call-this"><a href="#5、console-log-a-fn-call-this" class="headerlink" title="5、console.log(a.fn().call(this));"></a>5、console.log(a.fn().call(this));</h3><p>这段代码在全局环境中执行，this -&gt; window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 20</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、console-log-a-fn-call-a"><a href="#6、console-log-a-fn-call-a" class="headerlink" title="6、console.log(a.fn().call(a));"></a>6、console.log(a.fn().call(a));</h3><p>this -&gt; a</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 15</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-19_怎么理解js中的原型链？如何实现继承？实现继承常用的方式有哪些" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:20.000Z"><a href="/2020/05/29/19_怎么理解js中的原型链？如何实现继承？实现继承常用的方式有哪些/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/19_怎么理解js中的原型链？如何实现继承？实现继承常用的方式有哪些/">19_怎么理解js中的原型链？如何实现继承？实现继承常用的方式有哪些</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、理解-js-的原型"><a href="#一、理解-js-的原型" class="headerlink" title="一、理解 js 的原型"></a>一、理解 js 的原型</h2><h3 id="1、函数和对象的关系"><a href="#1、函数和对象的关系" class="headerlink" title="1、函数和对象的关系"></a>1、函数和对象的关系</h3><p>函数也是对象的一种，通过 instanceof 可以判断出来。但是函数和对象的关系并不是简单的包含和被包含的关系</p>
+<p><strong>对象都是通过函数创建的</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;a:10,b:20&#125;;</span><br><span class="line">var arr &#x3D; [5, &#39;x&#39;, true];</span><br></pre></td></tr></table></figure>
+
+<p>但是，其实上面这段代码的实质是下面这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;var obj &#x3D; &#123; a: 10, b: 20 &#125;;</span><br><span class="line">&#x2F;&#x2F;var arr &#x3D; [5, &#39;x&#39;, true];</span><br><span class="line"></span><br><span class="line"> var obj &#x3D; new Object();</span><br><span class="line"> obj.a &#x3D; 10;</span><br><span class="line"> obj.b &#x3D; 20;</span><br><span class="line"></span><br><span class="line"> var arr &#x3D; new Array();</span><br><span class="line"> arr[0] &#x3D; 5;</span><br><span class="line"> arr[1] &#x3D; &#39;x&#39;;</span><br><span class="line"> arr[2] &#x3D; true;</span><br></pre></td></tr></table></figure>
+
+<p>而 Object 和 Array 都是函数，可以自己用 typeof 函数进行验证。</p>
+<p>所以，可以得出：<strong>对象都是通过函数创建的</strong></p>
+<h3 id="2、原型-prototype"><a href="#2、原型-prototype" class="headerlink" title="2、原型 prototype"></a>2、原型 prototype</h3><p>在前言中，我们说了函数也是一种对象，所以函数也是属性的集合，同时，也可以对函数进行自定义属性。<br><strong>每个函数都有一个属性——prototype。这个 prototype 的属性值是一个对象（属性的集合），默认只有一个叫做 constructor 的属性，指向这个函数本身。</strong> 如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-de9c9d753dea3476.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>上图中，SuperType 是一个函数，右侧的方框就是它的原型。</p>
+<p>原型既然作为对象（属性的集合），除了 constructor 外，还可以自定义许多属性，比如下面这样的：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-14ba3ff9d6ccd93c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>当然了，我们也可以在自己定义的方法的 prototype 中增加我们自己的属性，比如像下面这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Fn() &#123; &#125;</span><br><span class="line">    Fn.prototype.name &#x3D; &#39;张三&#39;;</span><br><span class="line">    Fn.prototype.getAge &#x3D; function () &#123;</span><br><span class="line">       return 12;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-b5acfdd8b38fa61a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>那么问题来了：函数的 prototype 到底有何用呢？</p>
+<p>在解决这个问题之前，我们还是先来看下另一个让人迷糊的属性：<code>_proto_</code></p>
+<h3 id="3、“隐式原型”proto"><a href="#3、“隐式原型”proto" class="headerlink" title="3、“隐式原型”proto"></a>3、“隐式原型”proto</h3><p>我们先看一段非常常见的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Fn() &#123; &#125;</span><br><span class="line">   Fn.prototype.name &#x3D; &#39;张三&#39;;</span><br><span class="line">    Fn.prototype.getAge &#x3D; function () &#123;</span><br><span class="line">       return 12;</span><br><span class="line">&#125;;</span><br><span class="line">var fn &#x3D; new Fn();</span><br><span class="line">console.log(fn.name);</span><br><span class="line">console.log(fn.getAge ());</span><br></pre></td></tr></table></figure>
+
+<p>即，Fn 是一个函数，fn 对象是从 Fn 函数 new 出来的，这样 fn 对象就可以调用 Fn.prototype 中的属性。</p>
+<p>但是，因为每个对象都有一个隐藏的属性——“<em>proto_”，这个属性引用了创建这个对象的函数的 prototype。即：fn._proto</em> === Fn.prototype<br>那么，这里的<em>proto</em>到底是什么呢？</p>
+<p>其实，这个<strong>proto</strong>是一个隐藏的属性，javascript 不希望开发者用到这个属性值，有的低版本浏览器甚至不支持这个属性值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;&#125;;</span><br><span class="line">console.log(obj.__proto__);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-8b527588cfe510be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-5bfe6492e07dc7bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>从上面来看，obj.<strong>proto</strong>和 Object.prototype 的属性一样！为什么呢？</p>
+<p>原因是：obj 这个对象本质上是被 Object 函数创建的，因此 obj.proto=== Object.prototype。我们可以用一个图来表示。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-a2d937eb93e6f874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>即，每个对象都有一个<em>proto</em>属性，指向创建该对象的函数的 prototype。</p>
+<blockquote>
+<p>说一下自定义函数的 prototype：<br>自定义函数的 prototype 本质上就是和 var obj = {} 是一样的，都是被 Object 创建，所以它的<strong>proto</strong>指向的就是 Object.prototype。</p>
+</blockquote>
+<p>但是，Object.prototype 确实一个特例——它的<strong>proto</strong>指向的是 null。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-60c1f6452ca8ab45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>另外一个问题：函数也是一种对象，函数也有<strong>proto</strong>吗？<br>答：当然也不例外啦！<br>下面用一段代码和一张图来说明这个问题，看完相信就有个比较直观的理解啦！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function fn(x, y) &#123;</span><br><span class="line">        return x+y;</span><br><span class="line">&#125;</span><br><span class="line">console.log(fn(10,20));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;以下只是为了演示函数被Function创建的</span><br><span class="line">var fn1 &#x3D; new Function(&quot;x&quot;,&quot;y&quot;,&quot;return x+y;&quot;);</span><br><span class="line">console.log(fn1(5,6));</span><br></pre></td></tr></table></figure>
+
+<p>用图表示就是：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-2a412817d328277e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>从上图可以看出：自定义函数 Foo.<strong>proto</strong>指向 Function.prototype，Object.<strong>proto</strong>指向 Function.prototype。</p>
+<p>但是，为什么有 Function.<strong>proto</strong>指向 Function.prototype 呢？<br>其实原因很简单：Function 也是一个函数，函数是一种对象，也有<strong>proto</strong>属性。既然是函数，那么它一定是被 Function 创建。所以 Function 是被自身创建的。所以它的<strong>proto</strong>指向了自身的 Prototype</p>
+<p>最后一个问题：Function.prototype 指向的对象，它的<strong>proto</strong>是不是也指向 Object.prototype？<br>答案是肯定的。因为 Function.prototype 指向的对象也是一个普通的被 Object 创建的对象，所以也遵循基本的规则。如下图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-aa73640a2dd000c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>说了这么多，我们将上面这些图片整合到一整个图片，便于整体理解，图片如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-17a95bac2b517a04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="4、instanceof"><a href="#4、instanceof" class="headerlink" title="4、instanceof"></a>4、instanceof</h3><p>主要是说明下 instanceof 的判断规则是如何进行的。先看如下代码和图片：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123;</span><br><span class="line">&#125;</span><br><span class="line">var f1 &#x3D; new fn();</span><br><span class="line"></span><br><span class="line">console.log(f1 instanceof fn);&#x2F;&#x2F;true</span><br><span class="line">console.log(f1 instanceof Object);&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-877224ad2e677a8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>instanceof 的判断规则为：<br>假设 instanceof 运算符的第一个变量是一个对象，暂时称为 A；第二个变量一般是一个函数，暂时称为 B。</p>
+<p>instanceof 的判断规则是：沿着 A 的<strong>proto</strong>这条线来找，同时沿着 B 的 prototype 这条线来找，如果两条线能找到同一个引用，即同一个对象，那么就返回 true。如果找到终点还未重合，则返回 false。</p>
+<p>结合这个判断规则，上面的代码和图示相信很容易看懂了。</p>
+<h2 id="二、原型继承"><a href="#二、原型继承" class="headerlink" title="二、原型继承"></a>二、原型继承</h2><p>原型链的定义：访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着<em>proto</em>这条链向上找，这就是原型链。</p>
+<p>示例：在实际应用中如何区分一个属性到底是基本的还是从原型中找到的呢？<br>答案就是：hasOwnProperty 这个函数，特别是在 for…in…循环中，一定要注意。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-596b025e74d31fcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>但是！！f1 本身并没有 hasOwnProperty 这个方法，那是从哪里来的呢？答案很简单，是从 Object.prototype 中来的。看下图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-c3cb50dfd08f50a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>对象的原型链是沿着<strong>proto</strong>这条线走的，因此在查找 f1.hasOwnProperty 属性时，就会顺着原型链一直查找到 Object.prototype。</p>
+<p>由于所有对象的原型链都会找到 Object.prototype，因此所有对象都会有 Object.prototype 的方法。这就是所谓的“继承”。</p>
+<h2 id="三、原型继承的几种方式"><a href="#三、原型继承的几种方式" class="headerlink" title="三、原型继承的几种方式"></a>三、原型继承的几种方式</h2><ul>
+<li>原型链继承</li>
+<li>构造函数继承（对象冒充继承）</li>
+<li>组合继承（原型链继承+构造函数继承）</li>
+<li>原型式继承</li>
+<li>寄生组合式继承</li>
+</ul>
+<h3 id="1、原型链继承"><a href="#1、原型链继承" class="headerlink" title="1、原型链继承"></a>1、原型链继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Show()&#123;</span><br><span class="line">	this.name&#x3D;&quot;run&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Run()&#123;</span><br><span class="line">	this.age&#x3D;&quot;20&quot;; &#x2F;&#x2F;Run继承了Show,通过原型，形成链条</span><br><span class="line">&#125;</span><br><span class="line">Run.prototype&#x3D;new Show();</span><br><span class="line">var show&#x3D;new Run();</span><br><span class="line">console.log(show.name)&#x2F;&#x2F;结果：run</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、构造函数继承（对象冒充继承）"><a href="#2、构造函数继承（对象冒充继承）" class="headerlink" title="2、构造函数继承（对象冒充继承）"></a>2、构造函数继承（对象冒充继承）</h3><p>为了解决引用共享和超类型无法传参的问题，我们采用一种叫借用构造函数的技术，或者成为对象冒充(伪造对象、经典继承)的技术来解决这两种问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Box(age)&#123;</span><br><span class="line">	this.name&#x3D;[&#39;Lee&#39;,&#39;Jack&#39;,&#39;Hello&#39;]</span><br><span class="line">	this.age&#x3D;age;</span><br><span class="line">&#125;</span><br><span class="line">function Desk(age)&#123;</span><br><span class="line">	Box.call(this,age); &#x2F;&#x2F;对象冒充，给超类型传参</span><br><span class="line">&#125;</span><br><span class="line">var desk &#x3D; new Desk(200);</span><br><span class="line">console.log(desk.age);&#x2F;&#x2F;200</span><br><span class="line">console.log(desk.name);&#x2F;&#x2F;[&#39;Lee&#39;,&#39;Jack&#39;,&#39;Hello&#39;]</span><br><span class="line">desk.name.push(&#39;AAA&#39;); &#x2F;&#x2F;添加的新数据，只给 desk</span><br><span class="line">console.log(desk.name)&#x2F;&#x2F;[&#39;Lee&#39;,&#39;Jack&#39;,&#39;Hello&#39;,&#39;AAA&#39;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、组合继承（原型链继承-构造函数继承）"><a href="#3、组合继承（原型链继承-构造函数继承）" class="headerlink" title="3、组合继承（原型链继承+构造函数继承）"></a>3、组合继承（原型链继承+构造函数继承）</h3><p>借用构造函数虽然解决了刚才两种问题， 但没有原型， 复用则无从谈起。 所以， 我们需要原型链+借用构造函数的模式，这种模式成为组合继承。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Box(age) &#123;</span><br><span class="line">	this.name &#x3D; [&#39;Lee&#39;, &#39;Jack&#39;, &#39;Hello&#39;]</span><br><span class="line">	this.age &#x3D; age;</span><br><span class="line">&#125;</span><br><span class="line">Box.prototype.run &#x3D; function () &#123;</span><br><span class="line">	return this.name + this.age;</span><br><span class="line">&#125;;</span><br><span class="line">function Desk(age) &#123;</span><br><span class="line">	Box.call(this, age); &#x2F;&#x2F;对象冒充</span><br><span class="line">&#125;</span><br><span class="line">Desk.prototype &#x3D; new Box(); &#x2F;&#x2F;原型链继承</span><br><span class="line">var desk &#x3D; new Desk(100);</span><br><span class="line">console.log(desk.run()); &#x2F;&#x2F;Lee,Jack,Hello100</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、原型式继承"><a href="#4、原型式继承" class="headerlink" title="4、原型式继承"></a>4、原型式继承</h3><p>这种继承借助原型并基于已有的对象创建新对象，<br>同时还不必因此创建自定义类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function obj(o) &#123; &#x2F;&#x2F;传递一个字面量函数</span><br><span class="line">	function F() &#123;&#125; &#x2F;&#x2F;创建一个构造函数</span><br><span class="line">	F.prototype &#x3D; o; &#x2F;&#x2F;把字面量函数赋值给构造函数的原型</span><br><span class="line">	return new F(); &#x2F;&#x2F;最终返回出实例化的构造函数</span><br><span class="line">&#125;</span><br><span class="line">var box &#x3D; &#123; &#x2F;&#x2F;字面量对象</span><br><span class="line">	name : &#39;Lee&#39;,</span><br><span class="line">	arr : [&#39;哥哥&#39;,&#39;妹妹&#39;,&#39;姐姐&#39;]</span><br><span class="line">&#125;;</span><br><span class="line">var box1 &#x3D; obj(box); &#x2F;&#x2F;传递</span><br><span class="line">console.log(box1.name); &#x2F;&#x2F; Lee</span><br><span class="line">box1.name &#x3D; &#39;Jack&#39;;</span><br><span class="line">console.log(box1.name); &#x2F;&#x2F; Jack</span><br><span class="line">console.log(box1.arr); &#x2F;&#x2F; (3) [&quot;哥哥&quot;, &quot;妹妹&quot;, &quot;姐姐&quot;]</span><br><span class="line">box1.arr.push(&#39;父母&#39;);</span><br><span class="line">console.log(box1.arr); &#x2F;&#x2F; (4) [&quot;哥哥&quot;, &quot;妹妹&quot;, &quot;姐姐&quot;, &quot;父母&quot;]</span><br><span class="line">var box2 &#x3D; obj(box); &#x2F;&#x2F;传递</span><br><span class="line">console.log(box2.name); &#x2F;&#x2F; Lee</span><br><span class="line">console.log(box2.arr); &#x2F;&#x2F;引用类型共享了 (4) [&quot;哥哥&quot;, &quot;妹妹&quot;, &quot;姐姐&quot;, &quot;父母&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、寄生组合式继承"><a href="#5、寄生组合式继承" class="headerlink" title="5、寄生组合式继承"></a>5、寄生组合式继承</h3><p>寄生组合式继承解决了两次调用的问题，组合式继承就会有两次调用的情况</p>
+<p>基本模型如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function object(o) &#123;</span><br><span class="line">    function F() &#123;&#125;</span><br><span class="line">    F.prototype &#x3D; o;</span><br><span class="line">    return new F();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function inheritPrototype(subType, superType) &#123;</span><br><span class="line">    var prototype &#x3D; object(superType.prototype);  &#x2F;&#x2F;创建对象</span><br><span class="line">    prototype.constructor &#x3D; subType;              &#x2F;&#x2F;增强对象</span><br><span class="line">    subType.prototype &#x3D; prototype;                &#x2F;&#x2F;指定对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、参考资料"><a href="#四、参考资料" class="headerlink" title="四、参考资料"></a>四、参考资料</h2><ul>
+<li><a href="https://blog.csdn.net/cc18868876837/article/details/81211729" target="_blank" rel="noopener">帮你彻底搞懂 JS 中的 prototype、<strong>proto</strong>与 constructor（图解）</a></li>
+<li><a href="https://blog.csdn.net/u011504806/article/details/80676490" target="_blank" rel="noopener">深入理解 JS 原型和继承</a></li>
+<li><a href="https://blog.csdn.net/m0_37846579/article/details/80278092" target="_blank" rel="noopener">JS 学习笔记 原型链和利用原型实现继承</a></li>
+<li><a href="https://www.cnblogs.com/laugh/p/4358576.html" target="_blank" rel="noopener">面向对象与原型—继承</a></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-20_聊一聊js的作用域和作用域链" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:19.000Z"><a href="/2020/05/29/20_聊一聊js的作用域和作用域链/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/05/29/20_聊一聊js的作用域和作用域链/">20_聊一聊js的作用域和作用域链</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、JavaScript-作用域"><a href="#一、JavaScript-作用域" class="headerlink" title="一、JavaScript 作用域"></a>一、JavaScript 作用域</h2><p>任何程序设计语言都有作用域的概念，简单的说，作用域就是变量与函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。在 JavaScript 中，变量的作用域有全局作用域和局部作用域两种。</p>
+<h3 id="1、全局作用域（Global-Scope）"><a href="#1、全局作用域（Global-Scope）" class="headerlink" title="1、全局作用域（Global Scope）"></a>1、全局作用域（Global Scope）</h3><p>在代码中任何地方都能访问到的对象拥有全局作用域，一般来说以下几种情形拥有全局作用域：</p>
+<h4 id="（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域"><a href="#（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域" class="headerlink" title="（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域"></a>（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var teacher&#x3D;&quot;小林老师&quot;;</span><br><span class="line">function doSomething()&#123;</span><br><span class="line">    var course&#x3D;&quot;前端面试&quot;;</span><br><span class="line">    function innerSay()&#123;</span><br><span class="line">        alert(course);</span><br><span class="line">    &#125;</span><br><span class="line">    innerSay();</span><br><span class="line">&#125;</span><br><span class="line">alert(teacher); &#x2F;&#x2F;小林老师</span><br><span class="line">alert(course); &#x2F;&#x2F;脚本错误</span><br><span class="line">doSomething(); &#x2F;&#x2F;前端面试</span><br><span class="line">innerSay() &#x2F;&#x2F;脚本错误</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）所有末定义直接赋值的变量自动声明为拥有全局作用域"><a href="#（2）所有末定义直接赋值的变量自动声明为拥有全局作用域" class="headerlink" title="（2）所有末定义直接赋值的变量自动声明为拥有全局作用域"></a>（2）所有末定义直接赋值的变量自动声明为拥有全局作用域</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function doSomething()&#123;</span><br><span class="line">    var teacher&#x3D;&quot;小林老师&quot;;</span><br><span class="line">    course&#x3D;&quot;前端面试&quot;;</span><br><span class="line">    alert(teacher);</span><br><span class="line">&#125;</span><br><span class="line">doSomething(); &#x2F;&#x2F;山边小溪</span><br><span class="line">alert(course); &#x2F;&#x2F;前端面试</span><br><span class="line">alert(teacher); &#x2F;&#x2F;脚本错误</span><br></pre></td></tr></table></figure>
+
+<p>变量 course 拥有全局作用域，而 teacher 在函数外部无法访问到。</p>
+<h4 id="（3）所有-window-对象的属性拥有全局作用域"><a href="#（3）所有-window-对象的属性拥有全局作用域" class="headerlink" title="（3）所有 window 对象的属性拥有全局作用域"></a>（3）所有 window 对象的属性拥有全局作用域</h4><p>一般情况下，window 对象的内置属性都拥有全局作用域，例如 window.name、window.location、window.top 等等。</p>
+<h3 id="2、局部作用域（Local-Scope）"><a href="#2、局部作用域（Local-Scope）" class="headerlink" title="2、局部作用域（Local Scope）　"></a>2、局部作用域（Local Scope）　</h3><p>和全局作用域相反，局部作用域一般只在固定的代码片段内可访问到，最常见的例如函数内部，所以在一些地方也会看到有人把这种作用域称为函数作用域，例如下列代码中的 course 和函数 innerSay 都只拥有局部作用域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function doSomething()&#123;</span><br><span class="line">    var course&#x3D;&quot;前端面试&quot;;</span><br><span class="line">    function innerSay()&#123;</span><br><span class="line">        alert(course);</span><br><span class="line">    &#125;</span><br><span class="line">    innerSay();</span><br><span class="line">&#125;</span><br><span class="line">alert(course); &#x2F;&#x2F;脚本错误</span><br><span class="line">innerSay(); &#x2F;&#x2F;脚本错误</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、作用域链（Scope-Chain）"><a href="#二、作用域链（Scope-Chain）" class="headerlink" title="二、作用域链（Scope Chain）"></a>二、作用域链（Scope Chain）</h2><p>在 JavaScript 中，函数也是对象，实际上，JavaScript 里一切都是对象。函数对象和其它对象一样，拥有可以通过代码访问的属性和一系列仅供 JavaScript 引擎访问的内部属性。其中一个内部属性是[[Scope]]，由 ECMA-262 标准第三版定义，该内部属性包含了函数被创建的作用域中对象的集合，这个集合被称为函数的作用域链，它决定了哪些数据能被函数访问。</p>
+<p>当一个函数创建后，它的作用域链会被创建此函数的作用域中可访问的数据对象填充。例如定义下面这样一个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function add(num1,num2) &#123;</span><br><span class="line">    var sum &#x3D; num1 + num2;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在函数 add 创建时，它的作用域链中会填入一个全局对象，该全局对象包含了所有全局变量，如下图所示（注意：图片只例举了全部变量中的一部分）：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-8e94949384607302.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>函数 add 的作用域将会在执行时用到。例如执行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var total &#x3D; add(5,10);</span><br></pre></td></tr></table></figure>
+
+<p>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。</p>
+<p>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中。它们共同组成了一个新的对象，叫“活动对象(activation object)”，该对象包含了函数的所有局部变量、命名参数、参数集合以及 this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁。新的作用域链如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-0c75fe69b997e70f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
+<h2 id="三、作用域链和代码优化"><a href="#三、作用域链和代码优化" class="headerlink" title="三、作用域链和代码优化"></a>三、作用域链和代码优化</h2><p>从作用域链的结构可以看出，在运行期上下文的作用域链中，标识符所在的位置越深，读写速度就会越慢。如上图所示，因为全局变量总是存在于运行期上下文作用域链的最末端，因此在标识符解析的时候，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。一个好的经验法则是：如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。例如下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function changeColor()&#123;</span><br><span class="line">    document.getElementById(&quot;btnChange&quot;).onclick&#x3D;function()&#123;</span><br><span class="line">        document.getElementById(&quot;targetCanvas&quot;).style.backgroundColor&#x3D;&quot;red&quot;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数引用了两次全局变量 document，查找该变量必须遍历整个作用域链，直到最后在全局对象中才能找到。这段代码可以重写如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function changeColor()&#123;</span><br><span class="line">    var doc&#x3D;document;</span><br><span class="line">    doc.getElementById(&quot;btnChange&quot;).onclick&#x3D;function()&#123;</span><br><span class="line">        doc.getElementById(&quot;targetCanvas&quot;).style.backgroundColor&#x3D;&quot;red&quot;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码比较简单，重写后不会显示出巨大的性能提升，但是如果程序中有大量的全局变量被从反复访问，那么重写后的代码性能会有显著改善。</p>
+<h2 id="四、改变作用域链"><a href="#四、改变作用域链" class="headerlink" title="四、改变作用域链"></a>四、改变作用域链</h2><p>函数每次执行时对应的运行期上下文都是独一无二的，所以多次调用同一个函数就会导致创建多个运行期上下文，当函数执行完毕，执行上下文会被销毁。每一个运行期上下文都和一个作用域链关联。一般情况下，在运行期上下文运行的过程中，其作用域链只会被 with 语句和 catch 语句影响。</p>
+<p>with 语句是对象的快捷应用方式，用来避免书写重复代码。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function initUI()&#123;</span><br><span class="line">    with(document)&#123;</span><br><span class="line">        var bd&#x3D;body,</span><br><span class="line">            links&#x3D;getElementsByTagName(&quot;a&quot;),</span><br><span class="line">            i&#x3D;0,</span><br><span class="line">            len&#x3D;links.length;</span><br><span class="line">        while(i &lt; len)&#123;</span><br><span class="line">            update(links[i++]);</span><br><span class="line">        &#125;</span><br><span class="line">        getElementById(&quot;btnInit&quot;).onclick&#x3D;function()&#123;</span><br><span class="line">            doSomething();</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里使用 with 语句来避免多次书写 document，看上去更高效，实际上产生了性能问题。</p>
+<p>当代码运行到 with 语句时，运行期上下文的作用域链临时被改变了。一个新的可变对象被创建，它包含了参数指定的对象的所有属性。这个对象将被推入作用域链的头部，这意味着函数的所有局部变量现在处于第二个作用域链对象中，因此访问代价更高了。如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-f41a6d662b2f7f80.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>因此在程序中应避免使用 with 语句，在这个例子中，只要简单的把 document 存储在一个局部变量中就可以提升性能。</p>
+<p>另外一个会改变作用域链的是 try-catch 语句中的 catch 语句。当 try 代码块中发生错误时，执行过程会跳转到 catch 语句，然后把异常对象推入一个可变对象并置于作用域的头部。在 catch 代码块内部，函数的所有局部变量将会被放在第二个作用域链对象中。示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;catch(ex)&#123;</span><br><span class="line">    alert(ex.message); &#x2F;&#x2F;作用域链在此处改变</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意，一旦 catch 语句执行完毕，作用域链机会返回到之前的状态。try-catch 语句在代码调试和异常处理中非常有用，因此不建议完全避免。你可以通过优化代码来减少 catch 语句对性能的影响。一个很好的模式是将错误委托给一个函数处理，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;catch(ex)&#123;</span><br><span class="line">    handleError(ex); &#x2F;&#x2F;委托给处理器方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优化后的代码，handleError 方法是 catch 子句中唯一执行的代码。该函数接收异常对象作为参数，这样你可以更加灵活和统一的处理错误。由于只执行一条语句，且没有局部变量的访问，作用域链的临时改变就不会影响代码性能了。</p>
+<h2 id="五、参考资料"><a href="#五、参考资料" class="headerlink" title="五、参考资料"></a>五、参考资料</h2><ul>
+<li><a href="https://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="noopener">JavaScript 开发进阶：理解 JavaScript 作用域和作用域链</a></li>
+<li><a href="https://developer.51cto.com/art/201903/593198.htm" target="_blank" rel="noopener">深入理解 JavaScript 作用域和作用域链</a></li>
+<li><a href="https://github.com/creeperyang/blog/issues/16" target="_blank" rel="noopener">深入理解 JS 中声明提升、作用域（链）和 this 关键字</a></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/" class="alignleft prev">Prev</a>
+  
+  
+    <a href="/page/3/" class="alignright next">Next</a>
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

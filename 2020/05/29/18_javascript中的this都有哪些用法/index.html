@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>18_javascript中的this都有哪些用法 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="18_javascript中的this都有哪些用法" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-18_javascript中的this都有哪些用法" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-05-29T04:12:21.000Z"><a href="/2020/05/29/18_javascript中的this都有哪些用法/">2020-05-29</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">18_javascript中的this都有哪些用法</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、this-的用法"><a href="#一、this-的用法" class="headerlink" title="一、this 的用法"></a>一、this 的用法</h2><h3 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h3><ul>
+<li>什么是 this：在调用函数时，引用正在调用函数的对象的关键字</li>
+<li>何时使用：只要对象自己的方法，要使用自己的属性时，就用 this</li>
+</ul>
+<p>简而言之，就是 function 的 this 永远指向调用它的对象。而鉴于 JS 所谓的“万物皆对象”，这个 this 因此可以是任何物件，比如 Global 对象。</p>
+<h3 id="2、使用方法"><a href="#2、使用方法" class="headerlink" title="2、使用方法"></a>2、使用方法</h3><h4 id="（1）单独的-this，指向的是-window-这个对象"><a href="#（1）单独的-this，指向的是-window-这个对象" class="headerlink" title="（1）单独的 this，指向的是 window 这个对象"></a>（1）单独的 this，指向的是 window 这个对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(this); &#x2F;&#x2F; this -&gt; window</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）全局函数中的-this"><a href="#（2）全局函数中的-this" class="headerlink" title="（2）全局函数中的 this"></a>（2）全局函数中的 this</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function test()&#123; 　　　　</span><br><span class="line">    this.x &#x3D; 1; 　　</span><br><span class="line">    alert(this); &#x2F;&#x2F; this -&gt; window</span><br><span class="line">    alert(this.x); &#x2F;&#x2F; 1 　 　</span><br><span class="line">&#125; 　　</span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+
+<p>在严格模式下，this 是 undefined.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function demo() &#123;</span><br><span class="line"> &#39;use strict&#39;;</span><br><span class="line">  alert(this); &#x2F;&#x2F; undefined</span><br><span class="line">&#125;</span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）作为构造函数调用，this-指代-new-出的对象"><a href="#（3）作为构造函数调用，this-指代-new-出的对象" class="headerlink" title="（3）作为构造函数调用，this 指代 new 出的对象"></a>（3）作为构造函数调用，this 指代 new 出的对象</h4><p>所谓构造函数，就是通过这个函数生成一个新对象，这时，this 就指向这个对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function demo() &#123;</span><br><span class="line"> &#x2F;&#x2F;alert(this); &#x2F;&#x2F; this -&gt; object</span><br><span class="line"> this.testStr &#x3D; &#39;this is a test&#39;;</span><br><span class="line">&#125;</span><br><span class="line">let a &#x3D; new demo();</span><br><span class="line">alert(a.testStr); &#x2F;&#x2F; &#39;this is a test&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（4）对象中的方法，该方法被哪个对象调用了，那么方法中的-this-就指向该对象"><a href="#（4）对象中的方法，该方法被哪个对象调用了，那么方法中的-this-就指向该对象" class="headerlink" title="（4）对象中的方法，该方法被哪个对象调用了，那么方法中的 this 就指向该对象"></a>（4）对象中的方法，该方法被哪个对象调用了，那么方法中的 this 就指向该对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let name &#x3D; &#39;finget&#39;</span><br><span class="line">let obj &#x3D; &#123;</span><br><span class="line"> name: &#39;FinGet&#39;,</span><br><span class="line"> getName: function() &#123;</span><br><span class="line">    alert(this.name);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.getName(); &#x2F;&#x2F; FinGet</span><br></pre></td></tr></table></figure>
+
+<h4 id="（5）用-call-与-apply-的方式调用函数"><a href="#（5）用-call-与-apply-的方式调用函数" class="headerlink" title="（5）用 call 与 apply 的方式调用函数"></a>（5）用 call 与 apply 的方式调用函数</h4><p>作用是改变函数的调用对象，此方法的第一个参数为改变后调用这个函数的对象，this 指代第一个参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var x &#x3D; 0;</span><br><span class="line">function test() &#123;</span><br><span class="line">　　alert(this.x);</span><br><span class="line">&#125;</span><br><span class="line">var o &#x3D; &#123;&#125;;</span><br><span class="line">o.x &#x3D; 1;</span><br><span class="line">o.m &#x3D; test;</span><br><span class="line">o.m.apply(); &#x2F;&#x2F;0</span><br><span class="line">&#x2F;&#x2F;apply()的参数为空时，默认调用全局对象。因此，这时的运行结果为0，证明this指的是全局对象。如果把最后一行代码修改为</span><br><span class="line"></span><br><span class="line">o.m.apply(o); &#x2F;&#x2F;1</span><br></pre></td></tr></table></figure>
+
+<h4 id="（6）定时器中的-this，指向的是-window"><a href="#（6）定时器中的-this，指向的是-window" class="headerlink" title="（6）定时器中的 this，指向的是 window"></a>（6）定时器中的 this，指向的是 window</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function() &#123;</span><br><span class="line"> alert(this); &#x2F;&#x2F; this -&gt; window ，严格模式 也是指向window</span><br><span class="line">&#125;,500)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（7）元素绑定事件，事件触发后，执行的函数中的-this，指向的是当前元素"><a href="#（7）元素绑定事件，事件触发后，执行的函数中的-this，指向的是当前元素" class="headerlink" title="（7）元素绑定事件，事件触发后，执行的函数中的 this，指向的是当前元素"></a>（7）元素绑定事件，事件触发后，执行的函数中的 this，指向的是当前元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">window.onload &#x3D; function() &#123;</span><br><span class="line"> let $btn &#x3D; document.getElementById(&#39;btn&#39;);</span><br><span class="line"> $btn.onclick &#x3D; function()&#123;</span><br><span class="line">    alert(this); &#x2F;&#x2F; this -&gt; 当前触发</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（8）函数调用时如果绑定了-bind，那么函数中的-this-指向了-bind-中绑定的元素"><a href="#（8）函数调用时如果绑定了-bind，那么函数中的-this-指向了-bind-中绑定的元素" class="headerlink" title="（8）函数调用时如果绑定了 bind，那么函数中的 this 指向了 bind 中绑定的元素"></a>（8）函数调用时如果绑定了 bind，那么函数中的 this 指向了 bind 中绑定的元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">window.onload &#x3D; function() &#123;</span><br><span class="line"> let $btn &#x3D; document.getElementById(&#39;btn&#39;);</span><br><span class="line"> $btn.addEventListener(&#39;click&#39;,function() &#123;</span><br><span class="line">    alert(this); &#x2F;&#x2F; window</span><br><span class="line"> &#125;.bind(window))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、面试题"><a href="#二、面试题" class="headerlink" title="二、面试题"></a>二、面试题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var x &#x3D; 20;</span><br><span class="line">var a &#x3D; &#123;</span><br><span class="line"> x: 15,</span><br><span class="line"> fn: function() &#123;</span><br><span class="line"> var x &#x3D; 30;</span><br><span class="line"> return function() &#123;</span><br><span class="line">  return this.x</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a.fn());</span><br><span class="line">console.log((a.fn())());</span><br><span class="line">console.log(a.fn()());</span><br><span class="line">console.log(a.fn()() &#x3D;&#x3D; (a.fn())());</span><br><span class="line">console.log(a.fn().call(this));</span><br><span class="line">console.log(a.fn().call(a));</span><br></pre></td></tr></table></figure>
+
+<h3 id="1、console-log-a-fn"><a href="#1、console-log-a-fn" class="headerlink" title="1、console.log(a.fn());"></a>1、console.log(a.fn());</h3><p>对象调用方法，返回了一个方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># function() &#123;return this.x&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、console-log-a-fn"><a href="#2、console-log-a-fn" class="headerlink" title="2、console.log((a.fn())());"></a>2、console.log((a.fn())());</h3><p>a.fn()返回的是一个函数，()()这是自执行表达式。this -&gt; window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 20</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、console-log-a-fn"><a href="#3、console-log-a-fn" class="headerlink" title="3、console.log(a.fn()());"></a>3、console.log(a.fn()());</h3><p>a.fn()相当于在全局定义了一个函数，然后再自己调用执行。this -&gt; window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 20</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、console-log-a-fn-a-fn"><a href="#4、console-log-a-fn-a-fn" class="headerlink" title="4、console.log(a.fn()() == (a.fn())());"></a>4、console.log(a.fn()() == (a.fn())());</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># true</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、console-log-a-fn-call-this"><a href="#5、console-log-a-fn-call-this" class="headerlink" title="5、console.log(a.fn().call(this));"></a>5、console.log(a.fn().call(this));</h3><p>这段代码在全局环境中执行，this -&gt; window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 20</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、console-log-a-fn-call-a"><a href="#6、console-log-a-fn-call-a" class="headerlink" title="6、console.log(a.fn().call(a));"></a>6、console.log(a.fn().call(a));</h3><p>this -&gt; a</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 15</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2020/05/29/18_javascript%E4%B8%AD%E7%9A%84this%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%94%A8%E6%B3%95/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/38个javascript面试必考点/">38个javascript面试必考点</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>38</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
