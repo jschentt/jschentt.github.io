@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>pm2常用的命令用法介绍 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="pm2常用的命令用法介绍" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-pm2常用的命令用法介绍" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/pm2常用的命令用法介绍/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">pm2常用的命令用法介绍</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>pm2 是一个带有负载均衡功能的Node应用的进程管理器.当你要把你的独立代码利用全部的服务器上的所有CPU,并保证进程永远都活着,0秒的重载, PM2是完美的,下面我们来看pm2常用的命令用法介绍吧。</p>
+<p>PM2 （github上的源码）是开源的基于Nodejs的进程管理器，包括守护进程，监控，日志的一整套完整的功能，基本是Nodejs应用程序不二的守护进程选择，事实上它并不仅仅可以启动Nodejs的程序，只要是一般的脚本的程序它同样可以胜任。</p>
+<p>以下是pm2常用的命令行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 start app.js              # 启动app.js应用程序</span><br><span class="line"></span><br><span class="line">$ pm2 start app.js -i 4         # cluster mode 模式启动4个app.js的应用实例     # 4个应用程序会自动进行负载均衡</span><br><span class="line"></span><br><span class="line">$ pm2 start app.js --name&#x3D;&quot;api&quot; # 启动应用程序并命名为 &quot;api&quot;</span><br><span class="line"></span><br><span class="line">$ pm2 start app.js --watch      # 当文件变化时自动重启应用</span><br><span class="line"></span><br><span class="line">$ pm2 start script.sh           # 启动 bash 脚本</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ pm2 list                      # 列表 PM2 启动的所有的应用程序</span><br><span class="line"></span><br><span class="line">$ pm2 monit                     # 显示每个应用程序的CPU和内存占用情况</span><br><span class="line"></span><br><span class="line">$ pm2 show [app-name]           # 显示应用程序的所有信息</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ pm2 logs                      # 显示所有应用程序的日志</span><br><span class="line"></span><br><span class="line">$ pm2 logs [app-name]           # 显示指定应用程序的日志</span><br><span class="line"></span><br><span class="line">$ pm2 flush</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ pm2 stop all                  # 停止所有的应用程序</span><br><span class="line"></span><br><span class="line">$ pm2 stop 0                    # 停止 id为 0的指定应用程序</span><br><span class="line"></span><br><span class="line">$ pm2 restart all               # 重启所有应用</span><br><span class="line"></span><br><span class="line">$ pm2 reload all                # 重启 cluster mode下的所有应用</span><br><span class="line"></span><br><span class="line">$ pm2 gracefulReload all        # Graceful reload all apps in cluster mode</span><br><span class="line"></span><br><span class="line">$ pm2 delete all                # 关闭并删除所有应用</span><br><span class="line"></span><br><span class="line">$ pm2 delete 0                  # 删除指定应用 id 0</span><br><span class="line"></span><br><span class="line">$ pm2 scale api 10              # 把名字叫api的应用扩展到10个实例</span><br><span class="line"></span><br><span class="line">$ pm2 reset [app-name]          # 重置重启数量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ pm2 startup                   # 创建开机自启动命令</span><br><span class="line"></span><br><span class="line">$ pm2 save                      # 保存当前应用列表</span><br><span class="line"></span><br><span class="line">$ pm2 resurrect                 # 重新加载保存的应用列表</span><br><span class="line"></span><br><span class="line">$ pm2 update                    # Save processes, kill PM2 and restore processes</span><br><span class="line"></span><br><span class="line">$ pm2 generate                  # Generate a sample json configuration file</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ pm2 deploy app.json prod setup    # Setup &quot;prod&quot; remote server</span><br><span class="line"></span><br><span class="line">$ pm2 deploy app.json prod          # Update &quot;prod&quot; remote server</span><br><span class="line"></span><br><span class="line">$ pm2 deploy app.json prod revert 2 # Revert &quot;prod&quot; remote server by 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ pm2 module:generate [name]    # Generate sample module with name [name]</span><br><span class="line"></span><br><span class="line">$ pm2 install pm2-logrotate     # Install module (here a log rotation system)</span><br><span class="line"></span><br><span class="line">$ pm2 uninstall pm2-logrotate   # Uninstall module</span><br><span class="line"></span><br><span class="line">$ pm2 publish                   # Increment version, git push and npm publish</span><br></pre></td></tr></table></figure>
+<h2 id="一-安装"><a href="#一-安装" class="headerlink" title="一.安装"></a>一.安装</h2><p>全局安装，简直不能更简单。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">​npm install -g pm2</span><br></pre></td></tr></table></figure>
+<p>pm2安装好后，会自动创建下面目录。看文件名基本就知道干嘛的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$HOME&#x2F;.pm2 will contain all PM2 related files</span><br><span class="line">$HOME&#x2F;.pm2&#x2F;logs will contain all applications logs</span><br><span class="line">$HOME&#x2F;.pm2&#x2F;pids will contain all applications pids</span><br><span class="line">$HOME&#x2F;.pm2&#x2F;pm2.log PM2 logs</span><br><span class="line">$HOME&#x2F;.pm2&#x2F;pm2.pid PM2 pid</span><br><span class="line">$HOME&#x2F;.pm2&#x2F;rpc.sock Socket file for remote commands</span><br><span class="line">$HOME&#x2F;.pm2&#x2F;pub.sock Socket file for publishable events</span><br><span class="line">$HOME&#x2F;.pm2&#x2F;conf.js PM2 Configuration</span><br></pre></td></tr></table></figure>
+<h2 id="二-入门教程"><a href="#二-入门教程" class="headerlink" title="二.入门教程"></a>二.入门教程</h2><p>挑我们最爱的express应用来举例。一般我们都是通过npm start启动应用，其实就是调用node ./bin/www。那么，换成pm2就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start .&#x2F;bin&#x2F;www –watch</span><br></pre></td></tr></table></figure>
+<p>注意，这里用了–watch参数，意味着当你的express应用代码发生变化时，pm2会帮你重启服务，多贴心。</p>
+<p>参数说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--watch：监听应用目录的变化，一旦发生变化，自动重启。如果要精确监听、不监听的目录，最好通过配置文件。</span><br><span class="line">-i --instances：启用多少个实例，可用于负载均衡。如果-i 0或者-i max，则根据当前机器核数确定实例数目。</span><br><span class="line">--ignore-watch：排除监听的目录&#x2F;文件，可以是特定的文件名，也可以是正则。比如--ignore-watch&#x3D;&quot;test node_modules &quot;some scripts&quot;&quot;</span><br><span class="line">-n --name：应用的名称。查看应用信息的时候可以用到。</span><br><span class="line">-o --output &lt;path&gt;：标准输出日志文件的路径。</span><br><span class="line">-e --error &lt;path&gt;：错误输出日志文件的路径。</span><br><span class="line">--interpreter &lt;interpreter&gt;：the interpreter pm2 should use for executing app (bash, python...)。比如你用的coffee script来编写应用。</span><br></pre></td></tr></table></figure>
+<h2 id="三-重启"><a href="#三-重启" class="headerlink" title="三.重启"></a>三.重启</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 restart app.js</span><br></pre></td></tr></table></figure>
+<h2 id="四-停止"><a href="#四-停止" class="headerlink" title="四.停止"></a>四.停止</h2><p>停止特定的应用。可以先通过pm2 list获取应用的名字（–name指定的）或者进程id。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 stop app_name|app_id</span><br></pre></td></tr></table></figure>
+
+<p>　　如果要停止所有应用，可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 stop all</span><br></pre></td></tr></table></figure>
+
+<h2 id="五-查看进程状态"><a href="#五-查看进程状态" class="headerlink" title="五.查看进程状态"></a>五.查看进程状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 list</span><br></pre></td></tr></table></figure>
+
+<h2 id="六-配置文件"><a href="#六-配置文件" class="headerlink" title="六.配置文件"></a>六.配置文件</h2><p>　　配置文件里的设置项，跟命令行参数基本是一一对应的。可以选择yaml或者json文件，就看个人喜好了。json格式的配置文件，pm2当作普通的js文件来处理，所以可以在里面添加注释或者编写代码，这对于动态调整配置很有好处。<br>　　如果启动的时候指定了配置文件，那么命令行参数会被忽略。（个别参数除外，比如–env）</p>
+<p>　　举个简单例子，完整配置说明请参考官方文档。
+　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  “name” : “fis-receiver”, &#x2F;&#x2F; 应用名称</span><br><span class="line">  “script” : “.&#x2F;bin&#x2F;www”, &#x2F;&#x2F; 实际启动脚本</span><br><span class="line">  “cwd” : “.&#x2F;”, &#x2F;&#x2F; 当前工作路径</span><br><span class="line">  “watch”: [ &#x2F;&#x2F; 监控变化的目录，一旦变化，自动重启</span><br><span class="line">    “bin”,</span><br><span class="line">    “routers”</span><br><span class="line">  ],</span><br><span class="line">  “ignore_watch” : [</span><br><span class="line">    &#x2F;&#x2F; 从监控目录中排除</span><br><span class="line">    “node_modules”,</span><br><span class="line">    “logs”,</span><br><span class="line">    “public”</span><br><span class="line">  ],</span><br><span class="line">  “watch_options”: &#123;</span><br><span class="line">    “followSymlinks”: false</span><br><span class="line">  &#125;,</span><br><span class="line">  “error_file” : “.&#x2F;logs&#x2F;app-err.log”, &#x2F;&#x2F; 错误日志路径</span><br><span class="line">  “out_file” : “.&#x2F;logs&#x2F;app-out.log”, &#x2F;&#x2F; 普通日志路径</span><br><span class="line">  “env”: &#123;</span><br><span class="line">    “NODE_ENV”: “production” &#x2F;&#x2F; 环境参数，当前指定为生产环境</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="七-pm2-start-app-js-–watch"><a href="#七-pm2-start-app-js-–watch" class="headerlink" title="七.pm2 start app.js –watch"></a>七.pm2 start app.js –watch</h2><p>　　这里是监控整个项目的文件，如果只想监听指定文件和目录，建议通过配置文件的watch、ignore_watch字段来设置。</p>
+<h2 id="八-环境切换"><a href="#八-环境切换" class="headerlink" title="八.环境切换"></a>八.环境切换</h2><p>　　在实际项目开发中，我们的应用经常需要在多个环境下部署，比如开发环境、测试环境、生产环境等。在不同环境下，有时候配置项会有差异，比如链接的数据库地址不同等。</p>
+<p>　　对于这种场景，pm2也是可以很好支持的。首先通过在配置文件中通过env_xx来声明不同环境的配置，然后在启动应用时，通过–env参数指定运行的环境。</p>
+<p>　　首先，在配置文件中，通过env选项声明多个环境配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">“env”: &#123; “NODE_ENV”: “production”, “REMOTE_ADDR”: “http:&#x2F;&#x2F;www.example.com&#x2F;” &#125;,</span><br><span class="line">​”env_dev”: &#123; “NODE_ENV”: “development”, “REMOTE_ADDR”: “http:&#x2F;&#x2F;wdev.example.com&#x2F;” &#125;,</span><br><span class="line">​”env_test”: &#123; “NODE_ENV”: “test”, “REMOTE_ADDR”: “http:&#x2F;&#x2F;wtest.example.com&#x2F;” &#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　env为默认的环境配置（生产环境），env_dev、env_test则分别是开发、测试环境。可以看到，不同环境下的NODE_ENV、REMOTE_ADDR字段的值是不同的。</p>
+<p>　　在应用中，可以通过process.env.REMOTE_ADDR等来读取配置中声明的变量。</p>
+<p>　　假设通过下面启动脚本（开发环境），那么，此时process.env.REMOTE_ADDR的值就是相应的 <a href="http://wdev.example.com/。" target="_blank" rel="noopener">http://wdev.example.com/。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js –env dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="九-负载均衡"><a href="#九-负载均衡" class="headerlink" title="九.负载均衡"></a>九.负载均衡</h2><p>　　命令如下，表示开启三个进程。如果-i 0，则会根据机器当前核数自动开启尽可能多的进程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js -i 3 # 开启三个进程</span><br><span class="line">​pm2 start app.js -i max # 根据机器CPU核数，开启对应数目的进程</span><br></pre></td></tr></table></figure>
+
+<h2 id="十-日志查看"><a href="#十-日志查看" class="headerlink" title="十.日志查看"></a>十.日志查看</h2><p>　　除了可以打开日志文件查看日志外，还可以通过pm2 logs来查看实时日志。这点对于线上问题排查非常重要。</p>
+<p>　　比如某个node服务突然异常重启了，那么可以通过pm2提供的日志工具来查看实时日志，看是不是脚本出错之类导致的异常重启。</p>
+<h2 id="十一-开机自动启动"><a href="#十一-开机自动启动" class="headerlink" title="十一.开机自动启动"></a>十一.开机自动启动</h2><p>　　可以通过pm2 startup来实现开机自启动。细节可参考。大致流程如下：</p>
+<ol>
+<li>通过pm2 save保存当前进程状态。</li>
+<li>通过pm2 startup [platform]生成开机自启动的命令。（记得查看控制台输出）</li>
+<li>将步骤2生成的命令，粘贴到控制台进行，搞定。</li>
+</ol>
+<p>　　假设是在centos下，那么运行如下命令，搞定。强烈建议运行完成之后，重启机器，看是否设置成功。
+　　
+　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ94wb7tioqZ option_analysis]# pm2 save</span><br><span class="line">​[root@iZ94wb7tioqZ option_analysis]# pm2 startup centos</span><br><span class="line">​[PM2] Generating system init script in &#x2F;etc&#x2F;init.d&#x2F;pm2-init.sh</span><br><span class="line">[PM2] Making script booting at startup…</span><br><span class="line">[PM2] &#x2F;var&#x2F;lock&#x2F;subsys&#x2F;pm2-init.sh lockfile has been added</span><br><span class="line">[PM2] -centos- Using the command:</span><br><span class="line">su -c “chmod +x &#x2F;etc&#x2F;init.d&#x2F;pm2-init.sh; chkconfig –add pm2-init.sh”</span><br><span class="line">​[PM2] Done.</span><br><span class="line">[root@iZ94wb7tioqZ option_analysis]# pm2 save</span><br><span class="line">​[PM2] Dumping processes</span><br></pre></td></tr></table></figure>
+<h2 id="十二-监控-monitor"><a href="#十二-监控-monitor" class="headerlink" title="十二.监控(monitor)"></a>十二.监控(monitor)</h2><p>　　运行如下命令，查看当前通过pm2运行的进程的状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 monit</span><br></pre></td></tr></table></figure>
+
+<p>　　看到类似输出
+　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@oneday-dev0 server]# pm2 monit</span><br><span class="line">​ PM2 monitoring (To go further check out https:&#x2F;&#x2F;app.keymetrics.io) [ ] 0 %</span><br><span class="line">​PM2 monitoring (To go further check o[||||||||||||||| ] 196.285 MB</span><br><span class="line">​● fis-receiver [ ] 0 % [1] [fork_mode] [||||| ] 65.773 MB</span><br><span class="line">​● www [ ] 0 % [2] [fork_mode] [||||| ] 74.426 MB</span><br><span class="line">​● oc-server [ ] 0 % [3] [fork_mode] [|||| ] 57.801 MB</span><br><span class="line">​● pm2-http-interface [ ] stopped</span><br><span class="line">[4] [fork_mode] [ ] 0 B</span><br><span class="line">​● start-production</span><br><span class="line">[5] [fork_mode]</span><br></pre></td></tr></table></figure>
+<h2 id="十三-内存使用超过上限自动重启"><a href="#十三-内存使用超过上限自动重启" class="headerlink" title="十三.内存使用超过上限自动重启"></a>十三.内存使用超过上限自动重启</h2><p>　　如果想要你的应用，在超过使用内存上限后自动重启，那么可以加上–max-memory-restart参数。（有对应的配置项）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start big-array.js –max-memory-restart 20M</span><br></pre></td></tr></table></figure>
+
+<h2 id="十四-pm2-nginx"><a href="#十四-pm2-nginx" class="headerlink" title="十四.pm2 + nginx"></a>十四.pm2 + nginx</h2><p>　　无非就是在nginx上做个反向代理配置，直接贴配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">upstream my_nodejs_upstream &#123;</span><br><span class="line">  server 127.0.0.1:3001;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">  listen 80;</span><br><span class="line">  server_name my_nodejs_server;</span><br><span class="line">  root &#x2F;home&#x2F;www&#x2F;project_root;</span><br><span class="line">  location &#x2F; &#123;</span><br><span class="line">    proxy_set_header X-Forwarded-For proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header Hostproxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header Hosthttp_host;</span><br><span class="line">    proxy_set_header X-NginX-Proxy true;</span><br><span class="line">    proxy_http_version 1.1;</span><br><span class="line">    proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">    proxy_set_header Connection “upgrade”;</span><br><span class="line">    proxy_max_temp_file_size 0;</span><br><span class="line">    proxy_pass http:&#x2F;&#x2F;my_nodejs_upstream&#x2F;;</span><br><span class="line">    proxy_redirect off;</span><br><span class="line">    proxy_read_timeout 240s;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>官方文档：<a href="http://pm2.keymetrics.io/docs/tutorials/pm2-nginx-production-setup" target="_blank" rel="noopener">http://pm2.keymetrics.io/docs/tutorials/pm2-nginx-production-setup</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/常用指令合集/">常用指令合集</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/指令合集/">指令合集</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/pm2%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

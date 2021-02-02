@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>JavaScript——链表相关 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="JavaScript——链表相关" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-JavaScript——链表相关" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/JavaScript——链表相关/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">JavaScript——链表相关</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>输入一个链表，反转链表后，输出新链表的表头。</p>
+<p>例如：</p>
+<p>输入：a-&gt;b-&gt;c-&gt;d-&gt;e</p>
+<p>输出：a&lt;-b&lt;-c&lt;-d&lt;-e</p>
+<p>反转链表示意图如下，链表的最后一个元素next指向null。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190408161404713.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI3OTU0NjQz,size_16,color_FFFFFF,t_70" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*function ListNode(x)&#123;</span><br><span class="line">    this.val &#x3D; x;</span><br><span class="line">    this.next &#x3D; null;</span><br><span class="line">&#125;*&#x2F;</span><br><span class="line"></span><br><span class="line">function isEmptyObject(obj) &#123;&#x2F;&#x2F; 判断输入参数链表是否为空</span><br><span class="line">  for (var name in obj) &#123;</span><br><span class="line">      return false;</span><br><span class="line">  &#125;</span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ReverseList(pHead) &#123;</span><br><span class="line">    if (isEmptyObject(pHead)) &#123;&#x2F;&#x2F; 调用链表是否为空函数</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    var pre &#x3D; null;&#x2F;&#x2F;链表的最后一个元素</span><br><span class="line">    var next &#x3D; null;&#x2F;&#x2F;初始化next为null，下面再赋值</span><br><span class="line">    while (pHead !&#x3D; null) &#123;&#x2F;&#x2F;pHead移动，直至到链表最后一个元素，指向null，结束循环</span><br><span class="line">        next &#x3D; pHead.next;&#x2F;&#x2F;pHead.next值先赋给next，以免覆盖，next移动</span><br><span class="line">        pHead.next &#x3D; pre;&#x2F;&#x2F;改变pHead指向，给pHead.next赋值，指向null</span><br><span class="line">        pre &#x3D; pHead;&#x2F;&#x2F;pre移动</span><br><span class="line">        pHead &#x3D; next;&#x2F;&#x2F;pHead移动</span><br><span class="line">    &#125;</span><br><span class="line">    return pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单链表是否有环"><a href="#单链表是否有环" class="headerlink" title="单链表是否有环"></a>单链表是否有环</h2><ol>
+<li>创建哈希表,不过会占⽤较⼤的空间,不是最佳⽅法.( 时间复杂度O(n) )</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function judge(list)&#123;</span><br><span class="line">  var set &#x3D;new Set();</span><br><span class="line">  while(list)&#123;</span><br><span class="line">    if(set.has(list))&#123;</span><br><span class="line">      return true</span><br><span class="line">    &#125;</span><br><span class="line">    set.add(list)</span><br><span class="line">    list&#x3D;list.next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>给节点添加visited访问标记 (时间复杂度O(n)), 不需要额外的空间</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function LinkedList()&#123;</span><br><span class="line">  var Node&#x3D;function()&#123;</span><br><span class="line">    this.element&#x3D;element;</span><br><span class="line">    this.next&#x3D;null;</span><br><span class="line">    this.visited&#x3D;0; &#x2F;&#x2F;访问标记</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function judge(list)&#123;</span><br><span class="line">  while(list)&#123;</span><br><span class="line">    if(list.visited&#x3D;&#x3D;1)&#123;</span><br><span class="line">     return true</span><br><span class="line">    &#125;</span><br><span class="line">    list.visited&#x3D;1</span><br><span class="line">    list&#x3D;list.next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>快慢指针法,设定快指针fast,慢指针slow,每次循环快指针fast移动两个位置,慢指针移动⼀个位置<br>(时间复杂度 O(n)) 需要额外的空间</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function judge(list)&#123;</span><br><span class="line">  var fast&#x3D;list.next.next,</span><br><span class="line">  slow&#x3D;list.next;</span><br><span class="line">  while(fast)&#123;</span><br><span class="line">    if(fast&#x3D;&#x3D;&#x3D;slow)&#123;</span><br><span class="line">          return true</span><br><span class="line">    &#125;</span><br><span class="line">    fast&#x3D;fast.next.next</span><br><span class="line">    slow&#x3D;slow.next</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端算法实现/">前端算法实现</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/常用算法/">常用算法</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/JavaScript%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>前端面试中的常见的算法问题 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="前端面试中的常见的算法问题" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-前端面试中的常见的算法问题" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/前端面试中的常见的算法问题/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">前端面试中的常见的算法问题</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="Q1-判断一个单词是否是回文？"><a href="#Q1-判断一个单词是否是回文？" class="headerlink" title="Q1 判断一个单词是否是回文？"></a>Q1 判断一个单词是否是回文？</h2><blockquote>
+<p>回文是指把相同的词汇或句子，在下文中调换位置或颠倒过来，产生首尾回环的情趣，叫做回文，也叫回环。比如 mamam redivider .</p>
+</blockquote>
+<p>很多人拿到这样的题目非常容易想到用for 将字符串颠倒字母顺序然后匹配就行了。其实重要的考察的就是对于reverse的实现。其实我们可以利用现成的函数，将字符串转换成数组，这个思路很重要，我们可以拥有更多的自由度去进行字符串的一些操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function checkPalindrom(str) &#123;  </span><br><span class="line">    return str &#x3D;&#x3D; str.split(&#39;&#39;).reverse().join(&#39;&#39;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Q2-去掉一组整型数组重复的值"><a href="#Q2-去掉一组整型数组重复的值" class="headerlink" title="Q2 去掉一组整型数组重复的值"></a>Q2 去掉一组整型数组重复的值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如输入: [1,13,24,11,11,14,1,2]</span><br><span class="line">输出: [1,13,24,11,14,2]</span><br><span class="line">需要去掉重复的11 和 1 这两个元素。</span><br></pre></td></tr></table></figure>
+<p>这道问题出现在诸多的前端面试题中，主要考察个人对Object的使用，利用key来进行筛选。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* unique an array</span><br><span class="line">**&#x2F;</span><br><span class="line">let unique &#x3D; function(arr) &#123;  </span><br><span class="line">  let hashTable &#x3D; &#123;&#125;;</span><br><span class="line">  let data &#x3D; [];</span><br><span class="line">  for(let i&#x3D;0,l&#x3D;arr.length;i&lt;l;i++) &#123;</span><br><span class="line">    if(!hashTable[arr[i]]) &#123;</span><br><span class="line">      hashTable[arr[i]] &#x3D; true;</span><br><span class="line">      data.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return data</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; unique;</span><br></pre></td></tr></table></figure>
+<h2 id="Q3-统计一个字符串出现最多的字母"><a href="#Q3-统计一个字符串出现最多的字母" class="headerlink" title="Q3 统计一个字符串出现最多的字母"></a>Q3 统计一个字符串出现最多的字母</h2><p>给出一段英文连续的英文字符串，找出重复出现次数最多的字母</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入 ： afjghdfraaaasdenas</span><br><span class="line"></span><br><span class="line">输出 ： a</span><br></pre></td></tr></table></figure>
+<p>前面出现过去重的算法，这里需要是统计重复次数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function findMaxDuplicateChar(str) &#123;  </span><br><span class="line">  if(str.length &#x3D;&#x3D; 1) &#123;</span><br><span class="line">    return str;</span><br><span class="line">  &#125;</span><br><span class="line">  let charObj &#x3D; &#123;&#125;;</span><br><span class="line">  for(let i&#x3D;0;i&lt;str.length;i++) &#123;</span><br><span class="line">    if(!charObj[str.charAt(i)]) &#123;</span><br><span class="line">      charObj[str.charAt(i)] &#x3D; 1;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      charObj[str.charAt(i)] +&#x3D; 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  let maxChar &#x3D; &#39;&#39;,</span><br><span class="line">      maxValue &#x3D; 1;</span><br><span class="line">  for(var k in charObj) &#123;</span><br><span class="line">    if(charObj[k] &gt;&#x3D; maxValue) &#123;</span><br><span class="line">      maxChar &#x3D; k;</span><br><span class="line">      maxValue &#x3D; charObj[k];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return maxChar;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; findMaxDuplicateChar;</span><br></pre></td></tr></table></figure>
+<h2 id="Q4-排序算法"><a href="#Q4-排序算法" class="headerlink" title="Q4 排序算法"></a>Q4 排序算法</h2><p>如果抽到算法题目的话，应该大多都是比较开放的题目，不限定算法的实现，但是一定要求掌握其中的几种，所以冒泡排序，这种较为基础并且便于理解记忆的算法一定需要熟记于心。冒泡排序算法就是依次比较大小，小的的大的进行位置上的交换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function bubbleSort(arr) &#123;  </span><br><span class="line">    for(let i &#x3D; 0,l&#x3D;arr.length;i&lt;l-1;i++) &#123;</span><br><span class="line">        for(let j &#x3D; i+1;j&lt;l;j++) &#123;</span><br><span class="line">          if(arr[i]&gt;arr[j]) &#123;</span><br><span class="line">                let tem &#x3D; arr[i];</span><br><span class="line">                arr[i] &#x3D; arr[j];</span><br><span class="line">                arr[j] &#x3D; tem;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line">module.exports &#x3D; bubbleSort;</span><br></pre></td></tr></table></figure>
+<p>除了冒泡排序外，其实还有很多诸如 插入排序,快速排序，希尔排序等。每一种排序算法都有各自的特点。全部掌握也不需要，但是心底一定要熟悉几种算法。 比如快速排序，其效率很高，而其基本原理如图(来自wiki)：</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif" alt="image"></p>
+<p>算法参考某个元素值，将小于它的值，放到左数组中，大于它的值的元素就放到右数组中，然后递归进行上一次左右数组的操作，返回合并的数组就是已经排好顺序的数组了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function quickSort(arr) &#123;</span><br><span class="line"></span><br><span class="line">    if(arr.length&lt;&#x3D;1) &#123;</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let leftArr &#x3D; [];</span><br><span class="line">    let rightArr &#x3D; [];</span><br><span class="line">    let q &#x3D; arr[0];</span><br><span class="line">    for(let i &#x3D; 1,l&#x3D;arr.length; i&lt;l; i++) &#123;</span><br><span class="line">        if(arr[i]&gt;q) &#123;</span><br><span class="line">            rightArr.push(arr[i]);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            leftArr.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [].concat(quickSort(leftArr),[q],quickSort(rightArr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; quickSort;</span><br></pre></td></tr></table></figure>
+<p>安利大家一个学习的地址，通过动画演示算法的实现。<br><a href="http://math.hws.edu/eck/jsdemo/sortlab.html" target="_blank" rel="noopener">HTML5 Canvas Demo: Sorting Algorithms</a></p>
+<h2 id="Q5-不借助临时变量，进行两个整数的交换"><a href="#Q5-不借助临时变量，进行两个整数的交换" class="headerlink" title="Q5 不借助临时变量，进行两个整数的交换"></a>Q5 不借助临时变量，进行两个整数的交换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入 a &#x3D; 2, b &#x3D; 4 输出 a &#x3D; 4, b &#x3D;2</span><br></pre></td></tr></table></figure>
+<p>这种问题非常巧妙，需要大家跳出惯有的思维，利用 a , b进行置换。</p>
+<p>主要是利用 + - 去进行运算，类似 a = a + ( b - a) 实际上等同于最后 的 a = b;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function swap(a , b) &#123;  </span><br><span class="line">  b &#x3D; b - a;</span><br><span class="line">  a &#x3D; a + b;</span><br><span class="line">  b &#x3D; a - b;</span><br><span class="line">  return [a,b];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; swap;</span><br></pre></td></tr></table></figure>
+<h2 id="Q6-使用canvas-绘制一个有限度的斐波那契数列的曲线？"><a href="#Q6-使用canvas-绘制一个有限度的斐波那契数列的曲线？" class="headerlink" title="Q6 使用canvas 绘制一个有限度的斐波那契数列的曲线？"></a>Q6 使用canvas 绘制一个有限度的斐波那契数列的曲线？</h2><p><img src="http://img1.vued.vanthink.cn/vued90edf7b944ec479ee8b4203cf56e158d.png" alt="image"></p>
+<p>数列长度限定在9.</p>
+<p>斐波那契数列，又称黄金分割数列，指的是这样一个数列：0、1、1、2、3、5、8、13、21、34、……在数学上，斐波纳契数列主要考察递归的调用。我们一般都知道定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibo[i] &#x3D; fibo[i-1]+fibo[i-2];</span><br></pre></td></tr></table></figure>
+<p>生成斐波那契数组的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function getFibonacci(n) &#123;  </span><br><span class="line">  var fibarr &#x3D; [];</span><br><span class="line">  var i &#x3D; 0;</span><br><span class="line">  while(i&lt;n) &#123;</span><br><span class="line">    if(i&lt;&#x3D;1) &#123;</span><br><span class="line">      fibarr.push(i);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      fibarr.push(fibarr[i-1] + fibarr[i-2])</span><br><span class="line">    &#125;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return fibarr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>剩余的工作就是利用canvas arc方法进行曲线绘制了</p>
+<p><a href="http://codepen.io/Jack_Pu/pen/LRaxZB" target="_blank" rel="noopener">DEMO</a></p>
+<h2 id="Q7-找出下列正数组的最大差值比如"><a href="#Q7-找出下列正数组的最大差值比如" class="headerlink" title="Q7 找出下列正数组的最大差值比如:"></a>Q7 找出下列正数组的最大差值比如:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入 [10,5,11,7,8,9]</span><br><span class="line"></span><br><span class="line">输出 6</span><br></pre></td></tr></table></figure>
+<p>这是通过一道题目去测试对于基本的数组的最大值的查找，很明显我们知道，最大差值肯定是一个数组中最大值与最小值的差。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function getMaxProfit(arr) &#123;</span><br><span class="line"></span><br><span class="line">    var minPrice &#x3D; arr[0];</span><br><span class="line">    var maxProfit &#x3D; 0;</span><br><span class="line"></span><br><span class="line">    for (var i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        var currentPrice &#x3D; arr[i];</span><br><span class="line"></span><br><span class="line">        minPrice &#x3D; Math.min(minPrice, currentPrice);</span><br><span class="line"></span><br><span class="line">        var potentialProfit &#x3D; currentPrice - minPrice;</span><br><span class="line"></span><br><span class="line">        maxProfit &#x3D; Math.max(maxProfit, potentialProfit);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return maxProfit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Q8-随机生成指定长度的字符串"><a href="#Q8-随机生成指定长度的字符串" class="headerlink" title="Q8 随机生成指定长度的字符串"></a>Q8 随机生成指定长度的字符串</h2><p>实现一个算法，随机生成指定长度的字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如给定 长度 8  输出 4ldkfg9j</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function randomString(n) &#123;  </span><br><span class="line">  let str &#x3D; &#39;abcdefghijklmnopqrstuvwxyz9876543210&#39;;</span><br><span class="line">  let tmp &#x3D; &#39;&#39;,</span><br><span class="line">      i &#x3D; 0,</span><br><span class="line">      l &#x3D; str.length;</span><br><span class="line">  for (i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">    tmp +&#x3D; str.charAt(Math.floor(Math.random() * l));</span><br><span class="line">  &#125;</span><br><span class="line">  return tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; randomString;</span><br></pre></td></tr></table></figure>
+<h2 id="Q9-实现类似getElementsByClassName-的功能"><a href="#Q9-实现类似getElementsByClassName-的功能" class="headerlink" title="Q9 实现类似getElementsByClassName 的功能"></a>Q9 实现类似getElementsByClassName 的功能</h2><p>自己实现一个函数，查找某个DOM节点下面的包含某个class的所有DOM节点？不允许使用原生提供的 getElementsByClassName querySelectorAll 等原生提供DOM查找函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function queryClassName(node, name) &#123;  </span><br><span class="line">  var starts &#x3D; &#39;(^|[ \n\r\t\f])&#39;,</span><br><span class="line">       ends &#x3D; &#39;([ \n\r\t\f]|$)&#39;;</span><br><span class="line">  var array &#x3D; [],</span><br><span class="line">        regex &#x3D; new RegExp(starts + name + ends),</span><br><span class="line">        elements &#x3D; node.getElementsByTagName(&quot;*&quot;),</span><br><span class="line">        length &#x3D; elements.length,</span><br><span class="line">        i &#x3D; 0,</span><br><span class="line">        element;</span><br><span class="line"></span><br><span class="line">    while (i &lt; length) &#123;</span><br><span class="line">        element &#x3D; elements[i];</span><br><span class="line">        if (regex.test(element.className)) &#123;</span><br><span class="line">            array.push(element);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        i +&#x3D; 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Q10-使用JS-实现二叉查找树-Binary-Search-Tree"><a href="#Q10-使用JS-实现二叉查找树-Binary-Search-Tree" class="headerlink" title="Q10 使用JS 实现二叉查找树(Binary Search Tree)"></a>Q10 使用JS 实现二叉查找树(Binary Search Tree)</h2><p>一般叫全部写完的概率比较少，但是重点考察你对它的理解和一些基本特点的实现。 二叉查找树，也称二叉搜索树、有序二叉树（英语：ordered binary tree）是指一棵空树或者具有下列性质的二叉树：</p>
+<ul>
+<li>任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；</li>
+<li>任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；</li>
+<li>任意节点的左、右子树也分别为二叉查找树；</li>
+<li>没有键值相等的节点。二叉查找树相比于其他数据结构的优势在于查找、插入的时间复杂度较低。为O(log n)。二叉查找树是基础性数据结构，用于构建更为抽象的数据结构，如集合、multiset、关联数组等。</li>
+</ul>
+<p><img src="http://img1.vued.vanthink.cn/vued95685e8f89199babd6273a93651ecd8b.png" alt="image"></p>
+<p>在写的时候需要足够理解二叉搜素树的特点，需要先设定好每个节点的数据结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Node &#123;  </span><br><span class="line">  constructor(data, left, right) &#123;</span><br><span class="line">    this.data &#x3D; data;</span><br><span class="line">    this.left &#x3D; left;</span><br><span class="line">    this.right &#x3D; right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>树是有节点构成，由根节点逐渐延生到各个子节点，因此它具备基本的结构就是具备一个根节点，具备添加，查找和删除节点的方法.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">class BinarySearchTree &#123;</span><br><span class="line"></span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.root &#x3D; null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  insert(data) &#123;</span><br><span class="line">    let n &#x3D; new Node(data, null, null);</span><br><span class="line">    if (!this.root) &#123;</span><br><span class="line">      return this.root &#x3D; n;</span><br><span class="line">    &#125;</span><br><span class="line">    let currentNode &#x3D; this.root;</span><br><span class="line">    let parent &#x3D; null;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">      parent &#x3D; currentNode;</span><br><span class="line">      if (data &lt; currentNode.data) &#123;</span><br><span class="line">        currentNode &#x3D; currentNode.left;</span><br><span class="line">        if (currentNode &#x3D;&#x3D;&#x3D; null) &#123;</span><br><span class="line">          parent.left &#x3D; n;</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        currentNode &#x3D; currentNode.right;</span><br><span class="line">        if (currentNode &#x3D;&#x3D;&#x3D; null) &#123;</span><br><span class="line">          parent.right &#x3D; n;</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remove(data) &#123;</span><br><span class="line">    this.root &#x3D; this.removeNode(this.root, data)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  removeNode(node, data) &#123;</span><br><span class="line">    if (node &#x3D;&#x3D; null) &#123;</span><br><span class="line">      return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (data &#x3D;&#x3D; node.data) &#123;</span><br><span class="line">      &#x2F;&#x2F; no children node</span><br><span class="line">      if (node.left &#x3D;&#x3D; null &amp;&amp; node.right &#x3D;&#x3D; null) &#123;</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line">      if (node.left &#x3D;&#x3D; null) &#123;</span><br><span class="line">        return node.right;</span><br><span class="line">      &#125;</span><br><span class="line">      if (node.right &#x3D;&#x3D; null) &#123;</span><br><span class="line">        return node.left;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      let getSmallest &#x3D; function(node) &#123;</span><br><span class="line">        if(node.left &#x3D;&#x3D;&#x3D; null &amp;&amp; node.right &#x3D;&#x3D; null) &#123;</span><br><span class="line">          return node;</span><br><span class="line">        &#125;</span><br><span class="line">        if(node.left !&#x3D; null) &#123;</span><br><span class="line">          return node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        if(node.right !&#x3D;&#x3D; null) &#123;</span><br><span class="line">          return getSmallest(node.right);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">      let temNode &#x3D; getSmallest(node.right);</span><br><span class="line">      node.data &#x3D; temNode.data;</span><br><span class="line">      node.right &#x3D; this.removeNode(temNode.right,temNode.data);</span><br><span class="line">      return node;</span><br><span class="line"></span><br><span class="line">    &#125; else if (data &lt; node.data) &#123;</span><br><span class="line">      node.left &#x3D; this.removeNode(node.left,data);</span><br><span class="line">      return node;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      node.right &#x3D; this.removeNode(node.right,data);</span><br><span class="line">      return node;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  find(data) &#123;</span><br><span class="line">    var current &#x3D; this.root;</span><br><span class="line">    while (current !&#x3D; null) &#123;</span><br><span class="line">      if (data &#x3D;&#x3D; current.data) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      if (data &lt; current.data) &#123;</span><br><span class="line">        current &#x3D; current.left;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        current &#x3D; current.right</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return current.data;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; BinarySearchTree;</span><br></pre></td></tr></table></figure>
+<h2 id="Q11-数组全排列"><a href="#Q11-数组全排列" class="headerlink" title="Q11 数组全排列"></a>Q11 数组全排列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [&#39;foo&#39;,&#39;bar&#39;,&#39;hello&#39;,&#39;world&#39;];</span><br><span class="line">var count &#x3D; 1;</span><br><span class="line">function getStr(a)&#123;</span><br><span class="line">	for (var i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">		&#x2F;&#x2F; indexOf 是es6数组的方法,如果不存在返回-1，存在返回下标</span><br><span class="line">		if(a.indexOf(arr[i])&lt;0)&#123;</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F;数组 a 中不存在 arr[i],将arr[i]添加到数组末尾</span><br><span class="line">			a.push(arr[i]);</span><br><span class="line"></span><br><span class="line">			if(a.length&#x3D;&#x3D;arr.length)&#123;</span><br><span class="line">				console.log(count++ + &#39;: &#39; +a.join(&quot;&quot;));</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				&#x2F;&#x2F;结束一次for循环  进行了4次递归 getStr([&#39;foo&#39;]) getStr([&#39;bar&#39;]) getStr([&#39;hello&#39;]) getStr([&#39;world&#39;])</span><br><span class="line">				getStr(a);</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">			&#x2F;&#x2F;一定从数组 a 中删除arr[i],进行下次循环，如果不删除就只能获得一种结果了</span><br><span class="line">			a.pop();  			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">getStr([])</span><br></pre></td></tr></table></figure>
+<p>除去注释只用了15行代码，通过上面的方法 我们实现了单个数组全排<br><a href="http://www.lingchenliang.com/post/134.html" target="_blank" rel="noopener">更多方法阅读</a></p>
+<h2 id="Q12-最大连续子序列和"><a href="#Q12-最大连续子序列和" class="headerlink" title="Q12 最大连续子序列和"></a>Q12 最大连续子序列和</h2><blockquote>
+<p>思路： 比较若干个连续</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [1, 6, -1, 5, 4, -7, 2, 3];</span><br><span class="line">var maxSum &#x3D; arr[0],</span><br><span class="line">	sum &#x3D; arr[0];</span><br><span class="line">for(var i&#x3D;1;i&lt;arr.length;i++) &#123;</span><br><span class="line">	if(sum&lt; 0) &#123;</span><br><span class="line">		sum &#x3D; arr[i];</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		sum +&#x3D; arr[i];</span><br><span class="line">	&#125;</span><br><span class="line">	if (sum &gt; maxSum) &#123;</span><br><span class="line">		maxSum &#x3D; sum;</span><br><span class="line">	&#125;</span><br><span class="line"> 	console.log(sum, maxSum);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(maxSum);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function maxSeq(arr) &#123;</span><br><span class="line">    var sum&#x3D;arr[0], maxSum &#x3D; arr[0]</span><br><span class="line"></span><br><span class="line">    for(var i&#x3D;0; i&lt; arr.length; i++) &#123;</span><br><span class="line">        if (sum &lt; 0) &#123;</span><br><span class="line">            sum &#x3D; arr[i]</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            sum +&#x3D; arr[i]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (sum &gt; maxSum) &#123;</span><br><span class="line">            msxSum &#x3D; sum</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return maxSum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Q13-DOM-遍历深度优先和广度优先算法"><a href="#Q13-DOM-遍历深度优先和广度优先算法" class="headerlink" title="Q13 DOM 遍历深度优先和广度优先算法"></a>Q13 DOM 遍历深度优先和广度优先算法</h2><h3 id="1-深度优先"><a href="#1-深度优先" class="headerlink" title="1. 深度优先"></a>1. 深度优先</h3><p><img src="https://img-blog.csdnimg.cn/20191227181534979.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 递归</span><br><span class="line">let arr &#x3D; []</span><br><span class="line">function deepTraversal(node) &#123;</span><br><span class="line">  if(!node) return;</span><br><span class="line">  arr.push(node)</span><br><span class="line">  for (var i &#x3D; 0; i&lt; node.children.length; i++) &#123;</span><br><span class="line">    deepTraversal(node.children[i])</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 非递归</span><br><span class="line">let arr &#x3D;[]</span><br><span class="line">function deepTraversal(node) &#123;</span><br><span class="line">  if(!node) return;</span><br><span class="line">  var stack &#x3D; [node];</span><br><span class="line">  while (stack.length) &#123;</span><br><span class="line">    var item &#x3D; stack.shift();</span><br><span class="line">    arr.push(item);</span><br><span class="line">    var children &#x3D; item.children;</span><br><span class="line">    for (var i &#x3D; children.length - 1; i &gt;&#x3D; 0 ; i--) &#123;</span><br><span class="line">      stack.unshift(children[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-广度优先"><a href="#2-广度优先" class="headerlink" title="2. 广度优先"></a>2. 广度优先</h3><p><img src="https://img-blog.csdnimg.cn/2019122718211761.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 递归</span><br><span class="line">let nodes &#x3D; []; &#x2F;&#x2F;nodes可放函数中</span><br><span class="line">let i &#x3D; 0;</span><br><span class="line">function wideTraversal(node) &#123;</span><br><span class="line">  if (node) &#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    wideTraversal(node.nextElementSibling);</span><br><span class="line">    node &#x3D; nodes[i++];</span><br><span class="line">    wideTraversal(node.firstElementChild);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">wideTraversal(rootElement);</span><br><span class="line">console.log(nodes);</span><br><span class="line"></span><br><span class="line">let nodes &#x3D; [rootElement]; &#x2F;&#x2F;nodes可放函数中</span><br><span class="line">let stack &#x3D; []</span><br><span class="line">function wideTraversal(node) &#123;</span><br><span class="line">  if (node) &#123;</span><br><span class="line">    for(var i &#x3D;0; i&lt; node.children.length; i++) &#123;</span><br><span class="line">      nodes.push(node.children[i]);</span><br><span class="line">      stack.push(node.children[i])</span><br><span class="line">    &#125;</span><br><span class="line">    wideTraversal(stack.shift())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">wideTraversal(rootElement);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 非递归  先进先出</span><br><span class="line">let arr &#x3D; [];</span><br><span class="line">let stack &#x3D; [rootElement]</span><br><span class="line">function wideTraversal(node) &#123;</span><br><span class="line">  while(stack.length) &#123;</span><br><span class="line">    let item &#x3D; stack.shift()</span><br><span class="line">    arr.push(item)</span><br><span class="line">    for (var i &#x3D; 0; i &lt; item.children.length;i++) &#123;</span><br><span class="line">      stack.push(item.children[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">wideTraversal(rootElement);</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
+<h2 id="Q14-JS洗牌算法"><a href="#Q14-JS洗牌算法" class="headerlink" title="Q14 JS洗牌算法"></a>Q14 JS洗牌算法</h2><p>塔罗牌</p>
+<p>举例来说，我们有一个如下图所示的数组，数组长度为 9，数组内元素的值顺次分别是 1~9：</p>
+<p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/yrpGxAD5lVSqbjgJL7E1BPzC83gibLVIHoa9RjVrBUFdCfoSJUsVXhs4CNROkszm8eibymxzR60nra3UOJwavWYg/640?wx_fmt=png" alt="image"></p>
+<p>从上面这个数组入手，我们要做的就是打乱数组内元素的顺序：</p>
+<p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/yrpGxAD5lVSqbjgJL7E1BPzC83gibLVIHR4BDaN36lLZU1BPDTjkvHqqo9aiaK1icRd7Y7riaofelVqiabdF8y6wHKA/640?wx_fmt=png" alt="image"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.shuffle &#x3D; function () &#123;</span><br><span class="line">    let input &#x3D; this;</span><br><span class="line">    for (let i &#x3D; input.length - 1; i&gt;&#x3D; 0; i--) &#123;</span><br><span class="line">        let randomIndex &#x3D; Math.floor(Math.random() * (i + 1));</span><br><span class="line">        let itemAtIndex &#x3D; input[randomIndex];</span><br><span class="line">        input[randomIndex] &#x3D; input[i];</span><br><span class="line">        input[i] &#x3D; itemAtIndex;</span><br><span class="line">    &#125;</span><br><span class="line">    return input;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，我们创建了一个 shuffle() 方法，该方法用于随机排列数组内的元素。</p>
+<p>此外，我们将该方法挂载在了 Array 对象的原型下面，所以任何数组都可以直接调用该方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let tempArray &#x3D; [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]</span><br><span class="line">tempArray.shuffle();</span><br></pre></td></tr></table></figure>
+<h2 id="Q15-假设现在有两个函数function-A-和function-B-，现在希望创建一个新的函数function-C-，新函数的逻辑是将自己接收到的前两个参数传给函数A，剩余所有参数传给函数B，请用原生javascript实现函数C"><a href="#Q15-假设现在有两个函数function-A-和function-B-，现在希望创建一个新的函数function-C-，新函数的逻辑是将自己接收到的前两个参数传给函数A，剩余所有参数传给函数B，请用原生javascript实现函数C" class="headerlink" title="Q15 假设现在有两个函数function A()和function B()，现在希望创建一个新的函数function C()，新函数的逻辑是将自己接收到的前两个参数传给函数A，剩余所有参数传给函数B，请用原生javascript实现函数C"></a>Q15 假设现在有两个函数function A()和function B()，现在希望创建一个新的函数function C()，新函数的逻辑是将自己接收到的前两个参数传给函数A，剩余所有参数传给函数B，请用原生javascript实现函数C</h2><p>举例：</p>
+<p>如果调用函数C：C[a,b,c,d,e]</p>
+<p>相当于调用函数A和函数B：A(a,b),B(c,d,e)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">function C()&#123;</span><br><span class="line">     var a_args&#x3D;Array.prototype.slice.call(arguments,0,2);</span><br><span class="line">     var b_args&#x3D;Array.prototype.slice.call(arguments,2);</span><br><span class="line">     A.apply(this,a_args);</span><br><span class="line">     B.apply(this,b_args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C(...s)&#123;</span><br><span class="line">      A.call(this,s[0],s[1]);</span><br><span class="line">      B.call(this,s.slice(2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C(...s)&#123;</span><br><span class="line">      A.apply(this,s.slice(0,2));</span><br><span class="line">      B.apply(this,s.slice(2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C()&#123;</span><br><span class="line">   A(arguments[0],arguments[1]);</span><br><span class="line">   B(Array.prototype.slice.call(arguments,2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C(a1,a2,...args) &#123;</span><br><span class="line">    A(a1,a2)</span><br><span class="line">    B(...args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Array.prototype.slice表示数组的原型中的slice方法。这个slice方法返回的是一个Array类型的对象。可以把类数组对象转化成真正的数组，与Array.from类似。</p>
+<h2 id="Q16-请实现以下template方法，用于模板解析"><a href="#Q16-请实现以下template方法，用于模板解析" class="headerlink" title="Q16 请实现以下template方法，用于模板解析"></a>Q16 请实现以下template方法，用于模板解析</h2><p>var conplied = template(“hello &lt;%=user%&gt;!”);<br>complied({“user”:“world”}); =&gt; hello world!</p>
+<p>var conplied = template(“welocm to &lt;%=location%&gt;!”);<br>complied({“location”:“CVTE”}); =&gt; welcom to CVTE!；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function template(source)&#123;</span><br><span class="line">   var temp&#x3D;source;</span><br><span class="line">   return function(obj)&#123;</span><br><span class="line">       for(var prop in obj)&#123;</span><br><span class="line">              var tpl&#x3D;&quot;&lt;%&#x3D;&quot;+prop+&quot;%&gt;&quot;;</span><br><span class="line">              temp&#x3D;temp.replace(tpl,obj[prop]);</span><br><span class="line">       &#125;</span><br><span class="line">       console.log(temp);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q17-写一个函数，将传进去的数组按深度展开"><a href="#Q17-写一个函数，将传进去的数组按深度展开" class="headerlink" title="Q17 写一个函数，将传进去的数组按深度展开"></a>Q17 写一个函数，将传进去的数组按深度展开</h2><p>例子：<br>list:[1,2,[3,4],[5,6,[7,8],9],10,11]<br/><br>depth 等于 1 时输出<br/><br>depth = 1 :[1,2,3,4,5,6,[7,8],9,10,11]</p>
+<p>depth 等于 2 时输出<br/><br>depth = 2 :[1,2,3,4,5,6,7,8,9,10,11]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function flattern(array,num &#x3D; 0) &#123;</span><br><span class="line">	var newArray &#x3D; array;</span><br><span class="line">	for(let i &#x3D; 0; i &lt; num; i ++) &#123;</span><br><span class="line">		newArray &#x3D; [].concat(...newArray)</span><br><span class="line">	&#125;</span><br><span class="line">	return newArray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(flattern([1,2,3,[4,5,[6,7]]],2))</span><br></pre></td></tr></table></figure>
+<h2 id="Q18-实现一个简单的模板引擎"><a href="#Q18-实现一个简单的模板引擎" class="headerlink" title="Q18 实现一个简单的模板引擎"></a>Q18 实现一个简单的模板引擎</h2><p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let template &#x3D; &#39;我是&#123;&#123;name&#125;&#125;，年龄&#123;&#123;age&#125;&#125;，性别&#123;&#123;sex&#125;&#125;&#39;;</span><br><span class="line">let data &#x3D; &#123;</span><br><span class="line">  name: &#39;姓名&#39;,</span><br><span class="line">  age: 18</span><br><span class="line">&#125;</span><br><span class="line">render(template, data); &#x2F;&#x2F; 我是姓名，年龄18，性别undefined</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">方法1：先将模板与数据中均存在的属性替换掉，再将数据中不存在模板中存在的属性设置为undefined</span><br><span class="line">function render(template, data) &#123;</span><br><span class="line">	for(let key in data) &#123;</span><br><span class="line">		if(template.indexOf(key)) &#123;</span><br><span class="line">			var reg &#x3D;new RegExp(&quot;&#123;&#123;&quot; + key + &quot;&#125;&#125;&quot;,&quot;g&quot;);</span><br><span class="line">			template &#x3D; template.replace(reg,data[key])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	template &#x3D; template.replace(&#x2F;\&#123;\&#123;(\w+)\&#125;\&#125;&#x2F;g,&#39;undefined&#39;)</span><br><span class="line"></span><br><span class="line">	return template;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">方法2 迭代，一个一个替换，注意exec匹配到的第一项是匹配字符串，第二项为分组内的字符串[&#123;&#123;name&#125;&#125;,name]</span><br><span class="line">function render(template, data) &#123;</span><br><span class="line">  const reg &#x3D; &#x2F;\&#123;\&#123;(\w+)\&#125;\&#125;&#x2F;; &#x2F;&#x2F; 模板字符串正则</span><br><span class="line">  if (reg.test(template)) &#123; &#x2F;&#x2F; 判断模板里是否有模板字符串</span><br><span class="line">    const name &#x3D; reg.exec(template)[1]; &#x2F;&#x2F; 查找当前模板里第一个模板字符串的字段</span><br><span class="line">    template &#x3D; template.replace(reg, data[name]); &#x2F;&#x2F; 将第一个模板字符串渲染</span><br><span class="line">    return render(template, data); &#x2F;&#x2F; 递归的渲染并返回渲染后的结构</span><br><span class="line">  &#125;</span><br><span class="line">  return template; &#x2F;&#x2F; 如果模板没有模板字符串直接返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q19-动态规划"><a href="#Q19-动态规划" class="headerlink" title="Q19 动态规划"></a>Q19 动态规划</h2><p>给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。例如，给定三角形：</p>
+<p>[[2],[3,4],[6,5,7],[4,1,8,3]]<br>自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。</p>
+<p>动态规划我个人的理解是：能将一个大问题分解为一个个小问题，并且这些小问题之间有共性能重复调用。那么如何判断这道题是否可以用到动态规划，首先从底往上看，[6,5,7]对应的最小路径很明显可以看出分别是[1,1,3]，那么后两层的最短路径是[7,6,10]，再往上看[3,4]的最短路径也能明显看出是[9,10]，那么2对应的最短路径很明显就是11。其实从这里就能看出每层分析判断的逻辑是一致的。js代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">constminimumTotal &#x3D; triangle &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; es6方法填充数组</span><br><span class="line">    const dp &#x3D; Array.of(...triangle[triangle.length - 1])</span><br><span class="line">	for (let i &#x3D; dp.length - 2; i &gt;&#x3D; 0; i--) &#123;</span><br><span class="line">        for (let j &#x3D; 0; j &lt; triangle[i].length; j++) &#123;</span><br><span class="line">            &#x2F;&#x2F; 状态转移方程</span><br><span class="line">            dp[j] &#x3D; Math.min(dp[j], dp[j + 1]) + triangle[i][j]</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[0]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端算法实现/">前端算法实现</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/常用算法/">常用算法</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E9%97%AE%E9%A2%98/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

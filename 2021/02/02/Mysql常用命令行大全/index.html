@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Mysql常用命令行大全 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Mysql常用命令行大全" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Mysql常用命令行大全" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Mysql常用命令行大全/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Mysql常用命令行大全</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="1、连接Mysql"><a href="#1、连接Mysql" class="headerlink" title="1、连接Mysql"></a>1、连接Mysql</h2><p>格式： mysql -h主机地址 -u用户名 －p用户密码</p>
+<p><strong>1、连接到本机上的MYSQL。</strong><br>首先打开DOS窗口，然后进入目录mysql\bin，再键入命令mysql -u root -p，回车后提示你输密码.注意用户名前可以有空格也可以没有空格，但是密码前必须没有空格，否则让你重新输入密码。</p>
+<p>如果刚安装好MYSQL，超级用户root是没有密码的，故直接回车即可进入到MYSQL中了，MYSQL的提示符是： mysql&gt;</p>
+<p><strong>2、连接到远程主机上的MYSQL</strong>。假设远程主机的IP为：110.110.110.110，用户名为root,密码为abcd123。则键入以下命令：<br>    mysql -h110.110.110.110 -u root -p 123;（注:u与root之间可以不用加空格，其它也一样）</p>
+<p><strong>3、退出MYSQL命令：</strong> exit （回车）</p>
+<h2 id="2、修改密码"><a href="#2、修改密码" class="headerlink" title="2、修改密码"></a>2、修改密码</h2><p>格式：mysqladmin -u用户名 -p旧密码 password 新密码</p>
+<p><strong>1、给root加个密码ab12。</strong><br>首先在DOS下进入目录mysql\bin，然后键入以下命令<br>    mysqladmin -u root -password ab12<br>注：因为开始时root没有密码，所以-p旧密码一项就可以省略了。</p>
+<p><strong>2、再将root的密码改为djg345。</strong><br>    mysqladmin -u root -p ab12 password djg345</p>
+<h2 id="3、增加新用户"><a href="#3、增加新用户" class="headerlink" title="3、增加新用户"></a>3、增加新用户</h2><p>注意：和上面不同，下面的因为是MYSQL环境中的命令，所以后面都带一个分号作为命令结束符</p>
+<p>格式：grant select on 数据库.* to 用户名@登录主机 identified by “密码”</p>
+<p><strong>1、增加一个用户test1密码为abc，让他可以在任何主机上登录，并对所有数据库有查询、插入、修改、删除的权限。首先用root用户连入MYSQL，然后键入以下命令</strong>：</p>
+<pre><code>grant select,insert,update,delete on *.* to [email=test1@”%]test1@”%[/email]” Identified by “abc”;</code></pre><p>但增加的用户是十分危险的，你想如某个人知道test1的密码，那么他就可以在internet上的任何一台电脑上登录你的mysql数据库并对你的数据可以为所欲为了，解决办法见2。</p>
+<p><strong>2、增加一个用户test2密码为abc,让他只可以在localhost上登录，并可以对数据库mydb进行查询、插入、修改、删除的操作（localhost指本地主机，即MYSQL数据库所在的那台主机）</strong>，这样用户即使用知道test2的密码，他也无法从internet上直接访问数据库，只能通过MYSQL主机上的web页来访问了。</p>
+<pre><code>grant select,insert,update,delete on mydb.* to [email=test2@localhost]test2@localhost[/email] identified by “abc”;</code></pre><p>如果你不想test2有密码，可以再打一个命令将密码消掉。</p>
+<pre><code>grant select,insert,update,delete on mydb.* to [email=test2@localhost]test2@localhost[/email] identified by “”;</code></pre><h2 id="4-数据库操作"><a href="#4-数据库操作" class="headerlink" title="4. 数据库操作"></a>4. 数据库操作</h2><h3 id="4-1-创建数据库"><a href="#4-1-创建数据库" class="headerlink" title="4.1 创建数据库"></a>4.1 创建数据库</h3><p>注意：创建数据库之前要先连接Mysql服务器</p>
+<p>命令：create database &lt;数据库名&gt;</p>
+<p><strong>例1：建立一个名为xhkdb的数据库</strong><br>   mysql&gt; create database xhkdb;</p>
+<p><strong>例2：创建数据库并分配用户</strong></p>
+<p>①CREATE DATABASE 数据库名;</p>
+<p>②GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON 数据库名.* TO 数据库名@localhost IDENTIFIED BY ‘密码’;</p>
+<p>③SET PASSWORD FOR ‘数据库名‘@’localhost’ = OLD_PASSWORD(‘密码’);</p>
+<p>依次执行3个命令完成数据库创建。注意：中文 “密码”和“数据库”是户自己需要设置的。</p>
+<h3 id="4-2-显示数据库"><a href="#4-2-显示数据库" class="headerlink" title="4.2 显示数据库"></a>4.2 显示数据库</h3><p>命令：show databases （注意：最后有个s）<br>mysql&gt; show databases;</p>
+<p>注意：为了不再显示的时候乱码，要修改数据库默认编码。以下以GBK编码页面为例进行说明：</p>
+<p><strong>1、修改MYSQL的配置文件</strong>：my.ini里面修改default-character-set=gbk</p>
+<p><strong>2、代码运行时修改</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">①Java代码：jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?useUnicode&#x3D;true&amp;characterEncoding&#x3D;gbk</span><br><span class="line"></span><br><span class="line">②PHP代码：header(&quot;Content-Type:text&#x2F;html;charset&#x3D;gb2312&quot;);</span><br><span class="line"></span><br><span class="line">③C语言代码：int mysql_set_character_set( MYSQL * mysql, char * csname)；</span><br></pre></td></tr></table></figure>
+
+<p>该函数用于为当前连接设置默认的字符集。字符串csname指定了1个有效的字符集名称。连接校对成为字符集的默认校对。该函数的工作方式与SET NAMES语句类似，但它还能设置</p>
+<p>mysql- &gt; charset的值，从而影响了由mysql_real_escape_string() 设置的字符集。</p>
+<h3 id="4-3-删除数据库"><a href="#4-3-删除数据库" class="headerlink" title="4.3 删除数据库"></a>4.3 删除数据库</h3><p>命令：drop database &lt;数据库名&gt;<br>例如：删除名为 xhkdb的数据库<br>mysql&gt; drop database xhkdb;</p>
+<p>例子1：删除一个已经确定存在的数据库<br>   mysql&gt; drop database drop_database;<br>   Query OK, 0 rows affected (0.00 sec)</p>
+<p>例子2：删除一个不确定存在的数据库<br>   mysql&gt; drop database drop_database;<br>   ERROR 1008 (HY000): Can’t drop database ‘drop_database’; database doesn’t exist<br>      //发生错误，不能删除’drop_database’数据库，该数据库不存在。</p>
+<p>   mysql&gt; drop database if exists drop_database;<br>   Query OK, 0 rows affected, 1 warning (0.00 sec)//产生一个警告说明此数据库不存在</p>
+<p>   mysql&gt; create database drop_database;<br>   Query OK, 1 row affected (0.00 sec)</p>
+<p>   mysql&gt; drop database if exists drop_database;//if exists<br>   判断数据库是否存在，不存在也不产生错误Query OK, 0 rows affected (0.00 sec)</p>
+<h3 id="4-4-连接数据库"><a href="#4-4-连接数据库" class="headerlink" title="4.4 连接数据库"></a>4.4 连接数据库</h3><p>   命令： use &lt;数据库名&gt;</p>
+<p>例如：如果xhkdb数据库存在，尝试存取它：<br>   mysql&gt; use xhkdb;<br>屏幕提示：Database changed</p>
+<p><strong>use 语句可以通告MySQL把db_name数据库作为默认（当前）数据库使用，用于后续语句。</strong><br>该数据库保持为默认数据库，直到语段的结尾，或者直到发布一个不同的USE语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; USE db1;</span><br><span class="line">mysql&gt; SELECT COUNT(*) FROM mytable;   # selects from db1.mytable</span><br><span class="line">  mysql&gt; USE db2;</span><br><span class="line">  mysql&gt; SELECT COUNT(*) FROM mytable;   # selects from db2.mytable</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>使用USE语句为一个特定的当前的数据库做标记，不会阻碍您访问其它数据库中的表</strong>。下面的例子可以从db1数据库访问作者表，并从db2数据库访问编辑表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; USE db1;</span><br><span class="line">   mysql&gt; SELECT author_name,editor_name FROM author,db2.editor</span><br><span class="line">       -&gt;        WHERE author.editor_id &#x3D; db2.editor.editor_id;</span><br></pre></td></tr></table></figure>
+
+
+<p>USE语句被设立出来，用于与Sybase相兼容。</p>
+<p>有些网友问到，连接以后怎么退出。其实，不用退出来，use 数据库后，使用show databases就能查询所有数据库，如果想跳到其他数据库，用<br>   use 其他数据库名字<br>就可以了。</p>
+<h3 id="4-5-当前选择的数据库"><a href="#4-5-当前选择的数据库" class="headerlink" title="4.5 当前选择的数据库"></a>4.5 当前选择的数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">命令：mysql&gt; select database();</span><br><span class="line"></span><br><span class="line">MySQL中SELECT命令类似于其他编程语言里的print或者write，你可以用它来显示一个字符串、数字、数学表达式的结果等等。如何使用MySQL中SELECT命令的特殊功能？</span><br><span class="line"></span><br><span class="line">1.显示MYSQL的版本</span><br><span class="line">mysql&gt; select version();</span><br><span class="line">+-----------------------+</span><br><span class="line">| version()             |</span><br><span class="line">+-----------------------+</span><br><span class="line">| 6.0.4-alpha-community |</span><br><span class="line">+-----------------------+</span><br><span class="line">1 row in set (0.02 sec)</span><br><span class="line"></span><br><span class="line">2. 显示当前时间</span><br><span class="line">mysql&gt; select now();</span><br><span class="line">+---------------------+</span><br><span class="line">| now()               |</span><br><span class="line">+---------------------+</span><br><span class="line">| 2009-09-15 22:35:32 |</span><br><span class="line">+---------------------+</span><br><span class="line">1 row in set (0.04 sec)</span><br><span class="line"></span><br><span class="line">3. 显示年月日</span><br><span class="line">SELECT DAYOFMONTH(CURRENT_DATE);</span><br><span class="line">+--------------------------+</span><br><span class="line">| DAYOFMONTH(CURRENT_DATE) |</span><br><span class="line">+--------------------------+</span><br><span class="line">|                       15 |</span><br><span class="line">+--------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br><span class="line"></span><br><span class="line">SELECT MONTH(CURRENT_DATE);</span><br><span class="line">+---------------------+</span><br><span class="line">| MONTH(CURRENT_DATE) |</span><br><span class="line">+---------------------+</span><br><span class="line">|                   9 |</span><br><span class="line">+---------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">SELECT YEAR(CURRENT_DATE);</span><br><span class="line">+--------------------+</span><br><span class="line">| YEAR(CURRENT_DATE) |</span><br><span class="line">+--------------------+</span><br><span class="line">|               2009 |</span><br><span class="line">+--------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">4. 显示字符串</span><br><span class="line">mysql&gt; SELECT &quot;welecome to my blog!&quot;;</span><br><span class="line">+----------------------+</span><br><span class="line">| welecome to my blog! |</span><br><span class="line">+----------------------+</span><br><span class="line">| welecome to my blog! |</span><br><span class="line">+----------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">5. 当计算器用</span><br><span class="line">select ((4 * 4) &#x2F; 10 ) + 25;</span><br><span class="line">+----------------------+</span><br><span class="line">| ((4 * 4) &#x2F; 10 ) + 25 |</span><br><span class="line">+----------------------+</span><br><span class="line">|                26.60 |</span><br><span class="line">+----------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">6. 串接字符串</span><br><span class="line">select CONCAT(f_name, &quot; &quot;, l_name)</span><br><span class="line">AS Name</span><br><span class="line">from employee_data</span><br><span class="line">where title &#x3D; &#39;Marketing Executive&#39;;</span><br><span class="line">+---------------+</span><br><span class="line">| Name          |</span><br><span class="line">+---------------+</span><br><span class="line">| Monica Sehgal |</span><br><span class="line">| Hal Simlai    |</span><br><span class="line">| Joseph Irvine |</span><br><span class="line">+---------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line">注意：这里用到CONCAT()函数，用来把字符串串接起来。另外，我们还用到以前学到的AS给结果列&#39;CONCAT(f_name, &quot; &quot;, l_name)&#39;起了个假名。</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-数据表操作"><a href="#5-数据表操作" class="headerlink" title="5. 数据表操作"></a>5. 数据表操作</h2><h3 id="5-1-创建数据表"><a href="#5-1-创建数据表" class="headerlink" title="5.1 创建数据表"></a>5.1 创建数据表</h3><p>命令：create table &lt;表名&gt; ( &lt;字段名1&gt; &lt;类型1&gt; [,..&lt;字段名n&gt; &lt;类型n&gt;]);</p>
+<p>例如，建立一个名为MyClass的表，</p>
+<p>字段名     | 数据类型     | 数据宽度     | 是否为空     | 是否主键 | 自动增加     | 默认值<br>—|—|—|—|—|—|— |—<br>id | int | 4 | 否 | primary key | auto_increment<br>name | char | 20 | 否<br>sex | int | 4 | 否 | | | 0<br>degree | double | 16 | 是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table MyClass(</span><br><span class="line">&gt; id int(4) not null primary key auto_increment,</span><br><span class="line">&gt; name char(20) not null,</span><br><span class="line">&gt; sex int(4) not null default &#39;0&#39;,</span><br><span class="line">&gt; degree double(16,2));</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-删除数据表"><a href="#5-2-删除数据表" class="headerlink" title="5.2 删除数据表"></a>5.2 删除数据表</h3><p>命令：drop table &lt;表名&gt;</p>
+<p>例如：删除表名为 MyClass 的表</p>
+<p>   mysql&gt; drop table MyClass;</p>
+<p>DROP TABLE用于取消一个或多个表。您必须有每个表的DROP权限。所有的表数据和表定义会被取消，所以使用本语句要小心！</p>
+<p>注意：对于一个带分区的表，DROP TABLE会永久性地取消表定义，取消各分区，并取消储存在这些分区中的所有数据。DROP TABLE还会取消与被取消的表有关联的分区定义（.par）文件。</p>
+<p>对于不存在的表，使用IF EXISTS用于防止错误发生。当使用IF EXISTS时，对于每个不存在的表，会生成一个NOTE。</p>
+<p>RESTRICT和CASCADE可以使分区更容易。目前，RESTRICT和CASCADE不起作用。</p>
+<h3 id="5-3-表插入数据"><a href="#5-3-表插入数据" class="headerlink" title="5.3 表插入数据"></a>5.3 表插入数据</h3><p>命令：insert into &lt;表名&gt; [( &lt;字段名1&gt;[,..&lt;字段名n &gt; ])] values ( 值1 )[, ( 值n )]</p>
+<p>例如：往表 MyClass中插入二条记录, 这二条记录表示：编号为1的名为Tom的成绩为96.45, 编号为2 的名为Joan 的成绩为82.99， 编号为3 的名为Wang 的成绩为96.5。<br>   mysql&gt; insert into MyClass values(1,’Tom’,96.45),(2,’Joan’,82.99), (2,’Wang’, 96.59);</p>
+<p>注意：insert into每次只能向表中插入一条记录</p>
+<h3 id="5-4-查询表中的数据"><a href="#5-4-查询表中的数据" class="headerlink" title="5.4 查询表中的数据"></a>5.4 查询表中的数据</h3><p><strong>1)、查询所有行</strong><br>命令： select &lt;字段1，字段2，…&gt; from &lt; 表名 &gt; where &lt; 表达式 &gt;<br>例如：查看表 MyClass 中所有数据<br>   mysql&gt; select * from MyClass;</p>
+<p><strong>2）、查询前几行数据</strong><br>例如：查看表 MyClass 中前2行数据<br>mysql&gt; select * from MyClass order by id limit 0,2;</p>
+<p>select一般配合where使用，以查询更精确更复杂的数据。</p>
+<h3 id="5-5-删除表中数据"><a href="#5-5-删除表中数据" class="headerlink" title="5.5 删除表中数据"></a>5.5 删除表中数据</h3><p>命令：delete from 表名 where 表达式</p>
+<p>例如：删除表 MyClass中编号为1 的记录</p>
+<p>mysql&gt; delete from MyClass where id=1;</p>
+<p>下面是一个删除数据前后表的对比。</p>
+<p>FirstName | LastName | Age<br>—|—|—|—|—<br>Peter | Griffin | 35<br>Glenn | Quagmire | 33<br>下面以PHP代码为例删除 “Persons” 表中所有 LastName=’Griffin’ 的记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">   $con &#x3D; mysql_connect(&quot;localhost&quot;,&quot;peter&quot;,&quot;abc123&quot;);</span><br><span class="line">   if (!$con)</span><br><span class="line">   &#123;</span><br><span class="line">      die(&#39;Could not connect: &#39; . mysql_error());</span><br><span class="line">   &#125;</span><br><span class="line">   mysql_select_db(&quot;my_db&quot;, $con);</span><br><span class="line">   mysql_query(&quot;DELETE FROM Persons WHERE LastName&#x3D;&#39;Griffin&#39;&quot;); mysql_close($con);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>在这次删除之后，表是这样的：</p>
+<p>FirstName | LastName | Age<br>—|—|—|—|—<br>Glenn | Quagmire | 33</p>
+<h3 id="5-6-修改表中数据"><a href="#5-6-修改表中数据" class="headerlink" title="5.6 修改表中数据"></a>5.6 修改表中数据</h3><p>语法：update 表名 set 字段=新值,… where 条件<br>   mysql&gt; update MyClass set name=’Mary’ where id=1;</p>
+<p><strong>例子1：单表的MySQL UPDATE语句：</strong></p>
+<p> UPDATE [LOW_PRIORITY] [IGNORE] tbl_name SET col_name1=expr1 [, col_name2=expr2 …] [WHERE where_definition] [ORDER BY …] [LIMIT row_count]</p>
+<p><strong>例子2：多表的UPDATE语句：</strong></p>
+<p>UPDATE [LOW_PRIORITY] [IGNORE] table_references SET col_name1=expr1 [, col_name2=expr2 …] [WHERE where_definition]</p>
+<p>UPDATE语法可以用新值更新原有表行中的各列。SET子句指示要修改哪些列和要给予哪些值。WHERE子句指定应更新哪些行。如果没有WHERE子句，则更新所有的行。如果指定了ORDER BY子句，则按照被指定的顺序对行进行更新。LIMIT子句用于给定一个限值，限制可以被更新的行的数目。</p>
+<h3 id="5-7-增加字段"><a href="#5-7-增加字段" class="headerlink" title="5.7 增加字段"></a>5.7 增加字段</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">命令：alter table 表名 add字段 类型 其他;</span><br><span class="line">例如：在表MyClass中添加了一个字段passtest，类型为int(4)，默认值为0</span><br><span class="line">   mysql&gt; alter table MyClass add passtest int(4) default &#39;0&#39;</span><br><span class="line"></span><br><span class="line">加索引</span><br><span class="line">   mysql&gt; alter table 表名 add index 索引名 (字段名1[，字段名2 …]);</span><br><span class="line">例子： mysql&gt; alter table employee add index emp_name (name);</span><br><span class="line"></span><br><span class="line">加主关键字的索引</span><br><span class="line">  mysql&gt; alter table 表名 add primary key (字段名);</span><br><span class="line">例子： mysql&gt; alter table employee add primary key(id);</span><br><span class="line"></span><br><span class="line">加唯一限制条件的索引</span><br><span class="line">   mysql&gt; alter table 表名 add unique 索引名 (字段名);</span><br><span class="line">例子： mysql&gt; alter table employee add unique emp_name2(cardnumber);</span><br><span class="line"></span><br><span class="line">删除某个索引</span><br><span class="line">   mysql&gt; alter table 表名 drop index 索引名;</span><br><span class="line">例子： mysql&gt;alter table employee drop index emp_name;</span><br><span class="line"></span><br><span class="line">增加字段：</span><br><span class="line">mysql&gt; ALTER TABLE table_name ADD field_name field_type;</span><br><span class="line"></span><br><span class="line">修改原字段名称及类型：</span><br><span class="line">mysql&gt; ALTER TABLE table_name CHANGE old_field_name new_field_name field_type;</span><br><span class="line"></span><br><span class="line">删除字段：</span><br><span class="line">MySQL ALTER TABLE table_name DROP field_name;</span><br></pre></td></tr></table></figure>
+<h3 id="5-8-修改表名"><a href="#5-8-修改表名" class="headerlink" title="5.8 修改表名"></a>5.8 修改表名</h3><p>命令：rename table 原表名 to 新表名;</p>
+<p>例如：在表MyClass名字更改为YouClass<br>   mysql&gt; rename table MyClass to YouClass;</p>
+<p>当你执行 RENAME 时，你不能有任何锁定的表或活动的事务。你同样也必须有对原初表的 ALTER 和 DROP 权限，以及对新表的 CREATE 和 INSERT 权限。</p>
+<p>如果在多表更名中，MySQL 遭遇到任何错误，它将对所有被更名的表进行倒退更名，将每件事物退回到最初状态。</p>
+<p>RENAME TABLE 在 MySQL 3.23.23 中被加入。</p>
+<h2 id="6、备份数据库"><a href="#6、备份数据库" class="headerlink" title="6、备份数据库"></a>6、备份数据库</h2><p>命令在DOS的[url=file://\mysql\bin]\mysql\bin[/url]目录下执行</p>
+<p>1.导出整个数据库<br>导出文件默认是存在mysql\bin目录下<br>    mysqldump -u 用户名 -p 数据库名 &gt; 导出的文件名<br>    mysqldump -u user_name -p123456 database_name &gt; outfile_name.sql</p>
+<p>2.导出一个表<br>    mysqldump -u 用户名 -p 数据库名 表名&gt; 导出的文件名<br>    mysqldump -u user_name -p database_name table_name &gt; outfile_name.sql</p>
+<p>3.导出一个数据库结构<br>    mysqldump -u user_name -p -d –add-drop-table database_name &gt; outfile_name.sql<br>    -d 没有数据 –add-drop-table 在每个create语句之前增加一个drop table</p>
+<p>4.带语言参数导出<br>    mysqldump -uroot -p –default-character-set=latin1 –set-charset=gbk –skip-opt database_name &gt; outfile_name.sql</p>
+<p>例如，将aaa库备份到文件back_aaa中：<br>　　[root@test1 root]# cd　/home/data/mysql<br>　　[root@test1 mysql]# mysqldump -u root -p –opt aaa &gt; back_aaa</p>
+<h2 id="7-实例"><a href="#7-实例" class="headerlink" title="7. 实例　　"></a>7. 实例　　</h2><h3 id="7-1-一个建库和建表的实例1"><a href="#7-1-一个建库和建表的实例1" class="headerlink" title="7.1 一个建库和建表的实例1"></a>7.1 一个建库和建表的实例1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">drop database if exists school; &#x2F;&#x2F;如果存在SCHOOL则删除</span><br><span class="line">create database school; &#x2F;&#x2F;建立库SCHOOL</span><br><span class="line">use school; &#x2F;&#x2F;打开库SCHOOL</span><br><span class="line">create table teacher &#x2F;&#x2F;建立表TEACHER</span><br><span class="line">(</span><br><span class="line">    id int(3) auto_increment not null primary key,</span><br><span class="line">    name char(10) not null,</span><br><span class="line">    address varchar(50) default ‘深圳’,</span><br><span class="line">    year date</span><br><span class="line">); &#x2F;&#x2F;建表结束</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;以下为插入字段</span><br><span class="line">insert into teacher values(”,’allen’,&#39;大连一中’,&#39;1976-10-10′);</span><br><span class="line">insert into teacher values(”,’jack’,&#39;大连二中’,&#39;1975-12-23′);</span><br><span class="line"></span><br><span class="line">如果你在mysql提示符键入上面的命令也可以，但不方便调试。</span><br><span class="line">1、你可以将以上命令原样写入一个文本文件中，假设为school.sql，然后复制到c:\\下，并在DOS状态进入目录[url&#x3D;file:&#x2F;&#x2F;\\mysql\\bin]\\mysql\\bin[&#x2F;url]，然后键入以下命令：</span><br><span class="line">    mysql -uroot -p密码 &lt; c:\\school.sql</span><br><span class="line">如果成功，空出一行无任何显示；如有错误，会有提示。（以上命令已经调试，你只要将&#x2F;&#x2F;的注释去掉即可使用）。</span><br><span class="line"></span><br><span class="line">2、或者进入命令行后使用 mysql&gt; source c:\\school.sql; 也可以将school.sql文件导入数据库中。</span><br></pre></td></tr></table></figure>
+<h3 id="7-2-一个建库和建表的实例2"><a href="#7-2-一个建库和建表的实例2" class="headerlink" title="7.2 一个建库和建表的实例2"></a>7.2 一个建库和建表的实例2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">drop database if exists school; &#x2F;&#x2F;如果存在SCHOOL则删除</span><br><span class="line">create database school; &#x2F;&#x2F;建立库SCHOOL</span><br><span class="line">use school; &#x2F;&#x2F;打开库SCHOOL</span><br><span class="line">create table teacher &#x2F;&#x2F;建立表TEACHER</span><br><span class="line">(</span><br><span class="line">    id int(3) auto_increment not null primary key,</span><br><span class="line">    name char(10) not null,</span><br><span class="line">    address varchar(50) default &#39;&#39;深圳&#39;&#39;,</span><br><span class="line">    year date</span><br><span class="line">); &#x2F;&#x2F;建表结束</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;以下为插入字段</span><br><span class="line">insert into teacher values(&#39;&#39;&#39;&#39;,&#39;&#39;glchengang&#39;&#39;,&#39;&#39;深圳一中&#39;&#39;,&#39;&#39;1976-10-10&#39;&#39;);</span><br><span class="line">insert into teacher values(&#39;&#39;&#39;&#39;,&#39;&#39;jack&#39;&#39;,&#39;&#39;深圳一中&#39;&#39;,&#39;&#39;1975-12-23&#39;&#39;);</span><br></pre></td></tr></table></figure>
+<p>注：在建表中</p>
+<p>1、将ID设为长度为3的数字字段:int(3)；并让它每个记录自动加一:auto_increment；并不能为空:not null；而且让他成为主字段primary key。</p>
+<p>2、将NAME设为长度为10的字符字段</p>
+<p>3、将ADDRESS设为长度50的字符字段，而且缺省值为深圳。</p>
+<p>4、将YEAR设为日期字段。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/常用指令合集/">常用指令合集</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/指令合集/">指令合集</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%A4%A7%E5%85%A8/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

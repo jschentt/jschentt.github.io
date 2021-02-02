@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>浅谈支付宝小程序与微信小程序开发的区别 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="浅谈支付宝小程序与微信小程序开发的区别" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-浅谈支付宝小程序与微信小程序开发的区别" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/浅谈支付宝小程序与微信小程序开发的区别/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">浅谈支付宝小程序与微信小程序开发的区别</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、app-json"><a href="#一、app-json" class="headerlink" title="一、app.json"></a>一、app.json</h2><h3 id="（1）设置小程序通用的的状态栏、导航条、标题、窗口背景色"><a href="#（1）设置小程序通用的的状态栏、导航条、标题、窗口背景色" class="headerlink" title="（1）设置小程序通用的的状态栏、导航条、标题、窗口背景色"></a>（1）设置小程序通用的的状态栏、导航条、标题、窗口背景色</h3><h4 id="支付宝小程序"><a href="#支付宝小程序" class="headerlink" title="支付宝小程序"></a>支付宝小程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;window&quot;: &#123;</span><br><span class="line">    &quot;defaultTitle&quot;: &quot;病案到家&quot;,   &#x2F;&#x2F;页面标题</span><br><span class="line">    &quot;titleBarColor&quot;: &quot;#1688FB&quot;    &#x2F;&#x2F;导航栏背景色</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<h4 id="微信小程序"><a href="#微信小程序" class="headerlink" title="微信小程序"></a>微信小程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;window&quot;: &#123;</span><br><span class="line">    &quot;backgroundTextStyle&quot;: &quot;light&quot;,&#x2F;&#x2F;窗口的背景色</span><br><span class="line">    &quot;navigationBarBackgroundColor&quot;: &quot;#1688FB&quot;,&#x2F;&#x2F;导航栏背景颜色</span><br><span class="line">    &quot;navigationBarTitleText&quot;: &quot;病案到家&quot;,&#x2F;&#x2F;导航栏标题文字内容</span><br><span class="line">    &quot;navigationBarTextStyle&quot;: &quot;white&quot;&#x2F;&#x2F;导航栏标题颜色，仅支持 black&#x2F;white</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="（2）设置tabBar"><a href="#（2）设置tabBar" class="headerlink" title="（2）设置tabBar"></a>（2）设置tabBar</h3><h4 id="支付宝小程序-1"><a href="#支付宝小程序-1" class="headerlink" title="支付宝小程序"></a>支付宝小程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&quot;tabBar&quot;: &#123;</span><br><span class="line">    &quot;textColor&quot;: &quot;#333333&quot;,&#x2F;&#x2F;默认颜色</span><br><span class="line">    &quot;selectedColor&quot;: &quot;#1688FB&quot;,&#x2F;&#x2F;选中颜色</span><br><span class="line">    &quot;backgroundColor&quot;: &quot;#ffffff&quot;,&#x2F;&#x2F;背景色</span><br><span class="line">    &quot;items&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;icon&quot;: &quot;&#x2F;images&#x2F;indexGrey.png&quot;,</span><br><span class="line">        &quot;activeIcon&quot;: &quot;&#x2F;images&#x2F;indexWhite.png&quot;,</span><br><span class="line">        &quot;pagePath&quot;: &quot;pages&#x2F;homeIndex&#x2F;homeIndex&quot;,</span><br><span class="line">        &quot;name&quot;: &quot;首页&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;icon&quot;: &quot;&#x2F;images&#x2F;personGrey.png&quot;,</span><br><span class="line">        &quot;activeIcon&quot;: &quot;&#x2F;images&#x2F;personWhite.png&quot;,</span><br><span class="line">        &quot;pagePath&quot;: &quot;pages&#x2F;orderList&#x2F;orderList&quot;,</span><br><span class="line">        &quot;name&quot;: &quot;我的&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="微信小程序-1"><a href="#微信小程序-1" class="headerlink" title="微信小程序"></a>微信小程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&quot;tabBar&quot;: &#123;</span><br><span class="line">    &quot;color&quot;: &quot;#333333&quot;,</span><br><span class="line">    &quot;selectedColor&quot;: &quot;#1688FB&quot;,</span><br><span class="line">    &quot;backgroundColor&quot;: &quot;#ffffff&quot;,</span><br><span class="line">    &quot;borderStyle&quot;: &quot;#e5e5e5&quot;,</span><br><span class="line">    &quot;list&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;iconPath&quot;: &quot;&#x2F;images&#x2F;indexGrey.png&quot;,</span><br><span class="line">        &quot;selectedIconPath&quot;: &quot;&#x2F;images&#x2F;indexWhite.png&quot;,</span><br><span class="line">        &quot;pagePath&quot;: &quot;pages&#x2F;homeIndex&#x2F;homeIndex&quot;,</span><br><span class="line">        &quot;text&quot;: &quot;首页&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;iconPath&quot;: &quot;&#x2F;images&#x2F;personGrey.png&quot;,</span><br><span class="line">        &quot;selectedIconPath&quot;: &quot;&#x2F;images&#x2F;personWhite.png&quot;,</span><br><span class="line">        &quot;pagePath&quot;: &quot;pages&#x2F;orderList&#x2F;orderList&quot;,</span><br><span class="line">        &quot;text&quot;: &quot;我的&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="二、pages"><a href="#二、pages" class="headerlink" title="二、pages"></a>二、pages</h2><h3 id="（1）文件命名不同"><a href="#（1）文件命名不同" class="headerlink" title="（1）文件命名不同"></a>（1）文件命名不同</h3><h4 id="支付宝小程序-2"><a href="#支付宝小程序-2" class="headerlink" title="支付宝小程序"></a>支付宝小程序</h4><p><img src="https://img-blog.csdnimg.cn/20181120105925562.png" alt="image"></p>
+<h4 id="微信小程序-2"><a href="#微信小程序-2" class="headerlink" title="微信小程序"></a>微信小程序</h4><p><img src="https://img-blog.csdnimg.cn/2018112010585493.png" alt="image"></p>
+<p><strong>我分别在微信小程序和支付宝小程序建立了页面，区别在于</strong>：</p>
+<ol>
+<li>支付宝小程序里面的视图层页面文件后缀是“axml”，样式文件后缀是“acss”；</li>
+<li>微信小程序里面的视图层页面文件后缀是“wxml”，样式文件后缀是“wxss”。</li>
+</ol>
+<h3 id="（2）视图层页面axml以及wxml"><a href="#（2）视图层页面axml以及wxml" class="headerlink" title="（2）视图层页面axml以及wxml"></a>（2）视图层页面axml以及wxml</h3><h4 id="1-冒泡事件和非冒泡事件"><a href="#1-冒泡事件和非冒泡事件" class="headerlink" title="1.冒泡事件和非冒泡事件"></a>1.冒泡事件和非冒泡事件</h4><p><strong>支付宝小程序</strong></p>
+<p>onTap, catchTap</p>
+<p>on 事件绑定不会阻止冒泡事件向上冒泡，catch 事件绑定可以阻止冒泡事件向上冒泡。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button class&#x3D;&quot;weui-btn&quot; onTap&#x3D;&quot;login&quot; type&#x3D;&quot;primary&quot;&gt;登录&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<p>bindtap、catchtouchstart</p>
+<p>bind事件绑定不会阻止冒泡事件向上冒泡，catch事件绑定可以阻止冒泡事件向上冒泡。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button class&#x3D;&quot;weui-btn&quot; bindtap&#x3D;&#39;login&#39; type&#x3D;&quot;primary&quot;&gt;登录&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-列表渲染"><a href="#2-列表渲染" class="headerlink" title="2.列表渲染"></a>2.列表渲染</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    list: [&#123;</span><br><span class="line">      Title: &#39;支付宝&#39;,</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      Title: &#39;微信&#39;,</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;block a:for&#x3D;&quot;&#123;&#123;list&#125;&#125;&quot;&gt;</span><br><span class="line">  &lt;view key&#x3D;&quot;item-&#123;&#123;index&#125;&#125;&quot; index&#x3D;&quot;&#123;&#123;index&#125;&#125;&quot;&gt;&#123;&#123;item.Title&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;block&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;block wx:for&#x3D;&quot;&#123;&#123;list&#125;&#125;&quot;&gt;</span><br><span class="line">  &lt;view wx:key&#x3D;&quot;this&quot; wx:for-item&#x3D;&quot;item&quot;&gt;&#123;&#123;item.Title&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;block&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-条件渲染"><a href="#3-条件渲染" class="headerlink" title="3.条件渲染"></a>3.条件渲染</h4><p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;view a:if&#x3D;&quot;&#123;&#123;length &gt; 5&#125;&#125;&quot;&gt; 1 &lt;&#x2F;view&gt;</span><br><span class="line">&lt;view a:elif&#x3D;&quot;&#123;&#123;length &gt; 2&#125;&#125;&quot;&gt; 2 &lt;&#x2F;view&gt;</span><br><span class="line">&lt;view a:else&gt; 3 &lt;&#x2F;view&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;view wx:if&#x3D;&quot;&#123;&#123;length &gt; 5&#125;&#125;&quot;&gt; 1 &lt;&#x2F;view&gt;</span><br><span class="line">&lt;view wx:elif&#x3D;&quot;&#123;&#123;length &gt; 2&#125;&#125;&quot;&gt; 2 &lt;&#x2F;view&gt;</span><br><span class="line">&lt;view wx:else&gt; 3 &lt;&#x2F;view&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="三、开发过程中常用到的两个小程序中组件的不同用法"><a href="#三、开发过程中常用到的两个小程序中组件的不同用法" class="headerlink" title="三、开发过程中常用到的两个小程序中组件的不同用法"></a>三、开发过程中常用到的两个小程序中组件的不同用法</h2><h3 id="（1）交互"><a href="#（1）交互" class="headerlink" title="（1）交互"></a>（1）交互</h3><h4 id="1-消息提示框"><a href="#1-消息提示框" class="headerlink" title="1.消息提示框"></a>1.消息提示框</h4><p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">my.showToast(&#123;</span><br><span class="line">  type: &#39;success&#39;,&#x2F;&#x2F;默认 none，支持 success &#x2F; fail &#x2F; exception &#x2F; none’。</span><br><span class="line">  content: &#39;操作成功&#39;,&#x2F;&#x2F;文字内容</span><br><span class="line">  duration: 3000,&#x2F;&#x2F;显示时长，单位为 ms，默认 2000</span><br><span class="line">  success: () &#x3D;&gt; &#123;</span><br><span class="line">    my.alert(&#123;</span><br><span class="line">      title: &#39;toast 消失了&#39;,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">my.hideToast()&#x2F;&#x2F;隐藏弱提示。</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wx.showToast(&#123;</span><br><span class="line">  title: &#39;成功&#39;,&#x2F;&#x2F;提示的内容</span><br><span class="line">  icon: &#39;success&#39;,&#x2F;&#x2F;success	显示成功图标;loading	显示加载图标;none不显示图标</span><br><span class="line">  duration: 2000</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;icon为“success”“loading”时 title 文本最多显示 7 个汉字长度</span><br><span class="line">wx.hideToast() &#x2F;&#x2F;隐藏</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-消息提示框"><a href="#2-消息提示框" class="headerlink" title="2.消息提示框"></a>2.消息提示框</h4><p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my.showLoading(&#123;</span><br><span class="line">  content: &#39;加载中...&#39;,</span><br><span class="line">  delay: 1000,</span><br><span class="line">&#125;);</span><br><span class="line">my.hideLoading();</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wx.showLoading(&#123;</span><br><span class="line">  title: &#39;加载中&#39;,</span><br><span class="line">&#125;)</span><br><span class="line">wx.hideLoading()</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-http-请求"><a href="#3-http-请求" class="headerlink" title="3.http 请求"></a>3.http 请求</h4><p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">my.httpRequest(&#123;</span><br><span class="line">  url: &#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;,</span><br><span class="line">  method: &#39;POST&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    from: &#39;支付宝&#39;,</span><br><span class="line">    production: &#39;AlipayJSAPI&#39;,</span><br><span class="line">  &#125;,</span><br><span class="line">  headers:&quot;&quot;,&#x2F;&#x2F;默认 &#123;&#39;Content-Type&#39;: &#39;application&#x2F;x-www-form-urlencoded&#39;&#125;</span><br><span class="line">  dataType: &#39;json&#39;,</span><br><span class="line">  success: function(res) &#123;</span><br><span class="line">    my.alert(&#123;content: &#39;success&#39;&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  fail: function(res) &#123;</span><br><span class="line">    my.alert(&#123;content: &#39;fail&#39;&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  complete: function(res) &#123;</span><br><span class="line">    my.hideLoading();</span><br><span class="line">    my.alert(&#123;content: &#39;complete&#39;&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wx.request(&#123;</span><br><span class="line">  url: &#39;test.php&#39;, &#x2F;&#x2F;仅为示例，并非真实的接口地址</span><br><span class="line">  data: &#123;</span><br><span class="line">    x: &#39;&#39;,</span><br><span class="line">    y: &#39;&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  header: &#123;</span><br><span class="line">    &#39;content-type&#39;: &#39;application&#x2F;json&#39; &#x2F;&#x2F; 默认值</span><br><span class="line">  &#125;,</span><br><span class="line">  success (res) &#123;</span><br><span class="line">    console.log(res.data)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>其实微信小程序和支付宝小程序提供的api方法大致相同，只是微信小程序是以“wx.”起头，支付宝小程序是以“my.”起头，其余可能只是api方法里面字段“text、content、name、title”等命名不同。</p>
+<h3 id="（2）选择器"><a href="#（2）选择器" class="headerlink" title="（2）选择器"></a>（2）选择器</h3><h4 id="1-时间选择器"><a href="#1-时间选择器" class="headerlink" title="1.时间选择器"></a>1.时间选择器</h4><p><strong>支付宝小程序</strong></p>
+<p>支付宝小程序提供了一个api，my.datePicker(object)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">my.datePicker(&#123;</span><br><span class="line">  format: &#39;yyyy-MM-dd&#39;,&#x2F;&#x2F;返回的日期格式，</span><br><span class="line">  currentDate: &#39;2012-12-12&#39;,&#x2F;&#x2F;初始选择的日期时间，默认当前时间</span><br><span class="line">  startDate: &#39;2012-12-10&#39;,&#x2F;&#x2F;最小日期时间</span><br><span class="line">  endDate: &#39;2012-12-15&#39;,&#x2F;&#x2F;最大日期时间</span><br><span class="line">  success: (res) &#x3D;&gt; &#123;</span><br><span class="line">    my.alert(&#123;</span><br><span class="line">	  content: res.date,</span><br><span class="line">	&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<p>微信小程序是通过picker组件来实现的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class&#x3D;&quot;section&quot;&gt;</span><br><span class="line">  &lt;view class&#x3D;&quot;section__title&quot;&gt;日期选择器&lt;&#x2F;view&gt;</span><br><span class="line">  &lt;picker mode&#x3D;&quot;date&quot; value&#x3D;&quot;&#123;&#123;date&#125;&#125;&quot; start&#x3D;&quot;2015-09-01&quot; end&#x3D;&quot;2017-09-01&quot; bindchange&#x3D;&quot;bindDateChange&quot;&gt;</span><br><span class="line">    &lt;view class&#x3D;&quot;picker&quot;&gt;</span><br><span class="line">      当前选择: &#123;&#123;date&#125;&#125;</span><br><span class="line">    &lt;&#x2F;view&gt;</span><br><span class="line">  &lt;&#x2F;picker&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line"></span><br><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    date: &#39;2016-09-01&#39;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  bindDateChange: function(e) &#123;</span><br><span class="line">    console.log(&#39;picker发送选择改变，携带值为&#39;, e.detail.value)</span><br><span class="line">    this.setData(&#123;</span><br><span class="line">      date: e.detail.value</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-省市区选择器"><a href="#2-省市区选择器" class="headerlink" title="2.省市区选择器"></a>2.省市区选择器</h4><p><strong>支付宝小程序</strong></p>
+<p>支付宝小程序提供了一个api，my.multiLevelSelect(Object)</p>
+<p>级联选择功能主要使用在于多级关联数据选择，比如说省市区的信息选择。</p>
+<p>1.1、引入一个省市区的json格式文件 <a href="http://blog.shzhaoqi.com/uploads/js/city_json.zip" target="_blank" rel="noopener">http://blog.shzhaoqi.com/uploads/js/city_json.zip</a></p>
+<p>1.2、在js中引入这个文件</p>
+<p>1.3、使用my.multiLevelSelect(Object)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var citysJSON &#x3D; require(&#39;..&#x2F;..&#x2F;utils&#x2F;city.js&#39;);</span><br><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    provinces: &#39;陕西省&#39;,</span><br><span class="line">    city: &#39;西安市&#39;,</span><br><span class="line">    area: &#39;碑林区&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  chooseAddress: function () &#123;</span><br><span class="line">    my.multiLevelSelect(&#123;</span><br><span class="line">      title: &#39;选择省市区&#39;,&#x2F;&#x2F;级联选择标题</span><br><span class="line">      list: citysJSON.citys,</span><br><span class="line">      success: (res) &#x3D;&gt; &#123;</span><br><span class="line">        this.setData(&#123;</span><br><span class="line">          provinces: res.result[0].name,</span><br><span class="line">          city: res.result[1].name,</span><br><span class="line">          area: res.result[2].name,</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<p>微信小程序依然是通过picker组件来实现的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class&#x3D;&quot;section&quot;&gt;</span><br><span class="line">  &lt;view class&#x3D;&quot;section__title&quot;&gt;省市区选择器&lt;&#x2F;view&gt;</span><br><span class="line">  &lt;picker mode&#x3D;&quot;region&quot; bindchange&#x3D;&quot;bindRegionChange&quot; value&#x3D;&quot;&#123;&#123;region&#125;&#125;&quot; custom-item&#x3D;&quot;&#123;&#123;customItem&#125;&#125;&quot;&gt;</span><br><span class="line">    &lt;view class&#x3D;&quot;picker&quot;&gt;</span><br><span class="line">      当前选择：&#123;&#123;region[0]&#125;&#125;，&#123;&#123;region[1]&#125;&#125;，&#123;&#123;region[2]&#125;&#125;</span><br><span class="line">    &lt;&#x2F;view&gt;</span><br><span class="line">  &lt;&#x2F;picker&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;custom-item   可为每一列的顶部添加一个自定义的项,可为空</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    region: [&#39;广东省&#39;, &#39;广州市&#39;, &#39;海珠区&#39;],</span><br><span class="line">    customItem: &#39;全部&#39;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  bindRegionChange: function (e) &#123;</span><br><span class="line">    console.log(&#39;picker发送选择改变，携带值为&#39;, e.detail.value)</span><br><span class="line">    this.setData(&#123;</span><br><span class="line">      region: e.detail.value</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）小程序唤起支付"><a href="#（3）小程序唤起支付" class="headerlink" title="（3）小程序唤起支付"></a>（3）小程序唤起支付</h4><p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">my.tradePay(&#123;</span><br><span class="line">  tradeNO: &#39;201711152100110410533667792&#39;, &#x2F;&#x2F; 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no</span><br><span class="line">  success: (res) &#x3D;&gt; &#123;</span><br><span class="line">    my.alert(&#123;</span><br><span class="line">	  content: JSON.stringify(res),</span><br><span class="line">	&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  fail: (res) &#x3D;&gt; &#123;</span><br><span class="line">    my.alert(&#123;</span><br><span class="line">	  content: JSON.stringify(res),</span><br><span class="line">	&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wx.requestPayment(&#123;</span><br><span class="line">  timeStamp: &#39;&#39;,&#x2F;&#x2F;时间戳，从 1970 年 1 月 1 日 00:00:00 至今的秒数，即当前的时间</span><br><span class="line">  nonceStr: &#39;&#39;,&#x2F;&#x2F;随机字符串，长度为32个字符以下</span><br><span class="line">  package: &#39;&#39;,&#x2F;&#x2F;统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id&#x3D;***</span><br><span class="line">  signType: &#39;MD5&#39;,&#x2F;&#x2F;签名算法</span><br><span class="line">  paySign: &#39;&#39;,&#x2F;&#x2F;签名</span><br><span class="line">  success (res) &#123; &#125;,</span><br><span class="line">  fail (res) &#123; &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（4）电话"><a href="#（4）电话" class="headerlink" title="（4）电话"></a>（4）电话</h4><p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my.makePhoneCall(&#123;</span><br><span class="line">	number: &#39;400-8097-114&#39;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.makePhoneCall(&#123;</span><br><span class="line">  phoneNumber: &#39;400-8097-114&#39;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="（5）获取登录凭证（code）"><a href="#（5）获取登录凭证（code）" class="headerlink" title="（5）获取登录凭证（code）"></a>（5）获取登录凭证（code）</h4><p><strong>支付宝小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">my.getAuthCode(&#123;</span><br><span class="line">  success (res) &#123;</span><br><span class="line">    if (res.authCode) &#123;</span><br><span class="line">      console.log(res.authCode)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>微信小程序</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wx.login(&#123;</span><br><span class="line">  success (res) &#123;</span><br><span class="line">    if (res.code) &#123;</span><br><span class="line">      console.log(res.code)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/小程序开发/">小程序开发</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/小程序/">小程序</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E6%B5%85%E8%B0%88%E6%94%AF%E4%BB%98%E5%AE%9D%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%8E%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

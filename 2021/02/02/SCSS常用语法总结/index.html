@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>SCSS常用语法总结 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="SCSS常用语法总结" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-SCSS常用语法总结" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/SCSS常用语法总结/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">SCSS常用语法总结</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>Scss 是一款强化 CSS 的辅助工具，它在 CSS 语法的基础上增加了变量 (variables)、嵌套 (nested rules)、混合 (mixins)、导入 (inline imports) 等高级功能，这些拓展令 CSS 更加强大与优雅。</p>
+<h2 id="1-使用变量"><a href="#1-使用变量" class="headerlink" title="1. 使用变量"></a>1. 使用变量</h2><p>因为css里不能使用变量，造成很大不便。所以scss里引入了变量。</p>
+<p>任何可以用作css属性值的赋值都可以用作scss的变量值，甚至是以空格分割的多个属性值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$width: 100px; &#x2F;&#x2F; 定义$width变量</span><br><span class="line">nav &#123;</span><br><span class="line">  width: $width; &#x2F;&#x2F; 引用$width变量</span><br><span class="line">  color: $nav-color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-嵌套CSS-规则"><a href="#2-嵌套CSS-规则" class="headerlink" title="2. 嵌套CSS 规则"></a>2. 嵌套CSS 规则</h2><p>css中重复写选择器是非常麻烦的。比如下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#content article h1 &#123; color: #333 &#125;</span><br><span class="line">#content article p &#123; margin-bottom: 1.4em &#125;</span><br><span class="line">#content aside &#123; background-color: #EEE &#125;</span><br></pre></td></tr></table></figure>
+<p>像这种情况，scss可以只写一遍，且使样式可读性更高。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#content &#123;</span><br><span class="line">  article &#123;</span><br><span class="line">    h1 &#123; color: #333 &#125;</span><br><span class="line">    p &#123; margin-bottom: 1.4em &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  aside &#123; background-color: #EEE &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-1-父选择器的标识符-amp"><a href="#2-1-父选择器的标识符-amp" class="headerlink" title="2-1. 父选择器的标识符&amp;"></a>2-1. 父选择器的标识符&amp;</h3><p>当你想为article元素内a标签写 :hover 这种伪类时，css的写法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">article a &#123;</span><br><span class="line">  color: blue;</span><br><span class="line">&#125;</span><br><span class="line">article a:hover &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而scss可以通过&amp;符号实现上面功能，更方便也更容易理解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">article a &#123;</span><br><span class="line">  color: blue;</span><br><span class="line">  &amp;:hover &#123; color: red &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>常用父选择器用法：</strong></p>
+<p>&amp;:hover</p>
+<p>&amp;:active</p>
+<p>&amp;:disabled</p>
+<p>&amp;:focus</p>
+<p>&amp;::placeholder</p>
+<p>&amp;::after</p>
+<h3 id="2-2-群组选择器的嵌套"><a href="#2-2-群组选择器的嵌套" class="headerlink" title="2-2. 群组选择器的嵌套"></a>2-2. 群组选择器的嵌套</h3><p>你需要在一个特定的容器元素内对一个群组选择器进行修饰时。css的写法是让你在群组选择器中的每一个选择器前都重复一遍容器元素的选择器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.container h1, .container h2, .container h3 &#123; margin-bottom: .8em &#125;</span><br></pre></td></tr></table></figure>
+<p>而用scss写是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.container &#123;</span><br><span class="line">  h1, h2, h3 &#123;margin-bottom: .8em&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有利必有弊，你需要特别注意群组选择器的规则嵌套生成的css。虽然scss让你的样式表看上去很小，但实际生成的css却可能非常大，这会降低网站的速度。</p>
+<h3 id="2-3-子组合选择器和同层组合选择器：-gt-、-和"><a href="#2-3-子组合选择器和同层组合选择器：-gt-、-和" class="headerlink" title="2-3. 子组合选择器和同层组合选择器：&gt;、+和~"></a>2-3. 子组合选择器和同层组合选择器：&gt;、+和~</h3><p>上边这三个组合选择器必须和其他选择器配合使用，以指定浏览器仅选择某种特定上下文中的元素。</p>
+<p>用子组合选择器 &gt; 选择一个元素的直接子元素。选择器会选择article下紧跟着的section子元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">article &gt; section &#123; border: 1px solid #ccc &#125;</span><br></pre></td></tr></table></figure>
+<p>用同层相邻组合选择器 + 选择header元素后紧跟的p元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header + p &#123; font-size: 1.1em &#125;</span><br></pre></td></tr></table></figure>
+<p>你也可以用同层全体组合选择器~，选择所有跟在article后的同层article元素，不管它们之间隔了多少其他元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">article ~ article &#123; border-top: 1px dashed #ccc &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-注释-与"><a href="#3-注释-与" class="headerlink" title="3. 注释 /* */ 与 //"></a>3. 注释 /* */ 与 //</h2><p>Scss 支持标准的 CSS 多行注释 /* */，以及单行注释 //</p>
+<h2 id="4-混合器"><a href="#4-混合器" class="headerlink" title="4. 混合器"></a>4. 混合器</h2><p>scss的混合器可以实现大段样式的重用。混合器使用@mixin标识符定义，然后通过@include来使用这个混合器。<br><strong>为便于书写，@mixin 可以用 = 表示，而 @include 可以用 + 表示</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@mixin div-back&#123;</span><br><span class="line">    background: red;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">    @include div-back;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-给混合器传参"><a href="#4-1-给混合器传参" class="headerlink" title="4-1. 给混合器传参"></a>4-1. 给混合器传参</h3><p>混合器可以做为方法一样可以传参</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@mixin div-back($color) &#123;</span><br><span class="line">    background: $color;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">    @include div-back(red);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当你用混合器传参时，有时候会很难区分每个参数是什么意思，参数之间是一个什么样的顺序。为了解决这个问题，scss允许通过语法$name: value的形式指定每个参数的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@mixin div-back($color,$size) &#123;</span><br><span class="line">    background: $color;</span><br><span class="line">    font-size: $size;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">    @include div-back(</span><br><span class="line">        $color: green,</span><br><span class="line">        $size: 30px   </span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了在@include混合器时不必传入所有的参数，我们可以给参数指定一个默认值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@mixin div-back($color,$size: 20px) &#123;</span><br><span class="line">    background: $color;</span><br><span class="line">    font-size: $size;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">    @include div-back(</span><br><span class="line">        $color: green</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-继承"><a href="#5-继承" class="headerlink" title="5. 继承"></a>5. 继承</h2><p>使用scss的时候，最后一个减少重复的主要特性就是选择器继承。选择器继承是说一个选择器可以继承为另一个选择器定义的所有样式。这个通过@extend语法实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.div &#123;</span><br><span class="line">    font-size: 40px;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">    @extend .div;</span><br><span class="line">    background: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-占位符选择器"><a href="#6-占位符选择器" class="headerlink" title="6. 占位符选择器 %"></a>6. 占位符选择器 %</h2><p>有时，需要定义一套样式并不是给某个元素用，而是只通过 @extend 指令使用。当占位符选择器单独使用时（未通过 @extend 调用），不会编译到 CSS 文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#context a%extreme &#123;</span><br><span class="line">  color: blue;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">  font-size: 2em;</span><br><span class="line">&#125;</span><br><span class="line">.notice &#123;</span><br><span class="line">  @extend %extreme;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#context a.notice &#123;</span><br><span class="line">  color: blue;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">  font-size: 2em;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原理可以理解为用@extend的.notice去替换占位符选择器%extreme的位置。</p>
+<h2 id="7-ScssScript"><a href="#7-ScssScript" class="headerlink" title="7. ScssScript"></a>7. ScssScript</h2><p>ScssScript 支持 6 种主要的数据类型：</p>
+<ul>
+<li>数字：1, 2, 13, 10px</li>
+<li>字符串：有引号字符串与无引号字符串，”foo”, ‘bar’, baz</li>
+<li>颜色：blue, #04a3f9, rgba(255,0,0,0.5)</li>
+<li>布尔型：true, false</li>
+<li>空值：null</li>
+<li>数组 (list)：用空格或逗号作分隔符，1.5em 1em 0 2em, Helvetica, Arial, sans-serif</li>
+<li>maps：相当于 JavaScript 的 object，(key1: value1, key2: value2)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@mixin firefox-message($selector) &#123;</span><br><span class="line">  body.firefox #&#123;$selector&#125;:before &#123;</span><br><span class="line">    content: &quot;Hi, Firefox users!&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@include firefox-message(&quot;.header&quot;);</span><br></pre></td></tr></table></figure>
+<p>编译为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body.firefox .header:before &#123;</span><br><span class="line">  content: &quot;Hi, Firefox users!&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所有数据类型均支持相等运算 == 或 !=，此外，每种数据类型也有其各自支持的运算方式。</p>
+<h3 id="7-1-颜色值运算"><a href="#7-1-颜色值运算" class="headerlink" title="7-1. 颜色值运算"></a>7-1. 颜色值运算</h3><p>颜色值的运算是分段计算进行的，也就是分别计算红色，绿色，以及蓝色的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  color: #010203 + #040506;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>计算 01 + 04 = 05 02 + 05 = 07 03 + 06 = 09，然后编译为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  color: #050709;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可用于连接字符串</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">    background: re + d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在有引号的文本字符串中使用 #{} 插值语句可以添加动态的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p:before &#123;</span><br><span class="line">  content: &quot;I ate #&#123;5 + 10&#125; pies!&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-2-变量定义-default"><a href="#7-2-变量定义-default" class="headerlink" title="7-2. 变量定义 !default"></a>7-2. 变量定义 !default</h3><p>可以在变量的结尾添加 !default 给一个未通过 !default 声明赋值的变量赋值，此时，如果变量已经被赋值，不会再被重新赋值，但是如果变量还没有被赋值，则会被赋予新的值。</p>
+<h3 id="7-3-if、-for、-each、-while"><a href="#7-3-if、-for、-each、-while" class="headerlink" title="7-3. @if、@for、@each、@while"></a>7-3. @if、@for、@each、@while</h3><p>scss也可以写if else等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$type: monster;</span><br><span class="line">p &#123;</span><br><span class="line">  @if $type &#x3D;&#x3D; ocean &#123;</span><br><span class="line">    color: blue;</span><br><span class="line">  &#125; @else if $type &#x3D;&#x3D; matador &#123;</span><br><span class="line">    color: red;</span><br><span class="line">  &#125; @else if $type &#x3D;&#x3D; monster &#123;</span><br><span class="line">    color: green;</span><br><span class="line">  &#125; @else &#123;</span><br><span class="line">    color: black;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  color: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="8-函数指令"><a href="#8-函数指令" class="headerlink" title="8. 函数指令"></a>8. 函数指令</h2><p>Sass 支持自定义函数，并能在任何属性值或 Sass script 中使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$grid-width: 40px;</span><br><span class="line">$gutter-width: 10px;</span><br><span class="line"></span><br><span class="line">@function grid-width($n) &#123;</span><br><span class="line">  @return $n * $grid-width + ($n - 1) * $gutter-width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#sidebar &#123; width: grid-width(5); &#125;</span><br></pre></td></tr></table></figure>
+<p>编译为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#sidebar &#123;</span><br><span class="line">  width: 240px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/常用指令合集/">常用指令合集</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/指令合集/">指令合集</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/SCSS%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

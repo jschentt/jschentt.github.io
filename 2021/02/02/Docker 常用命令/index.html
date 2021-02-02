@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Docker 常用命令 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Docker 常用命令" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Docker 常用命令" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Docker 常用命令/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Docker 常用命令</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、docker的命令的解释"><a href="#一、docker的命令的解释" class="headerlink" title="一、docker的命令的解释"></a>一、docker的命令的解释</h2><h3 id="1、命令解释"><a href="#1、命令解释" class="headerlink" title="1、命令解释"></a>1、命令解释</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 nginx</span><br><span class="line"></span><br><span class="line">run （创建并运行一个容器）</span><br><span class="line">-d 放在后台</span><br><span class="line">-p 端口映射</span><br><span class="line">nginx docker镜像的名字</span><br></pre></td></tr></table></figure>
+<h3 id="2、配置docker镜像加速"><a href="#2、配置docker镜像加速" class="headerlink" title="2、配置docker镜像加速"></a>2、配置docker镜像加速</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;docker&#x2F;daemon.json</span><br><span class="line">&#123;</span><br><span class="line">&quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;registry.docker-cn.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h3 id="3、docker容器是一种软件的打包技术，接下来我们体验一下"><a href="#3、docker容器是一种软件的打包技术，接下来我们体验一下" class="headerlink" title="3、docker容器是一种软件的打包技术，接下来我们体验一下"></a>3、docker容器是一种软件的打包技术，接下来我们体验一下</h3><p>1、传统编译安装nginx：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">官网下载Nginx源码包wget</span><br><span class="line">tar解压源码包</span><br><span class="line">创建Nginx用户</span><br><span class="line">安装依赖包</span><br><span class="line">编译安装三部曲configure，make，make install</span><br><span class="line">修改nginx配置文件</span><br><span class="line">启动nginx</span><br></pre></td></tr></table></figure>
+<p>2、docker容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 nginx</span><br></pre></td></tr></table></figure>
+<h2 id="二、镜像常用命令"><a href="#二、镜像常用命令" class="headerlink" title="二、镜像常用命令"></a>二、镜像常用命令</h2><h3 id="1、搜索镜像："><a href="#1、搜索镜像：" class="headerlink" title="1、搜索镜像："></a>1、搜索镜像：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search</span><br></pre></td></tr></table></figure>
+<p>选镜像的建议：</p>
+<ol>
+<li>优先考虑官方</li>
+<li>stars数量多<h3 id="2、获取镜像"><a href="#2、获取镜像" class="headerlink" title="2、获取镜像:"></a>2、获取镜像:</h3></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull（push）</span><br></pre></td></tr></table></figure>
+<p>镜像加速器：阿里云加速器，daocloud加速器，中科大加速器，Docker 中国官方镜像加速：<a href="https://registry.docker-cn.com" target="_blank" rel="noopener">https://registry.docker-cn.com</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos:6.8（没有指定版本，默认会下载最新版）</span><br><span class="line">docker pull daocloud.io&#x2F;huangzhichong&#x2F;alpine-cn:latest</span><br></pre></td></tr></table></figure>
+<p>扩展：查询docker镜像所有版本 <a href="https://hub.docker.com/r/library/" target="_blank" rel="noopener">https://hub.docker.com/r/library/</a></p>
+<h3 id="3、查看删除导出"><a href="#3、查看删除导出" class="headerlink" title="3、查看删除导出"></a>3、查看删除导出</h3><p>1、查看镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<p>2、删除镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi 例子：docker image rm centos:latest</span><br></pre></td></tr></table></figure>
+<p>3、导出镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save 例子：docker image save centos &gt; docker-centos7.4.tar.gz&lt;br&gt;docker save mysql:5.7&gt; mysql-5.7.tar.gz</span><br></pre></td></tr></table></figure>
+<p>4、导入镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load 例子：docker load -i docker-centos7.4.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="三、容器常用命令"><a href="#三、容器常用命令" class="headerlink" title="三、容器常用命令"></a>三、容器常用命令</h2><h3 id="1、运行一个容器"><a href="#1、运行一个容器" class="headerlink" title="1、运行一个容器"></a>1、运行一个容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 nginx:latest</span><br><span class="line">run （创建并运行一个容器）</span><br><span class="line">-d 放在后台</span><br><span class="line">-p 端口映射</span><br><span class="line">nginx:latest docker镜像的名字和版本</span><br><span class="line">还有很多其他的参数</span><br><span class="line"></span><br><span class="line">docker run &#x3D;&#x3D; docker create + docker start</span><br></pre></td></tr></table></figure>
+<h3 id="2、进入到容器"><a href="#2、进入到容器" class="headerlink" title="2、进入到容器"></a>2、进入到容器</h3><p>进入容器的目的：排错，调试</p>
+<p>进入容器的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</span><br><span class="line">例子：</span><br><span class="line">docker exec -it 容器id或容器名字 &#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">docker attach [OPTIONS] CONTAINER</span><br><span class="line">例子：</span><br><span class="line">docker attach 容器id或容器名字</span><br><span class="line"></span><br><span class="line">nsenter(安装yum install -y util-linux 弃用)</span><br></pre></td></tr></table></figure>
+<h3 id="3、停止删除容器命令"><a href="#3、停止删除容器命令" class="headerlink" title="3、停止删除容器命令"></a>3、停止删除容器命令</h3><p>1、停止容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop CONTAINER_ID</span><br></pre></td></tr></table></figure>
+<p>2、杀死容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker kill container_name</span><br></pre></td></tr></table></figure>
+<p>3、查看容器列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br><span class="line">docker ps –a</span><br><span class="line"></span><br><span class="line">docker ps –a  -l</span><br></pre></td></tr></table></figure>
+<p>4、删除容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm</span><br></pre></td></tr></table></figure>
+<p>5、批量删除容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm -f &#96;docker ps -a -q&#96;</span><br></pre></td></tr></table></figure>
+<h3 id="4、要获取所有容器名称及其IP地址只需一个命令。"><a href="#4、要获取所有容器名称及其IP地址只需一个命令。" class="headerlink" title="4、要获取所有容器名称及其IP地址只需一个命令。"></a>4、要获取所有容器名称及其IP地址只需一个命令。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect -f &#39;&#123;&#123;.Name&#125;&#125; - &#123;&#123;.NetworkSettings.IPAddress &#125;&#125;&#39; $(docker ps -aq)</span><br></pre></td></tr></table></figure>
+<p>如果使用docker-compose命令将是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect -f &#39;&#123;&#123;.Name&#125;&#125; - &#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&#39; $(docker ps -aq)</span><br></pre></td></tr></table></figure>
+<h3 id="5、显示容器的所有IP"><a href="#5、显示容器的所有IP" class="headerlink" title="5、显示容器的所有IP"></a>5、显示容器的所有IP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect --format&#x3D;&#39;&#123;&#123;.Name&#125;&#125; - &#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&#39; $(docker ps -aq)</span><br></pre></td></tr></table></figure>
+<h2 id="四、容器网络访问常用命令"><a href="#四、容器网络访问常用命令" class="headerlink" title="四、容器网络访问常用命令"></a>四、容器网络访问常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name centos6 centos:6.8 &#x2F;bin&#x2F;bash</span><br><span class="line">-it 分配交互式的终端</span><br><span class="line">--name 指定容器的名字</span><br><span class="line">&#x2F;bin&#x2F;sh 覆盖容器的初始命令</span><br><span class="line"></span><br><span class="line">--cpus 指定cpu的数量</span><br><span class="line">--memory 限定内存的大小</span><br><span class="line">-h 指定容器的主机名</span><br></pre></td></tr></table></figure>
+<p>docker的本质是：在隔离的环境运行的一个进程</p>
+<p>所以：docker容器内的第一个进程必须一直处于前台运行的状态（必须夯住），否则这个容器，就会处于退出状态！</p>
+<h3 id="1、运行容器为什么要使用端口映射？"><a href="#1、运行容器为什么要使用端口映射？" class="headerlink" title="1、运行容器为什么要使用端口映射？"></a>1、运行容器为什么要使用端口映射？</h3><p>默认情况下，容器使用的ip是172.17.0.0/16网段的，外界的用户只能访问宿主机的10.0.0.0/24网段，</p>
+<p>无法访问172.17.0.0/16网段。我们运行容器的目的：是希望运行在容器中的服务，能够被外界访问，</p>
+<p>这里就涉及到了外网10.0.0.0/24到容器内网172.17.0.0/16网段的转换，所以需要做端口映射</p>
+<h3 id="2、指定映射-docker-自动添加一条iptables规则实现端口映射"><a href="#2、指定映射-docker-自动添加一条iptables规则实现端口映射" class="headerlink" title="2、指定映射(docker 自动添加一条iptables规则实现端口映射)"></a>2、指定映射(docker 自动添加一条iptables规则实现端口映射)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-p hostPort:containerPort</span><br><span class="line">-p ip:hostPort:containerPort</span><br><span class="line">-p ip::containerPort(随机端口)</span><br><span class="line">-p hostPort:containerPort:udp</span><br><span class="line">-p 81:80 -p 443:443 可以指定多个-p</span><br></pre></td></tr></table></figure>
+<h3 id="3、随机映射"><a href="#3、随机映射" class="headerlink" title="3、随机映射"></a>3、随机映射</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -P （随机端口）</span><br></pre></td></tr></table></figure>
+<h2 id="五、数据卷常用命令"><a href="#五、数据卷常用命令" class="headerlink" title="五、数据卷常用命令"></a>五、数据卷常用命令</h2><h3 id="1、数据卷的作用："><a href="#1、数据卷的作用：" class="headerlink" title="1、数据卷的作用："></a>1、数据卷的作用：</h3><ul>
+<li>持久化容器运行过程中产生的数据文件</li>
+<li>实现多个容器间的文件共享。</li>
+</ul>
+<p>正常情况下，删除容器，容器中所有的文件也会被删除</p>
+<h3 id="2、数据卷常用命令"><a href="#2、数据卷常用命令" class="headerlink" title="2、数据卷常用命令"></a>2、数据卷常用命令</h3><p>1、创建一个数据卷</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume create</span><br></pre></td></tr></table></figure>
+<p>2、查看数据卷列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume ls</span><br></pre></td></tr></table></figure>
+<p>3、删除一个数据卷</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume rm</span><br></pre></td></tr></table></figure>
+<p>4、查看一个数据卷的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume inspect</span><br></pre></td></tr></table></figure>
+<h3 id="3、docker数据卷运用一"><a href="#3、docker数据卷运用一" class="headerlink" title="3、docker数据卷运用一"></a>3、docker数据卷运用一</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker volume create luoahong</span><br><span class="line"></span><br><span class="line">docker run -d -p 80:80 -v luoahong:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html nginx:latest</span><br><span class="line"></span><br><span class="line">cd &#x2F;var&#x2F;lib&#x2F;docker&#x2F;volumes&#x2F;luoahong&#x2F;_data&#x2F;</span><br><span class="line">rm -f *</span><br><span class="line">wget https:&#x2F;&#x2F;www.qstack.com.cn&#x2F;xiaoniaofeifei.zip</span><br><span class="line">unzip xiaoniaofeifei.zip</span><br><span class="line"></span><br><span class="line">docker run -d -p 81:80 -v luoahong:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html nginx:latest</span><br><span class="line">docker run -d -p 82:80 -v luoahong:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html nginx:latest</span><br></pre></td></tr></table></figure>
+<h3 id="4、把宿主机的目录挂载到容器中"><a href="#4、把宿主机的目录挂载到容器中" class="headerlink" title="4、把宿主机的目录挂载到容器中"></a>4、把宿主机的目录挂载到容器中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;opt</span><br><span class="line">mkdir xiaoniao</span><br><span class="line">cd xiaoniao&#x2F;</span><br><span class="line">wget https:&#x2F;&#x2F;www.qstack.com.cn&#x2F;xiaoniaofeifei.zip</span><br><span class="line">unzip xiaoniaofeifei.zip</span><br></pre></td></tr></table></figure>
+<p>重点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 83:80 -v &#x2F;opt&#x2F;xiaoniao:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html nginx:latest</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/常用指令合集/">常用指令合集</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/指令合集/">指令合集</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Docker%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

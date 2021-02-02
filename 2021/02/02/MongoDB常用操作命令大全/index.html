@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>MongoDB常用操作命令大全 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="MongoDB常用操作命令大全" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-MongoDB常用操作命令大全" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/MongoDB常用操作命令大全/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">MongoDB常用操作命令大全</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>成功启动MongoDB后，再打开一个命令行窗口输入mongo，就可以进行数据库的一些操作。输入help可以看到基本操作命令，只是MongoDB没有创建数据库的命令，但有类似的命令。</p>
+<p>如：如果你想创建一个“myTest”的数据库，先运行use myTest命令，之后就做一些操作（如：db.createCollection(‘user’)）,这样就可以创建一个名叫“myTest”的数据库。</p>
+<h2 id="一、数据库常用命令"><a href="#一、数据库常用命令" class="headerlink" title="一、数据库常用命令"></a>一、数据库常用命令</h2><h3 id="1、Help查看命令提示"><a href="#1、Help查看命令提示" class="headerlink" title="1、Help查看命令提示"></a>1、Help查看命令提示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">help</span><br><span class="line">db.help();</span><br><span class="line">db.yourColl.help();</span><br><span class="line">db.youColl.find().help();</span><br><span class="line">rs.help();</span><br></pre></td></tr></table></figure>
+<h3 id="2、切换-创建数据库"><a href="#2、切换-创建数据库" class="headerlink" title="2、切换/创建数据库"></a>2、切换/创建数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use yourDB; 当创建一个集合(table)的时候会自动创建当前数据库</span><br></pre></td></tr></table></figure>
+<h3 id="3、查询所有数据库"><a href="#3、查询所有数据库" class="headerlink" title="3、查询所有数据库"></a>3、查询所有数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show dbs;</span><br></pre></td></tr></table></figure>
+<h3 id="4、删除当前使用数据库"><a href="#4、删除当前使用数据库" class="headerlink" title="4、删除当前使用数据库"></a>4、删除当前使用数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.dropDatabase();</span><br></pre></td></tr></table></figure>
+<h3 id="5、从指定主机上克隆数据库"><a href="#5、从指定主机上克隆数据库" class="headerlink" title="5、从指定主机上克隆数据库"></a>5、从指定主机上克隆数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.cloneDatabase(“127.0.0.1”); 将指定机器上的数据库的数据克隆到当前数据库</span><br></pre></td></tr></table></figure>
+<h3 id="6、从指定的机器上复制指定数据库数据到某个数据库"><a href="#6、从指定的机器上复制指定数据库数据到某个数据库" class="headerlink" title="6、从指定的机器上复制指定数据库数据到某个数据库"></a>6、从指定的机器上复制指定数据库数据到某个数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.copyDatabase(&quot;mydb&quot;, &quot;temp&quot;, &quot;127.0.0.1&quot;);将本机的mydb的数据复制到temp数据库中</span><br></pre></td></tr></table></figure>
+<h3 id="7、修复当前数据库"><a href="#7、修复当前数据库" class="headerlink" title="7、修复当前数据库"></a>7、修复当前数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.repairDatabase();</span><br></pre></td></tr></table></figure>
+<h3 id="8、查看当前使用的数据库"><a href="#8、查看当前使用的数据库" class="headerlink" title="8、查看当前使用的数据库"></a>8、查看当前使用的数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.getName();</span><br><span class="line">db; db和getName方法是一样的效果，都可以查询当前使用的数据库</span><br></pre></td></tr></table></figure>
+<h3 id="9、显示当前db状态"><a href="#9、显示当前db状态" class="headerlink" title="9、显示当前db状态"></a>9、显示当前db状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.stats();</span><br></pre></td></tr></table></figure>
+<h3 id="10、当前db版本"><a href="#10、当前db版本" class="headerlink" title="10、当前db版本"></a>10、当前db版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.version();</span><br></pre></td></tr></table></figure>
+<h3 id="11、查看当前db的链接机器地址"><a href="#11、查看当前db的链接机器地址" class="headerlink" title="11、查看当前db的链接机器地址"></a>11、查看当前db的链接机器地址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getMongo();</span><br></pre></td></tr></table></figure>
+<h2 id="二、Collection聚集集合"><a href="#二、Collection聚集集合" class="headerlink" title="二、Collection聚集集合"></a>二、Collection聚集集合</h2><h3 id="1、创建一个聚集集合（table）"><a href="#1、创建一个聚集集合（table）" class="headerlink" title="1、创建一个聚集集合（table）"></a>1、创建一个聚集集合（table）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(“collName”, &#123;size: 20, capped: 5, max: 100&#125;);&#x2F;&#x2F;创建成功会显示&#123;“ok”:1&#125;</span><br><span class="line">&#x2F;&#x2F;判断集合是否为定容量db.collName.isCapped();</span><br></pre></td></tr></table></figure>
+<h3 id="2、得到指定名称的聚集集合（table）"><a href="#2、得到指定名称的聚集集合（table）" class="headerlink" title="2、得到指定名称的聚集集合（table）"></a>2、得到指定名称的聚集集合（table）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getCollection(&quot;account&quot;);</span><br></pre></td></tr></table></figure>
+<h3 id="3、得到当前db的所有聚集集合"><a href="#3、得到当前db的所有聚集集合" class="headerlink" title="3、得到当前db的所有聚集集合"></a>3、得到当前db的所有聚集集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getCollectionNames();</span><br></pre></td></tr></table></figure>
+<h3 id="4、显示当前db所有聚集索引的状态"><a href="#4、显示当前db所有聚集索引的状态" class="headerlink" title="4、显示当前db所有聚集索引的状态"></a>4、显示当前db所有聚集索引的状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.printCollectionStats();</span><br></pre></td></tr></table></figure>
+<h2 id="三、用户相关"><a href="#三、用户相关" class="headerlink" title="三、用户相关"></a>三、用户相关</h2><h3 id="1、添加一个用户"><a href="#1、添加一个用户" class="headerlink" title="1、添加一个用户"></a>1、添加一个用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.addUser(&quot;name&quot;);</span><br><span class="line">db.addUser(&quot;userName&quot;, &quot;pwd123&quot;, true); 添加用户、设置密码、是否只读</span><br></pre></td></tr></table></figure>
+<h3 id="2、数据库认证、安全模式"><a href="#2、数据库认证、安全模式" class="headerlink" title="2、数据库认证、安全模式"></a>2、数据库认证、安全模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.auth(&quot;userName&quot;, &quot;123123&quot;);</span><br></pre></td></tr></table></figure>
+<h3 id="3、显示当前所有用户"><a href="#3、显示当前所有用户" class="headerlink" title="3、显示当前所有用户"></a>3、显示当前所有用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show users;</span><br></pre></td></tr></table></figure>
+<h3 id="4、删除用户"><a href="#4、删除用户" class="headerlink" title="4、删除用户"></a>4、删除用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.removeUser(&quot;userName&quot;);</span><br></pre></td></tr></table></figure>
+<h2 id="四、聚集集合查询"><a href="#四、聚集集合查询" class="headerlink" title="四、聚集集合查询"></a>四、聚集集合查询</h2><h3 id="1、查询所有记录"><a href="#1、查询所有记录" class="headerlink" title="1、查询所有记录"></a>1、查询所有记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find();</span><br><span class="line">相当于：select* from userInfo;</span><br></pre></td></tr></table></figure>
+<p>默认每页显示20条记录，当显示不下的情况下，可以用it迭代命令查询下一页数据。注意：键入it命令不能带“；”<br>但是你可以设置每页显示数据的大小，用DBQuery.shellBatchSize= 50;这样每页就显示50条记录了。</p>
+<h3 id="2、查询去掉后的当前聚集集合中的某列的重复数据"><a href="#2、查询去掉后的当前聚集集合中的某列的重复数据" class="headerlink" title="2、查询去掉后的当前聚集集合中的某列的重复数据"></a>2、查询去掉后的当前聚集集合中的某列的重复数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.distinct(&quot;name&quot;);</span><br><span class="line">会过滤掉name中的相同数据</span><br><span class="line">相当于：select distict name from userInfo;</span><br></pre></td></tr></table></figure>
+<h3 id="3、查询age-22的记录"><a href="#3、查询age-22的记录" class="headerlink" title="3、查询age = 22的记录"></a>3、查询age = 22的记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;&quot;age&quot;: 22&#125;);</span><br><span class="line">相当于： select * from userInfo where age &#x3D; 22;</span><br></pre></td></tr></table></figure>
+<h3 id="4、查询age-gt-22的记录"><a href="#4、查询age-gt-22的记录" class="headerlink" title="4、查询age &gt; 22的记录"></a>4、查询age &gt; 22的记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;age: &#123;$gt: 22&#125;&#125;);</span><br><span class="line">相当于：select * from userInfo where age &gt;22;</span><br></pre></td></tr></table></figure>
+<h3 id="5、查询age-lt-22的记录"><a href="#5、查询age-lt-22的记录" class="headerlink" title="5、查询age &lt; 22的记录"></a>5、查询age &lt; 22的记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;age: &#123;$lt: 22&#125;&#125;);</span><br><span class="line">相当于：select * from userInfo where age &lt;22;</span><br></pre></td></tr></table></figure>
+<h3 id="6、查询age-gt-25的记录"><a href="#6、查询age-gt-25的记录" class="headerlink" title="6、查询age &gt;= 25的记录"></a>6、查询age &gt;= 25的记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;age: &#123;$gte: 25&#125;&#125;);</span><br><span class="line">相当于：select * from userInfo where age &gt;&#x3D; 25;</span><br></pre></td></tr></table></figure>
+<h3 id="7、查询age-lt-25的记录"><a href="#7、查询age-lt-25的记录" class="headerlink" title="7、查询age &lt;= 25的记录"></a>7、查询age &lt;= 25的记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;age: &#123;$lte: 25&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="8、查询age-gt-23-并且-age-lt-26"><a href="#8、查询age-gt-23-并且-age-lt-26" class="headerlink" title="8、查询age &gt;= 23 并且 age &lt;= 26"></a>8、查询age &gt;= 23 并且 age &lt;= 26</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;age: &#123;$gte: 23, $lte: 26&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="9、查询name中包含-mongo的数据"><a href="#9、查询name中包含-mongo的数据" class="headerlink" title="9、查询name中包含 mongo的数据"></a>9、查询name中包含 mongo的数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;name: &#x2F;mongo&#x2F;&#125;);</span><br><span class="line">&#x2F;&#x2F;相当于%%</span><br><span class="line">[code]select * from userInfo where name like ‘%mongo%&#39;;</span><br></pre></td></tr></table></figure>
+<h3 id="10、查询name中以mongo开头的"><a href="#10、查询name中以mongo开头的" class="headerlink" title="10、查询name中以mongo开头的"></a>10、查询name中以mongo开头的</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;name: &#x2F;^mongo&#x2F;&#125;);</span><br><span class="line">select * from userInfo where name like ‘mongo%&#39;;</span><br></pre></td></tr></table></figure>
+<h3 id="11、查询指定列name、age数据"><a href="#11、查询指定列name、age数据" class="headerlink" title="11、查询指定列name、age数据"></a>11、查询指定列name、age数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;&#125;, &#123;name: 1, age: 1&#125;);</span><br><span class="line">相当于：select name, age from userInfo;</span><br></pre></td></tr></table></figure>
+<p>当然name也可以用true或false,当用true的情况下和name:1效果一样，如果用false就是排除name，显示name以外的列信息。</p>
+<h3 id="12、查询指定列name、age数据-age-gt-25"><a href="#12、查询指定列name、age数据-age-gt-25" class="headerlink" title="12、查询指定列name、age数据, age &gt; 25"></a>12、查询指定列name、age数据, age &gt; 25</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;age: &#123;$gt: 25&#125;&#125;, &#123;name: 1, age: 1&#125;);</span><br><span class="line">相当于：select name, age from userInfo where age &gt;25;</span><br></pre></td></tr></table></figure>
+<h3 id="13、按照年龄排序"><a href="#13、按照年龄排序" class="headerlink" title="13、按照年龄排序"></a>13、按照年龄排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">升序：db.userInfo.find().sort(&#123;age: 1&#125;);</span><br><span class="line">降序：db.userInfo.find().sort(&#123;age: -1&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="14、查询name-zhangsan-age-22的数据"><a href="#14、查询name-zhangsan-age-22的数据" class="headerlink" title="14、查询name = zhangsan, age = 22的数据"></a>14、查询name = zhangsan, age = 22的数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;name: &#39;zhangsan&#39;, age: 22&#125;);</span><br><span class="line">相当于：select * from userInfo where name &#x3D; ‘zhangsan&#39; and age &#x3D; ‘22&#39;;</span><br></pre></td></tr></table></figure>
+<h3 id="15、查询前5条数据"><a href="#15、查询前5条数据" class="headerlink" title="15、查询前5条数据"></a>15、查询前5条数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find().limit(5);</span><br><span class="line">相当于：selecttop 5 * from userInfo;</span><br></pre></td></tr></table></figure>
+<h3 id="16、查询10条以后的数据"><a href="#16、查询10条以后的数据" class="headerlink" title="16、查询10条以后的数据"></a>16、查询10条以后的数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find().skip(10);</span><br><span class="line">相当于：select * from userInfo where id not in (</span><br><span class="line">selecttop 10 * from userInfo</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="17、查询在5-10之间的数据"><a href="#17、查询在5-10之间的数据" class="headerlink" title="17、查询在5-10之间的数据"></a>17、查询在5-10之间的数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find().limit(10).skip(5);</span><br></pre></td></tr></table></figure>
+<p>可用于分页，limit是pageSize，skip是第几页</p>
+<h3 id="18、or与-查询"><a href="#18、or与-查询" class="headerlink" title="18、or与 查询"></a>18、or与 查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;$or: [&#123;age: 22&#125;, &#123;age: 25&#125;]&#125;);</span><br><span class="line">相当于：select * from userInfo where age &#x3D; 22 or age &#x3D; 25;</span><br></pre></td></tr></table></figure>
+<h3 id="19、查询第一条数据"><a href="#19、查询第一条数据" class="headerlink" title="19、查询第一条数据"></a>19、查询第一条数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.findOne();</span><br><span class="line">相当于：selecttop 1 * from userInfo;</span><br><span class="line">db.userInfo.find().limit(1);</span><br></pre></td></tr></table></figure>
+<h3 id="20、查询某个结果集的记录条数"><a href="#20、查询某个结果集的记录条数" class="headerlink" title="20、查询某个结果集的记录条数"></a>20、查询某个结果集的记录条数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;age: &#123;$gte: 25&#125;&#125;).count();</span><br><span class="line">相当于：select count(*) from userInfo where age &gt;&#x3D; 20;</span><br></pre></td></tr></table></figure>
+<h3 id="21、按照某列进行排序"><a href="#21、按照某列进行排序" class="headerlink" title="21、按照某列进行排序"></a>21、按照某列进行排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.find(&#123;sex: &#123;$exists: true&#125;&#125;).count();</span><br><span class="line">相当于：select count(sex) from userInfo;</span><br></pre></td></tr></table></figure>
+<h2 id="五、索引"><a href="#五、索引" class="headerlink" title="五、索引"></a>五、索引</h2><h3 id="1、创建索引"><a href="#1、创建索引" class="headerlink" title="1、创建索引"></a>1、创建索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.ensureIndex(&#123;name: 1&#125;);</span><br><span class="line">db.userInfo.ensureIndex(&#123;name: 1, ts: -1&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="2、查询当前聚集集合所有索引"><a href="#2、查询当前聚集集合所有索引" class="headerlink" title="2、查询当前聚集集合所有索引"></a>2、查询当前聚集集合所有索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.getIndexes();</span><br></pre></td></tr></table></figure>
+<h3 id="3、查看总索引记录大小"><a href="#3、查看总索引记录大小" class="headerlink" title="3、查看总索引记录大小"></a>3、查看总索引记录大小</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.userInfo.totalIndexSize();</span><br></pre></td></tr></table></figure>
+<h3 id="4、读取当前集合的所有index信息"><a href="#4、读取当前集合的所有index信息" class="headerlink" title="4、读取当前集合的所有index信息"></a>4、读取当前集合的所有index信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.reIndex();</span><br></pre></td></tr></table></figure>
+<h3 id="5、删除指定索引"><a href="#5、删除指定索引" class="headerlink" title="5、删除指定索引"></a>5、删除指定索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.dropIndex(&quot;name_1&quot;);</span><br></pre></td></tr></table></figure>
+<h3 id="6、删除所有索引"><a href="#6、删除所有索引" class="headerlink" title="6、删除所有索引"></a>6、删除所有索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.dropIndexes();</span><br></pre></td></tr></table></figure>
+<h2 id="六、修改、添加、删除集合数据"><a href="#六、修改、添加、删除集合数据" class="headerlink" title="六、修改、添加、删除集合数据"></a>六、修改、添加、删除集合数据</h2><h3 id="1、添加"><a href="#1、添加" class="headerlink" title="1、添加"></a>1、添加</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.save(&#123;name: ‘zhangsan&#39;, age: 25, sex: true&#125;);</span><br></pre></td></tr></table></figure>
+<p>添加的数据的数据列，没有固定，根据添加的数据为准</p>
+<h3 id="2、修改"><a href="#2、修改" class="headerlink" title="2、修改"></a>2、修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.users.update(&#123;age: 25&#125;, &#123;$set: &#123;name: &#39;changeName&#39;&#125;&#125;, false, true);</span><br><span class="line">相当于：update users set name &#x3D; ‘changeName&#39; where age &#x3D; 25;</span><br><span class="line">db.users.update(&#123;name: &#39;Lisi&#39;&#125;, &#123;$inc: &#123;age: 50&#125;&#125;, false, true);</span><br><span class="line">相当于：update users set age &#x3D; age + 50 where name &#x3D; ‘Lisi&#39;;</span><br><span class="line">db.users.update(&#123;name: &#39;Lisi&#39;&#125;, &#123;$inc: &#123;age: 50&#125;, $set: &#123;name: &#39;hoho&#39;&#125;&#125;, false, true);</span><br><span class="line">相当于：update users set age &#x3D; age + 50, name &#x3D; ‘hoho&#39; where name &#x3D; ‘Lisi&#39;;</span><br></pre></td></tr></table></figure>
+<h3 id="3、删除"><a href="#3、删除" class="headerlink" title="3、删除"></a>3、删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.remove(&#123;age: 132&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="4、查询修改删除"><a href="#4、查询修改删除" class="headerlink" title="4、查询修改删除"></a>4、查询修改删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">db.users.findAndModify(&#123;</span><br><span class="line">    query: &#123;age: &#123;$gte: 25&#125;&#125;,</span><br><span class="line">    sort: &#123;age: -1&#125;,</span><br><span class="line">    update: &#123;$set: &#123;name: &#39;a2&#39;&#125;, $inc: &#123;age: 2&#125;&#125;,</span><br><span class="line">    remove: true</span><br><span class="line">&#125;);</span><br><span class="line">db.runCommand(&#123; findandmodify : &quot;users&quot;,</span><br><span class="line">    query: &#123;age: &#123;$gte: 25&#125;&#125;,</span><br><span class="line">    sort: &#123;age: -1&#125;,</span><br><span class="line">    update: &#123;$set: &#123;name: &#39;a2&#39;&#125;, $inc: &#123;age: 2&#125;&#125;,</span><br><span class="line">    remove: true</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">update 或 remove 其中一个是必须的参数; 其他参数可选。</span><br><span class="line">参数    详解     默认值</span><br><span class="line">query    查询过滤条件    &#123;&#125;</span><br><span class="line">sort    如果多个文档符合查询过滤条件，将以该参数指定的排列方式选择出排在首位的对象，该对象将被操作    &#123;&#125;</span><br><span class="line">remove    若为true，被选中对象将在返回前被删除    N&#x2F;A</span><br><span class="line">update    一个 修改器对象</span><br><span class="line">N&#x2F;A</span><br><span class="line">new    若为true，将返回修改后的对象而不是原始对象。在删除操作中，该参数被忽略。    false</span><br><span class="line">fields    参见Retrieving a Subset of Fields (1.5.0+)</span><br><span class="line">All fields</span><br><span class="line">upsert    创建新对象若查询结果为空。 示例 (1.5.4+)</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
+<h2 id="七、语句块操作"><a href="#七、语句块操作" class="headerlink" title="七、语句块操作"></a>七、语句块操作</h2><h3 id="1、简单Hello-World"><a href="#1、简单Hello-World" class="headerlink" title="1、简单Hello World"></a>1、简单Hello World</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;Hello World!&quot;);</span><br></pre></td></tr></table></figure>
+<p>这种写法调用了print函数，和直接写入”Hello World!”的效果是一样的；</p>
+<h3 id="2、将一个对象转换成json"><a href="#2、将一个对象转换成json" class="headerlink" title="2、将一个对象转换成json"></a>2、将一个对象转换成json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tojson(new Object());</span><br><span class="line">tojson(new Object(&#39;a&#39;));</span><br></pre></td></tr></table></figure>
+<h3 id="3、循环添加数据"><a href="#3、循环添加数据" class="headerlink" title="3、循环添加数据"></a>3、循环添加数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; for (var i &#x3D; 0; i &lt; 30; i++) &#123;</span><br><span class="line">... db.users.save(&#123;name: &quot;u_&quot; + i, age: 22 + i, sex: i % 2&#125;);</span><br><span class="line">... &#125;;</span><br></pre></td></tr></table></figure>
+<p>这样就循环添加了30条数据，同样也可以省略括号的写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; for (var i &#x3D; 0; i &lt; 30; i++) db.users.save(&#123;name: &quot;u_&quot; + i, age: 22 + i, sex: i % 2&#125;);</span><br></pre></td></tr></table></figure>
+<p>也是可以的，当你用db.users.find()查询的时候，显示多条数据而无法一页显示的情况下，可以用it查看下一页的信息；</p>
+<h3 id="4、find-游标查询"><a href="#4、find-游标查询" class="headerlink" title="4、find 游标查询"></a>4、find 游标查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;var cursor &#x3D; db.users.find();</span><br><span class="line">&gt; while (cursor.hasNext()) &#123;</span><br><span class="line">    printjson(cursor.next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就查询所有的users信息，同样可以这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var cursor &#x3D; db.users.find();</span><br><span class="line">while (cursor.hasNext()) &#123; printjson(cursor.next); &#125;</span><br></pre></td></tr></table></figure>
+<p>同样可以省略{}号</p>
+<h3 id="5、forEach迭代循环"><a href="#5、forEach迭代循环" class="headerlink" title="5、forEach迭代循环"></a>5、forEach迭代循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.find().forEach(printjson);</span><br></pre></td></tr></table></figure>
+<p>forEach中必须传递一个函数来处理每条迭代的数据信息</p>
+<h3 id="6、将find游标当数组处理"><a href="#6、将find游标当数组处理" class="headerlink" title="6、将find游标当数组处理"></a>6、将find游标当数组处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var cursor &#x3D; db.users.find();</span><br><span class="line">cursor[4];</span><br></pre></td></tr></table></figure>
+<p>取得下标索引为4的那条数据<br>既然可以当做数组处理，那么就可以获得它的长度：cursor.length();或者cursor.count();<br>那样我们也可以用循环显示数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for (var i &#x3D; 0, len &#x3D; c.length(); i &lt; len; i++) printjson(c[i]);</span><br></pre></td></tr></table></figure>
+<h3 id="7、将find游标转换成数组"><a href="#7、将find游标转换成数组" class="headerlink" title="7、将find游标转换成数组"></a>7、将find游标转换成数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; var arr &#x3D; db.users.find().toArray();</span><br><span class="line">&gt; printjson(arr[2]);</span><br></pre></td></tr></table></figure>
+<p>用toArray方法将其转换为数组</p>
+<h3 id="8、定制我们自己的查询结果"><a href="#8、定制我们自己的查询结果" class="headerlink" title="8、定制我们自己的查询结果"></a>8、定制我们自己的查询结果</h3><p>只显示age &lt;= 28的并且只显示age这列数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.users.find(&#123;age: &#123;$lte: 28&#125;&#125;, &#123;age: 1&#125;).forEach(printjson);</span><br><span class="line">db.users.find(&#123;age: &#123;$lte: 28&#125;&#125;, &#123;age: true&#125;).forEach(printjson);</span><br></pre></td></tr></table></figure>
+<p>排除age的列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.find(&#123;age: &#123;$lte: 28&#125;&#125;, &#123;age: false&#125;).forEach(printjson);</span><br></pre></td></tr></table></figure>
+<h3 id="9、forEach传递函数显示信息"><a href="#9、forEach传递函数显示信息" class="headerlink" title="9、forEach传递函数显示信息"></a>9、forEach传递函数显示信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.things.find(&#123;x:4&#125;).forEach(function(x) &#123;print(tojson(x));&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="八、其他"><a href="#八、其他" class="headerlink" title="八、其他"></a>八、其他</h2><h3 id="1、查询之前的错误信息"><a href="#1、查询之前的错误信息" class="headerlink" title="1、查询之前的错误信息"></a>1、查询之前的错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.getPrevError();</span><br></pre></td></tr></table></figure>
+<h3 id="2、清除错误记录"><a href="#2、清除错误记录" class="headerlink" title="2、清除错误记录"></a>2、清除错误记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.resetError();</span><br></pre></td></tr></table></figure>
+<p>查看聚集集合基本信息</p>
+<ol>
+<li>查看帮助  db.yourColl.help();</li>
+<li>查询当前集合的数据条数  db.yourColl.count();</li>
+<li>查看数据空间大小 db.userInfo.dataSize();</li>
+<li>得到当前聚集集合所在的db db.userInfo.getDB();</li>
+<li>得到当前聚集的状态 db.userInfo.stats();</li>
+<li>得到聚集集合总大小 db.userInfo.totalSize();</li>
+<li>聚集集合储存空间大小 db.userInfo.storageSize();</li>
+<li>Shard版本信息  db.userInfo.getShardVersion()</li>
+<li>聚集集合重命名 db.userInfo.renameCollection(“users”); 将userInfo重命名为users</li>
+<li>删除当前聚集集合 db.userInfo.drop();</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">show dbs:显示数据库列表</span><br><span class="line">show collections：显示当前数据库中的集合（类似关系数据库中的表）</span><br><span class="line">show users：显示用户</span><br><span class="line">use &lt;db name&gt;：切换当前数据库，这和MS-SQL里面的意思一样</span><br><span class="line">db.help()：显示数据库操作命令，里面有很多的命令</span><br><span class="line">db.foo.help()：显示集合操作命令，同样有很多的命令，foo指的是当前数据库下，一个叫foo的集合，并非真正意义上的命令</span><br><span class="line">db.foo.find()：对于当前数据库中的foo集合进行数据查找（由于没有条件，会列出所有数据）</span><br><span class="line">db.foo.find( &#123; a : 1 &#125; )：对于当前数据库中的foo集合进行查找，条件是数据中有一个属性叫a，且a的值为1</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/常用指令合集/">常用指令合集</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/指令合集/">指令合集</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

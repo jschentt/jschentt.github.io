@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>redis常用命令大全 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="redis常用命令大全" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-redis常用命令大全" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/redis常用命令大全/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">redis常用命令大全</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p><img src="https://img2018.cnblogs.com/blog/798174/201903/798174-20190321203330649-499029266.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><span class="line">1.基于内存的key-value数据库</span><br><span class="line">2.基于c语言编写的，可以支持多种语言的api &#x2F;&#x2F;set每秒11万次，取get 81000次</span><br><span class="line">3.支持数据持久化</span><br><span class="line">4.value可以是string，hash， list， set, sorted set</span><br><span class="line"></span><br><span class="line">使用场景</span><br><span class="line">1. 取最新n个数据的操作</span><br><span class="line">2. 排行榜，取top n个数据 &#x2F;&#x2F;最佳人气前10条</span><br><span class="line">3. 精确的设置过期时间</span><br><span class="line">4. 计数器</span><br><span class="line">5. 实时系统， 反垃圾系统</span><br><span class="line">6. pub， sub发布订阅构建实时消息系统</span><br><span class="line">7. 构建消息队列</span><br><span class="line">8. 缓存</span><br><span class="line">cmd访问redis</span><br><span class="line">redis-cli.exe -h 127.0.0.1 -p 6379</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">key</span><br><span class="line">    keys * 获取所有的key</span><br><span class="line">    select 0 选择第一个库</span><br><span class="line">    move myString 1 将当前的数据库key移动到某个数据库,目标库有，则不能移动</span><br><span class="line">    flush db      清除指定库</span><br><span class="line">    randomkey     随机key</span><br><span class="line">    type key      类型</span><br><span class="line"></span><br><span class="line">    set key1 value1 设置key</span><br><span class="line">    get key1    获取key</span><br><span class="line">    mset key1 value1 key2 value2 key3 value3</span><br><span class="line">    mget key1 key2 key3</span><br><span class="line">    del key1   删除key</span><br><span class="line">    exists key      判断是否存在key</span><br><span class="line">    expire key 10   10过期</span><br><span class="line">    pexpire key 1000 毫秒</span><br><span class="line">    persist key     删除过期时间</span><br><span class="line"></span><br><span class="line">string</span><br><span class="line">    set name cxx</span><br><span class="line">    get name</span><br><span class="line">    getrange name 0 -1        字符串分段</span><br><span class="line">    getset name new_cxx       设置值，返回旧值</span><br><span class="line">    mset key1 key2            批量设置</span><br><span class="line">    mget key1 key2            批量获取</span><br><span class="line">    setnx key value           不存在就插入（not exists）</span><br><span class="line">    setex key time value      过期时间（expire）</span><br><span class="line">    setrange key index value  从index开始替换value</span><br><span class="line">    incr age        递增</span><br><span class="line">    incrby age 10   递增</span><br><span class="line">    decr age        递减</span><br><span class="line">    decrby age 10   递减</span><br><span class="line">    incrbyfloat     增减浮点数</span><br><span class="line">    append          追加</span><br><span class="line">    strlen          长度</span><br><span class="line">    getbit&#x2F;setbit&#x2F;bitcount&#x2F;bitop    位操作</span><br><span class="line"></span><br><span class="line">hash</span><br><span class="line">    hset myhash name cxx</span><br><span class="line">    hget myhash name</span><br><span class="line">    hmset myhash name cxx age 25 note &quot;i am notes&quot;</span><br><span class="line">    hmget myhash name age note   </span><br><span class="line">    hgetall myhash               获取所有的</span><br><span class="line">    hexists myhash name          是否存在</span><br><span class="line">    hsetnx myhash score 100      设置不存在的</span><br><span class="line">    hincrby myhash id 1          递增</span><br><span class="line">    hdel myhash name             删除</span><br><span class="line">    hkeys myhash                 只取key</span><br><span class="line">    hvals myhash                 只取value</span><br><span class="line">    hlen myhash                  长度</span><br><span class="line"></span><br><span class="line">list</span><br><span class="line">    lpush mylist a b c  左插入</span><br><span class="line">    rpush mylist x y z  右插入</span><br><span class="line">    lrange mylist 0 -1  数据集合</span><br><span class="line">    lpop mylist  弹出元素</span><br><span class="line">    rpop mylist  弹出元素</span><br><span class="line">    llen mylist  长度</span><br><span class="line">    lrem mylist count value  删除</span><br><span class="line">    lindex mylist 2          指定索引的值</span><br><span class="line">    lset mylist 2 n          索引设值</span><br><span class="line">    ltrim mylist 0 4         删除key</span><br><span class="line">    linsert mylist before a  插入</span><br><span class="line">    linsert mylist after a   插入</span><br><span class="line">    rpoplpush list list2     转移列表的数据</span><br><span class="line"></span><br><span class="line">set</span><br><span class="line">    sadd myset redis</span><br><span class="line">    smembers myset       数据集合</span><br><span class="line">    srem myset set1         删除</span><br><span class="line">    sismember myset set1 判断元素是否在集合中</span><br><span class="line">    scard key_name       个数</span><br><span class="line">    sdiff | sinter | sunion 操作：集合间运算：差集 | 交集 | 并集</span><br><span class="line">    srandmember          随机获取集合中的元素</span><br><span class="line">    spop                 从集合中弹出一个元素</span><br><span class="line"></span><br><span class="line">zset</span><br><span class="line">    zadd zset 1 one</span><br><span class="line">    zadd zset 2 two</span><br><span class="line">    zadd zset 3 three</span><br><span class="line">    zincrby zset 1 one              增长分数</span><br><span class="line">    zscore zset two                 获取分数</span><br><span class="line">    zrange zset 0 -1 withscores     范围值</span><br><span class="line">    zrangebyscore zset 10 25 withscores 指定范围的值</span><br><span class="line">    zrangebyscore zset 10 25 withscores limit 1 2 分页</span><br><span class="line">    Zrevrangebyscore zset 10 25 withscores  指定范围的值</span><br><span class="line">    zcard zset  元素数量</span><br><span class="line">    Zcount zset 获得指定分数范围内的元素个数</span><br><span class="line">    Zrem zset one two        删除一个或多个元素</span><br><span class="line">    Zremrangebyrank zset 0 1  按照排名范围删除元素</span><br><span class="line">    Zremrangebyscore zset 0 1 按照分数范围删除元素</span><br><span class="line">    Zrank zset 0 -1    分数最小的元素排名为0</span><br><span class="line">    Zrevrank zset 0 -1  分数最大的元素排名为0</span><br><span class="line">    Zinterstore</span><br><span class="line">    zunionstore rank:last_week 7 rank:20150323 rank:20150324 rank:20150325  weights 1 1 1 1 1 1 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">排序：</span><br><span class="line">    sort mylist  排序</span><br><span class="line">    sort mylist alpha desc limit 0 2 字母排序</span><br><span class="line">    sort list by it:* desc           by命令</span><br><span class="line">    sort list by it:* desc get it:*  get参数</span><br><span class="line">    sort list by it:* desc get it:* store sorc:result  sort命令之store参数：表示把sort查询的结果集保存起来</span><br><span class="line"></span><br><span class="line">订阅与发布：</span><br><span class="line">    订阅频道：subscribe chat1</span><br><span class="line">    发布消息：publish chat1 &quot;hell0 ni hao&quot;</span><br><span class="line">    查看频道：pubsub channels</span><br><span class="line">    查看某个频道的订阅者数量: pubsub numsub chat1</span><br><span class="line">    退订指定频道： unsubscrible chat1   , punsubscribe java.*</span><br><span class="line">    订阅一组频道： psubscribe java.*</span><br><span class="line"></span><br><span class="line">redis事务：</span><br><span class="line">     隔离性，原子性，</span><br><span class="line">     步骤：  开始事务，执行命令，提交事务</span><br><span class="line">             multi  &#x2F;&#x2F;开启事务</span><br><span class="line">             sadd myset a b c</span><br><span class="line">             sadd myset e f g</span><br><span class="line">             lpush mylist aa bb cc</span><br><span class="line">             lpush mylist dd ff gg</span><br><span class="line"></span><br><span class="line">服务器管理</span><br><span class="line">    dump.rdb</span><br><span class="line">    appendonly.aof</span><br><span class="line">    &#x2F;&#x2F;BgRewriteAof 异步执行一个aop(appendOnly file)文件重写</span><br><span class="line">    会创建当前一个AOF文件体积的优化版本</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;BgSave 后台异步保存数据到磁盘，会在当前目录下创建文件dump.rdb</span><br><span class="line">    &#x2F;&#x2F;save同步保存数据到磁盘，会阻塞主进程，别的客户端无法连接</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;client kill 关闭客户端连接</span><br><span class="line">    &#x2F;&#x2F;client list 列出所有的客户端</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;给客户端设置一个名称</span><br><span class="line">      client setname myclient1</span><br><span class="line">      client getname</span><br><span class="line"></span><br><span class="line">     config get port</span><br><span class="line">     &#x2F;&#x2F;configRewrite 对redis的配置文件进行改写rdb save 900 1save 300 10save 60 10000aop备份处理appendonly yes    开启持久化appendfsync everysec  每秒备份一次命令：bgsave异步保存数据到磁盘（快照保存）lastsave返回上次成功保存到磁盘的unix的时间戳shutdown同步保存到服务器并关闭redis服务器bgrewriteaof文件压缩处理（命令）</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/常用指令合集/">常用指令合集</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/指令合集/">指令合集</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/redis%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

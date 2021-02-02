@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>常用算法总结 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="常用算法总结" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-常用算法总结" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/常用算法总结/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">常用算法总结</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="迭代算法-Iteration"><a href="#迭代算法-Iteration" class="headerlink" title="迭代算法(Iteration)"></a>迭代算法(Iteration)</h2><h2 id="递归算法-Recursion"><a href="#递归算法-Recursion" class="headerlink" title="递归算法(Recursion)"></a>递归算法(Recursion)</h2><ul>
+<li>二叉树的遍历算法<h2 id="回溯算法-Backtrack"><a href="#回溯算法-Backtrack" class="headerlink" title="回溯算法(Backtrack)"></a>回溯算法(Backtrack)</h2></li>
+<li>八皇后问题<h2 id="深度优先-Depth-First-Search-DFS"><a href="#深度优先-Depth-First-Search-DFS" class="headerlink" title="深度优先(Depth First Search, DFS)"></a>深度优先(Depth First Search, DFS)</h2></li>
+<li>全排列问题<h2 id="广度优先-Breadth-First-Search-BFS"><a href="#广度优先-Breadth-First-Search-BFS" class="headerlink" title="广度优先(Breadth First Search, BFS)"></a>广度优先(Breadth First Search, BFS)</h2></li>
+</ul>
+<p><strong>类型</strong></p>
+<ul>
+<li>不需要确定当前深度</li>
+<li>需要确定当前深度</li>
+</ul>
+<h2 id="动态规划-Dynamic-Programming-DP"><a href="#动态规划-Dynamic-Programming-DP" class="headerlink" title="动态规划(Dynamic Programming, DP)"></a>动态规划(Dynamic Programming, DP)</h2><ul>
+<li>斐波那契数列</li>
+<li>爬楼梯问题</li>
+<li>背包问题</li>
+<li>最长公共子序列</li>
+<li>最优二叉搜索树</li>
+</ul>
+<h2 id="分治算法-二分法-Binary-Algorithm"><a href="#分治算法-二分法-Binary-Algorithm" class="headerlink" title="分治算法(二分法, Binary Algorithm)"></a>分治算法(二分法, Binary Algorithm)</h2><ul>
+<li>二分排序</li>
+<li>二分查找</li>
+</ul>
+<h2 id="贪心算法-Greedy-Algorithm"><a href="#贪心算法-Greedy-Algorithm" class="headerlink" title="贪心算法(Greedy Algorithm)"></a>贪心算法(Greedy Algorithm)</h2><ul>
+<li>霍夫曼编码</li>
+</ul>
+<h2 id="滑动窗口-Slipping-Window"><a href="#滑动窗口-Slipping-Window" class="headerlink" title="滑动窗口(Slipping Window)"></a>滑动窗口(Slipping Window)</h2><h2 id="双指针-Double-Pointer"><a href="#双指针-Double-Pointer" class="headerlink" title="双指针(Double Pointer)"></a>双指针(Double Pointer)</h2><h2 id="位运算-Bit"><a href="#位运算-Bit" class="headerlink" title="位运算(Bit)"></a>位运算(Bit)</h2><p>要点</p>
+<ul>
+<li>异或运算（xor）</li>
+<li>任何数与0做异或运算，结果仍为原来的数。即：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a⊕0&#x3D;a</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>任何数和其自身做异或运算，结果为0。即：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a⊕a&#x3D;0</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>异或运算满足交换律和结合律。即：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a⊕b&#x3D;b⊕a</span><br><span class="line">a⊕b⊕c&#x3D;a⊕(b⊕c)</span><br></pre></td></tr></table></figure>
+<h2 id="自动机"><a href="#自动机" class="headerlink" title="自动机"></a>自动机</h2><ul>
+<li>搜索/排序算法</li>
+<li>快速排序</li>
+<li>希尔排序</li>
+<li>插入排序</li>
+<li>拓扑排序</li>
+<li>二分排序</li>
+<li>堆排序<h2 id="关于链表-List"><a href="#关于链表-List" class="headerlink" title="关于链表(List)"></a>关于链表(List)</h2></li>
+<li>单向链表</li>
+<li>双向链表</li>
+<li>广义表<h2 id="关于树-Tree"><a href="#关于树-Tree" class="headerlink" title="关于树(Tree)"></a>关于树(Tree)</h2></li>
+<li>二叉树遍历<ul>
+<li>前序遍历</li>
+<li>中序遍历</li>
+<li>后序遍历</li>
+<li>层序遍历</li>
+</ul>
+</li>
+<li>二叉搜索树</li>
+<li>红黑树</li>
+<li>kd 树</li>
+<li>B 树</li>
+<li>堆</li>
+<li>极大堆<h2 id="关于图-Graph"><a href="#关于图-Graph" class="headerlink" title="关于图(Graph)"></a>关于图(Graph)</h2></li>
+<li>最小生成树</li>
+<li>最短路径问题<h2 id="关于栈、队列、散列表-queue-stack-hashlist"><a href="#关于栈、队列、散列表-queue-stack-hashlist" class="headerlink" title="关于栈、队列、散列表(queue, stack, hashlist)"></a>关于栈、队列、散列表(queue, stack, hashlist)</h2></li>
+<li>栈对于二叉树层序遍历的实现</li>
+<li>最大优先级队列</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端算法实现/">前端算法实现</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/常用算法/">常用算法</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
