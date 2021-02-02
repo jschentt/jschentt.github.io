@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>React16的新特性 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="React16的新特性" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-React16的新特性" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/React16的新特性/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">React16的新特性</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="一、新的组件生命周期钩子"><a href="#一、新的组件生命周期钩子" class="headerlink" title="一、新的组件生命周期钩子"></a>一、新的组件生命周期钩子</h1><p><img src="https://upload-images.jianshu.io/upload_images/12185313-85b3010f0b8b7d16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="image"></p>
+<p>React的生命周期钩子允许开发者在组件实例化、完成渲染、属性、更新、销毁等不同阶段操作组件。这给我们的开发带来更多的灵活性；</p>
+<p>但是，如果开发者对各个生命周期的理解错误，很容易造成对它的滥用，就会造成性能上的浪费等问题。</p>
+<p>比如：componentWillMount对组件进行setState、dom操作、添加事件监听、获取数据等。这些都是不安全的操作。</p>
+<p>react16对组件的生命周期做了优化，”移除”容易被大家误解的钩子，添加更加容易理解、安全的钩子。</p>
+<p>“删除”了以下钩子（17版本中将真的删除）：</p>
+<p><code>componentWillMount()</code></p>
+<p><code>componentWillReceiveProps(nextProps, nextState)</code></p>
+<p><code>componentWillUpdate()</code></p>
+<p>新增了以下钩子：</p>
+<p><code>static getDerivedStateFromProps(nextProps, prevState)</code></p>
+<p><code>getSnapshotBeforeUpdate(prevProps, prevState)</code></p>
+<p><code>componentDidCatch(error, info)</code></p>
+<h2 id="a-如何理解static-getDerivedStateFromProps-nextProps-prevState-？"><a href="#a-如何理解static-getDerivedStateFromProps-nextProps-prevState-？" class="headerlink" title="a. 如何理解static getDerivedStateFromProps(nextProps, prevState)？"></a>a. 如何理解static getDerivedStateFromProps(nextProps, prevState)？</h2><blockquote>
+<p>首先，需要对静态方法做一个理解。static静态方法，在es5中怎么实现呢？<br>function Person() {}<br>Person.getCount = function () {}<br>以上就是static静态方法的原理。由于“this”只能获取属性是根据原型链，而静态方法不在原型链上，所以，在组件实例内无法通过this调用static方法，static方法也无法根据”this”调用实例的其他方法。<br>就防止在getDerivedStateFromProps 对组件实例的错误操作。<br>再次，getDerivedStateFromProps用来做什么用呢？<br>当组件实例化、接收到新的props时，会调用该方法。方法返回一个对象，这个对象会被更新到组件的state上。如果返回空，那么不对state做更新。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 以下代码实现，更新name属性到state上；</span><br><span class="line">static getDerivedStateFromProps (nextProps, prevState) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        name: nextProps.name</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 上面的代码在以前版本中</span><br><span class="line">&#x2F;&#x2F; 你可能会用以下这样做，虽然这样做看起来也没问题，用上面的方法更加安全，不会对this做误操作</span><br><span class="line">componentWillReceiveProps (nextProps) &#123;</span><br><span class="line">    if (this.state.name !&#x3D;&#x3D; nextProps.name) &#123;</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            name: nextProps.name</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>这个生命周期函数是为了替代componentWillReceiveProps存在的，所以在你需要使用componentWillReceiveProps的时候，就可以考虑使用getDerivedStateFromProps来进行替代了。</p>
+<p>两者的参数是不相同的，而getDerivedStateFromProps是一个静态函数，也就是这个函数不能通过this访问到class的属性，也并不推荐直接访问属性。而是应该通过参数提供的nextProps以及prevState来进行判断，根据新传入的props来映射到state。</p>
+<p>需要注意的是，如果props传入的内容不需要影响到你的state，那么就需要返回一个null，这个返回值是必须的，所以尽量将其写到函数的末尾。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static getDerivedStateFromProps(nextProps, prevState) &#123;</span><br><span class="line">    const &#123;type&#125; &#x3D; nextProps;</span><br><span class="line">    &#x2F;&#x2F; 当传入的type发生变化的时候，更新state</span><br><span class="line">    if (type !&#x3D;&#x3D; prevState.type) &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            type,</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 否则，对于state不进行任何操作</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="b-如何理解getSnapshotBeforeUpdate-prevProps-prevState-？"><a href="#b-如何理解getSnapshotBeforeUpdate-prevProps-prevState-？" class="headerlink" title="b. 如何理解getSnapshotBeforeUpdate(prevProps, prevState)？"></a>b. 如何理解getSnapshotBeforeUpdate(prevProps, prevState)？</h2><blockquote>
+<p>首先，从字面来理解“snapshot”是快照的意思。在dom更新之前调用。返回的值将被传给componentDidUpdate(prevProps, prevState, snaphot)。<br>这个会比较少用到，但对于处理比如数据更新后的滚动条的差异滚动，对用户体验，很有帮助。</p>
+</blockquote>
+<h2 id="c-如何理解componentDidCatch-error-info-？"><a href="#c-如何理解componentDidCatch-error-info-？" class="headerlink" title="c. 如何理解componentDidCatch(error, info)？"></a>c. 如何理解componentDidCatch(error, info)？</h2><blockquote>
+<p>以往，当组件发生错误（可以用throw new Error模拟）时，会导致整个react程序死掉，这对于程序的稳定性来说非常不好。<br>componentDidCatch可以捕获子组件中任何一个错误，捕获到错误后可以对错误进行处理。<br>如果发生错误的组件的父组件没有设置componentDidCatch错误捕获，将继续递归父组件的父组件中的componentDidCatch，找到则停止。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 简单的错误捕获</span><br><span class="line">componentDidCatch (error, info) &#123;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">        error: true</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render () &#123;</span><br><span class="line">    if (this.state.error) &#123;</span><br><span class="line">        return &lt;div&gt;子组件发生异常了&lt;&#x2F;div&gt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 其他代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="二、优化了哪些语法"><a href="#二、优化了哪些语法" class="headerlink" title="二、优化了哪些语法"></a>二、优化了哪些语法</h1><h2 id="1-ref优化"><a href="#1-ref优化" class="headerlink" title="1. ref优化"></a>1. ref优化</h2><p>ref有很多作用，通过ref父组件可以调用子组件内的方法，配合<code>ReactDOM.findDOMNode(ref)</code> 可以获取到组件对应的dom。ref与key一样无法通过this.props.ref获取；</p>
+<p>以前版本的react，给子组件添加ref=“inputName”，就可以通过this.refs[‘inputName’]获取子组件实例。然后可以进行一些操作。</p>
+<p>React16中有两种创建Ref的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">constructor () &#123;</span><br><span class="line">    this.inputNameRef &#x3D; React.createRef();</span><br><span class="line">    this.switchRef &#x3D; React.createRef();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render () &#123;</span><br><span class="line">    &#x2F;&#x2F; 通过this.inputNameRef.current 可以获取到input实例</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">             &lt;input ref&#x3D;&#123;this.inputNameRef&#125; &#x2F;&gt;</span><br><span class="line">             &lt;Switch ref&#x3D;&#123;this.switchRef&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">    &#x2F;&#x2F; 通过回调ref的方式实现</span><br><span class="line">    &#x2F;&#x2F; 通过this.inputNameRef 可以获取到input实例</span><br><span class="line">    &#x2F;&#x2F; this.switchRef可以获取Switch的实例</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">             &lt;input ref&#x3D;&#123;(ref) &#x3D;&gt; this.inputNameRef &#x3D; ref&#125; &#x2F;&gt;</span><br><span class="line">             &lt;Switch ref&#x3D;&#123;(ref) &#x3D;&gt; this.switchRef &#x3D; ref&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么，既然ref和key可以一样不能用this.props获取，有没有办法传给子组件呢？这样就可以实现在组件中调用子子组件（比如子组件中的input）了。</p>
+<p>答案是肯定的。</p>
+<p>也有两种方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">    &#x2F;&#x2F; 假设this.switchRef已经在constructor里创建了，那么可以通过其他属性传递。</span><br><span class="line">    &#x2F;&#x2F; 在子组件中可以通过this.props.forRef。</span><br><span class="line">    &#x2F;&#x2F; 注：forRef 为随便名只要不是react内置的名称就行</span><br><span class="line">    return (</span><br><span class="line">        &lt;Switch forRef&#x3D;&#123;this.switchRef&#125; &#x2F;&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 通过React.forwardRef 传递</span><br><span class="line">export default React.forwardRef((props, ref) &#x3D;&gt; &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;OtherChild &#x2F;&gt;</span><br><span class="line">            &lt;Switch ref&#x3D;&#123;ref&#125; &#x2F;&gt;</span><br><span class="line">            &lt;OtherChild2 &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="2-将组件实例化到其他dom下，可以优化吗？"><a href="#2-将组件实例化到其他dom下，可以优化吗？" class="headerlink" title="2. 将组件实例化到其他dom下，可以优化吗？"></a>2. 将组件实例化到其他dom下，可以优化吗？</h2><p>React渲染时，默认是将节点渲染到父组件中，这样能满足我们大部分的需求，but，有这样的组件，比如Dialog，在组件渲染时，需要能定义组件弹出的dom位置，如Dialog中的appendToBody为true时，渲染到body节点下。</p>
+<p>以前我们的做法是，通过ref和ReactDOM.findDomNode获取dom在dialog open时通过document.body.appendChild(dom)，将append到body下，在componentWillUnmount时，document.body.removeChild(dom)，移除没用的dom。</p>
+<p>这样来做就有点麻烦，需要ref、ReactDOM等。</p>
+<p>React16提供了一种优雅的方式createPortal，Portals 提供了一种很好的将子节点渲染到父组件以外的 DOM 节点的方式。</p>
+<p>createPortal，渲染子节点到目标节点，并返回元素。</p>
+<p>我们知道ReactDOM.render也可以将子节点渲染到目标节点，区别是ReactDOM.render并没有元素，因此不作为render方法的return</p>
+<p>我直接贴react的Demo。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const modalRoot &#x3D; document.body;</span><br><span class="line"></span><br><span class="line">class Modal extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.el &#x3D; document.createElement(&#39;div&#39;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        modalRoot.appendChild(this.el);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentWillUnmount() &#123;</span><br><span class="line">        modalRoot.removeChild(this.el);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return ReactDOM.createPortal(</span><br><span class="line">            this.props.children,</span><br><span class="line">            this.el,</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-需要传递的多层的props，可以优化吗？"><a href="#3-需要传递的多层的props，可以优化吗？" class="headerlink" title="3. 需要传递的多层的props，可以优化吗？"></a>3. 需要传递的多层的props，可以优化吗？</h2><p>在实际开发中，我们经常会碰到，一个值需要被传递到多层的子组件中，我们不得不通过props一层一层的传递。</p>
+<p>react16同样提供了优雅的方式。</p>
+<p>React.createContext</p>
+<h1 id="三、性能方面的优化"><a href="#三、性能方面的优化" class="headerlink" title="三、性能方面的优化"></a>三、性能方面的优化</h1><h2 id="1-React-Fragment"><a href="#1-React-Fragment" class="headerlink" title="1. React.Fragment"></a>1. React.Fragment</h2><p>React渲染时，要求JSX元素是tree结构，因为JSX原理还是调用 <code>React.createElement(Component, attrs, [...children])</code>，这样好理解。但这样在组件开发过程中，就有所限制，比如：Table Tr组件，需要渲染同时多个Tr，在以前我们就需要包一层<code>&lt;div&gt;</code>，造成了浪费。</p>
+<p>react16提供了<code>Fragment</code>，可以让我们渲染一个子元素列表，并且不在DOM中增加额外节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;   &#x2F;&#x2F; 也可以用 &lt;React.Fragment&gt;</span><br><span class="line">            &lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">            &lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">        &lt;&#x2F;&gt;   &#x2F;&#x2F; 也可以用 &lt;&#x2F;React.Fragment&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-React-memo"><a href="#2-React-memo" class="headerlink" title="2. React.memo"></a>2. React.memo</h2><p>用在函数组件的性能优化上，会对函数组件实现和PureComponent一样的功能，对props和prevProps做一次shallowEqual浅比较。</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">React.memo((props) &#x3D;&gt; &#123;</span><br><span class="line">   &#x2F;&#x2F; codes</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="3-React-lazy-amp-React-Suspense"><a href="#3-React-lazy-amp-React-Suspense" class="headerlink" title="3.React.lazy &amp; React.Suspense"></a>3.React.lazy &amp; React.Suspense</h2><p>实现React的Code Spliting对React代码进行拆包，有效的减少一次性加载太多代码的问题。</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const IconDemo &#x3D; lazy(() &#x3D;&gt; import(&#39;.&#x2F;icon&#39;));</span><br><span class="line"></span><br><span class="line">&lt;Suspense fallback&#x3D;&#123;&lt;div className&#x3D;&quot;loading&quot;&gt;Loading...&lt;&#x2F;div&gt;&#125;&gt;</span><br><span class="line">    &lt;Route path&#x3D;&quot;&#x2F;&quot; component&#x3D;&#123;Home&#125; exact &#x2F;&gt;</span><br><span class="line">    &lt;Route path&#x3D;&quot;&#x2F;icon&quot; component&#x3D;&#123;IconDemo&#125; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;Suspense&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="四、hooks"><a href="#四、hooks" class="headerlink" title="四、hooks"></a>四、hooks</h1><p><img src="https://pic1.zhimg.com/80/v2-1a9c7f5ce089376d9371238930a0173c_720w.jpg" alt="image"></p>
+<p>我们知道，React创建组件有3中方式【extends React.Component / PureComponent】、【React.createClass】，纯函数(无副作用，只接受参数，不对参数做任何处理)。</p>
+<p>extends React.Component、React.createClass创建的组件，拥有完成react声明周期、状态，可以开发较为复杂的组件。</p>
+<p>而，纯函数组件，只能做渲染，绑定的属性都是通过props决定的。没有声明周期、状态的概念。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function UserInfo (props) &#123;</span><br><span class="line">   &#x2F;&#x2F; 这里可以写一些操作</span><br><span class="line">   return (</span><br><span class="line">       &lt;div&gt;&#123;this.props.name&#125;&lt;&#x2F;div&gt;</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>React v16.7.0-alpha对函数组件做了以下扩展。</p>
+<h2 id="a-针对没有state做的扩展"><a href="#a-针对没有state做的扩展" class="headerlink" title="a. 针对没有state做的扩展"></a>a. 针对没有state做的扩展</h2><p>useState，将可以将state添加到函数组件中，允许函数组件操作state。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import &#123;useState&#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">function UserInfo(props) &#123;</span><br><span class="line">    &#x2F;&#x2F; useState 接收一个参数（当做初始的state)</span><br><span class="line">    &#x2F;&#x2F; 返回一个初始state值，和修改state的方法</span><br><span class="line">    &#x2F;&#x2F; 允许多次使用，因此传给useState的参数应该尽可能是简单的数字、字符串等。</span><br><span class="line">    let [count, setCount] &#x3D; useState(0);</span><br><span class="line">    let [checked, setChecked] &#x3D; useState(props.checked || false);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;Clicked &#123;count&#125; times&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;Switch onClick&#x3D;&#123;() &#x3D;&gt; setChecked(!checked)&#125;&gt;&#123; checked ?  &#39;开&#39; : &#39;关&#39; &#125;&lt;&#x2F;Switch&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="b-针对没有生命周期钩子的扩展"><a href="#b-针对没有生命周期钩子的扩展" class="headerlink" title="b. 针对没有生命周期钩子的扩展"></a>b. 针对没有生命周期钩子的扩展</h2><p>useEffect，可以将componentDidMount、componentDidUpdate、componentWillUnmount钩子添加到函数组件中。</p>
+<p>注意：区分有返回值，和没有返回值的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">import &#123;userState, useEffect&#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">function UserInfo(props) &#123;</span><br><span class="line">    let [count, setCount] &#x3D; useState(0);</span><br><span class="line">    let [checked, setChecked] &#x3D; useState(props.checked || false);</span><br><span class="line"></span><br><span class="line">    function handleStatusChange(checked) &#123;</span><br><span class="line">        setChecked(checked);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 返回值的情况</span><br><span class="line">    useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; 组件Mount是添加监听，componentDidMount</span><br><span class="line">        &#x2F;&#x2F; subscribe原理是，callbacks.push(handleStatusChange)</span><br><span class="line">        &#x2F;&#x2F; 当值status值变化是，对遍历callbacks数组，调用内方法</span><br><span class="line">        &#x2F;&#x2F; callbacks.map((fn) &#x3D;&gt; &#123; fn(status) &#125;);</span><br><span class="line">        ChatAPI.subscribeToFriendStatus(props.id, handleStatusChange);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 组件销毁是移除监听(componentWillUnmount，时执行return的内方法)</span><br><span class="line">        &#x2F;&#x2F; unsubscribe的原理是</span><br><span class="line">        &#x2F;&#x2F; let index &#x3D; callbacks.indexOf(fn);</span><br><span class="line">        &#x2F;&#x2F; callbacks.splice(index, 1);</span><br><span class="line">        return function cleanup() &#123;</span><br><span class="line">            ChatAPI.unsubscribeFromFriendStatus(props.id, handleStatusChange);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 没有返回值的情况</span><br><span class="line">    useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; 组件Mount是调用，componentDidMount、componentDidUpdate1</span><br><span class="line">        document.title &#x3D; &#96;Clicked $&#123;count&#125;&#96;;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;Clicked &#123;count&#125; times&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;Switch onClick&#x3D;&#123;() &#x3D;&gt; setChecked(!checked)&#125;&gt;&#123; checked ?  &#39;开&#39; : &#39;关&#39; &#125;&lt;&#x2F;Switch&gt;</span><br><span class="line"></span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="c-one-more-thing"><a href="#c-one-more-thing" class="headerlink" title="c. one more thing"></a>c. one more thing</h2><p>出于不至于滥用的目的，react指定了一些hooks的使用规则。如命名、代码位置等。当然还很友好的除了代码检测eslint插件（<a href="https://link.zhihu.com/?target=https%3A//www.npmjs.com/package/eslint-plugin-react-hooks">eslint-plugin-react-hooks</a>），可以检测开发者写的hooks是否合法。</p>
+<p>规则如下：</p>
+<ul>
+<li>在函数组件的顶层使用hooks，不要在函数组件内的for、if、匿名函数内使用useState、useEffect，这将会报错。</li>
+<li>关于hooks组件的使用，你可以在react组件内使用，也可以在custom Hooks内使用。<br>什么是自定义hook（custom Hooks）呢？就是对hook的一个封装，我们可以封装特定功能的hook，比如：用户状态的hook、在线人数的hook，这样在其他地方也可以使用。建议以useXxxxx的规范命名。</li>
+</ul>
+<p>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">function useSetState (initial) &#123;</span><br><span class="line">    const [state, set] &#x3D; useState(initial);</span><br><span class="line">    const setState &#x3D; (patch) &#x3D;&gt; &#123;</span><br><span class="line">        if (patch instanceof Function) &#123;</span><br><span class="line">            set((prevState) &#x3D;&gt; &#123;</span><br><span class="line">                return Object.assign(state, patch(prevState));</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Object.assign(state, patch);</span><br><span class="line">            set(state);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return [state, setState];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 调用</span><br><span class="line">const Demo &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    const [state, setState] &#x3D; useSetState(&#123;&#125;);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;div&gt;&#123; JSON.stringify(state, null, 2) &#125;&lt;&#x2F;div&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; setState(&#123;foo: &#39;bar&#39;&#125;)&#125;&gt;foo&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;button</span><br><span class="line">                onClick&#x3D;&#123;() &#x3D;&gt; &#123;</span><br><span class="line">                    setState((prevState) &#x3D;&gt; (&#123;</span><br><span class="line">                        count: (prevState.count || 0) + 1,</span><br><span class="line">                    &#125;));</span><br><span class="line">                &#125;&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                count</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端框架总结/">前端框架总结</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/前端框架总结/">前端框架总结</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/React16%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

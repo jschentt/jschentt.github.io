@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>20_聊一聊js的作用域和作用域链 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="20_聊一聊js的作用域和作用域链" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-20_聊一聊js的作用域和作用域链" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T04:12:19.000Z"><a href="/2021/02/02/20_聊一聊js的作用域和作用域链/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">20_聊一聊js的作用域和作用域链</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、JavaScript-作用域"><a href="#一、JavaScript-作用域" class="headerlink" title="一、JavaScript 作用域"></a>一、JavaScript 作用域</h2><p>任何程序设计语言都有作用域的概念，简单的说，作用域就是变量与函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。在 JavaScript 中，变量的作用域有全局作用域和局部作用域两种。</p>
+<h3 id="1、全局作用域（Global-Scope）"><a href="#1、全局作用域（Global-Scope）" class="headerlink" title="1、全局作用域（Global Scope）"></a>1、全局作用域（Global Scope）</h3><p>在代码中任何地方都能访问到的对象拥有全局作用域，一般来说以下几种情形拥有全局作用域：</p>
+<h4 id="（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域"><a href="#（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域" class="headerlink" title="（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域"></a>（1）最外层函数和在最外层函数外面定义的变量拥有全局作用域</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var teacher&#x3D;&quot;小林老师&quot;;</span><br><span class="line">function doSomething()&#123;</span><br><span class="line">    var course&#x3D;&quot;前端面试&quot;;</span><br><span class="line">    function innerSay()&#123;</span><br><span class="line">        alert(course);</span><br><span class="line">    &#125;</span><br><span class="line">    innerSay();</span><br><span class="line">&#125;</span><br><span class="line">alert(teacher); &#x2F;&#x2F;小林老师</span><br><span class="line">alert(course); &#x2F;&#x2F;脚本错误</span><br><span class="line">doSomething(); &#x2F;&#x2F;前端面试</span><br><span class="line">innerSay() &#x2F;&#x2F;脚本错误</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）所有末定义直接赋值的变量自动声明为拥有全局作用域"><a href="#（2）所有末定义直接赋值的变量自动声明为拥有全局作用域" class="headerlink" title="（2）所有末定义直接赋值的变量自动声明为拥有全局作用域"></a>（2）所有末定义直接赋值的变量自动声明为拥有全局作用域</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function doSomething()&#123;</span><br><span class="line">    var teacher&#x3D;&quot;小林老师&quot;;</span><br><span class="line">    course&#x3D;&quot;前端面试&quot;;</span><br><span class="line">    alert(teacher);</span><br><span class="line">&#125;</span><br><span class="line">doSomething(); &#x2F;&#x2F;山边小溪</span><br><span class="line">alert(course); &#x2F;&#x2F;前端面试</span><br><span class="line">alert(teacher); &#x2F;&#x2F;脚本错误</span><br></pre></td></tr></table></figure>
+
+<p>变量 course 拥有全局作用域，而 teacher 在函数外部无法访问到。</p>
+<h4 id="（3）所有-window-对象的属性拥有全局作用域"><a href="#（3）所有-window-对象的属性拥有全局作用域" class="headerlink" title="（3）所有 window 对象的属性拥有全局作用域"></a>（3）所有 window 对象的属性拥有全局作用域</h4><p>一般情况下，window 对象的内置属性都拥有全局作用域，例如 window.name、window.location、window.top 等等。</p>
+<h3 id="2、局部作用域（Local-Scope）"><a href="#2、局部作用域（Local-Scope）" class="headerlink" title="2、局部作用域（Local Scope）　"></a>2、局部作用域（Local Scope）　</h3><p>和全局作用域相反，局部作用域一般只在固定的代码片段内可访问到，最常见的例如函数内部，所以在一些地方也会看到有人把这种作用域称为函数作用域，例如下列代码中的 course 和函数 innerSay 都只拥有局部作用域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function doSomething()&#123;</span><br><span class="line">    var course&#x3D;&quot;前端面试&quot;;</span><br><span class="line">    function innerSay()&#123;</span><br><span class="line">        alert(course);</span><br><span class="line">    &#125;</span><br><span class="line">    innerSay();</span><br><span class="line">&#125;</span><br><span class="line">alert(course); &#x2F;&#x2F;脚本错误</span><br><span class="line">innerSay(); &#x2F;&#x2F;脚本错误</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、作用域链（Scope-Chain）"><a href="#二、作用域链（Scope-Chain）" class="headerlink" title="二、作用域链（Scope Chain）"></a>二、作用域链（Scope Chain）</h2><p>在 JavaScript 中，函数也是对象，实际上，JavaScript 里一切都是对象。函数对象和其它对象一样，拥有可以通过代码访问的属性和一系列仅供 JavaScript 引擎访问的内部属性。其中一个内部属性是[[Scope]]，由 ECMA-262 标准第三版定义，该内部属性包含了函数被创建的作用域中对象的集合，这个集合被称为函数的作用域链，它决定了哪些数据能被函数访问。</p>
+<p>当一个函数创建后，它的作用域链会被创建此函数的作用域中可访问的数据对象填充。例如定义下面这样一个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function add(num1,num2) &#123;</span><br><span class="line">    var sum &#x3D; num1 + num2;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在函数 add 创建时，它的作用域链中会填入一个全局对象，该全局对象包含了所有全局变量，如下图所示（注意：图片只例举了全部变量中的一部分）：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-8e94949384607302.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>函数 add 的作用域将会在执行时用到。例如执行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var total &#x3D; add(5,10);</span><br></pre></td></tr></table></figure>
+
+<p>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。</p>
+<p>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中。它们共同组成了一个新的对象，叫“活动对象(activation object)”，该对象包含了函数的所有局部变量、命名参数、参数集合以及 this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁。新的作用域链如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-0c75fe69b997e70f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
+<h2 id="三、作用域链和代码优化"><a href="#三、作用域链和代码优化" class="headerlink" title="三、作用域链和代码优化"></a>三、作用域链和代码优化</h2><p>从作用域链的结构可以看出，在运行期上下文的作用域链中，标识符所在的位置越深，读写速度就会越慢。如上图所示，因为全局变量总是存在于运行期上下文作用域链的最末端，因此在标识符解析的时候，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。一个好的经验法则是：如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。例如下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function changeColor()&#123;</span><br><span class="line">    document.getElementById(&quot;btnChange&quot;).onclick&#x3D;function()&#123;</span><br><span class="line">        document.getElementById(&quot;targetCanvas&quot;).style.backgroundColor&#x3D;&quot;red&quot;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数引用了两次全局变量 document，查找该变量必须遍历整个作用域链，直到最后在全局对象中才能找到。这段代码可以重写如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function changeColor()&#123;</span><br><span class="line">    var doc&#x3D;document;</span><br><span class="line">    doc.getElementById(&quot;btnChange&quot;).onclick&#x3D;function()&#123;</span><br><span class="line">        doc.getElementById(&quot;targetCanvas&quot;).style.backgroundColor&#x3D;&quot;red&quot;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码比较简单，重写后不会显示出巨大的性能提升，但是如果程序中有大量的全局变量被从反复访问，那么重写后的代码性能会有显著改善。</p>
+<h2 id="四、改变作用域链"><a href="#四、改变作用域链" class="headerlink" title="四、改变作用域链"></a>四、改变作用域链</h2><p>函数每次执行时对应的运行期上下文都是独一无二的，所以多次调用同一个函数就会导致创建多个运行期上下文，当函数执行完毕，执行上下文会被销毁。每一个运行期上下文都和一个作用域链关联。一般情况下，在运行期上下文运行的过程中，其作用域链只会被 with 语句和 catch 语句影响。</p>
+<p>with 语句是对象的快捷应用方式，用来避免书写重复代码。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function initUI()&#123;</span><br><span class="line">    with(document)&#123;</span><br><span class="line">        var bd&#x3D;body,</span><br><span class="line">            links&#x3D;getElementsByTagName(&quot;a&quot;),</span><br><span class="line">            i&#x3D;0,</span><br><span class="line">            len&#x3D;links.length;</span><br><span class="line">        while(i &lt; len)&#123;</span><br><span class="line">            update(links[i++]);</span><br><span class="line">        &#125;</span><br><span class="line">        getElementById(&quot;btnInit&quot;).onclick&#x3D;function()&#123;</span><br><span class="line">            doSomething();</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里使用 with 语句来避免多次书写 document，看上去更高效，实际上产生了性能问题。</p>
+<p>当代码运行到 with 语句时，运行期上下文的作用域链临时被改变了。一个新的可变对象被创建，它包含了参数指定的对象的所有属性。这个对象将被推入作用域链的头部，这意味着函数的所有局部变量现在处于第二个作用域链对象中，因此访问代价更高了。如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-f41a6d662b2f7f80.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>因此在程序中应避免使用 with 语句，在这个例子中，只要简单的把 document 存储在一个局部变量中就可以提升性能。</p>
+<p>另外一个会改变作用域链的是 try-catch 语句中的 catch 语句。当 try 代码块中发生错误时，执行过程会跳转到 catch 语句，然后把异常对象推入一个可变对象并置于作用域的头部。在 catch 代码块内部，函数的所有局部变量将会被放在第二个作用域链对象中。示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;catch(ex)&#123;</span><br><span class="line">    alert(ex.message); &#x2F;&#x2F;作用域链在此处改变</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意，一旦 catch 语句执行完毕，作用域链机会返回到之前的状态。try-catch 语句在代码调试和异常处理中非常有用，因此不建议完全避免。你可以通过优化代码来减少 catch 语句对性能的影响。一个很好的模式是将错误委托给一个函数处理，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;catch(ex)&#123;</span><br><span class="line">    handleError(ex); &#x2F;&#x2F;委托给处理器方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优化后的代码，handleError 方法是 catch 子句中唯一执行的代码。该函数接收异常对象作为参数，这样你可以更加灵活和统一的处理错误。由于只执行一条语句，且没有局部变量的访问，作用域链的临时改变就不会影响代码性能了。</p>
+<h2 id="五、参考资料"><a href="#五、参考资料" class="headerlink" title="五、参考资料"></a>五、参考资料</h2><ul>
+<li><a href="https://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="noopener">JavaScript 开发进阶：理解 JavaScript 作用域和作用域链</a></li>
+<li><a href="https://developer.51cto.com/art/201903/593198.htm" target="_blank" rel="noopener">深入理解 JavaScript 作用域和作用域链</a></li>
+<li><a href="https://github.com/creeperyang/blog/issues/16" target="_blank" rel="noopener">深入理解 JS 中声明提升、作用域（链）和 this 关键字</a></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/20_%E8%81%8A%E4%B8%80%E8%81%8Ajs%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>40_聊一下正则表达式里的常见用法 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="40_聊一下正则表达式里的常见用法" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-39_了解JavaScript中的装饰器吗？聊一下JS中的getter与setter的用法" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:00.000Z"><a href="/2021/02/02/39_了解JavaScript中的装饰器吗？聊一下JS中的getter与setter的用法/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">40_聊一下正则表达式里的常见用法</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="js中正则表达式使用"><a href="#js中正则表达式使用" class="headerlink" title="js中正则表达式使用"></a>js中正则表达式使用</h1><h2 id="什么是正则表达式呢？"><a href="#什么是正则表达式呢？" class="headerlink" title="什么是正则表达式呢？"></a>什么是正则表达式呢？</h2><blockquote>
+<p>正则表达式(regular expression)描述了一种字符串匹配的模式，可以用来检查一个字符串是否含有某种子串、将匹配的子串做替换或者从某个字符串中取出符合某个条件的子串等。</p>
+</blockquote>
+<blockquote>
+<p>说白了正则表达式就是处理字符串的,我们可以用它来处理一些复杂的字符串。</p>
+</blockquote>
+<h2 id="为什么要学习正则表达式"><a href="#为什么要学习正则表达式" class="headerlink" title="为什么要学习正则表达式"></a>为什么要学习正则表达式</h2><p>我们直接用一个例子来说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;找出这个字符串中的所有数字</span><br><span class="line">var str &#x3D; &#39;abc123de45fgh6789qqq111&#39;;</span><br><span class="line">&#x2F;&#x2F;方法1</span><br><span class="line">     function findNum(str) &#123;</span><br><span class="line">        var tmp &#x3D; &#39;&#39;,</span><br><span class="line">            arr &#x3D; [];</span><br><span class="line">        for (var i &#x3D; 0; i &lt; str.length; i++) &#123;</span><br><span class="line">            var cur &#x3D; str[i];</span><br><span class="line">            if (!isNaN(cur)) &#123;</span><br><span class="line">                tmp +&#x3D; cur;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                if (tmp) &#123;</span><br><span class="line">                    arr.push(tmp);</span><br><span class="line">                    tmp &#x3D; &#39;&#39;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (tmp) &#123;</span><br><span class="line">            arr.push(tmp)</span><br><span class="line">        &#125;</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(findNum(str))</span><br><span class="line">    &#x2F;&#x2F;[&quot;123&quot;, &quot;45&quot;, &quot;6789&quot;, &quot;111&quot;]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;方法2 使用正则表达式</span><br><span class="line">    var reg &#x3D; &#x2F;\d+&#x2F;g;</span><br><span class="line">    console.log(str.match(reg))</span><br><span class="line">   &#x2F;&#x2F; [&quot;123&quot;, &quot;45&quot;, &quot;6789&quot;, &quot;111&quot;]</span><br></pre></td></tr></table></figure>
+<p>通过比较2种方法我们明显看出在对字符串进行处理时，使用正则表达式会简单许多，所以虽然正则表达式看起来像是火星文一样的一堆乱码的东西，但我们还是有必要去学习它的。</p>
+<h2 id="正则表达式的创建方式"><a href="#正则表达式的创建方式" class="headerlink" title="正则表达式的创建方式"></a>正则表达式的创建方式</h2><ul>
+<li>字面量创建方式</li>
+<li>实例创建方式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var reg &#x3D; &#x2F;pattern&#x2F;flags</span><br><span class="line">   &#x2F;&#x2F; 字面量创建方式</span><br><span class="line">   var reg &#x3D; new RegExp(pattern,flags);</span><br><span class="line">   &#x2F;&#x2F;实例创建方式</span><br><span class="line"></span><br><span class="line">   pattern:正则表达式  </span><br><span class="line">   flags:标识(修饰符)</span><br><span class="line">   标识主要包括：</span><br><span class="line">   1. i 忽略大小写匹配</span><br><span class="line">   2. m 多行匹配，即在到达一行文本末尾时还会继续寻常下一行中是否与正则匹配的项</span><br><span class="line">   3. g 全局匹配 模式应用于所有字符串，而非在找到第一个匹配项时停止</span><br></pre></td></tr></table></figure>
+<p><strong>字面量创建方式和构造函数创建方式的区别</strong></p>
+<ol>
+<li>字面量创建方式不能进行字符串拼接，实例创建方式可以</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var regParam &#x3D; &#39;cm&#39;;</span><br><span class="line">var reg1 &#x3D; new RegExp(regParam+&#39;1&#39;);</span><br><span class="line">var reg2 &#x3D; &#x2F;regParam&#x2F;;</span><br><span class="line">console.log(reg1);  &#x2F;&#x2F;   &#x2F;cm1&#x2F;</span><br><span class="line">console.log(reg2);  &#x2F;&#x2F;  &#x2F;regParam&#x2F;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>字面量创建方式特殊含义的字符不需要转义，实例创建方式需要转义</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var reg1 &#x3D; new RegExp(&#39;\d&#39;);  &#x2F;&#x2F;    &#x2F;d&#x2F;</span><br><span class="line">var reg2 &#x3D; new RegExp(&#39;\\d&#39;)  &#x2F;&#x2F;   &#x2F;\d&#x2F;</span><br><span class="line">var reg3 &#x3D; &#x2F;\d&#x2F;;              &#x2F;&#x2F;  &#x2F;\d&#x2F;</span><br></pre></td></tr></table></figure>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>代表特殊含义的元字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">\d : 0-9之间的任意一个数字  \d只占一个位置</span><br><span class="line">\w : 数字，字母 ，下划线 0-9 a-z A-Z _</span><br><span class="line">\s : 空格或者空白等</span><br><span class="line">\D : 除了\d</span><br><span class="line">\W : 除了\w</span><br><span class="line">\S : 除了\s</span><br><span class="line"> . : 除了\n之外的任意一个字符</span><br><span class="line"> \ : 转义字符</span><br><span class="line"> | : 或者</span><br><span class="line">() : 分组</span><br><span class="line">\n : 匹配换行符</span><br><span class="line">\b : 匹配边界 字符串的开头和结尾 空格的两边都是边界 &#x3D;&gt; 不占用字符串位数</span><br><span class="line"> ^ : 限定开始位置 &#x3D;&gt; 本身不占位置</span><br><span class="line"> $ : 限定结束位置 &#x3D;&gt; 本身不占位置</span><br><span class="line">[a-z] : 任意字母 []中的表示任意一个都可以</span><br><span class="line">[^a-z] : 非字母 []中^代表除了</span><br><span class="line">[abc] : abc三个字母中的任何一个 [^abc]除了这三个字母中的任何一个字符</span><br></pre></td></tr></table></figure>
+<p>代表次数的量词元字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* : 0到多个</span><br><span class="line">+ : 1到多个</span><br><span class="line">? : 0次或1次 可有可无</span><br><span class="line">&#123;n&#125; : 正好n次；</span><br><span class="line">&#123;n,&#125; : n到多次</span><br><span class="line">&#123;n,m&#125; : n次到m次</span><br></pre></td></tr></table></figure>
+<p>量词出现在元字符后面 如\d+，限定出现在前面的元字符的次数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;1223334444&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d&#123;2&#125;&#x2F;g;</span><br><span class="line">var res &#x3D; str.match(reg);</span><br><span class="line">console.log(res)  &#x2F;&#x2F;[&quot;12&quot;, &quot;23&quot;, &quot;33&quot;, &quot;44&quot;, &quot;44&quot;]</span><br><span class="line"></span><br><span class="line">var str &#x3D;&#39;  我是空格君  &#39;;</span><br><span class="line">var reg &#x3D; &#x2F;^\s+|\s+$&#x2F;g; &#x2F;&#x2F;匹配开头结尾空格</span><br><span class="line">var res &#x3D; str.replace(reg,&#39;&#39;);</span><br><span class="line">console.log(&#39;(&#39;+res+&#39;)&#39;)  &#x2F;&#x2F;(我是空格君)</span><br></pre></td></tr></table></figure>
+<p>正则中的()和[]和重复子项拿出来单独说一下</p>
+<ul>
+<li>一般[]中的字符没有特殊含义 如+就表示+,但是像\w这样的还是有特殊含义的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var str1 &#x3D; &#39;abc&#39;;</span><br><span class="line">var str2 &#x3D; &#39;dbc&#39;;</span><br><span class="line">var str3 &#x3D; &#39;.bc&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;[ab.]bc&#x2F;; &#x2F;&#x2F;此时的.就表示.</span><br><span class="line">reg.test(str1)  &#x2F;&#x2F;true</span><br><span class="line">reg.test(str2)  &#x2F;&#x2F;false</span><br><span class="line">reg.test(str3)  &#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>[]中，不会出现两位数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[12]表示1或者2 不过[0-9]这样的表示0到9 [a-z]表示a到z</span><br><span class="line">例如:匹配从18到65年龄段所有的人</span><br><span class="line">var reg &#x3D; &#x2F;[18-65]&#x2F;; &#x2F;&#x2F; 这样写对么</span><br><span class="line">reg.test(&#39;50&#39;)</span><br><span class="line"> &#x2F;&#x2F;Uncaught SyntaxError: Invalid regular expression: &#x2F;[18-65]&#x2F;: Range out of order in character class</span><br><span class="line">&#x2F;&#x2F;聪明的你想可能是8-6这里不对，于是改成[16-85]似乎可以匹配16到85的年龄段的，但实际上发现这也是不靠谱的</span><br><span class="line"></span><br><span class="line">实际上我们匹配这个18-65年龄段的正则我们要拆开来匹配</span><br><span class="line">我们拆成3部分来匹配 18-19  20-59 60-65</span><br><span class="line">reg &#x3D; &#x2F;(18|19)|([2-5]\d)|(6[0-5])&#x2F;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>()的提高优先级功能:凡是有|出现的时候，我们一定要注意是否有必要加上()来提高优先级；</li>
+<li>()的分组 重复子项 (两个放到一起说)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">分组：</span><br><span class="line">只要正则中出现了小括号那么就会形成一份分组</span><br><span class="line">只要有分组，exec(match)和replace中的结果就会发生改变(后边的正则方法中再说)</span><br><span class="line"></span><br><span class="line">分组的引用(重复子项) :</span><br><span class="line">只要在正则中出现了括号就会形成一个分组，我们可以通过\n (n是数字代表的是第几个分组)来引用这个分组，第一个小分组我们可以用\1来表示</span><br><span class="line"></span><br><span class="line">例如：求出这个字符串&#39;abAAbcBCCccdaACBDDabcccddddaab&#39;中出现最多的字母,并求出出现多少次(忽略大小写)。</span><br><span class="line">var str &#x3D; &#39;abbbbAAbcBCCccdaACBDDabcccddddaab&#39;;</span><br><span class="line">    str &#x3D; str.toLowerCase().split(&#39;&#39;).sort(function(a,b)&#123;return a.localeCompare(b)&#125;).join(&#39;&#39;);</span><br><span class="line"></span><br><span class="line">    var reg &#x3D; &#x2F;(\w)\1+&#x2F;ig;</span><br><span class="line">    var maxStr &#x3D; &#39;&#39;;</span><br><span class="line">    var maxLen &#x3D; 0;</span><br><span class="line">    str.replace(reg,function($0,$1)&#123;</span><br><span class="line">        var regLen &#x3D; $0.length;</span><br><span class="line">        if(regLen&gt;maxLen)&#123;</span><br><span class="line">            maxLen &#x3D; regLen;</span><br><span class="line">            maxStr &#x3D; $1;</span><br><span class="line">        &#125;else if(maxLen &#x3D;&#x3D; regLen)&#123;</span><br><span class="line">            maxStr +&#x3D; $1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(&#96;出现最多的字母是$&#123;maxStr&#125;,共出现了$&#123;maxLen&#125;次&#96;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当我们加()只是为了提高优先级而不想捕获小分组时，可以在()中加?:来取消分组的捕获</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;aaabbb&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;(a+)(?:b+)&#x2F;;</span><br><span class="line">var res &#x3D;reg.exec(str);</span><br><span class="line">console.log(res)</span><br><span class="line">&#x2F;&#x2F;[&quot;aaabbb&quot;, &quot;aaa&quot;, index: 0, input: &quot;aaabbb&quot;]</span><br><span class="line">&#x2F;&#x2F;只捕获第一个小分组的内容</span><br></pre></td></tr></table></figure>
+<h2 id="正则运算符的优先级"><a href="#正则运算符的优先级" class="headerlink" title="正则运算符的优先级"></a>正则运算符的优先级</h2><ol>
+<li>正则表达式从左到右进行计算，并遵循优先级顺序，这与算术表达式非常类似。</li>
+<li>相同优先级的会从左到右进行运算，不同优先级的运算先高后低。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">下面是常见的运算符的优先级排列</span><br><span class="line">依次从最高到最低说明各种正则表达式运算符的优先级顺序：</span><br><span class="line"></span><br><span class="line">\ : 转义符</span><br><span class="line">(), (?:), (?&#x3D;), []  &#x3D;&gt; 圆括号和方括号</span><br><span class="line">*, +, ?, &#123;n&#125;, &#123;n,&#125;, &#123;n,m&#125;   &#x3D;&gt; 量词限定符</span><br><span class="line">^, $, \任何元字符、任何字符</span><br><span class="line">|       &#x3D;&gt; 替换，&quot;或&quot;操作</span><br><span class="line"></span><br><span class="line">字符具有高于替换运算符的优先级，一般用 | 的时候，为了提高 | 的优先级，我们常用()来提高优先级</span><br><span class="line">如： 匹配 food或者foot的时候 reg &#x3D; &#x2F;foo(t|d)&#x2F; 这样来匹配</span><br></pre></td></tr></table></figure>
+<h2 id="正则的特性"><a href="#正则的特性" class="headerlink" title="正则的特性"></a>正则的特性</h2><ul>
+<li>贪婪性<blockquote>
+<p>所谓的贪婪性就是正则在捕获时，每一次会尽可能多的去捕获符合条件的内容。<br>如果我们想尽可能的少的去捕获符合条件的字符串的话，可以在量词元字符后加?</p>
+</blockquote>
+</li>
+<li>懒惰性<blockquote>
+<p>懒惰性则是正则在成功捕获一次后不管后边的字符串有没有符合条件的都不再捕获。<br>如果想捕获目标中所有符合条件的字符串的话，我们可以用标识符g来标明是全局捕获</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;123aaa456&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d+&#x2F;;  &#x2F;&#x2F;只捕获一次,一次尽可能多的捕获</span><br><span class="line">var res &#x3D; str.match(reg)</span><br><span class="line">console.log(res)</span><br><span class="line">&#x2F;&#x2F; [&quot;123&quot;, index: 0, input: &quot;123aaa456&quot;]</span><br><span class="line">reg &#x3D; &#x2F;\d+?&#x2F;g; &#x2F;&#x2F;解决贪婪性、懒惰性</span><br><span class="line">res &#x3D; str.match(reg)</span><br><span class="line">console.log(res)</span><br><span class="line">&#x2F;&#x2F; [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;]</span><br></pre></td></tr></table></figure>
+<h2 id="和正则相关的一些方法"><a href="#和正则相关的一些方法" class="headerlink" title="和正则相关的一些方法"></a>和正则相关的一些方法</h2><p>这里我们只介绍test、exec、match和replace这四个方法</p>
+<ul>
+<li><strong>reg.test(str)</strong> 用来验证字符串是否符合正则 符合返回true 否则返回false</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;abc&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\w+&#x2F;;</span><br><span class="line">console.log(reg.test(str));  &#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>reg.exec()</code>用来捕获符合规则的字符串</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;abc123cba456aaa789&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d+&#x2F;;</span><br><span class="line">console.log(reg.exec(str))</span><br><span class="line">&#x2F;&#x2F;  [&quot;123&quot;, index: 3, input: &quot;abc123cba456aaa789&quot;];</span><br><span class="line">console.log(reg.lastIndex)</span><br><span class="line">&#x2F;&#x2F; lastIndex : 0</span><br><span class="line"></span><br><span class="line">reg.exec捕获的数组中</span><br><span class="line">&#x2F;&#x2F; [0:&quot;123&quot;,index:3,input:&quot;abc123cba456aaa789&quot;]</span><br><span class="line">0:&quot;123&quot; 表示我们捕获到的字符串</span><br><span class="line">index:3 表示捕获开始位置的索引</span><br><span class="line">input 表示原有的字符串</span><br></pre></td></tr></table></figure>
+<p>当我们用exec进行捕获时，如果正则没有加’g’标识符，则exec捕获的每次都是同一个，当正则中有’g’标识符时 捕获的结果就不一样了,我们还是来看刚刚的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;abc123cba456aaa789&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d+&#x2F;g;  &#x2F;&#x2F;此时加了标识符g</span><br><span class="line">console.log(reg.lastIndex)</span><br><span class="line">&#x2F;&#x2F; lastIndex : 0</span><br><span class="line"></span><br><span class="line">console.log(reg.exec(str))</span><br><span class="line">&#x2F;&#x2F;  [&quot;123&quot;, index: 3, input: &quot;abc123cba456aaa789&quot;]</span><br><span class="line">console.log(reg.lastIndex)</span><br><span class="line">&#x2F;&#x2F; lastIndex : 6</span><br><span class="line"></span><br><span class="line">console.log(reg.exec(str))</span><br><span class="line">&#x2F;&#x2F; [&quot;456&quot;, index: 9, input: &quot;abc123cba456aaa789&quot;]</span><br><span class="line">console.log(reg.lastIndex)</span><br><span class="line">&#x2F;&#x2F; lastIndex : 12</span><br><span class="line"></span><br><span class="line">console.log(reg.exec(str))</span><br><span class="line">&#x2F;&#x2F; [&quot;789&quot;, index: 15, input: &quot;abc123cba456aaa789&quot;]</span><br><span class="line">console.log(reg.lastIndex)</span><br><span class="line">&#x2F;&#x2F; lastIndex : 18</span><br><span class="line"></span><br><span class="line">console.log(reg.exec(str))</span><br><span class="line">&#x2F;&#x2F; null</span><br><span class="line">console.log(reg.lastIndex)</span><br><span class="line">&#x2F;&#x2F; lastIndex : 0</span><br><span class="line"></span><br><span class="line">每次调用exec方法时,捕获到的字符串都不相同</span><br><span class="line">lastIndex ：这个属性记录的就是下一次捕获从哪个索引开始。</span><br><span class="line">当未开始捕获时，这个值为0。          </span><br><span class="line">如果当前次捕获结果为null。那么lastIndex的值会被修改为0.下次从头开始捕获。</span><br><span class="line">而且这个lastIndex属性还支持人为赋值。</span><br></pre></td></tr></table></figure>
+<p><strong>exec的捕获还受分组()的影响</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;2017-01-05&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;-(\d+)&#x2F;g</span><br><span class="line">&#x2F;&#x2F; [&quot;-01&quot;, &quot;01&quot;, index: 4, input: &quot;2017-01-05&quot;]</span><br><span class="line">&quot;-01&quot; : 正则捕获到的内容</span><br><span class="line">&quot;01&quot;  : 捕获到的字符串中的小分组中的内容</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>str.match(reg)</strong> 如果匹配成功，就返回匹配成功的数组，如果匹配不成功，就返回null</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;match和exec的用法差不多</span><br><span class="line">var str &#x3D; &#39;abc123cba456aaa789&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d+&#x2F;;</span><br><span class="line">console.log(reg.exec(str));</span><br><span class="line">&#x2F;&#x2F;[&quot;123&quot;, index: 3, input: &quot;abc123cba456aaa789&quot;]</span><br><span class="line">console.log(str.match(reg));</span><br><span class="line">&#x2F;&#x2F;[&quot;123&quot;, index: 3, input: &quot;abc123cba456aaa789&quot;]</span><br></pre></td></tr></table></figure>
+<p>上边两个方法console的结果有什么不同呢？二个字符串是一样滴。<br>当我们进行全局匹配时，二者的不同就会显现出来了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;abc123cba456aaa789&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d+&#x2F;g;</span><br><span class="line">console.log(reg.exec(str));</span><br><span class="line">&#x2F;&#x2F; [&quot;123&quot;, index: 3, input: &quot;abc123cba456aaa789&quot;]</span><br><span class="line">console.log(str.match(reg));</span><br><span class="line">&#x2F;&#x2F; [&quot;123&quot;, &quot;456&quot;, &quot;789&quot;]</span><br></pre></td></tr></table></figure>
+<p>当全局匹配时，match方法会一次性把符合匹配条件的字符串全部捕获到数组中,<br>如果想用exec来达到同样的效果需要执行多次exec方法。</p>
+<blockquote>
+<p>我们可以尝试着用exec来简单模拟下match方法的实现。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> String.prototype.myMatch &#x3D; function (reg) &#123;</span><br><span class="line">    var arr &#x3D; [];</span><br><span class="line">    var res &#x3D; reg.exec(this);</span><br><span class="line">    if (reg.global) &#123;</span><br><span class="line">        while (res) &#123;</span><br><span class="line">            arr.push(res[0]);</span><br><span class="line">            res &#x3D; reg.exec(this)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        arr.push(res[0]);</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var str &#x3D; &#39;abc123cba456aaa789&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d+&#x2F;;</span><br><span class="line">console.log(str.myMatch(reg))</span><br><span class="line">&#x2F;&#x2F; [&quot;123&quot;]</span><br><span class="line"></span><br><span class="line">var str &#x3D; &#39;abc123cba456aaa789&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;\d+&#x2F;g;</span><br><span class="line">console.log(str.myMatch(reg))</span><br><span class="line">&#x2F;&#x2F; [&quot;123&quot;, &quot;456&quot;, &quot;789&quot;]</span><br></pre></td></tr></table></figure>
+<p>此外，match和exec都可以受到分组()的影响，不过match只在没有标识符g的情况下才显示小分组的内容，如果有全局g，则match会一次性全部捕获放到数组中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;abc&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;(a)(b)(c)&#x2F;;</span><br><span class="line"></span><br><span class="line">console.log( str.match(reg) );</span><br><span class="line">&#x2F;&#x2F; [&quot;abc&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, index: 0, input: &quot;abc&quot;]</span><br><span class="line">console.log( reg.exec(str) );</span><br><span class="line">&#x2F;&#x2F; [&quot;abc&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, index: 0, input: &quot;abc&quot;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">当有全局g的情况下</span><br><span class="line">var str &#x3D; &#39;abc&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;(a)(b)(c)&#x2F;g;</span><br><span class="line">console.log( str.match(reg) );</span><br><span class="line">&#x2F;&#x2F; [&quot;abc&quot;]</span><br><span class="line">console.log( reg.exec(str) );</span><br><span class="line">&#x2F;&#x2F; [&quot;abc&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, index: 0, input: &quot;abc&quot;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>str.replace()</strong> 这个方法大家肯定不陌生，现在我们要说的就是这个方法和正则相关的东西了。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">正则去匹配字符串，匹配成功的字符去替换成新的字符串</span><br><span class="line">写法：str.replace(reg,newStr);</span><br><span class="line"></span><br><span class="line">var str &#x3D; &#39;a111bc222de&#39;;</span><br><span class="line">var res &#x3D; str.replace(&#x2F;\d&#x2F;g,&#39;Q&#39;)</span><br><span class="line">console.log(res)</span><br><span class="line">&#x2F;&#x2F; &quot;aQQQbcQQQde&quot;</span><br><span class="line"></span><br><span class="line">replace的第二个参数也可以是一个函数</span><br><span class="line">str.replace(reg,fn);</span><br><span class="line"></span><br><span class="line">var str &#x3D; &#39;2017-01-06&#39;;</span><br><span class="line">str &#x3D; str.replace(&#x2F;-\d+&#x2F;g,function()&#123;</span><br><span class="line">    console.log(arguments)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">控制台打印结果：</span><br><span class="line">[&quot;-01&quot;, 4, &quot;2017-01-06&quot;]</span><br><span class="line">[&quot;-06&quot;, 7, &quot;2017-01-06&quot;]</span><br><span class="line">&quot;2017undefinedundefined&quot;</span><br><span class="line">从打印结果我们发现每一次输出的值似乎跟exec捕获时很相似，既然与exec似乎很相似，那么似乎也可以打印出小分组中的内容喽</span><br><span class="line"></span><br><span class="line">var str &#x3D; &#39;2017-01-06&#39;;</span><br><span class="line">str &#x3D; str.replace(&#x2F;-(\d+)&#x2F;g,function()&#123;</span><br><span class="line">    console.log(arguments)</span><br><span class="line">&#125;)</span><br><span class="line">[&quot;-01&quot;, &quot;01&quot;, 4, &quot;2017-01-06&quot;]</span><br><span class="line">[&quot;-06&quot;, &quot;06&quot;, 7, &quot;2017-01-06&quot;]</span><br><span class="line">&quot;2017undefinedundefined&quot;</span><br><span class="line">从结果看来我们的猜测没问题。</span><br><span class="line"></span><br><span class="line">此外，我们需要注意的是，如果我们需要替换replace中正则找到的字符串，函数中需要一个返回值去替换正则捕获的内容。</span><br></pre></td></tr></table></figure>
+<p>通过replace方法获取url中的参数的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">(function(pro)&#123;</span><br><span class="line">    function queryString()&#123;</span><br><span class="line">        var obj &#x3D; &#123;&#125;,</span><br><span class="line">            reg &#x3D; &#x2F;([^?&amp;#+]+)&#x3D;([^?&amp;#+]+)&#x2F;g;</span><br><span class="line">        this.replace(reg,function($0,$1,$2)&#123;</span><br><span class="line">            obj[$1] &#x3D; $2;</span><br><span class="line">        &#125;)</span><br><span class="line">        return obj;</span><br><span class="line">    &#125;</span><br><span class="line">    pro.queryString &#x3D; queryString;</span><br><span class="line">&#125;(String.prototype));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 例如 url为 https:&#x2F;&#x2F;www.baidu.com?a&#x3D;1&amp;b&#x3D;2</span><br><span class="line">&#x2F;&#x2F; window.location.href.queryString();</span><br><span class="line">&#x2F;&#x2F; &#123;a:1,b:2&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h2><p>用于查找在某些内容(但并不包括这些内容)之前或之后的东西，如\b,^,$那样用于指定一个位置，这个位置应该满足一定的条件(即断言)，因此它们也被称为零宽断言。</p>
+<blockquote>
+<p>在使用正则表达式时，捕获的内容前后必须是特定的内容，而我们又不想捕获这些特定内容的时候，零宽断言就可以派上用场了。</p>
+</blockquote>
+<ul>
+<li>零宽度正预测先行断言 (?=exp)</li>
+<li>零宽度负预测先行断言 (?!exp)</li>
+<li>零宽度正回顾后发断言 (?&lt;=exp)</li>
+<li>零宽度负回顾后发断言 (?&lt;!exp)</li>
+</ul>
+<p>这四胞胎看着名字好长，给人一种好复杂好难的感觉，我们还是挨个来看看它们究竟是干什么的吧。</p>
+<ul>
+<li>(?=exp) 这个简单理解就是说字符出现的位置的右边必须匹配到exp这个表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &quot;i&#39;m singing and dancing&quot;;</span><br><span class="line">var reg &#x3D; &#x2F;\b(\w+(?&#x3D;ing\b))&#x2F;g</span><br><span class="line">var res &#x3D; str.match(reg);</span><br><span class="line">console.log(res)</span><br><span class="line">&#x2F;&#x2F; [&quot;sing&quot;, &quot;danc&quot;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">注意一点，这里说到的是位置，不是字符。</span><br><span class="line">var str &#x3D; &#39;abc&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;a(?&#x3D;b)c&#x2F;;</span><br><span class="line">console.log(res.test(str));  &#x2F;&#x2F; false</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 这个看起来似乎是正确的，实际上结果是false</span><br><span class="line">reg中a(?&#x3D;b)匹配字符串&#39;abc&#39; 字符串a的右边是b这个匹配没问题,接下来reg中a(?&#x3D;b)后边的c匹配字符串时是从字符串&#39;abc&#39;中a的后边b的前边的这个位置开始匹配的，</span><br><span class="line">这个相当于&#x2F;ac&#x2F;匹配&#39;abc&#39;,显然结果是false了</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(?!exp) 这个就是说字符出现的位置的右边不能是exp这个表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;nodejs&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;node(?!js)&#x2F;;</span><br><span class="line">console.log(reg.test(str)) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(?&lt;=exp) 这个就是说字符出现的位置的前边是exp这个表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;￥998$888&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;(?&lt;&#x3D;\$)\d+&#x2F;;</span><br><span class="line">console.log(reg.exec(str)) &#x2F;&#x2F;888</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(?&lt;!exp) 这个就是说字符出现的位置的前边不能是exp这个表达式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &#39;￥998$888&#39;;</span><br><span class="line">var reg &#x3D; &#x2F;(?&lt;!\$)\d+&#x2F;;</span><br><span class="line">console.log(reg.exec(str)) &#x2F;&#x2F;998</span><br></pre></td></tr></table></figure>
+<p>最后，来一张思维导图</p>
+<p><img src="https://img2018.cnblogs.com/blog/623461/201903/623461-20190303215714792-341635637.png" alt="image"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/39_%E4%BA%86%E8%A7%A3JavaScript%E4%B8%AD%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E5%90%97%EF%BC%9F%E8%81%8A%E4%B8%80%E4%B8%8BJS%E4%B8%AD%E7%9A%84getter%E4%B8%8Esetter%E7%9A%84%E7%94%A8%E6%B3%95/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

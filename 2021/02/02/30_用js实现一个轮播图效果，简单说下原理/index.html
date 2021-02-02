@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>30_用js实现一个轮播图效果，简单说下原理 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="30_用js实现一个轮播图效果，简单说下原理" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-30_用js实现一个轮播图效果，简单说下原理" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T04:12:09.000Z"><a href="/2021/02/02/30_用js实现一个轮播图效果，简单说下原理/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">30_用js实现一个轮播图效果，简单说下原理</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、原理"><a href="#一、原理" class="headerlink" title="一、原理"></a>一、原理</h2><p>将一些图片在一行中平铺，然后计算偏移量再利用定时器实现定时轮播。</p>
+<h3 id="步骤一：建立-html-基本布局"><a href="#步骤一：建立-html-基本布局" class="headerlink" title="步骤一：建立 html 基本布局"></a>步骤一：建立 html 基本布局</h3><p>如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;轮播图&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;wrap&quot; style&#x3D;&quot;left:-600px;&quot;&gt;</span><br><span class="line">            &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;5.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">            &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;1.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">            &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;2.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">            &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;3.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">            &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;4.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">            &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;5.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">            &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;1.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;buttons&quot;&gt;</span><br><span class="line">            &lt;span&gt;1&lt;&#x2F;span&gt;</span><br><span class="line">            &lt;span&gt;2&lt;&#x2F;span&gt;</span><br><span class="line">            &lt;span&gt;3&lt;&#x2F;span&gt;</span><br><span class="line">            &lt;span&gt;4&lt;&#x2F;span&gt;</span><br><span class="line">            &lt;span&gt;5&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;a href&#x3D;&quot;javascript:;&quot; class&#x3D;&quot;arrow arrow_left&quot;&gt;&lt;&lt;&#x2F;a&gt;</span><br><span class="line">        &lt;a href&#x3D;&quot;javascript:;&quot; class&#x3D;&quot;arrow arrow_right&quot;&gt;&gt;&lt;&#x2F;a&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>只有五张图片，却使用 7 张来轮播，这是为了实现无缝轮播，后面会详细介绍。</p>
+<p>而 5 个 span，即我们可以实时看到轮播图目前所处的位置。</p>
+<p>最后是两个按钮，可以通过它来控制前进与后退。</p>
+<p>这里我们需要对 wrap 使用绝对定位，所以用 left:-600px;将第一张图片显示出来。</p>
+<h3 id="步骤二：-css-布局"><a href="#步骤二：-css-布局" class="headerlink" title="步骤二： css 布局"></a>步骤二： css 布局</h3><p>首先，reset css，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">    margin: 0;</span><br><span class="line">    padding: 0;</span><br><span class="line">&#125;</span><br><span class="line">a &#123;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着，我们为了让图片只在 container 中，所以需要限定其宽度和高度并且使用 overflow:hidden；将其余的图片隐藏起来，并且我们希望 wrap 相对于 container 左右移动，所以设置为 relative，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.container &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    width: 600px;</span><br><span class="line">    height: 400px;</span><br><span class="line">    margin:100px auto 0 auto;</span><br><span class="line">    box-shadow: 0 0 5px green;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们设置 wrap 是绝对定位的，所以我们就可以通过控制 Left 和 Right 来控制图片的移动了。设置 z-index:1;以对后面将要放置的 buttons 作为参考。 因为共有七张图片，所以 width 为 4200px（每张图片我们设置为 600X400）,我们只需让图片左浮动即可实现占满一排了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.wrap &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    width: 4200px;</span><br><span class="line">    height: 400px;</span><br><span class="line">    z-index: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们把图片设置为左浮动，并限定其大小，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.container .wrap img &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 600px;</span><br><span class="line">    height: 400px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>即这时已经显示出了第一张图片。并且充满了整个 container(container 是有 box-shadow 的);</p>
+<p>然后我们把显示次序的 buttons 放在图片的右下角。并且设置 z-index:2;以保证 buttons 是在图片的上面的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.container .buttons &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    right: 150px;</span><br><span class="line">    bottom:20px;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 10px;</span><br><span class="line">    z-index: 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后将 buttons 下面的 span 做一个简单的修饰，并且给和图片对应的 span 设置一个 on 类，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.container .buttons span &#123;</span><br><span class="line">    margin-left: 5px;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 20px;</span><br><span class="line">    height: 20px;</span><br><span class="line">    border-radius: 50%;</span><br><span class="line">    background-color: green;</span><br><span class="line">    text-align: center;</span><br><span class="line">    color:white;</span><br><span class="line">    cursor: pointer;</span><br><span class="line">&#125;</span><br><span class="line">.container .buttons span.on&#123;</span><br><span class="line">    background-color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们把左右切换的箭头加上，然后做简单的修饰，注意：因为这里使用实体来表示左右箭头，所以设置 font-size 才能改变其大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.container .arrow &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 35%;</span><br><span class="line">    color: green;</span><br><span class="line">    padding:0px 14px;</span><br><span class="line">    border-radius: 50%;</span><br><span class="line">    font-size: 50px;</span><br><span class="line">    z-index: 2;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">.container .arrow_left &#123;</span><br><span class="line">    left: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.container .arrow_right &#123;</span><br><span class="line">    right: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.container:hover .arrow &#123;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br><span class="line">.container .arrow:hover &#123;</span><br><span class="line">    background-color: rgba(0,0,0,0.2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤三：添加-js-逻辑"><a href="#步骤三：添加-js-逻辑" class="headerlink" title="步骤三：添加 js 逻辑"></a>步骤三：添加 js 逻辑</h3><p>我们首先获取到 wrap（因为要设置其 left 才能控制轮播图），然后获取到左右两个箭头，并实现手动轮播，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var wrap &#x3D; document.querySelector(&quot;.wrap&quot;);</span><br><span class="line">var next &#x3D; document.querySelector(&quot;.arrow_right&quot;);</span><br><span class="line">var prev &#x3D; document.querySelector(&quot;.arrow_left&quot;);</span><br><span class="line">next.onclick &#x3D; function () &#123;</span><br><span class="line">    next_pic();</span><br><span class="line">&#125;</span><br><span class="line">prev.onclick &#x3D; function () &#123;</span><br><span class="line">    prev_pic();</span><br><span class="line">&#125;</span><br><span class="line">function next_pic () &#123;</span><br><span class="line">    var newLeft &#x3D; parseInt(wrap.style.left)-600;</span><br><span class="line">    wrap.style.left &#x3D; newLeft + &quot;px&quot;;</span><br><span class="line">&#125;</span><br><span class="line">function prev_pic () &#123;</span><br><span class="line">    var newLeft &#x3D; parseInt(wrap.style.left)+600;</span><br><span class="line">    wrap.style.left &#x3D; newLeft + &quot;px&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，这里 wrap.style.left 是一个字符串，所以要转化为数字才能进行计算，而设定 left 时就要加上 px 成为一个字符串了。</p>
+<p>在第一页时，left 值为-600，所以我们可以点击一次上一张，但是当再点击一次时，就出现了空白。同样的，下一张点击，到-3600 是最后一张，就不能再继续点击了。</p>
+<p>也就是说，当我们点击下一张到-3600px（这是第一张图片）时，我们需要下次跳转到第二张，即-1200px；这样才能正常跳转；</p>
+<p>同理，当我们点击上一张到 0px（这是第五张图片时），我们希望下次跳转到第四张，即-2400px；</p>
+<p>按照这样的思路我们重新将 next_pic 和 prev_pic 函数修改如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function next_pic () &#123;</span><br><span class="line">    var newLeft;</span><br><span class="line">    if(wrap.style.left &#x3D;&#x3D;&#x3D; &quot;-3600px&quot;)&#123;</span><br><span class="line">        newLeft &#x3D; -1200;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        newLeft &#x3D; parseInt(wrap.style.left)-600;</span><br><span class="line">    &#125;</span><br><span class="line">    wrap.style.left &#x3D; newLeft + &quot;px&quot;;</span><br><span class="line">&#125;</span><br><span class="line">function prev_pic () &#123;</span><br><span class="line">    var newLeft;</span><br><span class="line">    if(wrap.style.left &#x3D;&#x3D;&#x3D; &quot;0px&quot;)&#123;</span><br><span class="line">        newLeft &#x3D; -2400;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        newLeft &#x3D; parseInt(wrap.style.left)+600;</span><br><span class="line">    &#125;</span><br><span class="line">    wrap.style.left &#x3D; newLeft + &quot;px&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时，我们就可以发现图片可以循环播放了！</p>
+<p>但是，这时我们仅仅是手动循环播放的，我们如果希望自动播放，使用 setInterval()即可，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var timer &#x3D; null;</span><br><span class="line">function autoPlay () &#123;</span><br><span class="line">    timer &#x3D; setInterval(function () &#123;</span><br><span class="line">        next_pic();</span><br><span class="line">    &#125;,1000);</span><br><span class="line">&#125;</span><br><span class="line">autoPlay();</span><br></pre></td></tr></table></figure>
+
+<p>即先设定一个计时器，然后创建一个可以自动播放的函数，最后调用这个函数即可。 现在它就可以自动播放了。</p>
+<p>但是如果我们想要仔细看其中一个图片的时候，我们希望轮播图停止播放，只要 clearInterval()即可，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var container &#x3D; document.querySelector(&quot;.container&quot;);</span><br><span class="line">container.onmouseenter &#x3D; function () &#123;</span><br><span class="line">    clearInterval(timer);</span><br><span class="line">&#125;</span><br><span class="line">container.onmouseleave &#x3D; function () &#123;</span><br><span class="line">    autoPlay();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，只要我们把鼠标移入轮播图中，这时轮播图就不会播放了。而移开鼠标之后，轮播图自动播放。</p>
+<p>但是到目前为止，轮播图下方的小圆点还没有动，现在我们就实现它。</p>
+<p>原理很简单，即设置 buttons 的 index 初始值为 0，即第一个 span 的 class 为 on，然后触发 next_pic 函数时，index 加 1，当触发 prev_pic 函数时，index 减 1， 并设置当前 index 的小圆点的 class 为 on， 这就要求 index 必须设置为全局变量，才能保证它在每一个函数的作用域中。</p>
+<p>添加 showCurrentDot 函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var index &#x3D; 0;</span><br><span class="line">var dots &#x3D; document.getElementsByTagName(&quot;span&quot;);</span><br><span class="line">function showCurrentDot () &#123;</span><br><span class="line">    for(var i &#x3D; 0, len &#x3D; dots.length; i &lt; len; i++)&#123;</span><br><span class="line">        dots[i].className &#x3D; &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    dots[index].className &#x3D; &quot;on&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 next_pic 中添加代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index++;</span><br><span class="line">if(index &gt; 4)&#123;</span><br><span class="line">    index &#x3D; 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 prev_pic 中添加代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index--;</span><br><span class="line">if(index &lt; 0)&#123;</span><br><span class="line">    index &#x3D; 4;</span><br><span class="line">&#125;</span><br><span class="line">showCurrentDot();</span><br></pre></td></tr></table></figure>
+
+<p>这样，轮播图就可以自动切换，并且小圆点也在随着图片的变化而变化了。</p>
+<p>但是，这距离我们经常看到的轮播图还有一定距离 - - - 当点击小圆点时， 就可跳转到相应图片。 实现原理即： 点击小圆点，就使 wrap 的 Left 变成相应的值。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">for (var i &#x3D; 0, len &#x3D; dots.length; i &lt; len; i++)&#123;</span><br><span class="line">    (function(i)&#123;</span><br><span class="line">        dots[i].onclick &#x3D; function () &#123;</span><br><span class="line">            var dis &#x3D; index - i;</span><br><span class="line">            if(index &#x3D;&#x3D; 4 &amp;&amp; parseInt(wrap.style.left)!&#x3D;&#x3D;-3000)&#123;</span><br><span class="line">                dis &#x3D; dis - 5;</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;和使用prev和next相同，在最开始的照片5和最终的照片1在使用时会出现问题，导致符号和位数的出错，做相应地处理即可</span><br><span class="line">            if(index &#x3D;&#x3D; 0 &amp;&amp; parseInt(wrap.style.left)!&#x3D;&#x3D; -600)&#123;</span><br><span class="line">                dis &#x3D; 5 + dis;</span><br><span class="line">            &#125;</span><br><span class="line">            wrap.style.left &#x3D; (parseInt(wrap.style.left) +  dis * 600)+&quot;px&quot;;</span><br><span class="line">            index &#x3D; i;</span><br><span class="line">            showCurrentDot();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原理就是当点击到小圆点时，得到相应的 i 值，这个 i 值也就是 span 的 index 值，我们拿他和全局变量 index 作比较，然后重新设置 wrap.style.left 的值，然后把 i 值复制给全局变量 index，最后显示当前的小原点即可。值得注意的是：这里涉及到了闭包的概念，如果直接使用 for 循环，则不能得到正确的结果。</p>
+<p>最终效果图如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-786b8ae38b3df2d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>最终代码如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;title&gt;轮播图&lt;&#x2F;title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    * &#123;</span><br><span class="line">        margin:0;</span><br><span class="line">        padding:0;</span><br><span class="line">    &#125;</span><br><span class="line">    a&#123;</span><br><span class="line">        text-decoration: none;</span><br><span class="line">    &#125;</span><br><span class="line">    .container &#123;</span><br><span class="line">        position: relative;</span><br><span class="line">        width: 600px;</span><br><span class="line">        height: 400px;</span><br><span class="line">        margin:100px auto 0 auto;</span><br><span class="line">        box-shadow: 0 0 5px green;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .wrap &#123;</span><br><span class="line">        position: absolute;</span><br><span class="line">        width: 4200px;</span><br><span class="line">        height: 400px;</span><br><span class="line">        z-index: 1;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .wrap img &#123;</span><br><span class="line">        float: left;</span><br><span class="line">        width: 600px;</span><br><span class="line">        height: 400px;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .buttons &#123;</span><br><span class="line">        position: absolute;</span><br><span class="line">        right: 5px;</span><br><span class="line">        bottom:40px;</span><br><span class="line">        width: 150px;</span><br><span class="line">        height: 10px;</span><br><span class="line">        z-index: 2;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .buttons span &#123;</span><br><span class="line">        margin-left: 5px;</span><br><span class="line">        display: inline-block;</span><br><span class="line">        width: 20px;</span><br><span class="line">        height: 20px;</span><br><span class="line">        border-radius: 50%;</span><br><span class="line">        background-color: green;</span><br><span class="line">        text-align: center;</span><br><span class="line">        color:white;</span><br><span class="line">        cursor: pointer;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .buttons span.on&#123;</span><br><span class="line">        background-color: red;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .arrow &#123;</span><br><span class="line">        position: absolute;</span><br><span class="line">        top: 35%;</span><br><span class="line">        color: green;</span><br><span class="line">        padding:0px 14px;</span><br><span class="line">        border-radius: 50%;</span><br><span class="line">        font-size: 50px;</span><br><span class="line">        z-index: 2;</span><br><span class="line">        display: none;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .arrow_left &#123;</span><br><span class="line">        left: 10px;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .arrow_right &#123;</span><br><span class="line">        right: 10px;</span><br><span class="line">    &#125;</span><br><span class="line">    .container:hover .arrow &#123;</span><br><span class="line">        display: block;</span><br><span class="line">    &#125;</span><br><span class="line">    .container .arrow:hover &#123;</span><br><span class="line">        background-color: rgba(0,0,0,0.2);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;wrap&quot; style&#x3D;&quot;left: -600px;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;5.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;1.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;2.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;3.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;4.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;5.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;.&#x2F;img&#x2F;1.jpg&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;buttons&quot;&gt;</span><br><span class="line">        &lt;span class&#x3D;&quot;on&quot;&gt;1&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;span&gt;2&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;span&gt;3&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;span&gt;4&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;span&gt;5&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;a href&#x3D;&quot;javascript:;&quot; class&#x3D;&quot;arrow arrow_left&quot;&gt;&lt;&lt;&#x2F;a&gt;</span><br><span class="line">    &lt;a href&#x3D;&quot;javascript:;&quot; class&#x3D;&quot;arrow arrow_right&quot;&gt;&gt;&lt;&#x2F;a&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var wrap &#x3D; document.querySelector(&quot;.wrap&quot;);</span><br><span class="line">    var next &#x3D; document.querySelector(&quot;.arrow_right&quot;);</span><br><span class="line">    var prev &#x3D; document.querySelector(&quot;.arrow_left&quot;);</span><br><span class="line">    next.onclick &#x3D; function () &#123;</span><br><span class="line">        next_pic();</span><br><span class="line">    &#125;</span><br><span class="line">    prev.onclick &#x3D; function () &#123;</span><br><span class="line">        prev_pic();</span><br><span class="line">    &#125;</span><br><span class="line">    function next_pic () &#123;</span><br><span class="line">        index++;</span><br><span class="line">        if(index &gt; 4)&#123;</span><br><span class="line">            index &#x3D; 0;</span><br><span class="line">        &#125;</span><br><span class="line">        showCurrentDot();</span><br><span class="line">        var newLeft;</span><br><span class="line">        if(wrap.style.left &#x3D;&#x3D;&#x3D; &quot;-3600px&quot;)&#123;</span><br><span class="line">            newLeft &#x3D; -1200;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            newLeft &#x3D; parseInt(wrap.style.left)-600;</span><br><span class="line">        &#125;</span><br><span class="line">        wrap.style.left &#x3D; newLeft + &quot;px&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    function prev_pic () &#123;</span><br><span class="line">        index--;</span><br><span class="line">        if(index &lt; 0)&#123;</span><br><span class="line">            index &#x3D; 4;</span><br><span class="line">        &#125;</span><br><span class="line">        showCurrentDot();</span><br><span class="line">        var newLeft;</span><br><span class="line">        if(wrap.style.left &#x3D;&#x3D;&#x3D; &quot;0px&quot;)&#123;</span><br><span class="line">            newLeft &#x3D; -2400;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            newLeft &#x3D; parseInt(wrap.style.left)+600;</span><br><span class="line">        &#125;</span><br><span class="line">        wrap.style.left &#x3D; newLeft + &quot;px&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    var timer &#x3D; null;</span><br><span class="line">    function autoPlay () &#123;</span><br><span class="line">        timer &#x3D; setInterval(function () &#123;</span><br><span class="line">            next_pic();</span><br><span class="line">        &#125;,2000);</span><br><span class="line">    &#125;</span><br><span class="line">    autoPlay();</span><br><span class="line"></span><br><span class="line">    var container &#x3D; document.querySelector(&quot;.container&quot;);</span><br><span class="line">    container.onmouseenter &#x3D; function () &#123;</span><br><span class="line">        clearInterval(timer);</span><br><span class="line">    &#125;</span><br><span class="line">    container.onmouseleave &#x3D; function () &#123;</span><br><span class="line">        autoPlay();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var index &#x3D; 0;</span><br><span class="line">    var dots &#x3D; document.getElementsByTagName(&quot;span&quot;);</span><br><span class="line">    function showCurrentDot () &#123;</span><br><span class="line">        for(var i &#x3D; 0, len &#x3D; dots.length; i &lt; len; i++)&#123;</span><br><span class="line">            dots[i].className &#x3D; &quot;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        dots[index].className &#x3D; &quot;on&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (var i &#x3D; 0, len &#x3D; dots.length; i &lt; len; i++)&#123;</span><br><span class="line">        (function(i)&#123;</span><br><span class="line">            dots[i].onclick &#x3D; function () &#123;</span><br><span class="line">                var dis &#x3D; index - i;</span><br><span class="line">                if(index &#x3D;&#x3D; 4 &amp;&amp; parseInt(wrap.style.left)!&#x3D;&#x3D;-3000)&#123;</span><br><span class="line">                    dis &#x3D; dis - 5;</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;和使用prev和next相同，在最开始的照片5和最终的照片1在使用时会出现问题，导致符号和位数的出错，做相应地处理即可</span><br><span class="line">                if(index &#x3D;&#x3D; 0 &amp;&amp; parseInt(wrap.style.left)!&#x3D;&#x3D; -600)&#123;</span><br><span class="line">                    dis &#x3D; 5 + dis;</span><br><span class="line">                &#125;</span><br><span class="line">                wrap.style.left &#x3D; (parseInt(wrap.style.left) +  dis * 600)+&quot;px&quot;;</span><br><span class="line">                index &#x3D; i;</span><br><span class="line">                showCurrentDot();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)(i);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、总结"><a href="#二、总结" class="headerlink" title="二、总结"></a>二、总结</h2><p>实现一个轮播图还是不难的，大体思路： 先创建一个 div，限定其宽度和高度，overflow：hidden，且设置其 position 为 relative。然后创建一个装图片的 div，宽度为所有图片的总宽度，且设置其 position 为 absolute，并且使其中的内容浮动，这样所有的图片就处于一行中。然后为了实现无缝滚动，所以需要在首尾分别添加一张过渡图片。 先添加两个按钮， 使其可以手动轮播，然后只需要添加一个定时器使其朝一个方向自动轮播即可，因为用户有时需要查看详情，所以当鼠标进入时就 clear 定时器，滑出再定时播放。为了更好地用户体验，我们在下面添加了一排小圆点，用户可以清楚地知道现在所处的位置， 最后， 利用闭包使得用户可以直接通过点击小圆点切换图片。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/30_%E7%94%A8js%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%BD%AE%E6%92%AD%E5%9B%BE%E6%95%88%E6%9E%9C%EF%BC%8C%E7%AE%80%E5%8D%95%E8%AF%B4%E4%B8%8B%E5%8E%9F%E7%90%86/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

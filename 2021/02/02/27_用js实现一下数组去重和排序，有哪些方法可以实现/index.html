@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>27_用js实现一下数组去重和排序，有哪些方法可以实现 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="27_用js实现一下数组去重和排序，有哪些方法可以实现" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-27_用js实现一下数组去重和排序，有哪些方法可以实现" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T04:12:12.000Z"><a href="/2021/02/02/27_用js实现一下数组去重和排序，有哪些方法可以实现/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">27_用js实现一下数组去重和排序，有哪些方法可以实现</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、数组去重"><a href="#一、数组去重" class="headerlink" title="一、数组去重"></a>一、数组去重</h2><h3 id="1、简单的去重方法"><a href="#1、简单的去重方法" class="headerlink" title="1、简单的去重方法"></a>1、简单的去重方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 最简单数组去重法</span><br><span class="line">&#x2F;*</span><br><span class="line">* 新建一新数组，遍历传入数组，值不在新数组就push进该新数组中</span><br><span class="line">* IE8以下不支持数组的indexOf方法</span><br><span class="line">*&#x2F;</span><br><span class="line">function uniq(array)&#123;</span><br><span class="line">  var temp &#x3D; []; &#x2F;&#x2F;一个新的临时数组</span><br><span class="line">  for(var i &#x3D; 0; i &lt; array.length; i++)&#123;</span><br><span class="line">    if(temp.indexOf(array[i]) &#x3D;&#x3D; -1)&#123;</span><br><span class="line">      temp.push(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return temp;</span><br><span class="line">&#125;</span><br><span class="line">var newArray &#x3D; [1,2,2,4,9,6,7,5,2,3,5,6,5];</span><br><span class="line">console.log(uniq(newArray));&#x2F;&#x2F; [1, 2, 4, 9, 6, 7, 5, 3]</span><br><span class="line">&#x2F;*</span><br><span class="line">var newArray &#x3D; [&#39;mu&#39;,&#39;zi&#39;,&#39;dig&#39;,&#39;big&#39;,&#39;z&#39;,&#39;mu&#39;,&#39;zi&#39;,&#39;muzidigbig&#39;]</span><br><span class="line">console.log(uniq(newArray));&#x2F;&#x2F;[&quot;mu&quot;, &quot;zi&quot;, &quot;dig&quot;, &quot;big&quot;, &quot;z&quot;, &quot;muzidigbig&quot;]</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、对象键值法去重"><a href="#2、对象键值法去重" class="headerlink" title="2、对象键值法去重"></a>2、对象键值法去重</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">* 速度最快， 占空间最多（空间换时间）</span><br><span class="line">*</span><br><span class="line">* 该方法执行的速度比其他任何方法都快， 就是占用的内存大一些。</span><br><span class="line">* 现思路：新建一js对象以及新数组，遍历传入数组时，判断值是否为js对象的键，</span><br><span class="line">* 不是的话给对象新增该键并放入新数组。</span><br><span class="line">* 注意点：判断是否为js对象键时，会自动对传入的键执行“toString()”，</span><br><span class="line">* 不同的键可能会被误认为一样，例如n[val]-- n[1]、n[&quot;1&quot;]；</span><br><span class="line">* 解决上述问题还是得调用“indexOf”。*&#x2F;</span><br><span class="line">function uniq(array)&#123;</span><br><span class="line">    var temp &#x3D; &#123;&#125;, r &#x3D; [], len &#x3D; array.length, val, type;</span><br><span class="line">    for (var i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">        val &#x3D; array[i];</span><br><span class="line">        type &#x3D; typeof val;</span><br><span class="line">        if (!temp[val]) &#123;</span><br><span class="line">            temp[val] &#x3D; [type];</span><br><span class="line">            r.push(val);</span><br><span class="line">        &#125; else if (temp[val].indexOf(type) &lt; 0) &#123;</span><br><span class="line">            temp[val].push(type);</span><br><span class="line">            r.push(val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var newArray &#x3D; [1,2,&quot;2&quot;,4,9,&quot;a&quot;,&quot;a&quot;,2,3,5,6,5];</span><br><span class="line">console.log(uniq(newArray)); &#x2F;&#x2F;[1, 2, &quot;2&quot;, 4, 9, &quot;a&quot;, 3, 5, 6]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、数组下标法"><a href="#3、数组下标法" class="headerlink" title="3、数组下标法"></a>3、数组下标法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">* 还是得调用“indexOf”性能跟方法1差不多，</span><br><span class="line">* 实现思路：如果当前数组的第i项在当前数组中第一次出现的位置不是i，</span><br><span class="line">* 那么表示第i项是重复的，忽略掉。否则存入结果数组。</span><br><span class="line">*&#x2F;</span><br><span class="line">function uniq(array)&#123;</span><br><span class="line">  var temp &#x3D; [];</span><br><span class="line">  for(var i &#x3D; 0; i &lt; array.length; i++) &#123;</span><br><span class="line">    &#x2F;&#x2F;如果当前数组的第i项在当前数组中第一次出现的位置是i，才存入数组；否则代表是重复的</span><br><span class="line">    if(array.indexOf(array[i]) &#x3D;&#x3D; i)&#123;</span><br><span class="line">      temp.push(array[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return temp;</span><br><span class="line">&#125;</span><br><span class="line">var newArray &#x3D; [1,2,&quot;2&quot;,4,9,&quot;a&quot;,&quot;a&quot;,2,3,5,6,5];</span><br><span class="line">console.log(uniq(newArray));&#x2F;&#x2F;[1, 2, &quot;2&quot;, 4, 9, &quot;a&quot;, 3, 5, 6]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、排序后相邻去除法"><a href="#4、排序后相邻去除法" class="headerlink" title="4、排序后相邻去除法"></a>4、排序后相邻去除法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">* 给传入数组排序，排序后相同值相邻，</span><br><span class="line">* 然后遍历时,新数组只加入不与前一值重复的值。</span><br><span class="line">* 会打乱原来数组的顺序</span><br><span class="line">*&#x2F;</span><br><span class="line">function uniq(array)&#123;</span><br><span class="line">  array.sort();</span><br><span class="line">  console.log(array.sort());</span><br><span class="line">  var temp&#x3D;[array[0]];</span><br><span class="line">  for(var i &#x3D; 1; i &lt; array.length; i++)&#123;</span><br><span class="line">    if( array[i] !&#x3D;&#x3D; temp[temp.length-1])&#123;</span><br><span class="line">      temp.push(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return temp;</span><br><span class="line">&#125;</span><br><span class="line">var newArray &#x3D; [1,2,&quot;2&quot;,4,9,&quot;a&quot;,&quot;a&quot;,2,3,5,6,5];</span><br><span class="line">console.log(uniq(newArray));&#x2F;&#x2F;[1, &quot;2&quot;, 2, 3, 4, 5, 6, 9, &quot;a&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、优化遍历数组法"><a href="#5、优化遍历数组法" class="headerlink" title="5、优化遍历数组法"></a>5、优化遍历数组法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 思路：获取没重复的最右一值放入新数组</span><br><span class="line">&#x2F;*</span><br><span class="line">* 推荐的方法</span><br><span class="line">* 方法的实现代码相当酷炫，</span><br><span class="line">* 实现思路：获取没重复的最右一值放入新数组。</span><br><span class="line">* （检测到有重复值时终止当前循环同时进入顶层循环的下一轮判断）</span><br><span class="line">*&#x2F;</span><br><span class="line">function uniq(array)&#123;</span><br><span class="line">  var temp &#x3D; [];</span><br><span class="line">  var index &#x3D; [];</span><br><span class="line">  var l &#x3D; array.length;</span><br><span class="line">  for(var i &#x3D; 0; i &lt; l; i++) &#123;</span><br><span class="line">    for(var j &#x3D; i + 1; j &lt; l; j++)&#123;</span><br><span class="line">      if (array[i] &#x3D;&#x3D;&#x3D; array[j])&#123;</span><br><span class="line">        i++;</span><br><span class="line">        j &#x3D; i;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    temp.push(array[i]);</span><br><span class="line">    index.push(i);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(index);&#x2F;&#x2F;[0, 2, 5, 6, 7, 8, 9]</span><br><span class="line">  return temp;</span><br><span class="line">&#125;</span><br><span class="line">var newArray &#x3D; [1,2,2,3,5,3,6,5,&#39;3&#39;,&#39;muzi&#39;];</span><br><span class="line">console.log(uniq(newArray));&#x2F;&#x2F; [1, 2, 3, 6, 5, &quot;3&quot;, &quot;muzi&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、数组-includes-去重"><a href="#6、数组-includes-去重" class="headerlink" title="6、数组 includes()去重"></a>6、数组 includes()去重</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;利用数组原型对象上的includes方法</span><br><span class="line">function unique(arr)&#123;</span><br><span class="line"> var bArr&#x3D; [];</span><br><span class="line"> for(var i&#x3D;0; i&lt;arr.length; i++)&#123;</span><br><span class="line">  if( !bArr.includes(arr[i]) )&#123; &#x2F;&#x2F; 如果bArr新数组包含当前循环item</span><br><span class="line">   bArr.push(arr[i]);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> return bArr;</span><br><span class="line">&#125;</span><br><span class="line">var newArray &#x3D; [1,2,2,3,5,3,6,5,&#39;3&#39;,&#39;muzi&#39;];</span><br><span class="line">console.log(unique(newArray))&#x2F;&#x2F;[1, 2, 3, 5, 6, &quot;3&quot;, &quot;muzi&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、数组原型对象上的-filter-和-includes-方法"><a href="#7、数组原型对象上的-filter-和-includes-方法" class="headerlink" title="7、数组原型对象上的 filter 和 includes 方法"></a>7、数组原型对象上的 filter 和 includes 方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;利用数组原型对象上的filter和includes方法</span><br><span class="line">function unique(arr)&#123;</span><br><span class="line">    var bArr&#x3D; [];</span><br><span class="line">    bArr&#x3D;arr.filter(function(item)&#123;</span><br><span class="line">        return bArr.includes(item) ? null : bArr.push(item);</span><br><span class="line">     &#125;);</span><br><span class="line">    return bArr;</span><br><span class="line">&#125;</span><br><span class="line">var newArray &#x3D; [1,2,2,3,5,3,6,5,&#39;3&#39;,&#39;muzi&#39;];</span><br><span class="line">console.log(unique(newArray))&#x2F;&#x2F;[1, 2, 3, 5, 6, &quot;3&quot;, &quot;muzi&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、数组原型对象上的-forEach-和-includes-方法"><a href="#8、数组原型对象上的-forEach-和-includes-方法" class="headerlink" title="8、数组原型对象上的 forEach 和 includes 方法"></a>8、数组原型对象上的 forEach 和 includes 方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;利用数组原型对象上的forEach和includes方法</span><br><span class="line">function unique(arr)&#123;</span><br><span class="line">    var bArr&#x3D; [];</span><br><span class="line">    arr.forEach(function(item)&#123;</span><br><span class="line">      bArr.includes(item) ? null : bArr.push(item);</span><br><span class="line">    &#125;);</span><br><span class="line">    return bArr;</span><br><span class="line">&#125;</span><br><span class="line">var newArray &#x3D; [1,2,2,3,5,3,6,5,&#39;3&#39;,&#39;muzi&#39;];</span><br><span class="line">console.log(unique(newArray))&#x2F;&#x2F;[1, 2, 3, 5, 6, &quot;3&quot;, &quot;muzi&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="9、数组原型对象上的-splice-方法"><a href="#9、数组原型对象上的-splice-方法" class="headerlink" title="9、数组原型对象上的 splice 方法"></a>9、数组原型对象上的 splice 方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function unique(arr) &#123;</span><br><span class="line">    var i,j,len &#x3D; arr.length;</span><br><span class="line">    for (i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">        for (j &#x3D; i + 1; j &lt; len; j++) &#123;</span><br><span class="line">            if (arr[i] &#x3D;&#x3D; arr[j]) &#123;</span><br><span class="line">                arr.splice(j, 1);</span><br><span class="line">                len--;</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line">console.log(unique([1, 1, 2, 3, 5, 3, 1, 5, 6, 7, 4])); &#x2F;&#x2F;[1, 2, 3, 5, 6, 7, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="10、数组原型对象上的-lastIndexOf-方法"><a href="#10、数组原型对象上的-lastIndexOf-方法" class="headerlink" title="10、数组原型对象上的 lastIndexOf 方法"></a>10、数组原型对象上的 lastIndexOf 方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function unique(arr) &#123;</span><br><span class="line">    var res &#x3D; [];</span><br><span class="line">    for (var i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        res.lastIndexOf(arr[i]) !&#x3D;&#x3D; -1 ? &#39;&#39; : res.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">console.log(unique([1, 1, 2, 3, 5, 3, 1, 5, 6, 7, 4]));&#x2F;&#x2F;[1, 2, 3, 5, 6, 7, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="11、原型对象去重"><a href="#11、原型对象去重" class="headerlink" title="11、原型对象去重"></a>11、原型对象去重</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.unique &#x3D; function()&#123;</span><br><span class="line">    var arr&#x3D;[];  &#x2F;&#x2F;定义一个临时数组</span><br><span class="line">    for(var i &#x3D; 0; i &lt; this.length; i++)&#123;  &#x2F;&#x2F;循环遍历当前数组</span><br><span class="line">      &#x2F;&#x2F;判断当前数组下标为i的元素是否已经保存到临时数组</span><br><span class="line">      &#x2F;&#x2F;如果已保存，则跳过，否则将此元素保存到临时数组中</span><br><span class="line">      if(arr.indexOf(this[i]) &#x3D;&#x3D; -1)&#123;</span><br><span class="line">        arr.push(this[i]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;;</span><br><span class="line">var newArray &#x3D; [1,4,1,1,3,3,4,6,7,8,3,7,0,2,11,2,&#39;muzi&#39;,&#39;digbig&#39;,&#39;muzi&#39;];</span><br><span class="line">console.log(newArray.unique());&#x2F;&#x2F;[1, 4, 3, 6, 7, 8, 0, 2, 11, &quot;muzi&quot;, &quot;digbig&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="12、es6-去重"><a href="#12、es6-去重" class="headerlink" title="12、es6 去重"></a>12、es6 去重</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,2,3,4,4,4];</span><br><span class="line">let s &#x3D; new Set(arr);</span><br><span class="line">&#x2F;&#x2F;结果：Set &#123;1,2,3,4&#125;</span><br><span class="line">let newArray &#x3D; Array.from(s);</span><br><span class="line">console.log(newArray); &#x2F;&#x2F;[1, 2, 3, 5, 6, 7, 4]</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、数组排序"><a href="#二、数组排序" class="headerlink" title="二、数组排序"></a>二、数组排序</h2><h3 id="1、冒泡排序"><a href="#1、冒泡排序" class="headerlink" title="1、冒泡排序"></a>1、冒泡排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var bubbleSort &#x3D; function(arr) &#123;</span><br><span class="line">    var len &#x3D; arr.length;</span><br><span class="line">    for(var i &#x3D; 0; i &lt; len -1; i++)&#123; &#x2F;&#x2F;外层循环，控制趟数，每一次找到一个最大值</span><br><span class="line">        for(var j &#x3D; 0; j &lt; len - 1 - i; j++)&#123;  &#x2F;&#x2F;内层循环,控制比较的次数，并且判断两个数的大小</span><br><span class="line">            if(arr[j] &gt; arr[j+1]) &#123; &#x2F;&#x2F;相邻元素两两对比</span><br><span class="line">                var temp &#x3D; arr[j]; &#x2F;&#x2F;元素交换</span><br><span class="line">                arr[j] &#x3D; arr[j + 1];</span><br><span class="line">                arr[j + 1] &#x3D; temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line">console.log(bubbleSort([1,4,3,6,7,8,5,2,11])) &#x2F;&#x2F;[1, 2, 3, 4, 5, 6, 7, 8, 11]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、插入排序"><a href="#2、插入排序" class="headerlink" title="2、插入排序"></a>2、插入排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var insertSort &#x3D; function(arr) &#123;</span><br><span class="line">    var len &#x3D; arr.length;</span><br><span class="line">    var preIndex, current;</span><br><span class="line">    for(var i &#x3D; 1; i &lt; len; i++)&#123;</span><br><span class="line">        preIndex &#x3D; i - 1;</span><br><span class="line">        current &#x3D; arr[i];</span><br><span class="line">        while(preIndex &gt;&#x3D; 0 &amp;&amp; arr[preIndex] &gt; current)&#123;</span><br><span class="line">            arr[preIndex + 1] &#x3D; arr[preIndex];</span><br><span class="line">            preIndex--;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[preIndex + 1] &#x3D; current;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line">console.log(insertSort([1,4,3,6,7,8,5,2,11])) &#x2F;&#x2F;[1, 2, 3, 4, 5, 6, 7, 8, 11]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、快速排序"><a href="#3、快速排序" class="headerlink" title="3、快速排序"></a>3、快速排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var quickSort &#x3D; function(arr) &#123;</span><br><span class="line">    if(arr.length &lt; 1) &#123;&#x2F;&#x2F;如果数组就是一项，那么可以直接返回</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line">    var centerIndex &#x3D; Math.floor(arr.length &#x2F; 2);&#x2F;&#x2F;获取数组中间的索引</span><br><span class="line">    var centerValue &#x3D; arr.splice(centerIndex, 1)[0];;&#x2F;&#x2F;获取数组中间项</span><br><span class="line">    var left &#x3D; [], right &#x3D; [];</span><br><span class="line">    for(var i &#x3D; 0; i &lt; arr.length; i++)&#123;</span><br><span class="line">        if(arr[i] &lt; centerValue)&#123;</span><br><span class="line">            left.push(arr[i]);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            right.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return quickSort(left).concat([centerValue], quickSort(right));&#x2F;&#x2F;递归调用</span><br><span class="line">&#125;</span><br><span class="line">console.log(quickSort([1,4,3,6,7,8,5,2,11])) &#x2F;&#x2F;[1, 2, 3, 4, 5, 6, 7, 8, 11]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、使用-sort-对数组排序"><a href="#4、使用-sort-对数组排序" class="headerlink" title="4、使用 sort() 对数组排序"></a>4、使用 sort() 对数组排序</h3><p>JavaScript sort() 方法能够根据一定条件对数组元素进行排序。如果调用 sort() 方法时没有传递参数，则按字母顺序对数组中的元素进行排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; [&quot;a&quot;,&quot;e&quot;,&quot;d&quot;,&quot;b&quot;,&quot;c&quot;];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort();  &#x2F;&#x2F;按字母顺序对元素进行排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[a,b,c,d,e]</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 sort() 方法时，应该注意下面几个问题</strong></p>
+<p>（1）所谓的字母顺序，实际上是根据字母在字符编码表中的顺序进行排列的，每个字符在字符表中都有一个唯一的编号。</p>
+<p>（2）如果元素不是字符串，则 sort() 方法试图把数组元素都转换成字符串，以便进行比较。</p>
+<p>（3）sort() 方法将根据元素值进行逐位比较，而不是根据字符串的个数进行排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; [&quot;aba&quot;,&quot;baa&quot;,&quot;aab&quot;];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort();  &#x2F;&#x2F;按字母顺序对元素进行排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[aab,aba,baa]</span><br></pre></td></tr></table></figure>
+
+<p>在排序时，首先比较每个元素的第 1 个字符，在第 1 个字符相同的情况下，再比较第 2 个字符，以此类推。</p>
+<p>（4）在任何情况下，数组中 undefined 的元素都被排序在末尾。</p>
+<p>（5）sort() 方法是在原数组基础上进行排序操作的，不会创建新的数组。</p>
+<p>sort() 方法不仅按字母顺序进行排序，还可以根据其他顺序执行操作。这时就必须为方法提供一个函数参数，该函数要比较两个值，然后返回一个用于说明这两个值的相对顺序的数字。排序函数应该具有两个参数 a 和 b，其返回值如下。</p>
+<ul>
+<li>如果根据自定义评判标准，a 小于 b，在排序后的数组中 a 应该出现在 b 之前，就返回一个小于 0 的值。</li>
+<li>如果 a 等于 b，就返回 0。</li>
+<li>如果 a 大于 b，就返回一个大于 0 的值。</li>
+</ul>
+<p><strong>示例 1</strong></p>
+<p>在下面示例中，将根据排序函数比较数组中每个元素的大小，并按从小到大的顺序执行排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function f(a,b) &#123;  &#x2F;&#x2F;排序函数</span><br><span class="line">    return (a - b);  &#x2F;&#x2F;返回比较参数</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; [3,1,2,4,5,7,6,8,0,9];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort(f);  &#x2F;&#x2F;根据数字大小由小到大进行排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[0,1,2,3,4,5,6,4,7,8,9]</span><br></pre></td></tr></table></figure>
+
+<p>如果按从大到小的顺序执行，则让返回值取反即可。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function f(a,b) &#123;  &#x2F;&#x2F;排序函数</span><br><span class="line">    return -(a - b);  &#x2F;&#x2F;取反并返回比较参数</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; [3,1,2,4,5,7,6,8,0,9];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort(f);  &#x2F;&#x2F;根据数字大小由小到大进行排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[9,8,7,6,5,4,3,2,1,0]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2</strong></p>
+<p>根据奇偶性质排列数组。</p>
+<p>sort() 用法比较灵活，主要是函数排序比较。例如，如果根据奇偶数顺序排序数组，只需要判断顺序函数中两个参数是否为奇偶数，并决定排列顺序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function f(a, b) &#123;  &#x2F;&#x2F;排序函数</span><br><span class="line">    var a &#x3D; a % 2;  &#x2F;&#x2F;获取参数a的奇偶性</span><br><span class="line">    var b &#x3D; b % 2;  &#x2F;&#x2F;获取参数b的奇偶性</span><br><span class="line">    if (a &#x3D;&#x3D; 0) return 1;  &#x2F;&#x2F;如果参数a为偶数，则排在左边</span><br><span class="line">    if (b &#x3D;&#x3D; 0) return -1;  &#x2F;&#x2F;如果参数b为偶数，则排在右边</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; [3,1,2,4,5,7,6,8,0,9];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort(f);  &#x2F;&#x2F;根据数字大小由大到小进行排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[3, 1, 5, 7, 9, 2, 4, 6, 8, 0]</span><br></pre></td></tr></table></figure>
+
+<p>sort() 方法在调用排序函数时，对每个元素值传递给排序函数，如果元素值为偶数，则保留其位置不动；如果元素值为奇数，则调换参数 a 和 b 的显示顺序，从而实现对数组中所有元素执行奇偶排序。如果希望偶数排在前面，奇数排在后面，则只需要取返回值。排序函数如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function f(a, b) &#123;</span><br><span class="line">    var a &#x3D; a % 2;</span><br><span class="line">    var b &#x3D; b % 2;</span><br><span class="line">    if (a &#x3D;&#x3D; 0) return -1;</span><br><span class="line">    if (b &#x3D;&#x3D; 0) return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; [3,1,2,4,5,7,6,8,0,9];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort(f);  &#x2F;&#x2F;根据数字大小由大到小进行排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[0, 8, 6, 4, 2, 3, 1, 5, 7, 9]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3</strong></p>
+<p>不区分大小写排序字符串。</p>
+<p>在正常情况下，对字符串进行排序是区分大小写的，这是因为每个大写字母和小写字母在字符编码表中的顺序是不同的，大写字母大于小写字母。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; [&quot;aB&quot;, &quot;Ab&quot;, &quot;Ba&quot;, &quot;bA&quot;];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort();  &#x2F;&#x2F;默认方法排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[&quot;Ab&quot;, &quot;Ba&quot;, &quot;aB&quot;, &quot;bA&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>大写字母总是排在左侧，如果让小写字母总是排在左侧，可以设计：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function f(a ,b) &#123;</span><br><span class="line">    return (a &lt; b);</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; [&quot;aB&quot;, &quot;Ab&quot;, &quot;Ba&quot;, &quot;bA&quot;];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort(f);  &#x2F;&#x2F;默认方法排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[&quot;aB&quot;, &quot;Ab&quot;, &quot;Ba&quot;, &quot;bA&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>对于字母比较大小时，JavaScript 是根据字符编码大小来决定的，当为 true 时，则返回 1；为 false 时，则返回 -1。</p>
+<p>如果不希望区分大小写，大写字母和小写字母按相同顺序排列，可以设计：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function f(a, b) &#123;</span><br><span class="line">    var a &#x3D; a.toLowerCase;</span><br><span class="line">    var b &#x3D; b.toLowerCase;</span><br><span class="line">    if (a &lt; b) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; [&quot;aB&quot;, &quot;Ab&quot;, &quot;Ba&quot;, &quot;bA&quot;];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort(f);  &#x2F;&#x2F;默认方法排序</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[&quot;aB&quot;, &quot;Ab&quot;, &quot;Ba&quot;, &quot;bA&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>如果要调整排列顺序，则设置返回值取反即可。</p>
+<p><strong>示例 4</strong></p>
+<p>把浮点数和整数分开显示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function f(a, b) &#123;  &#x2F;&#x2F;排序函数</span><br><span class="line">    if (a &gt; Math.floor(a)) return 1;  &#x2F;&#x2F;如果a是浮点数，则调换位置</span><br><span class="line">    if (b &gt; Math.floor(b)) return -1;  &#x2F;&#x2F;如果b是浮点数，则调换位置</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; [3.5555, 1.23456, 3, 2.11111, 5, 7, 3];  &#x2F;&#x2F;定义数组</span><br><span class="line">a.sort(f);  &#x2F;&#x2F;进行筛选</span><br><span class="line">console.log(a);  &#x2F;&#x2F;返回数组[3, 5, 7, 3, 3.5555, 1.23456, 2.11111]</span><br></pre></td></tr></table></figure>
+
+<p>如果要调整排序顺序，则设置返回值取反即可。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/27_%E7%94%A8js%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%8B%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E5%92%8C%E6%8E%92%E5%BA%8F%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

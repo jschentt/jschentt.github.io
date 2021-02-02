@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>04_伪类和伪元素的区别？聊一下css选择器的优先级 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="04_伪类和伪元素的区别？聊一下css选择器的优先级" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-04_伪类和伪元素的区别？聊一下css选择器的优先级" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T04:12:35.000Z"><a href="/2021/02/02/04_伪类和伪元素的区别？聊一下css选择器的优先级/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">04_伪类和伪元素的区别？聊一下css选择器的优先级</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、伪类"><a href="#一、伪类" class="headerlink" title="一、伪类"></a>一、伪类</h2><h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><blockquote>
+<p>The pseudo-class concept is introduced to permit selection based on information that lies outside of the document tree or that cannot be expressed using the other simple selectors.</p>
+</blockquote>
+<p>伪类存在的意义是为了通过选择器，格式化 DOM 树以外的信息以及不能被常规 CSS 选择器获取到的信息。</p>
+<h3 id="2、要点"><a href="#2、要点" class="headerlink" title="2、要点"></a>2、要点</h3><ul>
+<li>格式化 DOM 树以外的信息。比如： <code>&lt;a&gt;</code> 标签的<code>:link</code>、<code>:visited</code> 等。这些信息不存在于 DOM 树中。</li>
+<li>不能被常规 CSS 选择器获取到的信息。比如：要获取第一个子元素，我们无法用常规的 CSS 选择器获取，但可以通过 <code>:first-child</code> 来获取到。</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-d0668990bb347f24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="二、伪元素"><a href="#二、伪元素" class="headerlink" title="二、伪元素"></a>二、伪元素</h2><h3 id="1、定义-1"><a href="#1、定义-1" class="headerlink" title="1、定义"></a>1、定义</h3><blockquote>
+<p>Pseudo-elements create abstractions about the document tree beyond those specified by the document language. For instance, document languages do not offer mechanisms to access the first letter or first line of an element’s content. Pseudo-elements allow authors to refer to this otherwise inaccessible information. Pseudo-elements may also provide authors a way to refer to content that does not exist in the source document (e.g., the ::before and ::after pseudo-elements give access to generated content).</p>
+</blockquote>
+<p>伪元素可以创建一些文档语言无法创建的虚拟元素。比如：文档语言没有一种机制可以描述元素内容的第一个字母或第一行，但伪元素可以做到(<code>::first-letter</code>、<code>::first-line</code>)。同时，伪元素还可以创建源文档不存在的内容，比如使用 <code>::before</code> 或 <code>::after</code>。</p>
+<h3 id="2、常见的伪元素选择器"><a href="#2、常见的伪元素选择器" class="headerlink" title="2、常见的伪元素选择器"></a>2、常见的伪元素选择器</h3><ul>
+<li><code>::first-letter</code> 选择元素文本的第一个字（母）</li>
+<li><code>::first-line</code> 选择元素文本的第一行</li>
+<li><code>::before</code> 在元素内容的最前面添加新内容</li>
+<li><code>::after</code> 在元素内容的最后面添加新内容</li>
+<li><code>::selection</code>匹配被用户选中或者处于高亮状态的部分</li>
+<li><code>::placeholder</code>匹配占位符的文本，只有元素设置了 placeholder 属性时，该伪元素才能生效</li>
+</ul>
+<h2 id="三、伪类和伪元素的区别"><a href="#三、伪类和伪元素的区别" class="headerlink" title="三、伪类和伪元素的区别"></a>三、伪类和伪元素的区别</h2><h4 id="1、伪类是为了弥补-CSS-选择器的不足，用来更方便地获取信息"><a href="#1、伪类是为了弥补-CSS-选择器的不足，用来更方便地获取信息" class="headerlink" title="1、伪类是为了弥补 CSS 选择器的不足，用来更方便地获取信息"></a>1、伪类是为了弥补 CSS 选择器的不足，用来更方便地获取信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;test1&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;test2&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line"></span><br><span class="line">li:first-child &#123;</span><br><span class="line">    color: #f00;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 选择器不能直接选取第一个子元素</span><br><span class="line">&#x2F;&#x2F; 伪类弥补了选择器的不足</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、伪元素本质上是创建了一个虚拟容器-元素-，我们可以在其中添加内容或样式"><a href="#2、伪元素本质上是创建了一个虚拟容器-元素-，我们可以在其中添加内容或样式" class="headerlink" title="2、伪元素本质上是创建了一个虚拟容器(元素)，我们可以在其中添加内容或样式"></a>2、伪元素本质上是创建了一个虚拟容器(元素)，我们可以在其中添加内容或样式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.first-letter &#123;</span><br><span class="line">  color: #f00;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;first-letter&quot;&gt;H&lt;&#x2F;span&gt;ello, World</span><br><span class="line">&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码其实就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p::first-letter &#123;</span><br><span class="line">  color: #f00;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除了上面这个本质区别以外，在 CSS3 中，伪类用单冒号:表示；而伪元素用双冒号::表示。</p>
+<h2 id="四、伪类和伪元素的主要用法"><a href="#四、伪类和伪元素的主要用法" class="headerlink" title="四、伪类和伪元素的主要用法"></a>四、伪类和伪元素的主要用法</h2><h3 id="1、伪类"><a href="#1、伪类" class="headerlink" title="1、伪类"></a>1、伪类</h3><h4 id="（1）-first-child-匹配第一个子元素"><a href="#（1）-first-child-匹配第一个子元素" class="headerlink" title="（1）:first-child 匹配第一个子元素"></a>（1）<code>:first-child</code> 匹配第一个子元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">li:first-child &#123;</span><br><span class="line">  color: #f00;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;test1&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;test2&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）-last-child-匹配最后一个子元素"><a href="#（2）-last-child-匹配最后一个子元素" class="headerlink" title="（2）:last-child 匹配最后一个子元素"></a>（2）<code>:last-child</code> 匹配最后一个子元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;test1&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;test2&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;test3&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line"></span><br><span class="line">li:last-child &#123;</span><br><span class="line">  color: #f00;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）-first-of-type-匹配属于其父元素的第一个特定类型的子元素"><a href="#（3）-first-of-type-匹配属于其父元素的第一个特定类型的子元素" class="headerlink" title="（3）:first-of-type 匹配属于其父元素的第一个特定类型的子元素"></a>（3）<code>:first-of-type</code> 匹配属于其父元素的第一个特定类型的子元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p:first-of-type &#123;</span><br><span class="line">  color: #f00;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;h1&gt;h1文本&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;p&gt;p文本&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（4）last-of-type-匹配属于其父元素的最后一个特定类型的子元素"><a href="#（4）last-of-type-匹配属于其父元素的最后一个特定类型的子元素" class="headerlink" title="（4）last-of-type 匹配属于其父元素的最后一个特定类型的子元素"></a>（4）<code>last-of-type</code> 匹配属于其父元素的最后一个特定类型的子元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">h1:last-of-type &#123;</span><br><span class="line">  color: #f00;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;h1&gt;h1文本&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;h1&gt;h1文本2&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;p&gt;p文本&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、伪元素"><a href="#2、伪元素" class="headerlink" title="2、伪元素"></a>2、伪元素</h3><h4 id="（1）-before-在被选元素之前插入内容；-after-在被选元素之后插入内容"><a href="#（1）-before-在被选元素之前插入内容；-after-在被选元素之后插入内容" class="headerlink" title="（1）::before 在被选元素之前插入内容；::after 在被选元素之后插入内容"></a>（1）<code>::before</code> 在被选元素之前插入内容；<code>::after</code> 在被选元素之后插入内容</h4><h5 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.clearAll::after &#123;</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">    display: block;</span><br><span class="line">    height: 0;</span><br><span class="line">    clear: both;</span><br><span class="line">    visibility: hidden;</span><br><span class="line">&#125;</span><br><span class="line">.clearAll &#123;</span><br><span class="line">    zoom : 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="画分割线"><a href="#画分割线" class="headerlink" title="画分割线"></a>画分割线</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">    padding: 0;</span><br><span class="line">    margin: 0;</span><br><span class="line">&#125;</span><br><span class="line">.spliter::before,</span><br><span class="line">.spliter::after &#123;</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    border-top: 1px solid black;</span><br><span class="line">    width: 200px;</span><br><span class="line">    margin: 5px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;p class&#x3D;&quot;spliter&quot;&gt;分割线&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="计数器"><a href="#计数器" class="headerlink" title="计数器"></a>计数器</h5><p>使用 CSS 实现计数器，用到的属性有：</p>
+<ul>
+<li>counter-reset: 属性设置某个选择器出现次数的计数器的值。默认为 0</li>
+<li>counter-increment: 属性设置某个选取器每次出现的计数器增量。默认增量是 1</li>
+<li>content: 插入生成内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.chooses &#123;</span><br><span class="line">  counter-reset: letters;</span><br><span class="line">&#125;</span><br><span class="line">.chooses input:checked &#123;</span><br><span class="line">  counter-increment: letters;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.choose span::after &#123;</span><br><span class="line">  content: counter(letters);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;chooses&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;a</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;b</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;c</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;d</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;e</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;f</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;g</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;h</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;i</span><br><span class="line">    &lt;input type&#x3D;&quot;checkbox&quot;&gt;j</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;choose&quot;&gt;我选择了&lt;span&gt;&lt;&#x2F;span&gt;个字母&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）-first-letter-匹配元素中文本的首字母"><a href="#（2）-first-letter-匹配元素中文本的首字母" class="headerlink" title="（2）::first-letter 匹配元素中文本的首字母"></a>（2）<code>::first-letter</code> 匹配元素中文本的首字母</h4><h5 id="first-letter-巧妙控制羊角符号"><a href="#first-letter-巧妙控制羊角符号" class="headerlink" title="::first-letter 巧妙控制羊角符号"></a>::first-letter 巧妙控制羊角符号</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.price &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    color: #FF5802;</span><br><span class="line">&#125;</span><br><span class="line">.price:first-letter &#123;</span><br><span class="line">    margin-right: 5px;</span><br><span class="line">    font-size: xx-large;</span><br><span class="line">    vertical-align: -2px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">原价：&lt;span class&#x3D;&quot;price&quot;&gt;¥399&lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="before-伪元素与-first-letter-伪元素共用一个选择器"><a href="#before-伪元素与-first-letter-伪元素共用一个选择器" class="headerlink" title="::before 伪元素与::first-letter 伪元素共用一个选择器"></a>::before 伪元素与::first-letter 伪元素共用一个选择器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p:before &#123;</span><br><span class="line">    content: &#39;验证：&#39;;</span><br><span class="line">&#125;</span><br><span class="line">p:first-letter &#123;</span><br><span class="line">    color: #f00;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;一个选择器可以同时使用多个伪元素&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、css-优先级"><a href="#五、css-优先级" class="headerlink" title="五、css 优先级"></a>五、css 优先级</h2><h3 id="1、不同级别"><a href="#1、不同级别" class="headerlink" title="1、不同级别"></a>1、不同级别</h3><ul>
+<li>属性后面使用 !important 会覆盖页面内任何位置定义的元素样式</li>
+<li>作为 style 属性写在元素内的样式</li>
+<li>id 选择器</li>
+<li>类选择器</li>
+<li>标签选择器</li>
+<li>通配符选择器</li>
+<li>浏览器自定义或继承</li>
+</ul>
+<p><strong>总结排序：!important &gt; 行内样式&gt;ID 选择器 &gt; 类选择器 &gt; 标签 &gt; 通配符 &gt; 继承 &gt; 浏览器默认属性</strong></p>
+<h3 id="2、同一级别"><a href="#2、同一级别" class="headerlink" title="2、同一级别"></a>2、同一级别</h3><p>同一级别中后写的会覆盖先写的样式</p>
+<h3 id="3、优先级算法（多个级别的组合）"><a href="#3、优先级算法（多个级别的组合）" class="headerlink" title="3、优先级算法（多个级别的组合）"></a>3、优先级算法（多个级别的组合）</h3><ul>
+<li>!important 优先级最高</li>
+<li>行内样式的权值为 1000</li>
+<li>ID 选择器的权值为 100</li>
+<li>类选择器、属性选择器、伪类选择器的权值为 10</li>
+<li>元素选择器、关系选择器、伪元素选择器的权值为 1</li>
+<li>通配符选择器的权重为 0</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">div.test &#123;</span><br><span class="line">    background-color:#00f;</span><br><span class="line">    width:100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.test.test2 &#123;</span><br><span class="line">    background-color:#f00;</span><br><span class="line">    width:100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;test test2&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>根据优先级算法中的规则对应做加法，比较权值，如果权值相同那就后面的覆盖前面的，如果不同，权值大的覆盖权值小的。<code>div.test</code> 的权值是 1+10=11，而 <code>.test.test2</code> 的权值是 10+10=20，所以 div 会应用 <code>.test.test2</code> 变成红色</p>
+<p>要点：</p>
+<ul>
+<li>!important 的优先级是最高的，但出现冲突时则需比较”四位数“</li>
+<li>优先级相同时，则采用就近原则，选择最后出现的样式</li>
+<li>继承得来的属性，其优先级最低</li>
+</ul>
+<p><strong>!important &gt; 行内样式&gt;ID 选择器 &gt; 类选择器 &gt; 标签 &gt; 通配符 &gt; 继承 &gt; 浏览器默认属性</strong></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/04_%E4%BC%AA%E7%B1%BB%E5%92%8C%E4%BC%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%E8%81%8A%E4%B8%80%E4%B8%8Bcss%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

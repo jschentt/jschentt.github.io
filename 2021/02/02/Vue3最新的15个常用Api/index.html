@@ -1,0 +1,428 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Vue3最新的15个常用Api | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Vue3最新的15个常用Api" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Vue3最新的15个常用Api" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Vue3最新的15个常用Api/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Vue3最新的15个常用Api</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>Vue2每次都把整个Vue导入，例如Vue2的 main.js 文件中的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import App from &#39;.&#x2F;App.vue&#39;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip &#x3D; false</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">  render: h &#x3D;&gt; h(App)</span><br><span class="line">&#125;).$mount(&#39;#app&#39;)</span><br></pre></td></tr></table></figure>
+<p>但很明显我们的项目中不可能用到Vue所有的API，因此很多模块其实是没有用的</p>
+<p>那么在Vue3中，对外暴露了很多的API供开发者使用，我们可以根据自己的需求，将所需要的API从Vue中导入。例如 main.js 中的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createApp &#125; from &#39;vue&#39;;</span><br><span class="line">import App from &#39;.&#x2F;App.vue&#39;</span><br><span class="line"></span><br><span class="line">createApp(App).mount(&#39;#app&#39;)</span><br></pre></td></tr></table></figure>
+<p>利用了 import 和 export 的导入导出语法，实现了按需打包模块的功能，项目打包后的文件体积明显小了很多</p>
+<p>这也是我们本文需要对 Vue3 API 进行详细了解的原因</p>
+<h2 id="（1）setup"><a href="#（1）setup" class="headerlink" title="（1）setup"></a>（1）setup</h2><p>setup 函数也是 Compsition API 的入口函数，我们的变量、方法都是在该函数里定义的，来看一下使用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  	&lt;p&gt;&#123;&#123; number &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">  	&lt;button @click&#x3D;&quot;add&quot;&gt;增加&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 1. 从 vue 中引入 ref 函数</span><br><span class="line">import &#123;ref&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;App&#39;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">  	&#x2F;&#x2F; 2. 用 ref 函数包装一个响应式变量 number</span><br><span class="line">    let number &#x3D; ref(0)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 3. 设定一个方法</span><br><span class="line">    function add() &#123;</span><br><span class="line">    	&#x2F;&#x2F; number是被ref函数包装过了的，其值保存在.value中</span><br><span class="line">		number.value ++</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 4. 将 number 和 add 返回出去，供template中使用</span><br><span class="line">    return &#123;number, add&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>上述代码中用到了 ref 函数，下面会详细讲解，在这里你只需要理解它的作用是包装一个响应式的数据即可，并且你可以将 ref 函数包装过的变量看作是Vue2 data 中的变量</p>
+<p>这样就简单实现了一个点击按钮数字加1的功能</p>
+<hr>
+<p>在Vue2中，我们访问 data 或 props 中的变量，都是通过类似 this.number 这样的形式去获取的，但要特别注意的是，在setup中，this 指向的是 undefined，也就是说不能再向Vue2一样通过 this 去获取变量了</p>
+<p>那么到底该如何获取到 props 中的数据呢？</p>
+<p>其实 setup 函数还有两个参数，分别是 props 、context，前者存储着定义当前组件允许外界传递过来的参数名称以及对应的值；后者是一个上下文对象，能从中访问到 attr 、emit 、slots</p>
+<p>其中 emit 就是我们熟悉的Vue2中与父组件通信的方法，可以直接拿来调用</p>
+<h2 id="（2）生命周期"><a href="#（2）生命周期" class="headerlink" title="（2）生命周期"></a>（2）生命周期</h2><p>Vue2中有 beforeCreate 、created 、beforeMount 、mounted 、beforeUpdate 等生命周期函数</p>
+<p>而在Vue3中，这些生命周期部分有所变化，并且调用的方式也有所改变，下面放上一张变化图来简单了解一下</p>
+<table>
+<thead>
+<tr>
+<th>Vue2</th>
+<th>Vue3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>beforeCreate</td>
+<td>setup</td>
+</tr>
+<tr>
+<td>created</td>
+<td>setup</td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>onBeforeMount</td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>onMounted</td>
+</tr>
+<tr>
+<td>beforeUpdate</td>
+<td>onBeforeUpdate</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>onUpdated</td>
+</tr>
+<tr>
+<td>beforeDestory</td>
+<td>onBeforeUnmount</td>
+</tr>
+<tr>
+<td>destoryed</td>
+<td>onUnmounted</td>
+</tr>
+</tbody></table>
+<p>Vue3的这些生命周期调用也很简单，同样是先从 vue 中导入，再进行直接调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 1. 从 vue 中引入 多个生命周期函数</span><br><span class="line">import &#123;onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, unMounted&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;App&#39;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">	onBeforeMount(() &#x3D;&gt; &#123;</span><br><span class="line">		&#x2F;&#x2F; 在挂载前执行某些代码</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	onMounted(() &#x3D;&gt; &#123;</span><br><span class="line">		&#x2F;&#x2F; 在挂载后执行某些代码</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	onBeforeUpdate(() &#x3D;&gt; &#123;</span><br><span class="line">		&#x2F;&#x2F; 在更新前前执行某些代码</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	onUpdated(() &#x3D;&gt; &#123;</span><br><span class="line">		&#x2F;&#x2F; 在更新后执行某些代码</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	onBeforeUnmount(() &#x3D;&gt; &#123;</span><br><span class="line">		&#x2F;&#x2F; 在组件销毁前执行某些代码</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	unMounted(() &#x3D;&gt; &#123;</span><br><span class="line">		&#x2F;&#x2F; 在组件销毁后执行某些代码</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">    return &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="（3）reactive"><a href="#（3）reactive" class="headerlink" title="（3）reactive"></a>（3）reactive</h2><p>reactive 方法是用来创建一个响应式的数据对象，该API也很好地解决了Vue2通过 defineProperty 实现数据响应式的缺陷</p>
+<p>用法很简单，只需将数据作为参数传入即可，代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  	&lt;!-- 4. 访问响应式数据对象中的 count  --&gt;</span><br><span class="line">  	&#123;&#123; state.count &#125;&#125;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 1. 从 vue 中导入 reactive</span><br><span class="line">import &#123;reactive&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;App&#39;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">  	&#x2F;&#x2F; 2. 创建响应式的数据对象</span><br><span class="line">	const state &#x3D; reactive(&#123;count: 3&#125;)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 3. 将响应式数据对象state return 出去，供template使用</span><br><span class="line">    return &#123;state&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="（4）ref"><a href="#（4）ref" class="headerlink" title="（4）ref"></a>（4）ref</h2><p>在介绍 setup 函数时，我们使用了 ref 函数包装了一个响应式的数据对象，这里表面上看上去跟 reactive 好像功能一模一样啊，确实差不多，因为 ref 就是通过 reactive 包装了一个对象 ，然后是将值传给该对象中的 value 属性，这也就解释了为什么每次访问时我们都需要加上 .value</p>
+<p>我们可以简单地把 ref(obj) 理解为这个样子 reactive({value: obj})</p>
+<p>这里我们写一段代码来具体看一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;ref, reactive&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;App&#39;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">  	const obj &#x3D; &#123;count: 3&#125;</span><br><span class="line">  	const state1 &#x3D; ref(obj)</span><br><span class="line">  	const state2 &#x3D; reactive(obj)</span><br><span class="line"></span><br><span class="line">	console.log(state1)</span><br><span class="line">	console.log(state2)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>来看一下打印结果<br><img src="https://img-blog.csdnimg.cn/20201118122406844.png?x-oss-process=image" alt="image"></p>
+<blockquote>
+<p>注意： 这里指的 .value 是在 setup 函数中访问 ref 包装后的对象时才需要加的，在 template 模板中访问时是不需要的，因为在编译时，会自动识别其是否为 ref 包装过的</p>
+</blockquote>
+<p>那么我们到底该如何选择 ref 和 reactive 呢？</p>
+<p><strong>建议：</strong></p>
+<ol>
+<li>基本类型值（String 、Nmuber 、Boolean 等）或单值对象（类似像 {count: 3} 这样只有一个属性值的对象）使用 ref</li>
+<li>引用类型值（Object 、Array）使用 reactive</li>
+</ol>
+<h2 id="（5）toRef"><a href="#（5）toRef" class="headerlink" title="（5）toRef"></a>（5）toRef</h2><p>toRef 是将某个对象中的某个值转化为响应式数据，其接收两个参数，第一个参数为 obj 对象；第二个参数为对象中的属性名</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 1. 导入 toRef</span><br><span class="line">import &#123;toRef&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;count: 3&#125;</span><br><span class="line">        &#x2F;&#x2F; 2. 将 obj 对象中属性count的值转化为响应式数据</span><br><span class="line">        const state &#x3D; toRef(obj, &#39;count&#39;)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; 3. 将toRef包装过的数据对象返回供template使用</span><br><span class="line">        return &#123;state&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>但其实表面上看上去 toRef 这个API好像非常的没用，因为这个功能也可以用 ref 实现，代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 1. 导入 ref</span><br><span class="line">import &#123;ref&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;count: 3&#125;</span><br><span class="line">        &#x2F;&#x2F; 2. 将 obj 对象中属性count的值转化为响应式数据</span><br><span class="line">        const state &#x3D; ref(obj.count)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; 3. 将ref包装过的数据对象返回供template使用</span><br><span class="line">        return &#123;state&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>乍一看好像还真是，其实这两者是有区别的，我们可以通过一个案例来比较一下，代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123; state1 &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;add1&quot;&gt;增加&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">	&lt;p&gt;&#123;&#123; state2 &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;add2&quot;&gt;增加&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;ref, toRef&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;count: 3&#125;</span><br><span class="line">        const state1 &#x3D; ref(obj.count)</span><br><span class="line">        const state2 &#x3D; toRef(obj, &#39;count&#39;)</span><br><span class="line"></span><br><span class="line">        function add1() &#123;</span><br><span class="line">            state1.value ++</span><br><span class="line">            console.log(&#39;原始值：&#39;, obj);</span><br><span class="line">            console.log(&#39;响应式数据对象：&#39;, state1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		function add2() &#123;</span><br><span class="line">            state2.value ++</span><br><span class="line">            console.log(&#39;原始值：&#39;, obj);</span><br><span class="line">            console.log(&#39;响应式数据对象：&#39;, state2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return &#123;state1, state2, add1, add2&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>我们分别用 ref 和 toRef 将 obj 中的 count 转化为响应式，并声明了两个方法分别使 count 值增加，每次增加后打印一下原始值 obj 和被包装过的响应式数据对象，同时还要看看视图的变化</p>
+<p><strong>ref：</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20201118131536584.gif#pic_center" alt="image"></p>
+<p>可以看到，在对响应式数据的值进行 +1 操作后，视图改变了，原始值未改变，响应式数据对象的值也改变了，这说明 ref 是对原数据的一个拷贝，不会影响到原始值，同时响应式数据对象值改变后会同步更新视图</p>
+<p><strong>toRef：</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20201118131948827.gif#pic_center" alt="image"></p>
+<p>可以看到，在对响应式数据的值进行 +1 操作后，视图未发生改变，原始值改变了，响应式数据对象的值也改变了，这说明 toRef 是对原数据的一个引用，会影响到原始值，但是响应式数据对象值改变后会不会更新视图</p>
+<p>总结：</p>
+<ul>
+<li>ref 是对传入数据的拷贝；toRef 是对传入数据的引用</li>
+<li>ref 的值改变会更新视图；toRef 的值改变不会更新视图</li>
+</ul>
+<h2 id="（6）toRefs"><a href="#（6）toRefs" class="headerlink" title="（6）toRefs"></a>（6）toRefs</h2><p>了解完 toRef 后，就很好理解 toRefs 了，其作用就是将传入的对象里所有的属性的值都转化为响应式数据对象，该函数支持一个参数，即 obj 对象</p>
+<p>我们来看一下它的基本使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 1. 导入 toRefs</span><br><span class="line">import &#123;toRefs&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			name: &#39;前端印象&#39;,</span><br><span class="line">			age: 22,</span><br><span class="line">			gender: 0</span><br><span class="line">		&#125;</span><br><span class="line">        &#x2F;&#x2F; 2. 将 obj 对象中属性count的值转化为响应式数据</span><br><span class="line">        const state &#x3D; toRefs(obj)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; 3. 打印查看一下</span><br><span class="line">		console.log(state)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>打印结果如下：<br><img src="https://img-blog.csdnimg.cn/20201118132812793.png#pic_center" alt="image"></p>
+<p>返回的是一个对象，对象里包含了每一个包装过后的响应式数据对象</p>
+<h2 id="（7）shallowReactive"><a href="#（7）shallowReactive" class="headerlink" title="（7）shallowReactive"></a>（7）shallowReactive</h2><p>听这个API的名称就知道，这是一个渐层的 reactive，难道意思就是原本的 reactive 是深层的呗，没错，这是一个用于性能优化的API</p>
+<p>其实将 obj 作为参数传递给 reactive 生成响应式数据对象时，若 obj 的层级不止一层，那么会将每一层都用 Proxy 包装一次，我们来验证一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;reactive&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			a: 1,</span><br><span class="line">			first: &#123;</span><br><span class="line">				b: 2,</span><br><span class="line">				second: &#123;</span><br><span class="line">					c: 3</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">        const state &#x3D; reactive(obj)</span><br><span class="line"></span><br><span class="line">		console.log(state)</span><br><span class="line">		console.log(state.first)</span><br><span class="line">		console.log(state.first.second)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>来看一下打印结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201118134158778.png#pic_center" alt="image"></p>
+<p>设想一下如果一个对象层级比较深，那么每一层都用 Proxy 包装后，对于性能是非常不友好的</p>
+<p>接下来我们再来看看 shallowReactive</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;shallowReactive&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			a: 1,</span><br><span class="line">			first: &#123;</span><br><span class="line">				b: 2,</span><br><span class="line">				second: &#123;</span><br><span class="line">					c: 3</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">        const state &#x3D; shallowReactive(obj)</span><br><span class="line"></span><br><span class="line">		console.log(state)</span><br><span class="line">		console.log(state.first)</span><br><span class="line">		console.log(state.first.second)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>来看一下打印结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201118134358346.png#pic_center" alt="image"></p>
+<p>结果非常的明了了，只有第一层被 Proxy 处理了，也就是说只有修改第一层的值时，才会响应式更新，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.a &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.first.b &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.first.second.c &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;button @click&#x3D;&quot;change1&quot;&gt;改变1&lt;&#x2F;button&gt;</span><br><span class="line">	&lt;button @click&#x3D;&quot;change2&quot;&gt;改变2&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;shallowReactive&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			a: 1,</span><br><span class="line">			first: &#123;</span><br><span class="line">				b: 2,</span><br><span class="line">				second: &#123;</span><br><span class="line">					c: 3</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">        const state &#x3D; shallowReactive(obj)</span><br><span class="line"></span><br><span class="line">		function change1() &#123;</span><br><span class="line">			state.a &#x3D; 7</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function change2() &#123;</span><br><span class="line">			state.first.b &#x3D; 8</span><br><span class="line">			state.first.second.c &#x3D; 9</span><br><span class="line">			console.log(state);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return &#123;state&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>来看一下具体过程：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020111814184662.gif#pic_center" alt="image"></p>
+<p>首先我们点击了第二个按钮，改变了第二层的 b 和第三层的 c，虽然值发生了改变，但是视图却没有进行更新；</p>
+<p>当我们点击了第一个按钮，改变了第一层的 a 时，整个视图进行了更新；</p>
+<p>由此可说明，shallowReactive 监听了第一层属性的值，一旦发生改变，则更新视图</p>
+<h2 id="（8）shallowRef"><a href="#（8）shallowRef" class="headerlink" title="（8）shallowRef"></a>（8）shallowRef</h2><p>这是一个浅层的 ref，与 shallowReactive 一样是拿来做性能优化的</p>
+<p>shallowReactive 是监听对象第一层的数据变化用于驱动视图更新，那么 shallowRef 则是监听 .value 的值的变化来更新视图的</p>
+<p>我们来看一下具体代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.a &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.first.b &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.first.second.c &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;button @click&#x3D;&quot;change1&quot;&gt;改变1&lt;&#x2F;button&gt;</span><br><span class="line">	&lt;button @click&#x3D;&quot;change2&quot;&gt;改变2&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;shallowRef&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			a: 1,</span><br><span class="line">			first: &#123;</span><br><span class="line">				b: 2,</span><br><span class="line">				second: &#123;</span><br><span class="line">					c: 3</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		const state &#x3D; shallowRef(obj)</span><br><span class="line">		console.log(state);</span><br><span class="line"></span><br><span class="line">		function change1() &#123;</span><br><span class="line">			&#x2F;&#x2F; 直接将state.value重新赋值</span><br><span class="line">			state.value &#x3D; &#123;</span><br><span class="line">				a: 7,</span><br><span class="line">				first: &#123;</span><br><span class="line">					b: 8,</span><br><span class="line">					second: &#123;</span><br><span class="line">						c: 9</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		function change2() &#123;</span><br><span class="line">			state.value.first.b &#x3D; 8</span><br><span class="line">            state.value.first.second.c &#x3D; 9</span><br><span class="line">            console.log(state);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return &#123;state, change1, change2&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>首先看一下被 shallowRef 包装过后是怎样的结构</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119112420368.png?x-oss-process=image" alt="image"></p>
+<p>然后再来看看改变其值会有什么变化</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119112840682.gif#pic_center" alt="image"></p>
+<p>我们先点击了第二个按钮，发现数据确实被改变了，但是视图并没随之更新；</p>
+<p>于是点击了第一个按钮，即将整个 .value 重新赋值了，视图就立马更新了</p>
+<p>这么一看，未免也太过麻烦了，改个数据还要重新赋值，不要担心，此时我们可以用到另一个API，叫做 triggerRef ，调用它就可以立马更新视图，其接收一个参数 state ，即需要更新的 ref 对象</p>
+<p>我们来使用一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.a &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.first.b &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.first.second.c &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;button @click&#x3D;&quot;change&quot;&gt;改变&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;shallowRef, triggerRef&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			a: 1,</span><br><span class="line">			first: &#123;</span><br><span class="line">				b: 2,</span><br><span class="line">				second: &#123;</span><br><span class="line">					c: 3</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		const state &#x3D; shallowRef(obj)</span><br><span class="line">		console.log(state);</span><br><span class="line"></span><br><span class="line">		function change() &#123;</span><br><span class="line">			state.value.first.b &#x3D; 8</span><br><span class="line">            state.value.first.second.c &#x3D; 9</span><br><span class="line">            &#x2F;&#x2F; 修改值后立即驱动视图更新</span><br><span class="line">            triggerRef(state)</span><br><span class="line">            console.log(state);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return &#123;state, change&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>我们来看一下具体过程<br><img src="https://img-blog.csdnimg.cn/20201119113821279.gif#pic_center" alt="image"></p>
+<p>可以看到，我们没有给 .value 重新赋值，只是在修改值后，调用了 triggerRef 就实现了视图的更新</p>
+<h2 id="（9）toRaw"><a href="#（9）toRaw" class="headerlink" title="（9）toRaw"></a>（9）toRaw</h2><p>toRaw 方法是用于获取 ref 或 reactive 对象的原始数据的</p>
+<p>先来看一段代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.name &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.age &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;button @click&#x3D;&quot;change&quot;&gt;改变&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;reactive&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			name: &#39;前端印象&#39;,</span><br><span class="line">			age: 22</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		const state &#x3D; reactive(obj)</span><br><span class="line"></span><br><span class="line">		function change() &#123;</span><br><span class="line">			state.age &#x3D; 90</span><br><span class="line">			console.log(obj); &#x2F;&#x2F; 打印原始数据obj</span><br><span class="line">			console.log(state);  &#x2F;&#x2F; 打印 reactive对象</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return &#123;state, change&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>来看看具体过程</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119120334341.gif#pic_center" alt="image"></p>
+<p>我们改变了 reactive 对象中的数据，于是看到原始数据 obj 和被 reactive 包装过的对象的值都发生了变化，由此我们可以看出，这两者是一个引用关系</p>
+<p>那么此时我们就想了，那如果直接改变原始数据 obj 的值，会怎么样呢？答案是： reactive 的值也会跟着改变，但是视图不会更新</p>
+<p>由此可见，当我们想修改数据，但不想让视图更新时，可以选择直接修改原始数据上的值，因此需要先获取到原始数据，我们可以使用 Vue3 提供的 toRaw 方法</p>
+<p>toRaw 接收一个参数，即 ref 对象或 reactive 对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;reactive, toRaw&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			name: &#39;前端印象&#39;,</span><br><span class="line">			age: 22</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		const state &#x3D; reactive(obj)</span><br><span class="line">		const raw &#x3D; toRaw(state)</span><br><span class="line"></span><br><span class="line">		console.log(obj &#x3D;&#x3D;&#x3D; raw)   &#x2F;&#x2F; true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>上述代码就证明了 toRaw 方法从 reactive 对象中获取到的是原始数据，因此我们就可以很方便的通过修改原始数据的值而不更新视图来做一些性能优化了</p>
+<blockquote>
+<p>注意： 补充一句，当 toRaw 方法接收的参数是 ref 对象时，需要加上 .value 才能获取到原始数据对象</p>
+</blockquote>
+<h2 id="（10）markRaw"><a href="#（10）markRaw" class="headerlink" title="（10）markRaw"></a>（10）markRaw</h2><p>markRaw 方法可以将原始数据标记为非响应式的，即使用 ref 或 reactive 将其包装，仍无法实现数据响应式，其接收一个参数，即原始数据，并返回被标记后的数据</p>
+<p>我们来看一下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.name &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; state.age &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">	&lt;button @click&#x3D;&quot;change&quot;&gt;改变&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;reactive, markRaw&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj &#x3D; &#123;</span><br><span class="line">			name: &#39;前端印象&#39;,</span><br><span class="line">			age: 22</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F; 通过markRaw标记原始数据obj, 使其数据更新不再被追踪</span><br><span class="line">		const raw &#x3D; markRaw(obj)   </span><br><span class="line">		&#x2F;&#x2F; 试图用reactive包装raw, 使其变成响应式数据</span><br><span class="line">		const state &#x3D; reactive(raw)</span><br><span class="line"></span><br><span class="line">		function change() &#123;</span><br><span class="line">			state.age &#x3D; 90</span><br><span class="line">			console.log(state);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return &#123;state, change&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>我们来看一下在被 markRaw 方法处理过后的数据是否还能被 reactive 包装成响应式数据</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119130344291.gif#pic_center" alt="image"></p>
+<p>从图中可以看到，即使我们修改了值也不会更新视图了，即没有实现数据响应式</p>
+<h2 id="（11）provide-amp-amp-inject"><a href="#（11）provide-amp-amp-inject" class="headerlink" title="（11）provide &amp;&amp; inject"></a>（11）provide &amp;&amp; inject</h2><p>与 Vue2中的 provide 和 inject 作用相同，只不过在Vue3中需要手动从 vue 中导入</p>
+<p>这里简单说明一下这两个方法的作用：</p>
+<ul>
+<li>provide ：向子组件以及子孙组件传递数据。接收两个参数，第一个参数是 key，即数据的名称；第二个参数为 value，即数据的值</li>
+<li>inject ：接收父组件或祖先组件传递过来的数据。接收一个参数 key，即父组件或祖先组件传递的数据名称</li>
+</ul>
+<p>假设这有三个组件，分别是 A.vue 、B.vue 、C.vue，其中 B.vue 是 A.vue 的子组件，C.vue 是 B.vue 的子组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; A.vue</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;provide&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">        const obj&#x3D; &#123;</span><br><span class="line">			name: &#39;前端印象&#39;,</span><br><span class="line">			age: 22</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; 向子组件以及子孙组件传递名为info的数据</span><br><span class="line">		provide(&#39;info&#39;, obj)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; B.vue</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;inject&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">		&#x2F;&#x2F; 接收A.vue传递过来的数据</span><br><span class="line">		inject(&#39;info&#39;)  &#x2F;&#x2F; &#123;name: &#39;前端印象&#39;, age: 22&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; C.vue</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;inject&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">		&#x2F;&#x2F; 接收A.vue传递过来的数据</span><br><span class="line">		inject(&#39;info&#39;)  &#x2F;&#x2F; &#123;name: &#39;前端印象&#39;, age: 22&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="（12）watch-amp-amp-watchEffect"><a href="#（12）watch-amp-amp-watchEffect" class="headerlink" title="（12）watch &amp;&amp; watchEffect"></a>（12）watch &amp;&amp; watchEffect</h3><p>watch 和 watchEffect 都是用来监视某项数据变化从而执行指定的操作的，但用法上还是有所区别</p>
+<p>watch：watch( source, cb, [options] )</p>
+<p>参数说明：</p>
+<ul>
+<li>source：可以是表达式或函数，用于指定监听的依赖对象</li>
+<li>cb：依赖对象变化后执行的回调函数</li>
+<li>options：可参数，可以配置的属性有 immediate（立即触发回调函数）、deep（深度监听）<br>当监听 ref 类型时：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;ref, watch&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">		const state &#x3D; ref(0)</span><br><span class="line"></span><br><span class="line">		watch(state, (newValue, oldValue) &#x3D;&gt; &#123;</span><br><span class="line">			console.log(&#96;原值为$&#123;oldValue&#125;&#96;)</span><br><span class="line">			console.log(&#96;新值为$&#123;newValue&#125;&#96;)</span><br><span class="line">			&#x2F;* 1秒后打印结果：</span><br><span class="line">							原值为0</span><br><span class="line">							新值为1</span><br><span class="line">			*&#x2F;</span><br><span class="line">		&#125;)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; 1秒后将state值+1</span><br><span class="line">		setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">			state.value ++</span><br><span class="line">		&#125;, 1000)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>当监听 reactive 类型时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;reactive, watch&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">		const state &#x3D; reactive(&#123;count: 0&#125;)</span><br><span class="line"></span><br><span class="line">		watch(() &#x3D;&gt; state.count, (newValue, oldValue) &#x3D;&gt; &#123;</span><br><span class="line">			console.log(&#96;原值为$&#123;oldValue&#125;&#96;)</span><br><span class="line">			console.log(&#96;新值为$&#123;newValue&#125;&#96;)</span><br><span class="line">			&#x2F;* 1秒后打印结果：</span><br><span class="line">							原值为0</span><br><span class="line">							新值为1</span><br><span class="line">			*&#x2F;</span><br><span class="line">		&#125;)</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; 1秒后将state.count的值+1</span><br><span class="line">		setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">			state.count ++</span><br><span class="line">		&#125;, 1000)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>当同时监听多个值时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;reactive, watch&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">		const state &#x3D; reactive(&#123; count: 0, name: &#39;zs&#39; &#125;)</span><br><span class="line"></span><br><span class="line">	   watch(</span><br><span class="line">	      [() &#x3D;&gt; state.count, () &#x3D;&gt; state.name],</span><br><span class="line">	      ([newCount, newName], [oldvCount, oldvName]) &#x3D;&gt; &#123;</span><br><span class="line">	        console.log(oldvCount) &#x2F;&#x2F; 旧的 count 值</span><br><span class="line">	        console.log(newCount) &#x2F;&#x2F; 新的 count 值</span><br><span class="line">	        console.log(oldName) &#x2F;&#x2F; 旧的 name 值</span><br><span class="line">	        console.log(newvName) &#x2F;&#x2F; 新的 name 值</span><br><span class="line">	      &#125;</span><br><span class="line">	    )</span><br><span class="line"></span><br><span class="line">	    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">	      state.count ++</span><br><span class="line">	      state.name &#x3D; &#39;ls&#39;</span><br><span class="line">	    &#125;, 1000)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>因为 watch 方法的第一个参数我们已经指定了监听的对象，因此当组件初始化时，不会执行第二个参数中的回调函数，若我们想让其初始化时就先执行一遍，可以在第三个参数对象中设置 immediate: true</p>
+<p>watch 方法默认是渐层的监听我们指定的数据，例如如果监听的数据有多层嵌套，深层的数据变化不会触发监听的回调，若我们想要其对深层数据也进行监听，可以在第三个参数对象中设置 deep: true</p>
+<blockquote>
+<p>补充： watch方法会返回一个stop方法，若想要停止监听，便可直接执行该stop函数</p>
+</blockquote>
+<p>接下来再来聊聊 watchEffect，它与 watch 的区别主要有以下几点：</p>
+<ol>
+<li>不需要手动传入依赖</li>
+<li>每次初始化时会执行一次回调函数来自动获取依赖</li>
+<li>无法获取到原值，只能得到变化后的值<br>来看一下该方法如何使用：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;reactive, watchEffect&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">		const state &#x3D; reactive(&#123; count: 0, name: &#39;zs&#39; &#125;)</span><br><span class="line"></span><br><span class="line">	   	watchEffect(() &#x3D;&gt; &#123;</span><br><span class="line">			console.log(state.count)</span><br><span class="line">			console.log(state.name)</span><br><span class="line">			&#x2F;*  初始化时打印：</span><br><span class="line">							0</span><br><span class="line">							zs</span><br><span class="line"></span><br><span class="line">				1秒后打印：</span><br><span class="line">							1</span><br><span class="line">							ls</span><br><span class="line">			*&#x2F;</span><br><span class="line">		&#125;)</span><br><span class="line"></span><br><span class="line">	    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">	      state.count ++</span><br><span class="line">	      state.name &#x3D; &#39;ls&#39;</span><br><span class="line">	    &#125;, 1000)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>从上述代码中可以看出，我们并没有像 watch 方法一样先给其传入一个依赖，而是直接指定了一个回调函数</p>
+<p>当组件初始化时，将该回调函数执行一次，自动获取到需要检测的数据是 state.count 和 state.name</p>
+<p>根据以上特征，我们可以自行选择使用哪一个监听器</p>
+<h2 id="（13）getCurrentInstance"><a href="#（13）getCurrentInstance" class="headerlink" title="（13）getCurrentInstance"></a>（13）getCurrentInstance</h2><p>我们都知道在Vue2的任何一个组件中想要获取当前组件的实例可以通过 this 来得到，而在Vue3中我们大量的代码都在 setup 函数中运行，并且在该函数中 this 指向的是 undefined，那么该如何获取到当前组件的实例呢？</p>
+<p>这时可以用到另一个方法，即 getCurrentInstance</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123; num &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;ref, getCurrentInstance&#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">    	const num &#x3D; ref(3)</span><br><span class="line">		const instance &#x3D; getCurrentInstance()</span><br><span class="line">		console.log(instance)</span><br><span class="line"></span><br><span class="line">		return &#123;num&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>我们来看一下其打印结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119141859447.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0xfUFBQ,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>因为 instance 包含的内容太多，所以没截完整，但是主要的内容都在图上了，我们重点来看一下 ctx 和 proxy，因为这两个才是我们想要的 this 的内容</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119142920681.png?x-oss-process=image" alt="image"></p>
+<p>可以看到 ctx 和 proxy 的内容十分类似，只是后者相对于前者外部包装了一层 proxy，由此可说明 proxy 是响应式的</p>
+<h2 id="（14）useStore"><a href="#（14）useStore" class="headerlink" title="（14）useStore"></a>（14）useStore</h2><p>在Vue2中使用 Vuex，我们都是通过 this.$store 来获取到Vuex实例，但上一部分说了原本Vue2中的 this 的获取方式不一样了，并且我们在Vue3的 getCurrentInstance().ctx 中也没有发现 $store 这个属性，那么如何获取到Vuex实例呢？这就要通过 vuex 中的一个方法了，即 useStore</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; store 文件夹下的 index.js</span><br><span class="line">import Vuex from &#39;vuex&#39;</span><br><span class="line"></span><br><span class="line">const store &#x3D; Vuex.createStore(&#123;</span><br><span class="line">	state: &#123;</span><br><span class="line">		name: &#39;前端印象&#39;,</span><br><span class="line">		age: 22</span><br><span class="line">	&#125;,</span><br><span class="line">	mutations: &#123;</span><br><span class="line">		……</span><br><span class="line">	&#125;,</span><br><span class="line">	……</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; example.vue</span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 从 vuex 中导入 useStore 方法</span><br><span class="line">import &#123;useStore&#125; from &#39;vuex&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line">    	&#x2F;&#x2F; 获取 vuex 实例</span><br><span class="line">    	const store &#x3D; useStore()</span><br><span class="line"></span><br><span class="line">		console.log(store)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>我们来看一下打印结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20201119145014243.png?x-oss-process=image#pic_center" alt="image"></p>
+<p>然后接下来就可以像之前一样正常使用 vuex 了</p>
+<h2 id="（15）获取标签元素"><a href="#（15）获取标签元素" class="headerlink" title="（15）获取标签元素"></a>（15）获取标签元素</h2><p>最后再补充一个 ref 另外的作用，那就是可以获取到标签元素或组件</p>
+<p>在Vue2中，我们获取元素都是通过给元素一个 ref 属性，然后通过 this.$refs.xx 来访问的，但这在Vue3中已经不再适用了</p>
+<p>接下来看看Vue3中是如何获取元素的吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div ref&#x3D;&quot;el&quot;&gt;div元素&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; ref, onMounted &#125; from &#39;vue&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    &#x2F;&#x2F; 创建一个DOM引用，名称必须与元素的ref属性名相同</span><br><span class="line">    const el &#x3D; ref(null)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 在挂载后才能通过 el 获取到目标元素</span><br><span class="line">    onMounted(() &#x3D;&gt; &#123;</span><br><span class="line">      el.value.innerHTML &#x3D; &#39;内容被修改&#39;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 把创建的引用 return 出去</span><br><span class="line">    return &#123;el&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>获取元素的操作一共分为以下几个步骤：</p>
+<ul>
+<li>先给目标元素的 ref 属性设置一个值，假设为 el</li>
+<li>然后在 setup 函数中调用 ref 函数，值为 null，并赋值给变量 el，这里要注意，该变量名必须与我们给元素设置的 ref 属性名相同</li>
+<li>把对元素的引用变量 el 返回（return）出去</li>
+</ul>
+<blockquote>
+<p>补充：设置的元素引用变量只有在组件挂载后才能访问到，因此在挂载前对元素进行操作都是无效的</p>
+</blockquote>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端框架总结/">前端框架总结</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/前端框架总结/">前端框架总结</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Vue3%E6%9C%80%E6%96%B0%E7%9A%8415%E4%B8%AA%E5%B8%B8%E7%94%A8Api/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

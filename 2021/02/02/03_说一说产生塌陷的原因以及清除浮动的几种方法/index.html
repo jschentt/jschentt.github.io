@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>03_说一说产生塌陷的原因以及清除浮动的几种方法 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="03_说一说产生塌陷的原因以及清除浮动的几种方法" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-03_说一说产生塌陷的原因以及清除浮动的几种方法" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T04:12:36.000Z"><a href="/2021/02/02/03_说一说产生塌陷的原因以及清除浮动的几种方法/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">03_说一说产生塌陷的原因以及清除浮动的几种方法</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、什么是高度塌陷"><a href="#一、什么是高度塌陷" class="headerlink" title="一、什么是高度塌陷"></a>一、什么是高度塌陷</h2><p>在文档流中，若父元素未设置高度，那么父元素的高度默认是被子元素撑开的，即子元素多高，父元素就有多高。但是当子元素设置浮动之后，子元素就会完全脱离文档流，父元素还在文档流中，此时父元素的高度就没有子元素撑起（子元素无法撑起父元素的高度），从而导致父元素的高度塌陷。简单来说，就是包含含有浮动的元素的上一级元素的高度变为 0 了，下面的元素会上去，这样会导致页面布局混乱。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    border: 5px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width:100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 5px solid #00f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、解决方法"><a href="#二、解决方法" class="headerlink" title="二、解决方法"></a>二、解决方法</h2><h4 id="1、父元素结束之前添加一个标签-lt-div-style-quot-clear-both-quot-gt-lt-div-gt"><a href="#1、父元素结束之前添加一个标签-lt-div-style-quot-clear-both-quot-gt-lt-div-gt" class="headerlink" title="1、父元素结束之前添加一个标签 &lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;"></a>1、父元素结束之前添加一个标签 <code>&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div style&#x3D;&quot;clear:both;&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;bottom&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">    border: 5px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    border: 5px solid #00f;</span><br><span class="line">&#125;</span><br><span class="line">.bottom &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #0f0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：增加了无意义的标签</p>
+<h4 id="2、让父元素本身也浮动-float：left"><a href="#2、让父元素本身也浮动-float：left" class="headerlink" title="2、让父元素本身也浮动 float：left;"></a>2、让父元素本身也浮动 float：left;</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;bottom&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    border: 5px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 5px solid #00f;</span><br><span class="line">&#125;</span><br><span class="line">.bottom &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #0f0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：虽然可以撑开父元素，但是会导致父元素的宽度丢失，而且会导致下边的元素上移,使得跟父元素相邻的元素的布局受到影响</p>
+<h4 id="3、给父元素一个固定高度，此方法适用于子元素高度已知并且固定的情况"><a href="#3、给父元素一个固定高度，此方法适用于子元素高度已知并且固定的情况" class="headerlink" title="3、给父元素一个固定高度，此方法适用于子元素高度已知并且固定的情况"></a>3、给父元素一个固定高度，此方法适用于子元素高度已知并且固定的情况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;bottom&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 5px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 5px solid #00f;</span><br><span class="line">&#125;</span><br><span class="line">.bottom &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #0f0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：父元素与子元素的边框会重叠，无法自适应子元素的高度</p>
+<h4 id="4、给父元素设置-display-inline-block"><a href="#4、给父元素设置-display-inline-block" class="headerlink" title="4、给父元素设置 display: inline-block;"></a>4、给父元素设置 display: inline-block;</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;bottom&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    border: 5px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 5px solid #00f;</span><br><span class="line">&#125;</span><br><span class="line">.bottom &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #0f0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：会导致父元素的宽度丢失，与相邻元素会产生额外的间距</p>
+<h4 id="5、给父元素设置-overflow-hidden"><a href="#5、给父元素设置-overflow-hidden" class="headerlink" title="5、给父元素设置 overflow : hidden;"></a>5、给父元素设置 overflow : hidden;</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;bottom&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    border: 5px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 5px solid #00f;</span><br><span class="line">&#125;</span><br><span class="line">.bottom &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #0f0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：要是子元素要 margin 负值定位或是负的 position 定位，溢出部分会被裁掉，如二级菜单的影响</p>
+<h4 id="6、通过-after-伪类，after-zoom-方法（推荐）"><a href="#6、通过-after-伪类，after-zoom-方法（推荐）" class="headerlink" title="6、通过 after 伪类，after + zoom 方法（推荐）"></a>6、通过 after 伪类，after + zoom 方法（推荐）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;parent clearAll&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;bottom&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">    border: 5px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 5px solid #00f;</span><br><span class="line">&#125;</span><br><span class="line">.bottom &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #0f0;</span><br><span class="line">&#125;</span><br><span class="line">.clearAll:after &#123;</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">    display: block;</span><br><span class="line">    height: 0;</span><br><span class="line">    clear: both;</span><br><span class="line">    visibility: hidden;</span><br><span class="line">&#125;</span><br><span class="line">.clearAll &#123;</span><br><span class="line">    zoom : 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用伪类来清除浮动，其效果跟创建一个空的 div 并设置其为 clear：both 是一样的，只不过这里用伪类代替了空的 div 元素，不会影响任何其他样式，通用性强，覆盖面广。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/03_%E8%AF%B4%E4%B8%80%E8%AF%B4%E4%BA%A7%E7%94%9F%E5%A1%8C%E9%99%B7%E7%9A%84%E5%8E%9F%E5%9B%A0%E4%BB%A5%E5%8F%8A%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

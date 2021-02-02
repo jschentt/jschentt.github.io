@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>15_js中的reduce了解吗？都用他解决过什么问题 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="15_js中的reduce了解吗？都用他解决过什么问题" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-15_js中的reduce了解吗？都用他解决过什么问题" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T04:12:24.000Z"><a href="/2021/02/02/15_js中的reduce了解吗？都用他解决过什么问题/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">15_js中的reduce了解吗？都用他解决过什么问题</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、介绍-reduce"><a href="#一、介绍-reduce" class="headerlink" title="一、介绍 reduce"></a>一、介绍 reduce</h2><p>arr.reduce(callback, initialValue) 迭代数组的所有项，累加器，数组中的每个值（从左到右）合并，最终计算为一个值</p>
+<h3 id="1、参数"><a href="#1、参数" class="headerlink" title="1、参数"></a>1、参数</h3><ul>
+<li>callback: previousValue 必选 –上一次调用回调返回的值，或者是提供的初始值（initialValue）</li>
+<li>currentValue 必选 –数组中当前被处理的数组项</li>
+<li>index 可选 –当前数组项在数组中的索引值</li>
+<li>array 可选 –原数组</li>
+<li>initialValue: 可选 –初始值</li>
+</ul>
+<h3 id="2、实现方法"><a href="#2、实现方法" class="headerlink" title="2、实现方法"></a>2、实现方法</h3><p>回调函数第一次执行时，preValue 和 curValue 可以是一个值，如果 initialValue 在调用 reduce() 时被提供，那么第一个 preValue 等于 initialValue ，并且 curValue 等于数组中的第一个值；如果 initialValue 未被提供，那么 preValue 等于数组中的第一个值.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [0,1,2,3,4]</span><br><span class="line">let arr1 &#x3D; arr.reduce((preValue, curValue) &#x3D;&gt;</span><br><span class="line">    preValue + curValue</span><br><span class="line">)</span><br><span class="line">console.log(arr1)    &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-1993a24640ae0193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr2 &#x3D; arr.reduce((preValue,curValue)&#x3D;&gt;preValue + curValue,5)</span><br><span class="line">console.log(arr2)    &#x2F;&#x2F; 15</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/3959476-dd6fd9ccfe91507e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="二、reduce-的高级用法"><a href="#二、reduce-的高级用法" class="headerlink" title="二、reduce 的高级用法"></a>二、reduce 的高级用法</h2><h3 id="1、计算数组中每个元素出现的次数"><a href="#1、计算数组中每个元素出现的次数" class="headerlink" title="1、计算数组中每个元素出现的次数"></a>1、计算数组中每个元素出现的次数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let names &#x3D; [&#39;peter&#39;, &#39;tom&#39;, &#39;mary&#39;, &#39;bob&#39;, &#39;tom&#39;,&#39;peter&#39;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let nameNum &#x3D; names.reduce((pre,cur)&#x3D;&gt;&#123;</span><br><span class="line">  if(cur in pre)&#123;</span><br><span class="line">    pre[cur]++</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    pre[cur] &#x3D; 1</span><br><span class="line">  &#125;</span><br><span class="line">  return pre</span><br><span class="line">&#125;,&#123;&#125;)</span><br><span class="line">console.log(nameNum); &#x2F;&#x2F;&#123; peter: 2, tom: 2, mary: 1, bob: 1 &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、计算一个字符串中每个字母出现次数"><a href="#2、计算一个字符串中每个字母出现次数" class="headerlink" title="2、计算一个字符串中每个字母出现次数"></a>2、计算一个字符串中每个字母出现次数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const str &#x3D; &#39;jshdjsihh&#39;;</span><br><span class="line">const obj &#x3D; str.split(&#39;&#39;).reduce((pre,item) &#x3D;&gt; &#123;</span><br><span class="line">     pre[item] ? pre[item] ++ : pre[item] &#x3D; 1</span><br><span class="line">    return pre</span><br><span class="line">    &#125;,&#123;&#125;)</span><br><span class="line">console.log(obj) &#x2F;&#x2F; &#123;j: 2, s: 2, h: 3, d: 1, i: 1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、数组去重"><a href="#3、数组去重" class="headerlink" title="3、数组去重"></a>3、数组去重</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [1,2,3,4,4,1]</span><br><span class="line">let newArr &#x3D; arr.reduce((pre,cur)&#x3D;&gt;&#123;</span><br><span class="line">    if(!pre.includes(cur))&#123;</span><br><span class="line">      return pre.concat(cur)</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      return pre</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,[])</span><br><span class="line">console.log(newArr);&#x2F;&#x2F; [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、求数组项最大值"><a href="#4、求数组项最大值" class="headerlink" title="4、求数组项最大值"></a>4、求数组项最大值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [2, 44, 96, 86];</span><br><span class="line">var max &#x3D; arr.reduce(function (prev, cur) &#123;</span><br><span class="line">    return Math.max(prev,cur);</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&#39;max&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;&#39;,max); &#x2F;&#x2F; 96</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、将多维数组转化为一维"><a href="#5、将多维数组转化为一维" class="headerlink" title="5、将多维数组转化为一维"></a>5、将多维数组转化为一维</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [[0, 1], [2, 3], [4,[5,6,7]]]</span><br><span class="line">const newArr &#x3D; function(arr)&#123;</span><br><span class="line">   return arr.reduce((pre,cur)&#x3D;&gt;pre.concat(Array.isArray(cur)?newArr(cur):cur),[])</span><br><span class="line">&#125;</span><br><span class="line">console.log(newArr(arr)); &#x2F;&#x2F;[0, 1, 2, 3, 4, 5, 6, 7]</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、过滤对象中指定的属性值"><a href="#6、过滤对象中指定的属性值" class="headerlink" title="6、过滤对象中指定的属性值"></a>6、过滤对象中指定的属性值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var only &#x3D; function(obj, keys)&#123;</span><br><span class="line">  obj &#x3D; obj || &#123;&#125;;</span><br><span class="line">  if (&#39;string&#39; &#x3D;&#x3D; typeof keys) keys &#x3D; keys.split(&#x2F; +&#x2F;);</span><br><span class="line">  return keys.reduce(function(ret, key)&#123;</span><br><span class="line">    if (null &#x3D;&#x3D; obj[key]) return ret; &#x2F;&#x2F;如果对象obj中存在key 字段,则赋值给ret 否则直接返回</span><br><span class="line">    ret[key] &#x3D; obj[key];</span><br><span class="line">    return ret;</span><br><span class="line">  &#125;, &#123;&#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var a &#x3D; &#123;</span><br><span class="line">    env : &#39;development&#39;,</span><br><span class="line">    proxy : false,</span><br><span class="line">    subdomainOffset : 2</span><br><span class="line">&#125;</span><br><span class="line">only(a,[&#39;env&#39;,&#39;proxy&#39;])   &#x2F;&#x2F; &#123;env:&#39;development&#39;,proxy : false&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、计算总成绩，且学科的占比不同"><a href="#7、计算总成绩，且学科的占比不同" class="headerlink" title="7、计算总成绩，且学科的占比不同"></a>7、计算总成绩，且学科的占比不同</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const scores &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">        subject: &#39;math&#39;,</span><br><span class="line">        score: 88</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        subject: &#39;chinese&#39;,</span><br><span class="line">        score: 95</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        subject: &#39;english&#39;,</span><br><span class="line">        score: 80</span><br><span class="line">    &#125;</span><br><span class="line">];</span><br><span class="line">const dis &#x3D; &#123;</span><br><span class="line">    math: 0.5,</span><br><span class="line">    chinese: 0.3,</span><br><span class="line">    english: 0.2</span><br><span class="line">&#125;</span><br><span class="line">const sum &#x3D; scores.reduce((pre,item) &#x3D;&gt; &#123;</span><br><span class="line">    return pre + item.score * dis[item.subject]</span><br><span class="line">&#125;,0)</span><br><span class="line">console.log(sum) &#x2F;&#x2F; 88.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、递归利用-reduce-处理-tree-树形"><a href="#8、递归利用-reduce-处理-tree-树形" class="headerlink" title="8、递归利用 reduce 处理 tree 树形"></a>8、递归利用 reduce 处理 tree 树形</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">var data &#x3D; [&#123;</span><br><span class="line">            id: 1,</span><br><span class="line">            name: &quot;办公管理&quot;,</span><br><span class="line">            pid: 0,</span><br><span class="line">            children: [&#123;</span><br><span class="line">                    id: 2,</span><br><span class="line">                    name: &quot;请假申请&quot;,</span><br><span class="line">                    pid: 1,</span><br><span class="line">                    children: [</span><br><span class="line">                        &#123; id: 4, name: &quot;请假记录&quot;, pid: 2 &#125;,</span><br><span class="line">                    ],</span><br><span class="line">                &#125;,</span><br><span class="line">                &#123; id: 3, name: &quot;出差申请&quot;, pid: 1 &#125;,</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            id: 5,</span><br><span class="line">            name: &quot;系统设置&quot;,</span><br><span class="line">            pid: 0,</span><br><span class="line">            children: [&#123;</span><br><span class="line">                id: 6,</span><br><span class="line">                name: &quot;权限管理&quot;,</span><br><span class="line">                pid: 5,</span><br><span class="line">                children: [</span><br><span class="line">                    &#123; id: 7, name: &quot;用户角色&quot;, pid: 6 &#125;,</span><br><span class="line">                    &#123; id: 8, name: &quot;菜单设置&quot;, pid: 6 &#125;,</span><br><span class="line">                ]</span><br><span class="line">            &#125;, ]</span><br><span class="line">        &#125;,</span><br><span class="line">    ];</span><br><span class="line">    const arr &#x3D; data.reduce(function(pre,item)&#123;</span><br><span class="line">        const callee &#x3D; arguments.callee &#x2F;&#x2F;将运行函数赋值给一个变量备用</span><br><span class="line">        pre.push(item)</span><br><span class="line">        if(item.children &amp;&amp; item.children.length &gt; 0) item.children.reduce(callee,pre); &#x2F;&#x2F;判断当前参数中是否存在children，有则递归处理</span><br><span class="line">        return pre;</span><br><span class="line">    &#125;,[]).map((item) &#x3D;&gt; &#123;</span><br><span class="line">        item.children &#x3D; []</span><br><span class="line">        return item</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(arr)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/15_js%E4%B8%AD%E7%9A%84reduce%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E9%83%BD%E7%94%A8%E4%BB%96%E8%A7%A3%E5%86%B3%E8%BF%87%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

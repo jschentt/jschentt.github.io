@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>React Hooks 用法详解 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="React Hooks 用法详解" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-React Hooks 用法详解" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/React Hooks 用法详解/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">React Hooks 用法详解</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p><strong>React 中提供的 hooks：</strong></p>
+<ul>
+<li><p>useState：setState</p>
+</li>
+<li><p>useReducer：setState，同时 useState 也是该方法的封装</p>
+</li>
+<li><p>useRef: ref</p>
+</li>
+<li><p>useImperativeHandle: 给 ref 分配特定的属性</p>
+</li>
+<li><p>useContext: context，需配合 createContext 使用</p>
+</li>
+<li><p>useMemo: 可以对 setState 的优化</p>
+</li>
+<li><p>useCallback: useMemo 的变形，对函数进行优化</p>
+</li>
+<li><p>useEffect: 类似 componentDidMount/Update, componentWillUnmount，当效果为 componentDidMount/Update 时，总是在整个更新周期的最后（页面渲染完成后）才执行</p>
+</li>
+<li><p>useLayoutEffect: 用法与 useEffect 相同，区别在于该方法的回调会在数据更新完成后，页面渲染之前进行，该方法会阻碍页面的渲染</p>
+</li>
+<li><p>useDebugValue：用于在 React 开发者工具中显示自定义 hook 的标签</p>
+</li>
+</ul>
+<h1 id="一、Hooks-初体验"><a href="#一、Hooks-初体验" class="headerlink" title="一、Hooks 初体验"></a>一、Hooks 初体验</h1><p>example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState  &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">function Example() &#123;</span><br><span class="line">    &#x2F;&#x2F; 声明一个名为“count”的新状态变量</span><br><span class="line">    const [count, setCount] &#x3D; useState(0);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p&gt;You clicked &#123;count&#125; times&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;</span><br><span class="line">                Click me</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default Example;</span><br></pre></td></tr></table></figure>
+<p>useState 就是一个 Hook，可以在我们不使用 class 组件的情况下，拥有自身的 state，并且可以通过修改 state 来控制 UI 的展示。</p>
+<h2 id="1、useState状态"><a href="#1、useState状态" class="headerlink" title="1、useState状态"></a>1、useState状态</h2><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const [state, setState] &#x3D; useState(initialState)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>传入唯一的参数: initialState，可以是数字，字符串等，也可以是对象或者数组。</li>
+<li>返回的是包含两个元素的数组：第一个元素，state 变量，setState 修改 state值的方法。</li>
+</ul>
+<p>与在类中使用 setState 的异同点：</p>
+<ul>
+<li>相同点：在一次渲染周期中调用多次 setState，数据只改变一次。</li>
+<li>不同点：类中的 setState 是合并，而函数组件中的 setState 是替换。</li>
+</ul>
+<p>使用对比</p>
+<p>之前想要使用组件内部的状态，必须使用 class 组件，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">export default class Example extends Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state &#x3D; &#123;</span><br><span class="line">            count: 0</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">            &lt;p&gt;You clicked &#123;this.state.count&#125; times&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; this.setState(&#123; count: this.state.count + 1 &#125;)&#125;&gt;</span><br><span class="line">                Click me</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而现在，我们使用函数式组件也可以实现一样的功能了。也就意味着函数式组件内部也可以使用 state 了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">function Example() &#123;</span><br><span class="line">    &#x2F;&#x2F; 声明一个名为“count”的新状态变量</span><br><span class="line">    const [count, setCount] &#x3D; useState(0);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p&gt;You clicked &#123;count&#125; times&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;</span><br><span class="line">                Click me</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default Example;</span><br></pre></td></tr></table></figure>
+<p>优化</p>
+<p>创建初始状态是比较昂贵的，所以我们可以在使用 useState API 时，传入一个函数，就可以避免重新创建忽略的初始状态。</p>
+<p>普通的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 直接传入一个值，在每次 render 时都会执行 createRows 函数获取返回值</span><br><span class="line">const [rows, setRows] &#x3D; useState(createRows(props.count));</span><br></pre></td></tr></table></figure>
+<p>优化后的方式（推荐）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; createRows 只会被执行一次</span><br><span class="line">const [rows, setRows] &#x3D; useState(() &#x3D;&gt; createRows(props.count));</span><br></pre></td></tr></table></figure>
+<h1 id="2、useEffect执行副作用操作"><a href="#2、useEffect执行副作用操作" class="headerlink" title="2、useEffect执行副作用操作"></a>2、useEffect执行副作用操作</h1><ul>
+<li><strong>effect（副作用）：指那些没有发生在数据向视图转换过程中的逻辑，如 ajax 请求、访问原生dom 元素、本地持久化缓存、绑定/解绑事件、添加订阅、设置定时器、记录日志等</strong>。</li>
+<li><strong>副作用操作可以分两类：需要清除的和不需要清除的。</strong></li>
+<li><strong>需要清除的，比如开启的定时器，订阅外部数据源等，这些操作如果在组件消亡后不及时清除会导致内存泄漏。</strong></li>
+<li><strong>不需要清除的，比如发起网络请求，手动变更 DOM，记录日志等。</strong></li>
+<li>原先在函数组件内（这里指在 React 渲染阶段）改变 dom 、发送 ajax 请求以及执行其他包含副作用的操作都是不被允许的，因为这可能会产生莫名其妙的 bug 并破坏 UI 的一致性</li>
+<li>useEffect 就是一个 Effect Hook，给函数组件增加了操作副作用的能力。它跟 class 组件中的 componentDidMount、componentDidUpdate 和 componentWillUnmount 具有相同的用途，只不过被合并成了一个 API</li>
+<li><strong>useEffect 接收一个函数，该函数会在组件渲染到屏幕之后才执行，该函数有要求：要么返回一个能清除副作用的函数，要么就不返回任何内容</strong></li>
+<li>与 componentDidMount 或 componentDidUpdate 不同，使用 useEffect 调度的 effect 不会阻塞浏览器更新屏幕，这让你的应用看起来响应更快。大多数情况下，effect 不需要同步地执行。在个别情况下（例如测量布局），有单独的 useLayoutEffect Hook 供你使用，其 API 与 useEffect 相同。</li>
+</ul>
+<p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、useEffect(() &#x3D;&gt; &#123; doSomething &#125;);</span><br><span class="line"></span><br><span class="line">2、useEffect(() &#x3D;&gt; &#123; doSomething &#125;,[]);</span><br><span class="line"></span><br><span class="line">3、useEffect(() &#x3D;&gt; &#123; doSomething &#125;,[count]);</span><br></pre></td></tr></table></figure>
+<p>第一个参数为 effect 函数，该函数将在 componentDidMmount 时触发和 componentDidUpdate 时有条件触发（该添加为useEffect 的第二个数组参数）</p>
+<p>第二个参数是可选的，根据条件限制看是否触发</p>
+<ul>
+<li><p>如果不传，如语法1，则每次页面数据有更新（如componentDidUpdate），都会触发 effect。</p>
+</li>
+<li><p>如果为空数组[]，如语法2，则每次初始化的时候只执行一次effect（如componentDidMmount）</p>
+</li>
+<li><p>如果只需要在指定变量变化时触发 effect，将该变量放入数组。如语法3，count只要变化，就会执行effect，如观察者监听</p>
+</li>
+</ul>
+<p>清除副作用</p>
+<p>副作用函数还可以通过返回一个函数来指定如何清除副作用，为防止内存泄漏，清除函数会在组件卸载前执行。如果组件多次渲染，则在执行下一个 effect 之前，上一个 effect 就已被清除。</p>
+<p><strong>例1、比如window.addEventListener(‘resize’, handleResize);：监听resize等</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">    window.addEventListener(&#39;resize&#39;, handleResize);</span><br><span class="line">    window.addEventListener(&#39;keydown&#39;, onKeyDown);</span><br><span class="line">    window.addEventListener(&#39;keyup&#39;, onKeyUp);</span><br><span class="line">    return (() &#x3D;&gt; &#123;</span><br><span class="line">      window.removeEventListener(&#39;resize&#39;, handleResize);</span><br><span class="line">      window.removeEventListener(&#39;keydown&#39;, onKeyDown);</span><br><span class="line">      window.removeEventListener(&#39;keyup&#39;, onKeyUp);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, [globalRef]);</span><br></pre></td></tr></table></figure>
+<p><strong>例2、清除定时器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function Counter()&#123;</span><br><span class="line">    let [number,setNumber] &#x3D; useState(0);</span><br><span class="line">    let [text,setText] &#x3D; useState(&#39;&#39;);</span><br><span class="line">    useEffect(()&#x3D;&gt;&#123;</span><br><span class="line">        let $timer &#x3D; setInterval(()&#x3D;&gt;&#123;</span><br><span class="line">            setNumber(number&#x3D;&gt;number+1);</span><br><span class="line">        &#125;,1000);</span><br><span class="line">        &#x2F;&#x2F; useEffect 如果返回一个函数的话，该函数会在组件卸载和更新时调用</span><br><span class="line">        &#x2F;&#x2F; useEffect 在执行副作用函数之前，会先调用上一次返回的函数</span><br><span class="line">        &#x2F;&#x2F; 如果要清除副作用，要么返回一个清除副作用的函数</span><br><span class="line">       &#x2F;*  return ()&#x3D;&gt;&#123;</span><br><span class="line">            console.log(&#39;destroy effect&#39;);</span><br><span class="line">            clearInterval($timer);</span><br><span class="line">        &#125; *&#x2F;</span><br><span class="line">    &#125;);</span><br><span class="line">    &#x2F;&#x2F; &#125;,[]);&#x2F;&#x2F;要么在这里传入一个空的依赖项数组，这样就不会去重复执行</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">          &lt;input value&#x3D;&#123;text&#125; onChange&#x3D;&#123;(event)&#x3D;&gt;setText(event.target.value)&#125;&#x2F;&gt;</span><br><span class="line">          &lt;p&gt;&#123;number&#125;&lt;&#x2F;p&gt;</span><br><span class="line">          &lt;button&gt;+&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3、useContext组件之间传值"><a href="#3、useContext组件之间传值" class="headerlink" title="3、useContext组件之间传值"></a>3、useContext组件之间传值</h1><p>语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const value &#x3D; useContext(MyContext);</span><br></pre></td></tr></table></figure>
+<p>之前在用类声明组件时，父子组件的传值是通过组件属性和props进行的，那现在使用方法(Function)来声明组件，已经没有了constructor构造函数也就没有了props的接收，但是也可以直接收，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">组件：</span><br><span class="line">&lt;SwitchList dataList&#x3D;&#123;toolsList&#125; isReverse&#x3D;&#123;false&#125;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">接收：</span><br><span class="line">const SwitchList &#x3D; (&#123;dataList &#x3D; null, isReverse &#x3D; false&#125;: any): React.ReactElement &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;TODO</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>React Hooks 也为我们准备了useContext。它可以帮助我们跨越组件层级直接传递变量，实现共享。</p>
+<h3 id="一：利用-createContext-创建上下文"><a href="#一：利用-createContext-创建上下文" class="headerlink" title="一：利用 createContext 创建上下文"></a>一：利用 createContext 创建上下文</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState , createContext &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建一个 CountContext</span><br><span class="line">const CountContext &#x3D; createContext()</span><br><span class="line"></span><br><span class="line">function Example()&#123;</span><br><span class="line">  const [ count , setCount ] &#x3D; useState(0);</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;You clicked &#123;count&#125; times&lt;&#x2F;p&gt;</span><br><span class="line">      &lt;button onClick&#x3D;&#123;()&#x3D;&gt;&#123;setCount(count+1)&#125;&#125;&gt;click me&lt;&#x2F;button&gt;</span><br><span class="line">      &#123;&#x2F;* 将 context 传递给 子组件,context 值由value props决定*&#x2F;&#125;</span><br><span class="line">      &lt;CountContext.Provider value&#x3D;&#123;count&#125;&gt;</span><br><span class="line">        &lt;Counter&#x2F;&gt;</span><br><span class="line">      &lt;&#x2F;CountContext.Provider&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line">export default Example;</span><br></pre></td></tr></table></figure>
+<h3 id="二：使用useContext-获取上下文"><a href="#二：使用useContext-获取上下文" class="headerlink" title="二：使用useContext 获取上下文"></a>二：使用useContext 获取上下文</h3><p>对于要接收context的后代组件，只需引入 useContext() Hooks 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Counter()&#123;</span><br><span class="line">  const count &#x3D; useContext(CountContext)  &#x2F;&#x2F;一句话就可以得到count</span><br><span class="line">  return (&lt;h2&gt;&#123;count&#125;&lt;&#x2F;h2&gt;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>强调一点：<br>useContext 的参数必须是 context 对象本身：</p>
+<ul>
+<li>正确： useContext(MyContext)</li>
+<li>错误： useContext(MyContext.Consumer)</li>
+<li>错误： useContext(MyContext.Provider)</li>
+</ul>
+<p>当组件上层最近的<code>&lt;MyContext.Provider&gt;</code> 更新时，该 Hook 会触发重渲染，并使用最新传递给 <code>&lt;MyContext.Provider&gt;</code>的 context value 值。</p>
+<h1 id="4、useReducer处理更为复杂state结构"><a href="#4、useReducer处理更为复杂state结构" class="headerlink" title="4、useReducer处理更为复杂state结构"></a>4、useReducer处理更为复杂state结构</h1><p>语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const [state, dispatch] &#x3D; useReducer(reducer, initialArg, init);</span><br></pre></td></tr></table></figure>
+<p>useReducer 接收一个形如 (state, action) =&gt; newState 的 reducer，并返回当前的 state 以及与其配套的 dispatch 方法。</p>
+<p>我们可以使用 useReducer 来重新写我们开篇计数器的demo：</p>
+<p>Example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useReducer &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">const initialState &#x3D; &#123;count: 0&#125;;</span><br><span class="line"></span><br><span class="line">function reducer(state, action) &#123;</span><br><span class="line">    switch (action.type) &#123;</span><br><span class="line">        case &#39;increment&#39;:</span><br><span class="line">            return &#123;count: state.count + 1&#125;;</span><br><span class="line">        case &#39;decrement&#39;:</span><br><span class="line">            return &#123;count: state.count - 1&#125;;</span><br><span class="line">        default:</span><br><span class="line">            throw new Error();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 使用 useReducer 函数创建状态 state 以及更新状态的 dispatch 函数</span><br><span class="line">    const [state, dispatch] &#x3D; useReducer(reducer, initialState);</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            Count: &#123;state.count&#125;</span><br><span class="line">            &lt;br &#x2F;&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; dispatch(&#123;type: &#39;increment&#39;&#125;)&#125;&gt;+&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; dispatch(&#123;type: &#39;decrement&#39;&#125;)&#125;&gt;-&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>优化：延迟初始化</strong></p>
+<p>还可以懒惰地创建初始状态。为此，您可以将init函数作为第三个参数传递。初始状态将设置为 init(initialArg)。</p>
+<p>它允许您提取用于计算 reducer 外部的初始状态的逻辑。这对于稍后重置状态以响应操作也很方便：</p>
+<p>Example.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useReducer &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">function init(initialCount) &#123;</span><br><span class="line">    return &#123;count: initialCount&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function reducer(state, action) &#123;</span><br><span class="line">    switch (action.type) &#123;</span><br><span class="line">        case &#39;increment&#39;:</span><br><span class="line">            return &#123;count: state.count + 1&#125;;</span><br><span class="line">        case &#39;decrement&#39;:</span><br><span class="line">            return &#123;count: state.count - 1&#125;;</span><br><span class="line">        case &#39;reset&#39;:</span><br><span class="line">            return init(action.payload);</span><br><span class="line">        default:</span><br><span class="line">            throw new Error();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default (&#123;initialCount &#x3D; 0&#125;) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    const [state, dispatch] &#x3D; useReducer(reducer, initialCount, init);</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            Count: &#123;state.count&#125;</span><br><span class="line">            &lt;br &#x2F;&gt;</span><br><span class="line">            &lt;button</span><br><span class="line">                onClick&#x3D;&#123;() &#x3D;&gt; dispatch(&#123;type: &#39;reset&#39;, payload: initialCount&#125;)&#125;&gt;</span><br><span class="line">                Reset</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; dispatch(&#123;type: &#39;increment&#39;&#125;)&#125;&gt;+&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; dispatch(&#123;type: &#39;decrement&#39;&#125;)&#125;&gt;-&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与 useState 的区别</p>
+<ul>
+<li>当 state 状态值结构比较复杂时，使用 useReducer 更有优势。</li>
+<li><strong>使用 useState 获取的 setState 方法更新数据时是异步的；而使用 useReducer 获取的 dispatch 方法更新数据是同步的。</strong></li>
+</ul>
+<p>针对第二点区别，我们可以演示一下： 在上面 useState 用法的例子中，我们新增一个 button：</p>
+<p>useState 中的 Example.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">function Example() &#123;</span><br><span class="line">    &#x2F;&#x2F; 声明一个名为“count”的新状态变量</span><br><span class="line">    const [count, setCount] &#x3D; useState(0);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p&gt;You clicked &#123;count&#125; times&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;</span><br><span class="line">                Click me</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; &#123;</span><br><span class="line">                setCount(count + 1);</span><br><span class="line">                setCount(count + 1);</span><br><span class="line">            &#125;&#125;&gt;</span><br><span class="line">                测试能否连加两次</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default Example;</span><br></pre></td></tr></table></figure>
+<p>点击 测试能否连加两次 按钮，会发现，点击一次， count 还是只增加了 1，由此可见，useState 确实是 异步 更新数据；</p>
+<p>在上面 useReducer 用法的例子中，我们新增一个 button： useReducer 中的 Example.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useReducer &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">const initialState &#x3D; &#123;count: 0&#125;;</span><br><span class="line"></span><br><span class="line">function reducer(state, action) &#123;</span><br><span class="line">    switch (action.type) &#123;</span><br><span class="line">        case &#39;increment&#39;:</span><br><span class="line">            return &#123;count: state.count + 1&#125;;</span><br><span class="line">        case &#39;decrement&#39;:</span><br><span class="line">            return &#123;count: state.count - 1&#125;;</span><br><span class="line">        default:</span><br><span class="line">            throw new Error();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 使用 useReducer 函数创建状态 state 以及更新状态的 dispatch 函数</span><br><span class="line">    const [state, dispatch] &#x3D; useReducer(reducer, initialState);</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            Count: &#123;state.count&#125;</span><br><span class="line">            &lt;br &#x2F;&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; dispatch(&#123;type: &#39;increment&#39;&#125;)&#125;&gt;+&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; dispatch(&#123;type: &#39;decrement&#39;&#125;)&#125;&gt;-&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; &#123;</span><br><span class="line">                dispatch(&#123;type: &#39;increment&#39;&#125;);</span><br><span class="line">                dispatch(&#123;type: &#39;increment&#39;&#125;);</span><br><span class="line">            &#125;&#125;&gt;</span><br><span class="line">                测试能否连加两次</span><br><span class="line">            &lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击 测试能否连加两次 按钮，会发现，点击一次， count 增加了 2，由此可见，每次dispatch 一个 action 就会更新一次数据，useReducer 确实是 同步 更新数据；</p>
+<p>对于 useReducer 和 useState的区别主要是以下两点：</p>
+<ul>
+<li>当 state 状态值结构比较复杂时，使用 useReducer 更有优势。</li>
+<li>使用 useState 获取的 setState 方法更新数据时是异步的；而使用 useReducer 获取的 dispatch 方法更新数据是同步的。</li>
+</ul>
+<h1 id="5、useMemo性能优化"><a href="#5、useMemo性能优化" class="headerlink" title="5、useMemo性能优化"></a>5、useMemo性能优化</h1><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const memoizedValue &#x3D; useMemo(() &#x3D;&gt; computeExpensiveValue(a, b), [a, b]);</span><br></pre></td></tr></table></figure>
+<p>返回一个memoized值。 传递“创建”函数和依赖项数组。useMemo只会在其中一个依赖项发生更改时重新计算memoized值。此优化有助于避免在每个渲染上进行昂贵的计算。</p>
+<blockquote>
+<p>useMemo在渲染过程中传递的函数会运行。不要做那些在渲染时通常不会做的事情。例如，副作用属于useEffect，而不是useMemo。</p>
+</blockquote>
+<p>用法</p>
+<p>useMemo 可以帮助我们优化子组件的渲染，比如这种场景： 在 A 组件中有两个子组件 B 和 C，当 A 组件中传给 B 的 props 发生变化时，A 组件状态会改变，重新渲染。此时 B 和 C 也都会重新渲染。其实这种情况是比较浪费资源的，现在我们就可以使用 useMemo 进行优化，B 组件用到的 props 变化时，只有 B 发生改变，而 C 却不会重新渲染。</p>
+<p>例子：</p>
+<p>ExampleA.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">export default (&#123; text &#125;) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&#39;Example A：&#39;, &#39;render&#39;);</span><br><span class="line">    return &lt;div&gt;Example A 组件：&#123; text &#125;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ExampleB.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">export default (&#123; text &#125;) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&#39;Example B：&#39;, &#39;render&#39;);</span><br><span class="line">    return &lt;div&gt;Example B 组件：&#123; text &#125;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>App.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState &#125; from &#39;react&#39;;</span><br><span class="line">import ExampleA from &#39;.&#x2F;ExampleA&#39;;</span><br><span class="line">import ExampleB from &#39;.&#x2F;ExampleB&#39;;</span><br><span class="line"></span><br><span class="line">import &#39;.&#x2F;App.css&#39;;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    const [a, setA] &#x3D; useState(&#39;ExampleA&#39;);</span><br><span class="line">    const [b, setB] &#x3D; useState(&#39;ExampleB&#39;);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;ExampleA text&#x3D;&#123; a &#125; &#x2F;&gt;</span><br><span class="line">            &lt;ExampleB text&#x3D;&#123; b &#125; &#x2F;&gt;</span><br><span class="line">            &lt;br &#x2F;&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123; () &#x3D;&gt; setA(&#39;修改后的 ExampleA&#39;) &#125;&gt;修改传给 ExampleA 的属性&lt;&#x2F;button&gt;</span><br><span class="line">            &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><br><span class="line">            &lt;button onClick&#x3D;&#123; () &#x3D;&gt; setB(&#39;修改后的 ExampleB&#39;) &#125;&gt;修改传给 ExampleB 的属性&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时我们点击上面任意一个按钮，都会看到控制台打印了两条输出， A 和 B 组件都会被重新渲染。</p>
+<p>现在我们使用 useMemo 进行优化</p>
+<p>App.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState, useMemo &#125; from &#39;react&#39;;</span><br><span class="line">import ExampleA from &#39;.&#x2F;ExampleA&#39;;</span><br><span class="line">import ExampleB from &#39;.&#x2F;ExampleB&#39;;</span><br><span class="line"></span><br><span class="line">import &#39;.&#x2F;App.css&#39;;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    const [a, setA] &#x3D; useState(&#39;ExampleA&#39;);</span><br><span class="line">    const [b, setB] &#x3D; useState(&#39;ExampleB&#39;);</span><br><span class="line"></span><br><span class="line">+    const exampleA &#x3D; useMemo(() &#x3D;&gt; &lt;ExampleA &#x2F;&gt;, [a]);</span><br><span class="line">+    const exampleB &#x3D; useMemo(() &#x3D;&gt; &lt;ExampleB &#x2F;&gt;, [b]);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">+            &#123;&#x2F;* &lt;ExampleA text&#x3D;&#123; a &#125; &#x2F;&gt;</span><br><span class="line">+            &lt;ExampleB text&#x3D;&#123; b &#125; &#x2F;&gt; *&#x2F;&#125;</span><br><span class="line">+            &#123; exampleA &#125;</span><br><span class="line">+            &#123; exampleB &#125;</span><br><span class="line">            &lt;br &#x2F;&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123; () &#x3D;&gt; setA(&#39;修改后的 ExampleA&#39;) &#125;&gt;修改传给 ExampleA 的属性&lt;&#x2F;button&gt;</span><br><span class="line">            &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><br><span class="line">            &lt;button onClick&#x3D;&#123; () &#x3D;&gt; setB(&#39;修改后的 ExampleB&#39;) &#125;&gt;修改传给 ExampleB 的属性&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时我们点击不同的按钮，控制台都只会打印一条输出，改变 a 或者 b，A 和 B 组件都只有一个会重新渲染。</p>
+<h1 id="6、useCallback优化函数式组件性能"><a href="#6、useCallback优化函数式组件性能" class="headerlink" title="6、useCallback优化函数式组件性能"></a>6、useCallback优化函数式组件性能</h1><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const memoizedCallback &#x3D; useCallback(() &#x3D;&gt; &#123; doSomething(a, b); &#125;, [a, b]);</span><br></pre></td></tr></table></figure>
+<p>返回值 memoizedCallback 是一个 memoized 回调。传递内联回调和一系列依赖项。useCallback将返回一个回忆的memoized版本，该版本仅在其中一个依赖项发生更改时才会更改。当将回调传递给依赖于引用相等性的优化子组件以防止不必要的渲染（例如shouldComponentUpdate）时，这非常有用。</p>
+<p>这个 Hook 的 API 不能够一两句解释的清楚，建议看一下这篇文章：<a href="https://zhuanlan.zhihu.com/p/56975681" target="_blank" rel="noopener">useHooks 第一期：聊聊 hooks 中的 useCallback</a>。里面介绍的比较详细。</p>
+<h1 id="7、useRef获取dom"><a href="#7、useRef获取dom" class="headerlink" title="7、useRef获取dom"></a>7、useRef获取dom</h1><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const refContainer &#x3D; useRef(initialValue);</span><br></pre></td></tr></table></figure>
+<p>类组件、React 元素用 <code>React.createRef</code>，如：<code>remindRef: any = React.createRef();</code>通过 <code>this.remindRef.current</code>获取</p>
+<p>函数组件使用 useRef，如<code>let globalToolRef: any = useRef(null);</code>通过<code>globalToolRef.current</code>获取</p>
+<p>useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传递的参数（initialValue）。返回的对象将存留在整个组件的生命周期中。</p>
+<ul>
+<li>从本质上讲，useRef就像一个“盒子”，可以在其.current财产中保持一个可变的价值。</li>
+<li>useRef() Hooks 不仅适用于 DOM 引用。 “ref” 对象是一个通用容器，其 current 属性是可变的，可以保存任何值（可以是元素、对象、基本类型、甚至函数），类似于类上的实例属性。</li>
+</ul>
+<blockquote>
+<p>注意：useRef() 比 ref 属性更有用。与在类中使用 instance(实例) 字段的方式类似，它可以 方便地保留任何可变值。</p>
+</blockquote>
+<blockquote>
+<p>注意，内容更改时useRef 不会通知您。变异.current属性不会导致重新渲染。如果要在React将引用附加或分离到DOM节点时运行某些代码，则可能需要使用回调引用。</p>
+</blockquote>
+<p>使用</p>
+<p>下面这个例子中展示了可以在 useRef() 生成的 ref 的 current 中存入元素、字符串</p>
+<p>Example.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useRef, useState, useEffect &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 使用 useRef 创建 inputEl</span><br><span class="line">    const inputEl &#x3D; useRef(null);</span><br><span class="line"></span><br><span class="line">    const [text, updateText] &#x3D; useState(&#39;&#39;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 使用 useRef 创建 textRef</span><br><span class="line">    const textRef &#x3D; useRef();</span><br><span class="line"></span><br><span class="line">    useEffect(() &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; 将 text 值存入 textRef.current 中</span><br><span class="line">        textRef.current &#x3D; text;</span><br><span class="line">        console.log(&#39;textRef.current：&#39;, textRef.current);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    const onButtonClick &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; &#96;current&#96; points to the mounted text input element</span><br><span class="line">        inputEl.current.value &#x3D; &quot;Hello, useRef&quot;;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            &#123;&#x2F;* 保存 input 的 ref 到 inputEl *&#x2F;&#125;</span><br><span class="line">            &lt;input ref&#x3D;&#123; inputEl &#125; type&#x3D;&quot;text&quot; &#x2F;&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123; onButtonClick &#125;&gt;在 input 上展示文字&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;br &#x2F;&gt;</span><br><span class="line">            &lt;br &#x2F;&gt;</span><br><span class="line">            &lt;input value&#x3D;&#123;text&#125; onChange&#x3D;&#123;e &#x3D;&gt; updateText(e.target.value)&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击 在 input 上展示文字 按钮，就可以看到第一个 input 上出现 Hello, useRef；在第二个 input 中输入内容，可以看到控制台打印出对应的内容。</p>
+<h1 id="8、useLayoutEffect"><a href="#8、useLayoutEffect" class="headerlink" title="8、useLayoutEffect"></a>8、useLayoutEffect</h1><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useLayoutEffect(() &#x3D;&gt; &#123; doSomething &#125;);</span><br></pre></td></tr></table></figure>
+<p>与 useEffect Hooks 类似，都是执行副作用操作。但是它是在所有 DOM 更新完成后触发。可以用来执行一些与布局相关的副作用，比如获取 DOM 元素宽高，窗口滚动距离等等。</p>
+<blockquote>
+<p>进行副作用操作时尽量优先选择 useEffect，以免阻止视觉更新。与 DOM 无关的副作用操作请使用 useEffect。</p>
+</blockquote>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>用法与 useEffect 类似。</p>
+<p>Example.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useRef, useState, useLayoutEffect &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    const divRef &#x3D; useRef(null);</span><br><span class="line"></span><br><span class="line">    const [height, setHeight] &#x3D; useState(100);</span><br><span class="line"></span><br><span class="line">    useLayoutEffect(() &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; DOM 更新完成后打印出 div 的高度</span><br><span class="line">        console.log(&#39;useLayoutEffect: &#39;, divRef.current.clientHeight);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    return &lt;&gt;</span><br><span class="line">        &lt;div ref&#x3D;&#123; divRef &#125; style&#x3D;&#123;&#123; background: &#39;red&#39;, height: height &#125;&#125;&gt;Hello&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123; () &#x3D;&gt; setHeight(height + 50) &#125;&gt;改变 div 高度&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>useLayoutEffect 相比 useEffect，通过同步执行状态更新可解决一些特定场景下的页面闪烁问题。</li>
+<li>useEffect 可以满足百分之99的场景，而且 useLayoutEffect 会阻塞渲染，请谨慎使用。</li>
+<li>useEffect 在全部渲染完毕后才会执行</li>
+<li>useLayoutEffect 会在 浏览器 layout 之后，painting 之前执行</li>
+<li>其函数签名与 useEffect 相同，但它会在所有的 DOM 变更之后同步调用 effect</li>
+<li>可以使用它来读取 DOM 布局并同步触发重渲染</li>
+<li>在浏览器执行绘制之前 useLayoutEffect 内部的更新计划将被同步刷新</li>
+<li>尽可能使用标准的 useEffect 以避免阻塞视图更新</li>
+</ul>
+<h1 id="forwardRef"><a href="#forwardRef" class="headerlink" title="forwardRef"></a>forwardRef</h1><p><strong>因为函数组件没有实例，所以函数组件无法像类组件一样可以接收 ref 属性</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Parent() &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">         &#x2F;&#x2F; &lt;Child ref&#x3D;&#123;xxx&#125; &#x2F;&gt; 这样是不行的</span><br><span class="line">            &lt;Child &#x2F;&gt;</span><br><span class="line">            &lt;button&gt;+&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>forwardRef 可以在父组件中操作子组件的 ref 对象</li>
+<li>forwardRef 可以将父组件中的 ref 对象转发到子组件中的 dom 元素上</li>
+<li>子组件接受 props 和 ref 作为参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function Child(props,ref)&#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; ref&#x3D;&#123;ref&#125;&#x2F;&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line">Child &#x3D; React.forwardRef(Child);</span><br><span class="line">function Parent()&#123;</span><br><span class="line">  let [number,setNumber] &#x3D; useState(0);</span><br><span class="line">  &#x2F;&#x2F; 在使用类组件的时候，创建 ref 返回一个对象，该对象的 current 属性值为空</span><br><span class="line">  &#x2F;&#x2F; 只有当它被赋给某个元素的 ref 属性时，才会有值</span><br><span class="line">  &#x2F;&#x2F; 所以父组件（类组件）创建一个 ref 对象，然后传递给子组件（类组件），子组件内部有元素使用了</span><br><span class="line">  &#x2F;&#x2F; 那么父组件就可以操作子组件中的某个元素</span><br><span class="line">  &#x2F;&#x2F; 但是函数组件无法接收 ref 属性 &lt;Child ref&#x3D;&#123;xxx&#125; &#x2F;&gt; 这样是不行的</span><br><span class="line">  &#x2F;&#x2F; 所以就需要用到 forwardRef 进行转发</span><br><span class="line">  const inputRef &#x3D; useRef();&#x2F;&#x2F;&#123;current:&#39;&#39;&#125;</span><br><span class="line">  function getFocus()&#123;</span><br><span class="line">    inputRef.current.value &#x3D; &#39;focus&#39;;</span><br><span class="line">    inputRef.current.focus();</span><br><span class="line">  &#125;</span><br><span class="line">  return (</span><br><span class="line">      &lt;&gt;</span><br><span class="line">        &lt;Child ref&#x3D;&#123;inputRef&#125;&#x2F;&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;()&#x3D;&gt;setNumber(&#123;number:number+1&#125;)&#125;&gt;+&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;getFocus&#125;&gt;获得焦点&lt;&#x2F;button&gt;</span><br><span class="line">      &lt;&#x2F;&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="10、useImperativeHandle"><a href="#10、useImperativeHandle" class="headerlink" title="10、useImperativeHandle"></a>10、useImperativeHandle</h1><ul>
+<li>useImperativeHandle可以让你在使用 ref 时，自定义暴露给父组件的实例值，不能让父组件想干嘛就干嘛</li>
+<li><strong>在大多数情况下，应当避免使用 ref 这样的命令式代码。useImperativeHandle 应当与 forwardRef 一起使用</strong></li>
+<li><strong>父组件可以使用操作子组件中的多个 ref</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import React,&#123;useState,useEffect,createRef,useRef,forwardRef,useImperativeHandle&#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">function Child(props,parentRef)&#123;</span><br><span class="line">    &#x2F;&#x2F; 子组件内部自己创建 ref</span><br><span class="line">    let focusRef &#x3D; useRef();</span><br><span class="line">    let inputRef &#x3D; useRef();</span><br><span class="line">    useImperativeHandle(parentRef,()&#x3D;&gt;&#123;</span><br><span class="line">      &#x2F;&#x2F; 这个函数会返回一个对象</span><br><span class="line">      &#x2F;&#x2F; 该对象会作为父组件 current 属性的值</span><br><span class="line">      &#x2F;&#x2F; 通过这种方式，父组件可以使用操作子组件中的多个 ref</span><br><span class="line">        return &#123;</span><br><span class="line">            focusRef,</span><br><span class="line">            inputRef,</span><br><span class="line">            name:&#39;计数器&#39;,</span><br><span class="line">            focus()&#123;</span><br><span class="line">                focusRef.current.focus();</span><br><span class="line">            &#125;,</span><br><span class="line">            changeText(text)&#123;</span><br><span class="line">                inputRef.current.value &#x3D; text;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            &lt;input ref&#x3D;&#123;focusRef&#125;&#x2F;&gt;</span><br><span class="line">            &lt;input ref&#x3D;&#123;inputRef&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;&gt;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">const ForwardChild &#x3D; forwardRef(Child);</span><br><span class="line">function Parent()&#123;</span><br><span class="line">  const parentRef &#x3D; useRef();&#x2F;&#x2F;&#123;current:&#39;&#39;&#125;</span><br><span class="line">  function getFocus()&#123;</span><br><span class="line">    parentRef.current.focus();</span><br><span class="line">    &#x2F;&#x2F; 因为子组件中没有定义这个属性，实现了保护，所以这里的代码无效</span><br><span class="line">    parentRef.current.addNumber(666);</span><br><span class="line">    parentRef.current.changeText(&#39;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&#39;);</span><br><span class="line">    console.log(parentRef.current.name);</span><br><span class="line">  &#125;</span><br><span class="line">  return (</span><br><span class="line">      &lt;&gt;</span><br><span class="line">        &lt;ForwardChild ref&#x3D;&#123;parentRef&#125;&#x2F;&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;getFocus&#125;&gt;获得焦点&lt;&#x2F;button&gt;</span><br><span class="line">      &lt;&#x2F;&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>官网介绍forwardRef与useImperativeHandle结合使用</p>
+<p><img src="https://img-blog.csdnimg.cn/20200803182456425.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMzMzU0OA==,size_16,color_FFFFFF,t_70" alt="image"></p>
+<h1 id="11、useMemo和useCallback的使用"><a href="#11、useMemo和useCallback的使用" class="headerlink" title="11、useMemo和useCallback的使用"></a>11、useMemo和useCallback的使用</h1><h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const memoizedValue &#x3D; useMemo(() &#x3D;&gt; computeExpensiveValue(a, b), [a, b]);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>把“创建”函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。</p>
+</blockquote>
+<p>也就是说useMemo可以让函数在某个依赖项改变的时候才运行，这可以避免很多不必要的开销。举个例子：</p>
+<p><strong>不使用useMemo</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Example() &#123;</span><br><span class="line">    const [count, setCount] &#x3D; useState(1);</span><br><span class="line">    const [val, setValue] &#x3D; useState(&#39;&#39;);</span><br><span class="line"></span><br><span class="line">    function getNum() &#123;</span><br><span class="line">        return Array.from(&#123;length: count * 100&#125;, (v, i) &#x3D;&gt; i).reduce((a, b) &#x3D;&gt; a+b)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &lt;div&gt;</span><br><span class="line">        &lt;h4&gt;总和：&#123;getNum()&#125;&lt;&#x2F;h4&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;+1&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;input value&#x3D;&#123;val&#125; onChange&#x3D;&#123;event &#x3D;&gt; setValue(event.target.value)&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个组件，维护了两个state，可以看到getNum的计算仅仅跟count有关，但是现在无论是count还是val变化，都会导致getNum重新计算，所以这里我们希望val修改的时候，不需要再次计算，这种情况下我们可以使用useMemo。</p>
+<p><strong>使用useMemo</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Example() &#123;</span><br><span class="line">    const [count, setCount] &#x3D; useState(1);</span><br><span class="line">    const [val, setValue] &#x3D; useState(&#39;&#39;);</span><br><span class="line"></span><br><span class="line">    const getNum &#x3D; useMemo(() &#x3D;&gt; &#123;</span><br><span class="line">        return Array.from(&#123;length: count * 100&#125;, (v, i) &#x3D;&gt; i).reduce((a, b) &#x3D;&gt; a+b)</span><br><span class="line">    &#125;, [count])</span><br><span class="line"></span><br><span class="line">    return &lt;div&gt;</span><br><span class="line">        &lt;h4&gt;总和：&#123;getNum()&#125;&lt;&#x2F;h4&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;+1&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;input value&#x3D;&#123;val&#125; onChange&#x3D;&#123;event &#x3D;&gt; setValue(event.target.value)&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用useMemo后，并将count作为依赖值传递进去，此时仅当count变化时才会重新执行getNum。</p>
+<h2 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const memoizedCallback &#x3D; useCallback(</span><br><span class="line">  () &#x3D;&gt; &#123;</span><br><span class="line">    doSomething(a, b);</span><br><span class="line">  &#125;,</span><br><span class="line">  [a, b],</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，该回调函数仅在某个依赖项改变时才会更新。当你把回调函数传递给经过优化的并使用引用相等性去避免非必要渲染（例如 shouldComponentUpdate）的子组件时，它将非常有用。</p>
+</blockquote>
+<p>看起来似乎和useMemo差不多，我们来看看这两者有什么异同：</p>
+<p>useMemo和useCallback接收的参数都是一样，都是在其依赖项发生变化后才执行，都是返回缓存的值，区别在于useMemo返回的是函数运行的结果，useCallback返回的是函数。</p>
+<blockquote>
+<p>useCallback(fn, deps) 相当于 useMemo(() =&gt; fn, deps)</p>
+</blockquote>
+<p><strong>使用场景</strong></p>
+<p>正如上面所说的，当你把回调函数传递给经过优化的并使用引用相等性去避免非必要渲染（例如 shouldComponentUpdate）的子组件时，它将非常有用。也就是说父组件传递一个函数给子组件的时候，由于父组件的更新会导致该函数重新生成从而传递给子组件的函数引用发生了变化，这就会导致子组件也会更新，而很多时候子组件的更新是没必要的，所以我们可以通过useCallback来缓存该函数，然后传递给子组件。举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function Parent() &#123;</span><br><span class="line">    const [count, setCount] &#x3D; useState(1);</span><br><span class="line">    const [val, setValue] &#x3D; useState(&#39;&#39;);</span><br><span class="line"></span><br><span class="line">    const getNum &#x3D; useCallback(() &#x3D;&gt; &#123;</span><br><span class="line">        return Array.from(&#123;length: count * 100&#125;, (v, i) &#x3D;&gt; i).reduce((a, b) &#x3D;&gt; a+b)</span><br><span class="line">    &#125;, [count])</span><br><span class="line"></span><br><span class="line">    return &lt;div&gt;</span><br><span class="line">        &lt;Child getNum&#x3D;&#123;getNum&#125; &#x2F;&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;button onClick&#x3D;&#123;() &#x3D;&gt; setCount(count + 1)&#125;&gt;+1&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;input value&#x3D;&#123;val&#125; onChange&#x3D;&#123;event &#x3D;&gt; setValue(event.target.value)&#125;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const Child &#x3D; React.memo(function (&#123; getNum &#125;: any) &#123;</span><br><span class="line">    return &lt;h4&gt;总和：&#123;getNum()&#125;&lt;&#x2F;h4&gt;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>使用useCallback之后，仅当count发生变化时Child组件才会重新渲染，而val变化时，Child组件是不会重新渲染的。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端框架总结/">前端框架总结</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/前端框架总结/">前端框架总结</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/React%20Hooks%20%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
