@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>webGL-three.js入门笔记 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="webGL-three.js入门笔记" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-webGL-three.js入门笔记" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/webGL-three.js入门笔记/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">webGL-three.js入门笔记</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/4923775-9126a81a4cf5c49c.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/614/format/webp" alt="image"></p>
+<p>webGL的3D世界主要由三大要素构成：场景（scene）、相机（camera）和渲染器（renderer），三者缺一不可。渲染的原理是：我们将创建的物体，添加到场景中，再通过相机（可以理解为人的视角）渲染到渲染器，从而呈现在网页中。three.js是webGL一款比较热门的类库，本文以”three.js”: “^0.77.1”为例，通过网上教程和自身实践整理成这篇笔记。</p>
+<h2 id="1-场景-scene"><a href="#1-场景-scene" class="headerlink" title="1.场景(scene)"></a>1.场景(scene)</h2><p>场景就是所有物体的容器，只需创建一个。假设我们要显示一个苹果，那么就将苹果加入到场景中即可，多个物体可加入到一个场景。<br>构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var scene &#x3D; new THREE.Scene();</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-相机-camera"><a href="#2-相机-camera" class="headerlink" title="2.相机(camera)"></a>2.相机(camera)</h2><p>相机决定了场景中哪个角度的景色会显示出来，就像人的视角，分为正投影相机(THREE.OrthographicCamera)和透视投影相机(THREE.PerspectiveCamera)，正投影和透视投影的区别是：透视投影有一个基本点，就是远处的物体比近处的物体小，一般我们采用透视投影相机的情况比较多。<br>构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;正投影相机</span><br><span class="line">var camera &#x3D; new THREE.OrthographicCamera(left, right, top, bottom, near, far);</span><br><span class="line">&#x2F;&#x2F;参数详解：</span><br><span class="line">&#x2F;&#x2F;left：左平面距离相机中心点的垂直距离</span><br><span class="line">&#x2F;&#x2F;right：右平面距离相机中心点的垂直距离</span><br><span class="line">&#x2F;&#x2F;top：顶平面距离相机中心点的垂直距离</span><br><span class="line">&#x2F;&#x2F;bottom：底平面距离相机中心点的垂直距离</span><br><span class="line">&#x2F;&#x2F;near：近平面距离相机中心点的垂直距离</span><br><span class="line">&#x2F;&#x2F;far：远平面距离相机中心点的垂直距离</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;透视投影相机</span><br><span class="line">var camera &#x3D; new THREE.PerspectiveCamera(fov, aspect, near, far)</span><br><span class="line">&#x2F;&#x2F;参数详解：</span><br><span class="line">&#x2F;&#x2F;视角fov：可以理解为视角的大小，如果设置为0，相当于没有了视角，什么也看不到；如果为180，那么可以认为你的视界很广阔，但在180度的时候，往往物体很小，因为物体在你整个可视区域中的比例变小了</span><br><span class="line">&#x2F;&#x2F;近平面near：表示近处的裁面的距离，也可以认为是眼睛到近处的距离，不能为负数</span><br><span class="line">&#x2F;&#x2F;远平面far：表示远处的裁面的距离</span><br><span class="line">&#x2F;&#x2F;纵横比aspect：实际窗口的纵横比，即宽度除以高度，这个值越大，说明宽度越大</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-渲染器-renderer"><a href="#3-渲染器-renderer" class="headerlink" title="3.渲染器(renderer)"></a>3.渲染器(renderer)</h2><p>渲染器决定了渲染结果应挂接在页面的什么元素上，并以怎样的方式绘制。<br>构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var renderer &#x3D; new THREE.WebGLRenderer();</span><br><span class="line">renderer.setSize(window.innerWidth, window.innerHeight);&#x2F;&#x2F;设置渲染区域大小</span><br><span class="line">document.body.appendChild(renderer, domElement);&#x2F;&#x2F;渲染在domElement并挂接到body下</span><br><span class="line">renderer.render(scene, camera); &#x2F;&#x2F;将场景通过相机视角渲染出来</span><br></pre></td></tr></table></figure>
+
+<p>如果要让物体动起来，那么我们可以利用循环渲染：requestAnimationFrame</p>
+<h2 id="4-光源"><a href="#4-光源" class="headerlink" title="4.光源"></a>4.光源</h2><p>光是我们看见物体的关键，用Light表示，是所有光源的基类，底下还有很多分类，我举几个最常用的：</p>
+<p>环境光：环境光是经过多次反射惹来的光，无法确定其最初的方向，是一种无处不在的光。环境光源放出的光线被认为来自任何方向。因此，当你仅为场景设定环境光时，所有的物体无论法向量如何，都将表现为同样的明暗程度。<br>构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.AmbientLight(hex); &#x2F;&#x2F;hex为一个16进制的颜色值</span><br></pre></td></tr></table></figure>
+
+<p>平行光：是一组没有衰减的平行的光线，类似太阳光的效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.DirectionalLight(hex, intensity)</span><br></pre></td></tr></table></figure>
+
+<p>点光源：由这种光源放出的光线来自同一点，且方向辐射自四面八方</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">THREE.PointLight(color, intensity, distance)；</span><br><span class="line">&#x2F;&#x2F;color代表光的颜色</span><br><span class="line">&#x2F;&#x2F;intensity：代表光的强度，默认1.0，表示100%强度的灯光</span><br><span class="line">&#x2F;&#x2F;distance：代表光的距离，从光源所在的位置，经过distance这段距离之后，光的强度将从Intensity衰减为0，默认0.0，表示光源强度不衰减</span><br></pre></td></tr></table></figure>
+
+<p>聚光灯：这种光源的光线从一个椎体中射出，在被照射的物体上产生聚光的效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">THREE.SpotLight(hex, intensity, distance, angle, exponent)</span><br><span class="line">&#x2F;&#x2F;angle：聚光灯着色的角度，用弧度作为单位，这个角度是和光源的方向形成的角度</span><br><span class="line">&#x2F;&#x2F;exponent：光源模型中，衰减的一个参数，越大衰减越快</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-物体"><a href="#5-物体" class="headerlink" title="5.物体"></a>5.物体</h2><p>创建一个物体可以包含多种元素，几何体，材质，纹理等，创建一个小球的简单示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let geometry &#x3D;new THREE.SphereGeometry(3, 16, 16);   &#x2F;&#x2F;球体</span><br><span class="line">let material &#x3D; new THREE.MeshPhongMaterial(&#123;color:0x48D1CC,specular:0xffffff,shininess:100&#125;);     &#x2F;&#x2F;材质</span><br><span class="line">var ball &#x3D; new THREE.Mesh(geometry, material); &#x2F;&#x2F;两者共同组成一个球体</span><br><span class="line">scene.add(ball); &#x2F;&#x2F;将球体添加至场景中</span><br></pre></td></tr></table></figure>
+
+<p>关于几何体，材质等种类非常多，具体可以参考[three.js源码]：<a href="https://github.com/mrdoob/three.js/" target="_blank" rel="noopener">https://github.com/mrdoob/three.js/</a></p>
+<h2 id="6-动画"><a href="#6-动画" class="headerlink" title="6.动画"></a>6.动画</h2><p>总结上述步骤：</p>
+<blockquote>
+<ul>
+<li>创建场景、相机、渲染器</li>
+<li>创建光源</li>
+<li>创建物体并添加至场景中</li>
+<li>渲染出场景</li>
+</ul>
+</blockquote>
+<p>这样就构成了一个完整的但也是最基础的流程，网页中能看到我们创造的物体，接下来说到动画，3D世界中的运动方式总结为三种：移动，旋转和缩放。<br>运动是相对的，场景动起来有两种方式：</p>
+<h3 id="1-物体在坐标系中移动，相机不动"><a href="#1-物体在坐标系中移动，相机不动" class="headerlink" title="1). 物体在坐标系中移动，相机不动"></a>1). 物体在坐标系中移动，相机不动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function animate()&#123;</span><br><span class="line">  ball.position.x +&#x3D; 1;</span><br><span class="line">  renderer.render(scene, camera);</span><br><span class="line">  requestAnimationFrame(animation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-相机在坐标系中移动，物体不动"><a href="#2-相机在坐标系中移动，物体不动" class="headerlink" title="2). 相机在坐标系中移动，物体不动"></a>2). 相机在坐标系中移动，物体不动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function animate()&#123;</span><br><span class="line">  camera.position.x +&#x3D; 1;</span><br><span class="line">  renderer.render(scene, camera);</span><br><span class="line">  requestAnimationFrame(animation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>[demo展示中心]：<a href="https://yomonah.github.io/project/app.html#/webGL-icosahedron" target="_blank" rel="noopener">https://yomonah.github.io/project/app.html#/webGL-icosahedron</a></li>
+<li>[源码]：<a href="https://github.com/yomonah/react-demo/tree/master/src/components/webGL_ball" target="_blank" rel="noopener">https://github.com/yomonah/react-demo/tree/master/src/components/webGL_ball</a></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据可视化框架总结/">数据可视化框架总结</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/webGL/">webGL</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/webGL-three.js%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+    <li><a href="/categories/数据可视化框架总结/">数据可视化框架总结</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/webGL/">webGL</a><small>8</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

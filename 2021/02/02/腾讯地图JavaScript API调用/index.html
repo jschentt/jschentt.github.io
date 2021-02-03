@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>腾讯地图JavaScript API调用 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="腾讯地图JavaScript API调用" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-腾讯地图JavaScript API调用" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/腾讯地图JavaScript API调用/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">腾讯地图JavaScript API调用</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="1、加载地图-API"><a href="#1、加载地图-API" class="headerlink" title="1、加载地图 API"></a>1、加载地图 API</h2><h3 id="页面直接引入"><a href="#页面直接引入" class="headerlink" title="页面直接引入"></a>页面直接引入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script charset&#x3D;&quot;utf-8&quot; src&#x3D;&quot;https:&#x2F;&#x2F;map.qq.com&#x2F;api&#x2F;js?v&#x3D;2.exp&amp;key&#x3D;OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://map.qq.com/api/js?v=2.exp&amp;key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77" target="_blank" rel="noopener">https://map.qq.com/api/js?v=2.exp&amp;key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77</a> 网址是API文件的位置，v2.0 指当前使用的API的版本标识，key=[申请的开发密钥]</p>
+<h2 id="2、创建一个容纳地图的div容器"><a href="#2、创建一个容纳地图的div容器" class="headerlink" title="2、创建一个容纳地图的div容器"></a>2、创建一个容纳地图的div容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;container&quot; style&#x3D;&quot;width:500px; height:300px&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>要使地图在网页上显示，必须为其在网页中创建一个容器。通常，我们通过创建名为 div 的元素并在浏览器的文档对象模型 (DOM) 中获取此元素的引用执行此操作。</p>
+<p>在上述示例中，我们定义名为 “container” 的 div，并使用样式属性设置其尺寸。<strong>地图会自动使用容器尺寸调整自身的尺寸</strong>。</p>
+<h2 id="3、地图基本对象"><a href="#3、地图基本对象" class="headerlink" title="3、地图基本对象"></a>3、地图基本对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var map &#x3D; new qq.maps.Map(document.getElementById(&#39;container&#39;),myoptions);</span><br></pre></td></tr></table></figure>
+
+<p>表示地图的 JavaScript 类是 Map 类。此类的对象在页面上定义单个地图。我们使用 JavaScript new 操作符创建此类的一个新实例。当创建新的地图实例时，在页面中指定一个 DOM 节点（通常是 div 元素）作为地图的容器。HTML 节点是 JavaScript document 对象的子节点，我们通过document.getElementById() 方法获取对此元素的引用。此代码定义一个全局变量（名为map），并将该变量分配给新的 Map 对象。函数 Map() 称为构造函数，其定义请参考《参考手册》</p>
+<p>myoptions 是地图的配置对象。</p>
+<h2 id="4、初始化地图"><a href="#4、初始化地图" class="headerlink" title="4、初始化地图"></a>4、初始化地图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.panTo(new qq.maps.LatLng(39.916527,116.397128));</span><br></pre></td></tr></table></figure>
+
+<p>通过 Map 构造函数创建地图之后，还需要执行一个操作，即将其初始化。初始化通过地图的 panTo() 方法完成。panTo() 方法需要LatLng 经纬度坐标，并且调用此方法必须在对地图执行任何其它操作（包括设置地图本身的任何其它属性）之前。</p>
+<p>LatLng  是 latitude 经度 Longitude 纬度  缩写</p>
+<h2 id="5、加载地图"><a href="#5、加载地图" class="headerlink" title="5、加载地图"></a>5、加载地图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;body onload&#x3D;&quot;init()&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当 HTML 页面显示时，文档对象模型 (DOM) 即会扩展，接收其他外部图像和脚本并将其合并到 document 对象中。<strong>为了确保只有在完全加载页面后才将我们的地图放在页面上</strong>，我们仅在 HTML 页面的 元素收到 onload 事件后才执行构造 Map 的函数。这样做可以避免出现不可预期的行为，并使我们可以对地图绘制的方式和时间进行更多控制。body 标签的 onload 属性是事件处理程序的一个示例。腾讯 Maps Javascript API 还提供了一组事件，可供您进行处理以确定状态变化。有关详细信息，请参阅地图事件部分。</p>
+<p>参考案例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv&#x3D;&quot;Content-Type&quot; content&#x3D;&quot;text&#x2F;html; charset&#x3D;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;简单地图&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0, minimum-scale&#x3D;1.0, maximum-scale&#x3D;1.0, user-scalable&#x3D;no&quot;&#x2F;&gt;</span><br><span class="line">    &lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;</span><br><span class="line">        html,body&#123;</span><br><span class="line">            width:100%;</span><br><span class="line">            height:100%;</span><br><span class="line">        &#125;</span><br><span class="line">        *&#123;</span><br><span class="line">            margin:0px;</span><br><span class="line">            padding:0px;</span><br><span class="line">        &#125;</span><br><span class="line">        body, button, input, select, textarea &#123;</span><br><span class="line">            font: 12px&#x2F;16px Verdana, Helvetica, Arial, sans-serif;</span><br><span class="line">        &#125;</span><br><span class="line">        p&#123;</span><br><span class="line">            width:603px;</span><br><span class="line">            padding-top:3px;</span><br><span class="line">            overflow:hidden;</span><br><span class="line">        &#125;</span><br><span class="line">        .btn&#123;</span><br><span class="line">            width:142px;</span><br><span class="line">        &#125;</span><br><span class="line">        #container&#123;</span><br><span class="line">            min-width:600px;</span><br><span class="line">            min-height:767px;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">    &lt;script charset&#x3D;&quot;utf-8&quot; src&#x3D;&quot;https:&#x2F;&#x2F;map.qq.com&#x2F;api&#x2F;js?v&#x3D;2.exp&amp;key&#x3D;OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        window.onload &#x3D; function()&#123;</span><br><span class="line">&#x2F;&#x2F;直接加载地图</span><br><span class="line">            &#x2F;&#x2F;初始化地图函数  自定义函数名init</span><br><span class="line">            function init() &#123;</span><br><span class="line">                &#x2F;&#x2F;定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器</span><br><span class="line">                var map &#x3D; new qq.maps.Map(document.getElementById(&quot;container&quot;), &#123;</span><br><span class="line">                    center: new qq.maps.LatLng(39.916527,116.397128),      &#x2F;&#x2F; 地图的中心地理坐标。latitude 经度 Longitude 纬度</span><br><span class="line">                    zoom:8                                                 &#x2F;&#x2F; 设置缩放级别</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;调用初始化函数地图,可以写在body中 &lt;body onload&#x3D;&quot;init()&quot;&gt;</span><br><span class="line">            &#x2F;&#x2F; init();</span><br><span class="line"></span><br><span class="line">            &#x2F;*</span><br><span class="line">            * function init() &#123;</span><br><span class="line">                  var myLatlng &#x3D; new qq.maps.LatLng(-34.397, 150.644);</span><br><span class="line">                  var myOptions &#x3D; &#123;</span><br><span class="line">                    zoom: 8,</span><br><span class="line">                    center: myLatlng,</span><br><span class="line">                    mapTypeId: qq.maps.MapTypeId.ROADMAP</span><br><span class="line">                  &#125;</span><br><span class="line">                  var map &#x3D; new qq.maps.Map(document.getElementById(&quot;container&quot;), myOptions);</span><br><span class="line">              &#125;</span><br><span class="line">            * *&#x2F;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body onload&#x3D;&quot;init()&quot;&gt;</span><br><span class="line">&lt;!--   定义地图显示容器   --&gt;</span><br><span class="line">&lt;div id&#x3D;&quot;container&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="地图事件"><a href="#地图事件" class="headerlink" title="地图事件"></a>地图事件</h2><p>腾讯地图API具有事件接口，用户可以根据各自不同的需求添加不同的事件扩展。</p>
+<p>目前腾讯地图提供的事件类型有两类:</p>
+<ol>
+<li>用户事件（如“点击地图”鼠标事件）是从 DOM 传播到 腾讯 Maps API 中的。这些事件是独立的，并且与标准 DOM 事件不同。包括：<strong>单击事件(click)、双击事件(dblclick)、鼠标滑过事件(mouseover)、鼠标移动(mousemove)等</strong>；</li>
+<li>腾讯地图API特有的事件，MVC 状态更改通知反映了腾讯Maps API 对象中的更改，并以 property_changed 惯例命名。如：缩放级别更改事件(zoom_changed)、内容更改事件(content_changed)等。<h3 id="1、添加地图点击事件"><a href="#1、添加地图点击事件" class="headerlink" title="1、添加地图点击事件"></a>1、添加地图点击事件</h3></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var listener &#x3D; qq.maps.event.addListener(</span><br><span class="line">    map,</span><br><span class="line">    &#39;click&#39;,</span><br><span class="line">    function() &#123;</span><br><span class="line">        alert(&#39;您点击了地图。&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>使用qq.maps.event.addListener() 可以将事件绑定到某一个对象上，返回一个监听者对象。方法<strong>第一个参数为被绑定事件的对象，第二个参数为事件类型，第三个参数为事件的处理方法</strong>。</p>
+<h3 id="2、事件中获取参数"><a href="#2、事件中获取参数" class="headerlink" title="2、事件中获取参数"></a>2、事件中获取参数</h3><p>addListener() 在事件被触发时会将 DOM 事件对象传入事件的处理方法，并在<strong>事件对象中添加鼠标当前位置的地理坐标属性 LatLng</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">qq.maps.event.addListener(</span><br><span class="line">    map,</span><br><span class="line">    &#39;click&#39;,</span><br><span class="line">    function(event) &#123;</span><br><span class="line">        console.log(&#39;经度&#39;,event.latLng.lat,&#39; 纬度:&#39;,event.latLng.lng);</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、移除事件"><a href="#3、移除事件" class="headerlink" title="3、移除事件"></a>3、移除事件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var listener &#x3D; qq.maps.event.addListener(</span><br><span class="line">    map,</span><br><span class="line">    &#39;click&#39;,</span><br><span class="line">    function() &#123;</span><br><span class="line">        alert(&#39;您点击了地图。&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">&#x2F;&#x2F;移除 click 事件.</span><br><span class="line">qq.maps.event.removeListener(listener);</span><br></pre></td></tr></table></figure>
+
+<h2 id="地图控件"><a href="#地图控件" class="headerlink" title="地图控件"></a>地图控件</h2><p>腾讯地图API控件是用户与地图交互的 UI 元素。API提供多样的控件便于用户直接使用，并提供自定义控件 Control，最大限度满足用户需求。</p>
+<p>目前腾讯地图API中提供的控件有：</p>
+<ol>
+<li>导航控件</li>
+<li>比例尺控件</li>
+<li>自定义控件等<h3 id="1、向地图添加控件"><a href="#1、向地图添加控件" class="headerlink" title="1、向地图添加控件"></a>1、向地图添加控件</h3>在地图上添加一个比例尺控件，并将控件放置在地图的左下角，可在代码中添加如下内容：</li>
+</ol>
+<p><strong>添加比例尺控件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">map &#x3D; new qq.maps.Map(</span><br><span class="line">    document.getElementById(&quot;container&quot;),</span><br><span class="line">    &#123;</span><br><span class="line">        center: new qq.maps.LatLng(39.914850, 116.403765),</span><br><span class="line">        zoom: 13</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">var scaleControl &#x3D; new qq.maps.ScaleControl(&#123;</span><br><span class="line">    align: qq.maps.ALIGN.BOTTOM_LEFT,</span><br><span class="line">    margin: qq.maps.Size(85, 15),</span><br><span class="line">    map: map</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="地图覆盖物"><a href="#地图覆盖物" class="headerlink" title="地图覆盖物"></a>地图覆盖物</h2><p>覆盖物是指覆盖到地图上面的所有事物。覆盖物都有自己的地理属性，<strong>通过设置地理属性来控制覆盖物在地图中的显示位置</strong>。</p>
+<p>腾讯地图API中的主要包括的覆盖物有：</p>
+<ul>
+<li>标注</li>
+<li>折线</li>
+<li>多边形</li>
+<li>圆形</li>
+<li>信息窗口等</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据可视化框架总结/">数据可视化框架总结</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/webGL/">webGL</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E8%85%BE%E8%AE%AF%E5%9C%B0%E5%9B%BEJavaScript%20API%E8%B0%83%E7%94%A8/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+    <li><a href="/categories/数据可视化框架总结/">数据可视化框架总结</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/webGL/">webGL</a><small>8</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

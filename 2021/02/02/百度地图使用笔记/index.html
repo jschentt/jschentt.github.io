@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>百度地图使用笔记 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="百度地图使用笔记" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-百度地图使用笔记" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/百度地图使用笔记/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">百度地图使用笔记</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="地图级别控制"><a href="#地图级别控制" class="headerlink" title="地图级别控制"></a>地图级别控制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 百度地图API功能</span><br><span class="line">var map &#x3D; new BMap.Map(&quot;allmap&quot;, &#123;enableMapClick:false&#125;);&#x2F;&#x2F;构造底图时，关闭底图可点功能</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 初始化地图,设置中心点坐标(城市名)和地图级别</span><br><span class="line">map.centerAndZoom(&quot;上海&quot;,15);    </span><br><span class="line">map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 移动地图到中心点</span><br><span class="line">map.panTo(new BMap.Point(113.262232,23.154345));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 设置缩放级别</span><br><span class="line">map.setZoom(14);  </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 开启地图缩放</span><br><span class="line">map.enableScrollWheelZoom();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 可以拖拽</span><br><span class="line">marker.enableDragging();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 不可以拖拽</span><br><span class="line">marker.disableDragging();</span><br></pre></td></tr></table></figure>
+<h2 id="获取两点之间距离"><a href="#获取两点之间距离" class="headerlink" title="获取两点之间距离"></a>获取两点之间距离</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var pointA &#x3D; new BMap.Point(106.486654,29.490295);  &#x2F;&#x2F; 创建点坐标A--大渡口区</span><br><span class="line">var pointB &#x3D; new BMap.Point(106.581515,29.615467);  &#x2F;&#x2F; 创建点坐标B--江北区</span><br><span class="line">alert(&#39;从大渡口区到江北区的距离是：&#39;+(map.getDistance(pointA,pointB)).toFixed(2)+&#39; 米。&#39;);  &#x2F;&#x2F;获取两点距离</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加-图形，点，线，面-文字"><a href="#添加-图形，点，线，面-文字" class="headerlink" title="添加 图形，点，线，面 文字"></a>添加 图形，点，线，面 文字</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;  marker是随着地图缩放级别，尺寸变化的</span><br><span class="line">var marker &#x3D; new BMap.Marker(new BMap.Point(116.404, 39.915)); &#x2F;&#x2F; 创建点</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 折线</span><br><span class="line">var polyline &#x3D; new BMap.Polyline([</span><br><span class="line">new BMap.Point(116.399, 39.910),</span><br><span class="line">new BMap.Point(116.405, 39.920),</span><br><span class="line">new BMap.Point(116.425, 39.900)</span><br><span class="line">], &#123;strokeColor: &quot;blue&quot;, strokeWeight: 2, strokeOpacity: 0.5&#125;);   &#x2F;&#x2F;创建折线</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建圆</span><br><span class="line">var circle &#x3D; new BMap.Circle(</span><br><span class="line">point, 1500,</span><br><span class="line">&#123;strokeColor: &quot;blue&quot;,</span><br><span class="line">  fillColor: &quot;#ccc&quot;,</span><br><span class="line">  strokeWeight: 2,</span><br><span class="line">  strokeOpacity: 0.5,</span><br><span class="line">  fillOpacity: 0.7&#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 多边形</span><br><span class="line">var polygon &#x3D; new BMap.Polygon([</span><br><span class="line">new BMap.Point(116.387112, 39.920977),</span><br><span class="line">new BMap.Point(116.385243, 39.913063),</span><br><span class="line">new BMap.Point(116.394226, 39.917988),</span><br><span class="line">new BMap.Point(116.401772, 39.921364),</span><br><span class="line">new BMap.Point(116.41248, 39.927893)</span><br><span class="line">], &#123;strokeColor: &quot;blue&quot;, strokeWeight: 2, strokeOpacity: 0.5&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建矩形</span><br><span class="line">var pStart &#x3D; new BMap.Point(116.392214, 39.918985);</span><br><span class="line">var pEnd &#x3D; new BMap.Point(116.41478, 39.911901);</span><br><span class="line">var rectangle &#x3D; new BMap.Polygon([</span><br><span class="line">new BMap.Point(pStart.lng, pStart.lat),</span><br><span class="line">new BMap.Point(pEnd.lng, pStart.lat),</span><br><span class="line">new BMap.Point(pEnd.lng, pEnd.lat),</span><br><span class="line">new BMap.Point(pStart.lng, pEnd.lat)</span><br><span class="line">], &#123;strokeColor: &quot;blue&quot;, strokeWeight: 2, strokeOpacity: 0.5&#125;);  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 开启(关闭)点线面的编辑(可以拖拽，移动点)</span><br><span class="line">polygon.enableEditing()</span><br><span class="line">polygon.disableEditing()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 文字label</span><br><span class="line">var opts &#x3D; &#123;</span><br><span class="line">  position : new BMap.Point(116.417854,39.921988),    &#x2F;&#x2F; 指定文本标注所在的地理位置</span><br><span class="line">  offset   : new BMap.Size(30, -30)    &#x2F;&#x2F;设置文本偏移量</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var label &#x3D; new BMap.Label(&quot;欢迎使用百度地图，这是一个简单的文本标注哦~&quot;, opts);  &#x2F;&#x2F; 创建文本标注对象</span><br><span class="line">label.setStyle(&#123;</span><br><span class="line">  color : &quot;red&quot;,</span><br><span class="line">  fontSize : &quot;12px&quot;,</span><br><span class="line">  height : &quot;20px&quot;,</span><br><span class="line">  lineHeight : &quot;20px&quot;,</span><br><span class="line">  fontFamily:&quot;微软雅黑&quot;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 覆盖物显示，隐藏</span><br><span class="line">marker.show()</span><br><span class="line">marker.hide()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 添加覆盖物  </span><br><span class="line">map.addOverlay(marker);    </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 清除覆盖物</span><br><span class="line">map.clearOverlays();</span><br></pre></td></tr></table></figure>
+<h2 id="删除指定覆盖物"><a href="#删除指定覆盖物" class="headerlink" title="删除指定覆盖物"></a>删除指定覆盖物</h2><blockquote>
+<p>getOverlays方法可以获取 覆盖物数组，getLabel方法可以，获取他的label</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function deletePoint()&#123;</span><br><span class="line">        var allOverlay &#x3D; map.getOverlays();</span><br><span class="line">        for (var i &#x3D; 0; i &lt; allOverlay.length -1; i++)&#123;</span><br><span class="line">            if(allOverlay[i].getLabel().content &#x3D;&#x3D; &quot;我是id&#x3D;1&quot;)&#123;</span><br><span class="line">                map.removeOverlay(allOverlay[i]);</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="marker-自定义icon"><a href="#marker-自定义icon" class="headerlink" title="marker 自定义icon"></a>marker 自定义icon</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建小狐狸icon</span><br><span class="line">var pt &#x3D; new BMap.Point(116.417, 39.909);</span><br><span class="line">var myIcon &#x3D; new BMap.Icon(&quot;http:&#x2F;&#x2F;lbsyun.baidu.com&#x2F;jsdemo&#x2F;img&#x2F;fox.gif&quot;, new BMap.Size(300,157));</span><br><span class="line">var marker2 &#x3D; new BMap.Marker(pt,&#123;icon:myIcon&#125;);  &#x2F;&#x2F; 创建标注</span><br><span class="line">map.addOverlay(marker2);</span><br></pre></td></tr></table></figure>
+<h2 id="加载海量点"><a href="#加载海量点" class="headerlink" title="加载海量点"></a>加载海量点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; data source</span><br><span class="line">var data &#x3D; &#123;&quot;data&quot;:[[74.438,39.006,1]]&#125;</span><br><span class="line"></span><br><span class="line">if (document.createElement(&#39;canvas&#39;).getContext) &#123;  &#x2F;&#x2F; 判断当前浏览器是否支持绘制海量点</span><br><span class="line">    var points &#x3D; [];  &#x2F;&#x2F; 添加海量点数据</span><br><span class="line">    for (var i &#x3D; 0; i &lt; data.data.length; i++) &#123;</span><br><span class="line">      points.push(new BMap.Point(data.data[i][0], data.data[i][1]));</span><br><span class="line">    &#125;</span><br><span class="line">    var options &#x3D; &#123;</span><br><span class="line">        size: BMAP_POINT_SIZE_SMALL,</span><br><span class="line">        shape: BMAP_POINT_SHAPE_STAR,</span><br><span class="line">        color: &#39;#d340c3&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    var pointCollection &#x3D; new BMap.PointCollection(points, options);  &#x2F;&#x2F; 初始化PointCollection</span><br><span class="line">    pointCollection.addEventListener(&#39;click&#39;, function (e) &#123;</span><br><span class="line">      alert(&#39;单击点的坐标为：&#39; + e.point.lng + &#39;,&#39; + e.point.lat);  &#x2F;&#x2F; 监听点击事件</span><br><span class="line">    &#125;);</span><br><span class="line">    map.addOverlay(pointCollection);  &#x2F;&#x2F; 添加Overlay</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    alert(&#39;请在chrome、safari、IE8+以上浏览器查看本示例&#39;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="两点之间-画弧线-圆弧"><a href="#两点之间-画弧线-圆弧" class="headerlink" title="两点之间 画弧线 圆弧"></a>两点之间 画弧线 圆弧</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;  引入一个库</span><br><span class="line"> &lt;script type&#x3D;&quot;text&#x2F;javascript&quot; src&#x3D;&quot;http:&#x2F;&#x2F;api.map.baidu.com&#x2F;library&#x2F;CurveLine&#x2F;1.5&#x2F;src&#x2F;CurveLine.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">var points &#x3D; []</span><br><span class="line">points.push( new BMap.Point(116.432045,39.910683) )</span><br><span class="line">points.push( new BMap.Point(120.129721,30.314429) )</span><br><span class="line">points.push( new BMap.Point(121.491121,25.127053) )</span><br><span class="line">var curve &#x3D; new BMapLib.CurveLine(points, &#123;strokeColor:&quot;blue&quot;, strokeWeight:3, strokeOpacity:0.5&#125;); &#x2F;&#x2F;创建弧线对象</span><br><span class="line">map.addOverlay(curve); &#x2F;&#x2F;添加到地图中</span><br><span class="line">curve.enableEditing(); &#x2F;&#x2F;开启编辑功能</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;  centre:椭圆中心点,X:横向经度,Y:纵向纬度</span><br><span class="line">function add_oval(centre,x,y)&#123;</span><br><span class="line">  var assemble&#x3D; []</span><br><span class="line">  var angle;</span><br><span class="line">  var dot;</span><br><span class="line">  var tangent&#x3D;x&#x2F;y;</span><br><span class="line">  for(i&#x3D;0;i&lt;36;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    angle &#x3D; (2* Math.PI &#x2F; 36) * i;</span><br><span class="line">    dot &#x3D; new BMap.Point(centre.lng+Math.sin(angle)*y*tangent, centre.lat+Math.cos(angle)*y);</span><br><span class="line">    assemble.push(dot);</span><br><span class="line">  &#125;</span><br><span class="line">  return assemble;</span><br><span class="line">&#125;</span><br><span class="line">var oval &#x3D; new BMap.Polygon(add_oval(point,0.1,0.3), &#123;strokeColor:&quot;blue&quot;, strokeWeight:6, strokeOpacity:0.5&#125;);</span><br><span class="line">map.addOverlay(oval);</span><br></pre></td></tr></table></figure>
+<h2 id="画行政区"><a href="#画行政区" class="headerlink" title="画行政区"></a>画行政区</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function getBoundary()&#123;</span><br><span class="line">  var bdary &#x3D; new BMap.Boundary();</span><br><span class="line">  console.log(bdary)</span><br><span class="line">  bdary.get(&quot;上海市徐汇区&quot;, function(rs)&#123;       &#x2F;&#x2F;获取行政区域</span><br><span class="line">    map.clearOverlays();        &#x2F;&#x2F;清除地图覆盖物</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; rs.boundaries 是一个数组，每个元素，是地理位置的字符串 &quot;12,12;123,23&quot;</span><br><span class="line">    var count &#x3D; rs.boundaries.length;</span><br><span class="line">    if (count &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">      alert(&#39;未能获取当前输入行政区域&#39;);</span><br><span class="line">      return ;</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(rs.boundaries)</span><br><span class="line">    var pointArray &#x3D; [];</span><br><span class="line">    for (var i &#x3D; 0; i &lt; count; i++) &#123;</span><br><span class="line">      var ply &#x3D; new BMap.Polygon(rs.boundaries[i],</span><br><span class="line">        &#123;</span><br><span class="line">          strokeWeight: 2,</span><br><span class="line">          strokeColor: &quot;#ff0000&quot;,</span><br><span class="line">          fillColor: &#39;blue&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        ); &#x2F;&#x2F;建立多边形覆盖物</span><br><span class="line">      map.addOverlay(ply);  &#x2F;&#x2F;添加覆盖物</span><br><span class="line">      pointArray &#x3D; pointArray.concat(ply.getPath());</span><br><span class="line">      console.log(pointArray)</span><br><span class="line">    &#125;</span><br><span class="line">    map.setViewport(pointArray);    &#x2F;&#x2F;调整视野</span><br><span class="line">    addlabel();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义覆盖物"><a href="#自定义覆盖物" class="headerlink" title="自定义覆盖物"></a>自定义覆盖物</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 复杂的自定义覆盖物</span><br><span class="line">function ComplexCustomOverlay(point, text, mouseoverText)&#123;</span><br><span class="line">  this._point &#x3D; point;</span><br><span class="line">  this._text &#x3D; text;</span><br><span class="line">  this._overText &#x3D; mouseoverText;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ComplexCustomOverlay.prototype &#x3D; new BMap.Overlay();</span><br><span class="line">ComplexCustomOverlay.prototype.initialize &#x3D; function(map)&#123;</span><br><span class="line">  this._map &#x3D; map;</span><br><span class="line">  var div &#x3D; this._div &#x3D; document.createElement(&quot;div&quot;);</span><br><span class="line">  div.style.position &#x3D; &quot;absolute&quot;;</span><br><span class="line">  div.style.zIndex &#x3D; BMap.Overlay.getZIndex(this._point.lat);</span><br><span class="line">  div.style.backgroundColor &#x3D; &quot;#EE5D5B&quot;;</span><br><span class="line">  div.style.border &#x3D; &quot;1px solid #BC3B3A&quot;;</span><br><span class="line">  div.style.color &#x3D; &quot;white&quot;;</span><br><span class="line">  div.style.height &#x3D; &quot;18px&quot;;</span><br><span class="line">  div.style.padding &#x3D; &quot;2px&quot;;</span><br><span class="line">  div.style.lineHeight &#x3D; &quot;18px&quot;;</span><br><span class="line">  div.style.whiteSpace &#x3D; &quot;nowrap&quot;;</span><br><span class="line">  div.style.MozUserSelect &#x3D; &quot;none&quot;;</span><br><span class="line">  div.style.fontSize &#x3D; &quot;12px&quot;</span><br><span class="line">  var span &#x3D; this._span &#x3D; document.createElement(&quot;span&quot;);</span><br><span class="line">  div.appendChild(span);</span><br><span class="line">  span.appendChild(document.createTextNode(this._text));</span><br><span class="line">  var that &#x3D; this;</span><br><span class="line"></span><br><span class="line">  var arrow &#x3D; this._arrow &#x3D; document.createElement(&quot;div&quot;);</span><br><span class="line">  arrow.style.background &#x3D; &quot;url(http:&#x2F;&#x2F;map.baidu.com&#x2F;fwmap&#x2F;upload&#x2F;r&#x2F;map&#x2F;fwmap&#x2F;static&#x2F;house&#x2F;images&#x2F;label.png) no-repeat&quot;;</span><br><span class="line">  arrow.style.position &#x3D; &quot;absolute&quot;;</span><br><span class="line">  arrow.style.width &#x3D; &quot;11px&quot;;</span><br><span class="line">  arrow.style.height &#x3D; &quot;10px&quot;;</span><br><span class="line">  arrow.style.top &#x3D; &quot;22px&quot;;</span><br><span class="line">  arrow.style.left &#x3D; &quot;10px&quot;;</span><br><span class="line">  arrow.style.overflow &#x3D; &quot;hidden&quot;;</span><br><span class="line">  div.appendChild(arrow);</span><br><span class="line"></span><br><span class="line">  div.onmouseover &#x3D; function()&#123;</span><br><span class="line">    this.style.backgroundColor &#x3D; &quot;#6BADCA&quot;;</span><br><span class="line">    this.style.borderColor &#x3D; &quot;#0000ff&quot;;</span><br><span class="line">    this.getElementsByTagName(&quot;span&quot;)[0].innerHTML &#x3D; that._overText;</span><br><span class="line">    arrow.style.backgroundPosition &#x3D; &quot;0px -20px&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  div.onmouseout &#x3D; function()&#123;</span><br><span class="line">    this.style.backgroundColor &#x3D; &quot;#EE5D5B&quot;;</span><br><span class="line">    this.style.borderColor &#x3D; &quot;#BC3B3A&quot;;</span><br><span class="line">    this.getElementsByTagName(&quot;span&quot;)[0].innerHTML &#x3D; that._text;</span><br><span class="line">    arrow.style.backgroundPosition &#x3D; &quot;0px 0px&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  mp.getPanes().labelPane.appendChild(div);</span><br><span class="line"></span><br><span class="line">  return div;</span><br><span class="line">&#125;</span><br><span class="line">ComplexCustomOverlay.prototype.draw &#x3D; function()&#123;</span><br><span class="line">  var map &#x3D; this._map;</span><br><span class="line">  var pixel &#x3D; map.pointToOverlayPixel(this._point);</span><br><span class="line">  this._div.style.left &#x3D; pixel.x - parseInt(this._arrow.style.left) + &quot;px&quot;;</span><br><span class="line">  this._div.style.top  &#x3D; pixel.y - 30 + &quot;px&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var txt &#x3D; &quot;银湖海岸城&quot;, mouseoverTxt &#x3D; txt + &quot; &quot; + parseInt(Math.random() * 1000,10) + &quot;套&quot; ;</span><br><span class="line"></span><br><span class="line">var myCompOverlay &#x3D; new ComplexCustomOverlay(new BMap.Point(116.407845,39.914101), &quot;银湖海岸城&quot;,mouseoverTxt);</span><br><span class="line"></span><br><span class="line">mp.addOverlay(myCompOverlay);</span><br></pre></td></tr></table></figure>
+<h2 id="点聚合-放大缩小"><a href="#点聚合-放大缩小" class="headerlink" title="点聚合(放大缩小)"></a>点聚合(放大缩小)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot; src&#x3D;&quot;http:&#x2F;&#x2F;api.map.baidu.com&#x2F;library&#x2F;TextIconOverlay&#x2F;1.2&#x2F;src&#x2F;TextIconOverlay_min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot; src&#x3D;&quot;http:&#x2F;&#x2F;api.map.baidu.com&#x2F;library&#x2F;MarkerClusterer&#x2F;1.2&#x2F;src&#x2F;MarkerClusterer_min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; markers 是一个marker数组</span><br><span class="line">var markerClusterer &#x3D; new BMapLib.MarkerClusterer(map, &#123;markers:markers&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="矢量图-图标"><a href="#矢量图-图标" class="headerlink" title="矢量图 图标"></a>矢量图 图标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var vectorFCArrow &#x3D; new BMap.Marker(new BMap.Point(point.lng-0.01,point.lat), &#123;</span><br><span class="line">  &#x2F;&#x2F; 初始化方向向上的闭合箭头</span><br><span class="line">  icon: new BMap.Symbol(BMap_Symbol_SHAPE_FORWARD_CLOSED_ARROW, &#123;</span><br><span class="line">    scale: 5,</span><br><span class="line">    strokeWeight: 1,</span><br><span class="line">    rotation: 0,&#x2F;&#x2F;顺时针旋转30度</span><br><span class="line">    fillColor: &#39;red&#39;,</span><br><span class="line">    fillOpacity: 0.8</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var vectorStar &#x3D; new BMap.Marker(new BMap.Point(point.lng+0.03,point.lat-0.03), &#123;</span><br><span class="line">  &#x2F;&#x2F; 初始化五角星symbol</span><br><span class="line">  icon: new BMap.Symbol(BMap_Symbol_SHAPE_STAR, &#123;</span><br><span class="line">    scale: 5,</span><br><span class="line">    fillColor: &quot;pink&quot;,</span><br><span class="line">    fillOpacity: 0.8</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="信息弹窗"><a href="#信息弹窗" class="headerlink" title="信息弹窗"></a>信息弹窗</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var infoWindow &#x3D; new BMap.InfoWindow(&quot;地址：北京市东城区王府井大街88号乐天银泰百货八层&quot;, &#123;</span><br><span class="line">  width : 200,     &#x2F;&#x2F; 信息窗口宽度</span><br><span class="line">  height: 100,     &#x2F;&#x2F; 信息窗口高度</span><br><span class="line">  title : &quot;海底捞王府井店&quot; , &#x2F;&#x2F; 信息窗口标题</span><br><span class="line">  enableMessage:true,&#x2F;&#x2F;设置允许信息窗发送短息</span><br><span class="line">  message:&quot;亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~&quot;</span><br><span class="line">&#125;);  </span><br><span class="line">marker.addEventListener(&quot;click&quot;, function()&#123;</span><br><span class="line">  map.openInfoWindow(infoWindow,point); &#x2F;&#x2F;开启信息窗口</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="鼠标右键"><a href="#鼠标右键" class="headerlink" title="鼠标右键"></a>鼠标右键</h2><blockquote>
+<p>除了地图，marker也支持加右键</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var menu &#x3D; new BMap.ContextMenu();</span><br><span class="line">var txtMenuItem &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">        text:&#39;放大&#39;,</span><br><span class="line">        callback:function()&#123;map.zoomIn()&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        text:&#39;缩小&#39;,</span><br><span class="line">        callback:function()&#123;map.zoomOut()&#125;</span><br><span class="line">    &#125;</span><br><span class="line">];</span><br><span class="line">for(var i&#x3D;0; i &lt; txtMenuItem.length; i++)&#123;</span><br><span class="line">    menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));</span><br><span class="line">&#125;</span><br><span class="line">map.addContextMenu(menu);</span><br></pre></td></tr></table></figure>
+<h2 id="鼠标测距"><a href="#鼠标测距" class="headerlink" title="鼠标测距"></a>鼠标测距</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;  引入插件</span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot; src&#x3D;&quot;http:&#x2F;&#x2F;api.map.baidu.com&#x2F;library&#x2F;DistanceTool&#x2F;1.2&#x2F;src&#x2F;DistanceTool_min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var myDis &#x3D; new BMapLib.DistanceTool(map);</span><br><span class="line">map.addEventListener(&quot;load&quot;,function()&#123;</span><br><span class="line">  myDis.open();  &#x2F;&#x2F;开启鼠标测距</span><br><span class="line">  &#x2F;&#x2F;myDis.close();  &#x2F;&#x2F;关闭鼠标测距大</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 获取点击点坐标</span><br><span class="line">map.addEventListener(&quot;click&quot;,function(e)&#123;</span><br><span class="line">  alert(e.point.lng + &quot;,&quot; + e.point.lat);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="带箭头的line"><a href="#带箭头的line" class="headerlink" title="带箭头的line"></a>带箭头的line</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">  &#x2F;**</span><br><span class="line">   * 变量定义：pixelStart： 线的一端屏幕坐标，pixelEnd：线的箭头端屏幕坐标；r：选取多长距离绘制箭头（单位像素，并不是CB对应的箭头的长度，而是红色线段对应的距离）；angle：箭头线（CB或者DB）与AB的夹角。</span><br><span class="line">   1) 首先要将AB两点的经纬度坐标转换成屏幕坐标。</span><br><span class="line">   2) 然后根据AB两点屏幕坐标以及r长度，计算绿色小绿点的屏幕坐标pixelTem。</span><br><span class="line">   3) 然后根据B点、小绿点的屏幕坐标及angle角度，计算出C,D两点的屏幕坐标。</span><br><span class="line">   4) 利用map的坐标转换方法，将C,D两点的屏幕坐标转成经纬度表示的坐标。</span><br><span class="line">   5) 利用画线方法，绘制CBD多折线。</span><br><span class="line">   *&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export function drawArrow(map, points) &#123;</span><br><span class="line">  let polyline &#x3D; new BMap.Polyline(</span><br><span class="line">    points, &#123;strokeColor: &quot;white&quot;, strokeWeight: 3&#125;);</span><br><span class="line">  map.addOverlay(polyline);</span><br><span class="line"></span><br><span class="line">  addArrow(polyline, 10, Math.PI &#x2F; 7);</span><br><span class="line"></span><br><span class="line">  function addArrow(polyline, length, angleValue) &#123; &#x2F;&#x2F;绘制箭头的函数</span><br><span class="line">    let linePoint &#x3D; polyline.getPath();&#x2F;&#x2F;线的坐标串</span><br><span class="line">    console.log(linePoint);</span><br><span class="line">    let arrowCount &#x3D; linePoint.length;</span><br><span class="line">    for (let i &#x3D; 1; i &lt; arrowCount; i++) &#123; &#x2F;&#x2F;在拐点处绘制箭头</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; pointToPixel 经纬度坐标转换为像素坐标</span><br><span class="line">      let pixelStart &#x3D; map.pointToPixel(linePoint[i - 1]);</span><br><span class="line"></span><br><span class="line">      let pixelEnd &#x3D; map.pointToPixel(linePoint[i]);</span><br><span class="line">      let angle &#x3D; angleValue;&#x2F;&#x2F;箭头和主线的夹角</span><br><span class="line">      let r &#x3D; length; &#x2F;&#x2F; r&#x2F;Math.sin(angle)代表箭头长度</span><br><span class="line">      let delta &#x3D; 0; &#x2F;&#x2F;主线斜率，垂直时无斜率</span><br><span class="line">      let param &#x3D; 0; &#x2F;&#x2F;代码简洁考虑</span><br><span class="line">      let pixelTemX, pixelTemY;&#x2F;&#x2F;临时点坐标</span><br><span class="line">      let pixelX, pixelY, pixelX1, pixelY1;&#x2F;&#x2F;箭头两个点</span><br><span class="line">      if (pixelEnd.x - pixelStart.x &#x3D;&#x3D; 0) &#123; &#x2F;&#x2F;斜率不存在时</span><br><span class="line">        pixelTemX &#x3D; pixelEnd.x;</span><br><span class="line">        if (pixelEnd.y &gt; pixelStart.y) &#123;</span><br><span class="line">          pixelTemY &#x3D; pixelEnd.y - r;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          pixelTemY &#x3D; pixelEnd.y + r;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;已知直角三角形两个点坐标及其中一个角，求另外一个点坐标算法</span><br><span class="line">        pixelX &#x3D; pixelTemX - r * Math.tan(angle);</span><br><span class="line">        pixelX1 &#x3D; pixelTemX + r * Math.tan(angle);</span><br><span class="line">        pixelY &#x3D; pixelY1 &#x3D; pixelTemY;</span><br><span class="line">      &#125; else  &#x2F;&#x2F;斜率存在时</span><br><span class="line">      &#123;</span><br><span class="line">        delta &#x3D; (pixelEnd.y - pixelStart.y) &#x2F; (pixelEnd.x - pixelStart.x);</span><br><span class="line">        param &#x3D; Math.sqrt(delta * delta + 1);</span><br><span class="line"></span><br><span class="line">        if ((pixelEnd.x - pixelStart.x) &lt; 0) &#x2F;&#x2F;第二、三象限</span><br><span class="line">        &#123;</span><br><span class="line">          pixelTemX &#x3D; pixelEnd.x + r &#x2F; param;</span><br><span class="line">          pixelTemY &#x3D; pixelEnd.y + delta * r &#x2F; param;</span><br><span class="line">        &#125; else&#x2F;&#x2F;第一、四象限</span><br><span class="line">        &#123;</span><br><span class="line">          pixelTemX &#x3D; pixelEnd.x - r &#x2F; param;</span><br><span class="line">          pixelTemY &#x3D; pixelEnd.y - delta * r &#x2F; param;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;已知直角三角形两个点坐标及其中一个角，求另外一个点坐标算法</span><br><span class="line">        pixelX &#x3D; pixelTemX + Math.tan(angle) * r * delta &#x2F; param;</span><br><span class="line">        pixelY &#x3D; pixelTemY - Math.tan(angle) * r &#x2F; param;</span><br><span class="line"></span><br><span class="line">        pixelX1 &#x3D; pixelTemX - Math.tan(angle) * r * delta &#x2F; param;</span><br><span class="line">        pixelY1 &#x3D; pixelTemY + Math.tan(angle) * r &#x2F; param;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      let pointArrow &#x3D; map.pixelToPoint(new BMap.Pixel(pixelX, pixelY));</span><br><span class="line">      let pointArrow1 &#x3D; map.pixelToPoint(new BMap.Pixel(pixelX1, pixelY1));</span><br><span class="line">      let Arrow &#x3D; new BMap.Polyline([</span><br><span class="line">        pointArrow,</span><br><span class="line">        linePoint[i],</span><br><span class="line">        pointArrow1</span><br><span class="line">      ], &#123;strokeColor: &quot;white&quot;, strokeWeight: 3&#125;);</span><br><span class="line">      map.addOverlay(Arrow);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据可视化框架总结/">数据可视化框架总结</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/webGL/">webGL</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+    <li><a href="/categories/数据可视化框架总结/">数据可视化框架总结</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/webGL/">webGL</a><small>8</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
