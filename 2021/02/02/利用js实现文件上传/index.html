@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>利用js实现文件上传 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="利用js实现文件上传" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-利用js实现文件上传" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/利用js实现文件上传/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">利用js实现文件上传</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、前端HTML部分"><a href="#一、前端HTML部分" class="headerlink" title="一、前端HTML部分"></a>一、前端HTML部分</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&#39;main&#39;&gt;</span><br><span class="line">	&lt;input type&#x3D;&#39;file&#39; class&#x3D;&#39;filebutton&#39; style&#x3D;&#39;display:none&#39; οnchange&#x3D;&#39;fileSelected()&#39;  &#x2F;&gt; &lt;br&gt;</span><br><span class="line">	&lt;button class&#x3D;&quot;upload&quot; οnclick&#x3D;&#39;openFileDialog()&#39; &gt; 选择文件上传 &lt;&#x2F;button&gt;</span><br><span class="line">	&lt;div class&#x3D;&quot;img&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="二、js部分"><a href="#二、js部分" class="headerlink" title="二、js部分"></a>二、js部分</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;点击普通按钮,打开文件选择框</span><br><span class="line">function openFileDialog()</span><br><span class="line">&#123;</span><br><span class="line">	$(&quot;.filebutton&quot;).click();</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;选择一个文件时onchange事件被触发</span><br><span class="line">function fileSelected()</span><br><span class="line">&#123;</span><br><span class="line">	var fbutton &#x3D; $(&quot;.filebutton&quot;)[0];&#x2F;&#x2F;dom元素</span><br><span class="line">	&#x2F;&#x2F;读取文件</span><br><span class="line">	var reader &#x3D; new FileReader();</span><br><span class="line">	reader.onload &#x3D; function(e)</span><br><span class="line">	&#123;</span><br><span class="line">		var dataURL &#x3D; e.target.result;&#x2F;&#x2F;&#39;data:image&#x2F;jpeg;base64,&#x2F;9j&#x2F;4AAQSk...(base64编码)...&#39;   </span><br><span class="line">		&#x2F;&#x2F;alert(data);</span><br><span class="line">		var htmlImg &#x3D; &quot;&lt;img src &#x3D; &#39;&quot; + dataURL + &quot;&#39;&#x2F;&gt;&quot;;</span><br><span class="line">    	$(&quot;.img&quot;).html(htmlImg);</span><br><span class="line">	&#125;</span><br><span class="line">	var file &#x3D; fbutton.files[0];</span><br><span class="line">	reader.readAsDataURL(file);</span><br><span class="line"></span><br><span class="line">	startFileUpload(file);	    	</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;开始上传</span><br><span class="line">function startFileUpload(file)</span><br><span class="line">&#123;</span><br><span class="line">	var uploadURL &#x3D; &quot;FileUploadServer&quot;;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;手工构造一个form对象</span><br><span class="line">	var formData &#x3D; new FormData();</span><br><span class="line">	formData.append(&quot;file&quot; , file);&#x2F;&#x2F; &#39;file&#39; 为HTTP Post里的字段名, file 对浏览器里的File对象</span><br><span class="line">	&#x2F;&#x2F;手工构造一个请求对象，用这个对象发送表单数据</span><br><span class="line">	&#x2F;&#x2F;设置 progress, load, error, abort 4个事件处理器</span><br><span class="line">	var request &#x3D; new XMLHttpRequest();</span><br><span class="line">	request.upload.addEventListener(&quot;progress&quot; , window.evt_upload_progress , false);</span><br><span class="line">    request.addEventListener(&quot;load&quot;, window.evt_upload_complete, false);</span><br><span class="line">    request.addEventListener(&quot;error&quot;, window.evt_upload_failed, false);</span><br><span class="line">    request.addEventListener(&quot;abort&quot;, window.evt_upload_cancel, false);			</span><br><span class="line">	request.open(&quot;POST&quot;, uploadURL ); &#x2F;&#x2F; 设置服务URL</span><br><span class="line">    request.send(formData);  &#x2F;&#x2F; 发送表单数据</span><br><span class="line">&#125;</span><br><span class="line">window.evt_upload_progress &#x3D; function(evt)</span><br><span class="line">&#123;</span><br><span class="line">	if(evt.lengthComputable)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		var progress &#x3D; Math.round(evt.loaded * 100 &#x2F; evt.total);</span><br><span class="line">		console.log(&quot;上传进度&quot; + progress);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">window.evt_upload_complete &#x3D; function (evt)</span><br><span class="line">&#123;</span><br><span class="line">	if(evt.loaded &#x3D;&#x3D; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		console.log (&quot;上传失败!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		console.log (&quot;上传完成!&quot;);</span><br><span class="line">    	var response &#x3D; JSON.parse(evt.target.responseText);</span><br><span class="line">    	console.log (response);</span><br><span class="line">	&#125;			</span><br><span class="line">&#125;;		 </span><br><span class="line">window.evt_upload_failed &#x3D; function (evt)</span><br><span class="line">&#123;			</span><br><span class="line">	console.log  (&quot;上传出错&quot;);</span><br><span class="line">&#125;;</span><br><span class="line">window.evt_upload_cancel &#x3D; function (evt)</span><br><span class="line">&#123;</span><br><span class="line">	console.log( &quot;上传中止!&quot;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="三、后端部分，需要两个jar包的支持，他们分别是：commons-fileupload-1-3-1-jar-commons-io-2-4-jar"><a href="#三、后端部分，需要两个jar包的支持，他们分别是：commons-fileupload-1-3-1-jar-commons-io-2-4-jar" class="headerlink" title="三、后端部分，需要两个jar包的支持，他们分别是：commons-fileupload-1.3.1.jar   commons-io-2.4.jar"></a>三、后端部分，需要两个jar包的支持，他们分别是：<code>commons-fileupload-1.3.1.jar</code>   <code>commons-io-2.4.jar</code></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line">package my.fileUpload;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.UUID;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.fileupload.FileItemIterator;</span><br><span class="line">import org.apache.commons.fileupload.FileItemStream;</span><br><span class="line">import org.apache.commons.fileupload.servlet.ServletFileUpload;</span><br><span class="line">import org.apache.commons.fileupload.util.Streams;</span><br><span class="line">import org.json.JSONObject;</span><br><span class="line"></span><br><span class="line">public class FileUploadServer extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">	File tmpDir;&#x2F;&#x2F;文件保存的临时目录</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void init() throws ServletException &#123;</span><br><span class="line">		System.out.println(&quot;初始化&quot;);</span><br><span class="line">	   File webRoot &#x3D; new File(getServletContext().getRealPath(&quot;&#x2F;&quot;));</span><br><span class="line">	   tmpDir &#x3D; new File(webRoot , &quot;upload&quot;);</span><br><span class="line">	   if(!tmpDir.exists()) tmpDir.mkdirs();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		doPost(request , response);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void doPost(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		System.out.println(&quot;进入&quot;);</span><br><span class="line">		int error &#x3D; 0;</span><br><span class="line">		String reason &#x3D; &quot;OK&quot;;</span><br><span class="line">		String data &#x3D; null;</span><br><span class="line">		try &#123;</span><br><span class="line">			 data &#x3D; doUpload(request , response);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			error &#x3D; -1;</span><br><span class="line">			reason &#x3D; e.getMessage();</span><br><span class="line">			&#x2F;&#x2F; TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		JSONObject jreq &#x3D; new JSONObject();</span><br><span class="line">		jreq.put(&quot;error&quot;, error);</span><br><span class="line">		jreq.put(&quot;reason&quot;, reason);</span><br><span class="line">		if(data !&#x3D; null) jreq.put(&quot;data&quot;, data);</span><br><span class="line">		response.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">		response.setContentType(&quot;text&#x2F;plain&quot;);</span><br><span class="line">		PrintWriter out &#x3D; response.getWriter();</span><br><span class="line">		out.write(jreq.toString(2));</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private String doUpload(HttpServletRequest request, HttpServletResponse response) throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		String result &#x3D; null;</span><br><span class="line">		boolean isMultipart &#x3D; ServletFileUpload.isMultipartContent(request);</span><br><span class="line">		if(!isMultipart)</span><br><span class="line">			throw new Exception(&quot;请求编码必须为: multipart&#x2F;form-data !&quot;);</span><br><span class="line">		request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">		ServletFileUpload upload &#x3D; new ServletFileUpload();</span><br><span class="line">		FileItemIterator iter &#x3D; upload.getItemIterator(request);</span><br><span class="line">		while(iter.hasNext())</span><br><span class="line">		&#123;</span><br><span class="line">			&#x2F;&#x2F;表单域</span><br><span class="line">			FileItemStream item &#x3D; iter.next();</span><br><span class="line">			String fieldName &#x3D; item.getFieldName();</span><br><span class="line">			InputStream fieldStream &#x3D; item.openStream();</span><br><span class="line">			if(item.isFormField())</span><br><span class="line">			&#123;</span><br><span class="line">				&#x2F;&#x2F;普通表单域直接读取</span><br><span class="line">				String fieldValue &#x3D; Streams.asString(fieldStream , &quot;utf-8&quot;);</span><br><span class="line">				System.out.println(&quot;表单域:&quot; + fieldName + &quot;&#x3D;&quot; + fieldValue);				</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				String realName &#x3D; item.getName();&#x2F;&#x2F;原始文件名</span><br><span class="line">				&#x2F;&#x2F;文件的后缀名</span><br><span class="line">				String suffix &#x3D; realName.substring(realName.lastIndexOf(&quot;.&quot;)+1);</span><br><span class="line">				System.out.println(&quot;文件名：&quot; + realName + &quot;.....&quot; + &quot;后缀名：&quot; + suffix);</span><br><span class="line"></span><br><span class="line">				&#x2F;&#x2F;创建已个临时文件名</span><br><span class="line">				String s &#x3D; UUID.randomUUID().toString();</span><br><span class="line">				String s2 &#x3D; s.substring(0,8)+s.substring(9,13)+s.substring(14,18)+s.substring(19,23)+s.substring(24);</span><br><span class="line">				s2 &#x3D; s2.toUpperCase();</span><br><span class="line">				SimpleDateFormat sdf &#x3D; new SimpleDateFormat(&quot;yyyyMMdd-HHmmss&quot;);</span><br><span class="line">				String dateStr &#x3D; sdf.format(new Date());</span><br><span class="line">				String fileName &#x3D; dateStr +&quot;-&quot; + s2 + &quot;.&quot; + suffix;</span><br><span class="line">				result &#x3D; fileName;</span><br><span class="line">				System.out.println(&quot;文件名：&quot; + fileName);</span><br><span class="line">				File file &#x3D; new File(tmpDir , fileName);</span><br><span class="line">				long fileSsize &#x3D; 0;&#x2F;&#x2F;文件大小</span><br><span class="line">				System.out.println(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;文件开始上传&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);</span><br><span class="line">				&#x2F;&#x2F;从FieldStream读取数据，保存到目标文件</span><br><span class="line">				file.getParentFile().mkdirs();</span><br><span class="line">				FileOutputStream fileStream &#x3D; new FileOutputStream(file);</span><br><span class="line">				try</span><br><span class="line">				&#123;</span><br><span class="line">					byte[] buf &#x3D; new byte[1024];</span><br><span class="line">					while(true)</span><br><span class="line">					&#123;</span><br><span class="line">						int n &#x3D; fieldStream.read(buf);</span><br><span class="line">						if(n &lt; 0) break;</span><br><span class="line">						if(n &#x3D;&#x3D; 0) continue;</span><br><span class="line">						fileStream.write(buf, 0, n);</span><br><span class="line"></span><br><span class="line">						fileSsize +&#x3D; n;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;finally</span><br><span class="line">				&#123;</span><br><span class="line">					fileStream.close();</span><br><span class="line">					fieldStream.close();</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.println(&quot;上传完成！&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端易混知识点/">前端易混知识点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/易混知识点/">易混知识点</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E5%88%A9%E7%94%A8js%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

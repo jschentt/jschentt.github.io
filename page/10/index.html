@@ -1,0 +1,947 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Page 10 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-merge和rebase的区别" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/merge和rebase的区别/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/merge和rebase的区别/">merge和rebase的区别</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我从用git就一直用rebase，但是新的公司需要用merge命令，我不是很明白，所以查了一些资料，总结了下面的内容，如果有什么不妥的地方，还望指正，我一定虚心学习。</p>
+<h2 id="merge和rebase"><a href="#merge和rebase" class="headerlink" title="merge和rebase"></a>merge和rebase</h2><p>标题上的两个命令：merge和rebase都是用来合并分支的。</p>
+<p><strong>这里不解释rebase命令，以及两个命令的原理</strong>，详细解释参考<a href="http://gitbook.liuhui998.com/4_2.html" target="_blank" rel="noopener">这里</a>。</p>
+<p>下面的内容主要说的是两者在实际操作中的区别。</p>
+<h2 id="什么是分支"><a href="#什么是分支" class="headerlink" title="什么是分支"></a>什么是分支</h2><p>分支就是便于多人在同一项目中的协作开发。比方说：每个人开发不同的功能，在各自的分支开发过程中互不影响，完成后都提交到develop分支。极大的提高了开发的效率。</p>
+<h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><p>每个人创建一个分支进行开发，当开发完成，需要合并到develop分支的时候，就需要用到合并的命令。</p>
+<h2 id="什么是冲突"><a href="#什么是冲突" class="headerlink" title="什么是冲突"></a>什么是冲突</h2><p>合并的时候，有可能会产生冲突。</p>
+<p>冲突的产生是因为在合并的时候，不同分支修改了相同的位置。所以在合并的时候git不知道那个到底是你想保留的，所以就提出疑问（冲突提醒）让你自己手动选择想要保留的内容，从而解决冲突。</p>
+<h2 id="merge和rebase的区别"><a href="#merge和rebase的区别" class="headerlink" title="merge和rebase的区别"></a>merge和rebase的区别</h2><ol>
+<li>采用merge和rebase后，git log的区别，<strong>merge命令不会保留merge的分支的commit</strong>：</li>
+<li><img src="https://images2015.cnblogs.com/blog/759200/201608/759200-20160806092734215-279978821.png" alt="image"></li>
+</ol>
+<p>处理冲突的方式：</p>
+<ul>
+<li>（一股脑）使用<code>merge</code>命令合并分支，解决完冲突，执行<code>git add .</code>和<code>git commit -m&#39;fix conflict</code>‘。这个时候会产生一个commit。</li>
+<li>（交互式）使用rebase命令合并分支，解决完冲突，执行<code>git add .</code>和<code>git rebase --continue</code>，不会产生额外的commit。这样的好处是，‘干净’，分支上不会有无意义的解决分支的commit；坏处，如果合并的分支中存在多个commit，需要重复处理多次冲突。</li>
+</ul>
+<ol start="3">
+<li><code>git pull</code>和<code>git pull --rebase</code>区别：<code>git pull</code>做了两个操作分别是‘获取’和合并。所以加了rebase就是以rebase的方式进行合并分支，默认为merge。</li>
+</ol>
+<h2 id="git-merge-和-git-merge-no-ff的区别"><a href="#git-merge-和-git-merge-no-ff的区别" class="headerlink" title="git merge 和 git merge --no-ff的区别"></a><code>git merge</code> 和 <code>git merge --no-ff</code>的区别</h2><p>1、我自己尝试merge命令后，发现：merge时并没有产生一个commit。不是说merge时会产生一个merge commit吗？</p>
+<p>注意：只有在冲突的时候，解决完冲突才会自动产生一个commit。</p>
+<p>如果想在没有冲突的情况下也自动生成一个commit，记录此次合并就可以用：git merge –no-ff命令，下面用一张图来表示两者的区别：</p>
+<p><img src="https://images2015.cnblogs.com/blog/759200/201608/759200-20160806092744747-1816899042.png" alt="image"></p>
+<p>2、如果不加 –no-ff 则被合并的分支之前的commit都会被抹去，只会保留一个解决冲突后的 merge commit。</p>
+<h2 id="如何选择合并分支的方式"><a href="#如何选择合并分支的方式" class="headerlink" title="如何选择合并分支的方式"></a>如何选择合并分支的方式</h2><p>我的理解：主要是看哪个命令用的熟练，能够有效的管理自己的代码；还有就是团队用的是哪种方式。</p>
+<p>我对于rebase比较熟悉，所以我一般都用<code>rebase</code>，但是现在的公司用的是<code>merge --no-ff</code>命令合并分支。所以，我在工作上就用merge，个人项目就用rebase。</p>
+<p>也可以两者结合：</p>
+<p>获取远程项目中最新代码时：<code>git pull --rebase</code>，这个是隐性的合并远程分支的代码不会产生额外的commit（但是如果存在冲突的commit太多就像上面说的，需要处理很多遍冲突）。</p>
+<p>合并到分支的时候：<code>git merge --no-ff</code>，自动一个<code>merge commit</code>，便于管理（这看管理人员怎么认为了）</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>看懂上面的两幅图就行了。</p>
+<ol>
+<li>commit log的区别</li>
+<li>处理冲突的方式</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-react实现路由懒加载（异步组件）" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/react实现路由懒加载（异步组件）/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/react实现路由懒加载（异步组件）/">react实现路由懒加载（异步组件）</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p><strong>正如标题，react项目在打包完成后发现chunk.js文件比较大，导致打开首页需要时间比较久，因此，需要进行优化。<br>其实仔细考虑一下不难发现，由于打包后将所有资源都打包到了一个chunk.js下，导致所有资源都一起加载了，所以，进入页面会很慢。咱们的预期目标是进入首页只加载首页的资源，进入详情页至加载详情页的资源。那么，react-loadable是你不错的选择。</strong></p>
+<h2 id="1、首先，要想使用它需要先安装它。"><a href="#1、首先，要想使用它需要先安装它。" class="headerlink" title="1、首先，要想使用它需要先安装它。"></a>1、首先，要想使用它需要先安装它。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn add react-loadable</span><br><span class="line">yarn add babel-plugin-syntax-dynamic-import</span><br></pre></td></tr></table></figure>
+
+
+<p>根据npm官网找到react-loadable完成配置，当然我为了以后方便使用对react-loadable进行了封装。</p>
+<h2 id="2-其次，在utils文件夹下新建loadable-js文件，配置如下："><a href="#2-其次，在utils文件夹下新建loadable-js文件，配置如下：" class="headerlink" title="2 其次，在utils文件夹下新建loadable.js文件，配置如下："></a>2 其次，在utils文件夹下新建loadable.js文件，配置如下：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import React from &quot;react&quot;;</span><br><span class="line">import &#123; Spin &#125; from &#39;antd&#39;;</span><br><span class="line">import Loadable from &quot;react-loadable&quot;;</span><br><span class="line"></span><br><span class="line">import &#39;.&#x2F;index.less&#39;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 加载动画</span><br><span class="line">const loadingComponent &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  return &lt;div className&#x3D;&#123;&#39;spin-loading&#39;&#125;&gt;</span><br><span class="line">    &lt;div&gt;&lt;Spin size&#x3D;&quot;large&quot; &#x2F;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 当不传加载动画时候使用默认的加载动画</span><br><span class="line">export default (loader, loading &#x3D; loadingComponent) &#x3D;&gt; &#123;</span><br><span class="line">  return Loadable(&#123;</span><br><span class="line">    loader,</span><br><span class="line">    loading,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、在index-js文件里配置路由时候就可以使用如下方式进行懒加载处理"><a href="#3、在index-js文件里配置路由时候就可以使用如下方式进行懒加载处理" class="headerlink" title="3、在index.js文件里配置路由时候就可以使用如下方式进行懒加载处理"></a>3、在index.js文件里配置路由时候就可以使用如下方式进行懒加载处理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import React from &quot;react&quot;;</span><br><span class="line">import ReactDOM from &quot;react-dom&quot;;</span><br><span class="line">import &quot;.&#x2F;index.css&quot;;</span><br><span class="line">import * as serviceWorker from &quot;.&#x2F;serviceWorker&quot;;</span><br><span class="line">import &#123; BrowserRouter as Router, Route &#125; from &quot;react-router-dom&quot;;</span><br><span class="line"></span><br><span class="line">import &#123; createBrowserHistory &#125; from &quot;history&quot;;</span><br><span class="line">import loadable from &#39;.&#x2F;utils&#x2F;loadable&#39;</span><br><span class="line"></span><br><span class="line">const App &#x3D; loadable(() &#x3D;&gt; import(&quot;.&#x2F;router&#x2F;login&#x2F;App&quot;));</span><br><span class="line">const MoveVideo &#x3D; loadable(() &#x3D;&gt; import(&quot;.&#x2F;router&#x2F;video&quot;));</span><br><span class="line">const UserReg &#x3D; loadable(() &#x3D;&gt; import(&quot;.&#x2F;router&#x2F;userReg&#x2F;index&quot;));</span><br><span class="line">const FoodList &#x3D; loadable(() &#x3D;&gt; import(&quot;.&#x2F;router&#x2F;food&#x2F;index&quot;));</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Router history&#x3D;&#123;createBrowserHistory()&#125;&gt;</span><br><span class="line">    &lt;Route exact path&#x3D;&quot;&#x2F;&quot; component&#x3D;&#123;App&#125; &#x2F;&gt;</span><br><span class="line">    &lt;Route path&#x3D;&quot;&#x2F;user-reg&#x2F;&quot; component&#x3D;&#123;UserReg&#125; &#x2F;&gt;</span><br><span class="line">    &lt;Route path&#x3D;&quot;&#x2F;food-list&quot; component&#x3D;&#123;FoodList&#125; &#x2F;&gt;</span><br><span class="line">    &lt;Route path&#x3D;&quot;&#x2F;video&quot; component&#x3D;&#123;MoveVideo&#125; &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;Router&gt;,</span><br><span class="line">  document.getElementById(&quot;root&quot;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">serviceWorker.unregister();</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4、再次进行打包编译，就会发现多出很多chunk-js文件，这就是从原来一个拆成多个，这样加载速度就会得到提升。"><a href="#4、再次进行打包编译，就会发现多出很多chunk-js文件，这就是从原来一个拆成多个，这样加载速度就会得到提升。" class="headerlink" title="4、再次进行打包编译，就会发现多出很多chunk.js文件，这就是从原来一个拆成多个，这样加载速度就会得到提升。"></a>4、再次进行打包编译，就会发现多出很多chunk.js文件，这就是从原来一个拆成多个，这样加载速度就会得到提升。</h2>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-promise 中的异常捕获_前端异常处理方式" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/promise 中的异常捕获_前端异常处理方式/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/promise 中的异常捕获_前端异常处理方式/">promise 中的异常捕获_前端异常处理方式</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、为什么要处理异常？"><a href="#一、为什么要处理异常？" class="headerlink" title="一、为什么要处理异常？"></a>一、为什么要处理异常？</h2><p>异常是不可控的，会影响最终的呈现结果，但是我们有充分的理由去做这样的事情。</p>
+<ol>
+<li>增强用户体验；</li>
+<li>远程定位问题；</li>
+<li>未雨绸缪，及早发现问题；</li>
+<li>无法复现问题，尤其是移动端，机型，系统都是问题；</li>
+<li>完善的前端方案，前端监控系统；</li>
+</ol>
+<p>对于 JS 而言，我们面对的仅仅只是异常，异常的出现不会直接导致 JS 引擎崩溃，最多只会使当前执行的任务终止。</p>
+<h2 id="二、需要处理哪些异常？"><a href="#二、需要处理哪些异常？" class="headerlink" title="二、需要处理哪些异常？"></a>二、需要处理哪些异常？</h2><p>对于前端来说，我们可做的异常捕获还真不少。总结一下，大概如下：</p>
+<ul>
+<li>JS 语法错误、代码异常</li>
+<li>AJAX 请求异常</li>
+<li>静态资源加载异常</li>
+<li>Promise 异常</li>
+<li>Iframe 异常</li>
+<li>跨域 Script error</li>
+<li>崩溃和卡顿</li>
+</ul>
+<p>下面我会针对每种具体情况来说明如何处理这些异常。</p>
+<h2 id="三、Try-Catch-的误区"><a href="#三、Try-Catch-的误区" class="headerlink" title="三、Try-Catch 的误区"></a>三、Try-Catch 的误区</h2><p>try-catch 只能捕获到同步的运行时错误，对语法和异步错误却无能为力，捕获不到。</p>
+<ol>
+<li>同步运行时错误：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  let name &#x3D; &quot;jartto&quot;;</span><br><span class="line">  console.log(nam);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">捕获到异常：ReferenceError: nam is not defined    at :3:15</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>不能捕获到具体的语法错误，只有一个语法错误提示。我们修改一下代码，删掉一个单引号：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  let name &#x3D; &#39;jartto</span><br><span class="line">  console.log(nam);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught SyntaxError: Invalid or unexpected token不过语法错误在我们开发阶段就可以看到，应该不会顺利上到线上环境。</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>异步错误</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">    undefined.map((v) &#x3D;&gt; v);</span><br><span class="line">  &#125;, 1000);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们看看日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught TypeError: Cannot read property &#39;map&#39; of undefined    at setTimeout (:3:11)</span><br></pre></td></tr></table></figure>
+
+<p>并没有捕获到异常，这是需要我们特别注意的地方。</p>
+<h2 id="四、window-onerror-不是万能的"><a href="#四、window-onerror-不是万能的" class="headerlink" title="四、window.onerror 不是万能的"></a>四、window.onerror 不是万能的</h2><p>当 JS 运行时错误发生时，window 会触发一个 ErrorEvent 接口的 error 事件，并执行 window.onerror()。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**@param &#123;String&#125;  message    错误信息</span><br><span class="line"> * @param &#123;String&#125;  source    出错文件</span><br><span class="line"> * @param &#123;Number&#125;  lineno    行号</span><br><span class="line"> * @param &#123;Number&#125;  colno    列号</span><br><span class="line"> * @param &#123;Object&#125;  error  Error对象(对象)</span><br><span class="line"> * *&#x2F;</span><br><span class="line">window.onerror &#x3D; function (message, source, lineno, colno, error) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, &#123; message, source, lineno, colno, error &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>首先试试同步运行时错误</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror &#x3D; function(message, source, lineno, colno, error) &#123;&#x2F;&#x2F; message：错误信息(字符串)。&#x2F;&#x2F; source：发生错误的脚本URL(字符串)&#x2F;&#x2F; lineno：发生错误的行号(数字)&#x2F;&#x2F; colno：发生错误的列号(数字)&#x2F;&#x2F; error：Error对象(对象)console.log(&#39;捕获到异常：&#39;,&#123;message, source, lineno, colno, error&#125;);&#125;Jartto;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们捕获到了异常：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c507fb59c15171a328fb7e53d5c6671d.png" alt="image"></p>
+<ol start="2">
+<li>再试试语法错误呢？</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.onerror &#x3D; function(message, source, lineno, colno, error) &#123;console.log(&#39;捕获到异常：&#39;,&#123;message, source, lineno, colno, error&#125;);&#125;</span><br><span class="line"></span><br><span class="line">let name &#x3D; &#39;Jartto</span><br></pre></td></tr></table></figure>
+
+<p>控制台打印出了这样的异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught SyntaxError: Invalid or unexpected token</span><br></pre></td></tr></table></figure>
+
+<p>什么，竟然没有捕获到语法错误？</p>
+<ol start="3">
+<li>怀着忐忑的心，我们最后来试试异步运行时错误：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror &#x3D; function(message, source, lineno, colno, error) &#123;    console.log(&#39;捕获到异常：&#39;,&#123;message, source, lineno, colno, error&#125;);&#125;setTimeout(() &#x3D;&gt; &#123;    Jartto;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">捕获到异常：&#123;message: &quot;Uncaught ReferenceError: Jartto is not defined&quot;, source: &quot;http:&#x2F;&#x2F;127.0.0.1:8001&#x2F;&quot;, lineno: 36, colno: 5, error: ReferenceError: Jartto is not defined    at setTimeout (http:&#x2F;&#x2F;127.0.0.1:8001&#x2F;:36:5)&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>接着，我们试试网络请求异常的情况：</li>
+</ol>
+<p><strong>我们发现，不论是静态资源异常，或者接口异常，错误都无法捕获到。</strong></p>
+<p>补充一点：window.onerror 函数只有在返回 true 的时候，异常才不会向上抛出，否则即使是知道异常的发生控制台还是会显示 Uncaught Error: xxxxx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror &#x3D; function(message, source, lineno, colno, error) &#123;    console.log(&#39;捕获到异常：&#39;,&#123;message, source, lineno, colno, error&#125;);    return true;&#125;setTimeout(() &#x3D;&gt; &#123;    Jartto;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>控制台就不会再有这样的错误了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught ReferenceError: Jartto is not defined    at setTimeout ((index):36)</span><br></pre></td></tr></table></figure>
+
+<p>需要注意：</p>
+<ul>
+<li>onerror 最好写在所有 JS 脚本的前面，否则有可能捕获不到错误；</li>
+<li>onerror 无法捕获语法错误；</li>
+</ul>
+<p>到这里基本就清晰了：在实际的使用过程中，onerror 主要是来捕获预料之外的错误，而 try-catch 则是用来在可预见情况下监控特定的错误，两者结合使用更加高效。</p>
+<p>问题又来了，捕获不到静态资源加载异常怎么办？</p>
+<h2 id="五、window-addEventListener"><a href="#五、window-addEventListener" class="headerlink" title="五、window.addEventListener"></a>五、window.addEventListener</h2><p>当一项资源(如图片或脚本)加载失败，加载资源的元素会触发一个 Event 接口的 error 事件，并执行该元素上的onerror() 处理函数。这些 error 事件不会向上冒泡到 window ，不过(至少在 Firefox 中)能被单一的window.addEventListener 捕获。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&#39;error&#39;, (error) &#x3D;&gt; &#123;    console.log(&#39;捕获到异常：&#39;, error);&#125;, true)</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c2c41ee8e8ee6be523b3f48eaf511d84.png" alt="image"></p>
+<p>由于网络请求异常不会事件冒泡，因此必须在捕获阶段将其捕捉到才行，但是这种方式虽然可以捕捉到网络请求的异常，但是无法判断 HTTP 的状态是 404 还是其他比如 500 等等，所以还需要配合服务端日志再进行排查分析才可以。</p>
+<p><strong>需要注意</strong>：</p>
+<ul>
+<li>不同浏览器下返回的 error 对象可能不同，需要注意兼容处理。</li>
+<li>需要注意避免 addEventListener 重复监听。<h2 id="六、Promise-Catch"><a href="#六、Promise-Catch" class="headerlink" title="六、Promise Catch"></a>六、Promise Catch</h2>在 promise 中使用 catch 可以非常方便的捕获到异步 error ，这个很简单。</li>
+</ul>
+<p>没有写 catch 的 Promise 中抛出的错误无法被 onerror 或 try-catch 捕获到，所以我们务必要在 Promise 中不要忘记写 catch 处理抛出的异常。</p>
+<p>解决方案：为了防止有漏掉的 Promise 异常，建议在全局增加一个对 unhandledrejection 的监听，用来全局监听Uncaught Promise Error。使用方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;unhandledrejection&quot;, function(e)&#123;  console.log(e);&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>我们继续来尝试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;unhandledrejection&quot;, function(e)&#123;  e.preventDefault()  console.log(&#39;捕获到异常：&#39;, e);  return true;&#125;);Promise.reject(&#39;promise error&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到如下输出：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/cff9879d9b5a8785cddaddfff81f763c.png" alt="image"></p>
+<p>那如果对 Promise 不进行 catch 呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;unhandledrejection&quot;, function(e)&#123;  e.preventDefault()  console.log(&#39;捕获到异常：&#39;, e);  return true;&#125;);new Promise((resolve, reject) &#x3D;&gt; &#123;  reject(&#39;jartto: promise error&#39;);&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>嗯，事实证明，也是会被正常捕获到的。</p>
+<p>所以，正如我们上面所说，为了防止有漏掉的 Promise 异常，建议在全局增加一个对 unhandledrejection 的监听，用来全局监听 Uncaught Promise Error。</p>
+<p>补充一点：如果去掉控制台的异常显示，需要加上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event.preventDefault();</span><br></pre></td></tr></table></figure>
+
+<h2 id="七、VUE-errorHandler"><a href="#七、VUE-errorHandler" class="headerlink" title="七、VUE errorHandler"></a>七、VUE errorHandler</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.config.errorHandler &#x3D; (err, vm, info) &#x3D;&gt; &#123;  console.error(&#39;通过vue errorHandler捕获的错误&#39;);  console.error(err);  console.error(vm);  console.error(info);&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="八、React-异常捕获-React-16-提供了一个内置函数-componentDidCatch，使用它可以非常简单的获取到-react-下的错误信息"><a href="#八、React-异常捕获-React-16-提供了一个内置函数-componentDidCatch，使用它可以非常简单的获取到-react-下的错误信息" class="headerlink" title="八、React 异常捕获 React 16 提供了一个内置函数 componentDidCatch，使用它可以非常简单的获取到 react 下的错误信息"></a>八、React 异常捕获 React 16 提供了一个内置函数 componentDidCatch，使用它可以非常简单的获取到 react 下的错误信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentDidCatch(error, info) &#123;    console.log(error, info);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，我们可以了解一下：error boundary UI 的某部分引起的 JS 错误不应该破坏整个程序，为了帮 React 的使用者解决这个问题，React 16 介绍了一种关于错误边界(error boundary)的新观念。</p>
+<p>需要注意的是：error boundaries 并不会捕捉下面这些错误。</p>
+<ol>
+<li>事件处理器</li>
+<li>异步代码</li>
+<li>服务端的渲染代码</li>
+<li>在 error boundaries 区域内的错误<br>我们来举一个小例子，在下面这个 componentDIdCatch(error,info) 里的类会变成一个 error boundary：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class ErrorBoundary extends React.Component &#123;  constructor(props) &#123;    super(props);    this.state &#x3D; &#123; hasError: false &#125;;  &#125;   componentDidCatch(error, info) &#123;    &#x2F;&#x2F; Display fallback UI    this.setState(&#123; hasError: true &#125;);    &#x2F;&#x2F; You can also log the error to an error reporting service    logErrorToMyService(error, info);  &#125;   render() &#123;    if (this.state.hasError) &#123;      &#x2F;&#x2F; You can render any custom fallback UI      return</span><br></pre></td></tr></table></figure>
+
+<h3 id="Something-went-wrong"><a href="#Something-went-wrong" class="headerlink" title="Something went wrong."></a>Something went wrong.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">; &#125; return this.props.children; &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们像使用普通组件那样使用它：</p>
+<p>componentDidCatch() 方法像 JS 的 catch{} 模块一样工作，但是对于组件，只有 class 类型的组件(class component )可以成为一个 error boundaries 。</p>
+<p>实际上，大多数情况下我们可以在整个程序中定义一个 error boundary 组件，之后就可以一直使用它了！</p>
+<h2 id="九、iframe-异常"><a href="#九、iframe-异常" class="headerlink" title="九、iframe 异常"></a>九、iframe 异常</h2><p>对于 iframe 的异常捕获，我们还得借力 window.onerror：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror &#x3D; function(message, source, lineno, colno, error) &#123;  console.log(&#39;捕获到异常：&#39;,&#123;message, source, lineno, colno, error&#125;);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个简单的例子可能如下：</p>
+<h2 id="十、Script-error"><a href="#十、Script-error" class="headerlink" title="十、Script error"></a>十、Script error</h2><p>一般情况，如果出现 Script error 这样的错误，基本上可以确定是出现了跨域问题。这时候，是不会有其他太多辅助信息的，但是解决思路无非如下：</p>
+<p>跨源资源共享机制( CORS )：我们为 script 标签添加 crossOrigin 属性。</p>
+<p>或者动态去添加 js 脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const script &#x3D; document.createElement(&#39;script&#39;);script.crossOrigin &#x3D; &#39;anonymous&#39;;script.src &#x3D; url;document.body.appendChild(script);</span><br></pre></td></tr></table></figure>
+
+<p>特别注意，服务器端需要设置：Access-Control-Allow-Origin</p>
+<p>此外，我们也可以试试这个-解决 Script Error 的另类思路：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const originAddEventListener &#x3D; EventTarget.prototype.addEventListener;EventTarget.prototype.addEventListener &#x3D; function (type, listener, options) &#123;  const wrappedListener &#x3D; function (...args) &#123;    try &#123;      return listener.apply(this, args);    &#125;    catch (err) &#123;      throw err;    &#125;  &#125;  return originAddEventListener.call(this, type, wrappedListener, options);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单解释一下：</p>
+<p>改写了 EventTarget 的 addEventListener 方法；对传入的 listener 进行包装，返回包装过的 listener，对其执行进行 try-catch；浏览器不会对 try-catch 起来的异常进行跨域拦截，所以 catch 到的时候，是有堆栈信息的；重新 throw 出来异常的时候，执行的是同域代码，所以 window.onerror 捕获的时候不会丢失堆栈信息；利用包装 addEventListener，我们还可以达到「扩展堆栈」的效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(() &#x3D;&gt; &#123;   const originAddEventListener &#x3D; EventTarget.prototype.addEventListener;   EventTarget.prototype.addEventListener &#x3D; function (type, listener, options) &#123;+    &#x2F;&#x2F; 捕获添加事件时的堆栈+    const addStack &#x3D; new Error(&#96;Event ($&#123;type&#125;)&#96;).stack;     const wrappedListener &#x3D; function (...args) &#123;       try &#123;         return listener.apply(this, args);       &#125;       catch (err) &#123;+        &#x2F;&#x2F; 异常发生时，扩展堆栈+        err.stack +&#x3D; &#39;&#39; + addStack;         throw err;       &#125;     &#125;     return originAddEventListener.call(this, type, wrappedListener, options);   &#125; &#125;)();</span><br></pre></td></tr></table></figure>
+
+<h2 id="十一、崩溃和卡顿"><a href="#十一、崩溃和卡顿" class="headerlink" title="十一、崩溃和卡顿"></a>十一、崩溃和卡顿</h2><p>卡顿也就是网页暂时响应比较慢， JS 可能无法及时执行。但崩溃就不一样了，网页都崩溃了，JS 都不运行了，还有什么办法可以监控网页的崩溃，并将网页崩溃上报呢？</p>
+<p>崩溃和卡顿也是不可忽视的，也许会导致你的用户流失。</p>
+<ol>
+<li>利用 window 对象的 load 和 beforeunload 事件实现了网页崩溃的监控。不错的文章，推荐阅读：Logging Information on Browser Crashes。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;load&quot;, function () &#123;</span><br><span class="line">  sessionStorage.setItem(&quot;good_exit&quot;, &quot;pending&quot;);</span><br><span class="line">  setInterval(function () &#123;</span><br><span class="line">    sessionStorage.setItem(&quot;time_before_crash&quot;, new Date().toString());</span><br><span class="line">  &#125;, 1000);</span><br><span class="line">&#125;);</span><br><span class="line">window.addEventListener(&quot;beforeunload&quot;, function () &#123;</span><br><span class="line">  sessionStorage.setItem(&quot;good_exit&quot;, &quot;true&quot;);</span><br><span class="line">&#125;);</span><br><span class="line">if (</span><br><span class="line">  sessionStorage.getItem(&quot;good_exit&quot;) &amp;&amp;</span><br><span class="line">  sessionStorage.getItem(&quot;good_exit&quot;) !&#x3D;&#x3D; &quot;true&quot;</span><br><span class="line">) &#123;</span><br><span class="line">  &#x2F;* insert crash logging code here   *&#x2F;</span><br><span class="line"></span><br><span class="line">  alert(</span><br><span class="line">    &quot;Hey, welcome back from your crash, looks like you crashed on: &quot; +</span><br><span class="line">      sessionStorage.getItem(&quot;time_before_crash&quot;)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>基于以下原因，我们可以使用 Service Worker 来实现网页崩溃的监控：</li>
+</ol>
+<p>Service Worker 有自己独立的工作线程，与网页区分开，网页崩溃了，Service Worker 一般情况下不会崩溃；Service Worker 生命周期一般要比网页还要长，可以用来监控网页的状态；网页可以通过 navigator.serviceWorker.controller.postMessage API 向掌管自己的 SW 发送消息。</p>
+<h2 id="十二、错误上报"><a href="#十二、错误上报" class="headerlink" title="十二、错误上报"></a>十二、错误上报</h2><p>1.通过 Ajax 发送数据 因为 Ajax 请求本身也有可能会发生异常，而且有可能会引发跨域问题，一般情况下更推荐使用动态创建 img 标签的形式进行上报。</p>
+<p>2.动态创建 img 标签的形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function report(error) &#123;  let reportUrl &#x3D; &#39;http:&#x2F;&#x2F;jartto.wang&#x2F;report&#39;;  new Image().src &#x3D; &#96;$&#123;reportUrl&#125;?logs&#x3D;$&#123;error&#125;&#96;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>收集异常信息量太多，怎么办？实际中，我们不得不考虑这样一种情况：如果你的网站访问量很大，那么一个必然的错误发送的信息就有很多条，这时候，我们需要设置采集率，从而减缓服务器的压力：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Reporter.send &#x3D; function(data) &#123;  &#x2F;&#x2F; 只采集 30%  if(Math.random() &lt; 0.3) &#123;    send(data)      &#x2F;&#x2F; 上报错误信息  &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>采集率应该通过实际情况来设定，随机数，或者某些用户特征都是不错的选择。</p>
+<h2 id="十三、总结"><a href="#十三、总结" class="headerlink" title="十三、总结"></a>十三、总结</h2><p>回到我们开头提出的那个问题，如何优雅的处理异常呢？</p>
+<ol>
+<li>可疑区域增加 Try-Catch</li>
+<li>全局监控 JS 异常 window.onerror</li>
+<li>全局监控静态资源异常 window.addEventListener</li>
+<li>捕获没有 Catch 的 Promise 异常：unhandledrejection</li>
+<li>VUE errorHandler 和 React componentDidCatch</li>
+<li>监控网页崩溃：window 对象的 load 和 beforeunload</li>
+<li>跨域 crossOrigin 解决</li>
+</ol>
+<p>其实很简单，正如上文所说：采用组合方案，分类型的去捕获异常，这样基本 80%-90% 的问题都化于无形。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-ts中泛型、泛型方法、泛型类、泛型接口" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/ts中泛型、泛型方法、泛型类、泛型接口/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/ts中泛型、泛型方法、泛型类、泛型接口/">ts中泛型、泛型方法、泛型类、泛型接口</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>什么是泛型呢？我们可以理解为泛型就是在编译期间不确定方法的类型(广泛之意思)，在方法调用时，由程序员指定泛型具体指向什么类型。泛型在传统面向对象编程语言中是极为常见的，ts中当然也执行泛型，如果你理解c#或java中的泛型，相信本篇理解起来会很容易。</p>
+<h2 id="泛型函数、泛型类、泛型接口。"><a href="#泛型函数、泛型类、泛型接口。" class="headerlink" title="泛型函数、泛型类、泛型接口。"></a>泛型函数、泛型类、泛型接口。</h2><p><strong>generic.ts</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line"> * ts中泛型</span><br><span class="line"> *    泛型就是在编译期间不确定方法的类型(广泛之意思)，在方法调用时，由程序员指定泛型具体指向什么类型</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;1 泛型函数</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取数组中最小值 （数字）</span><br><span class="line"> * @param &#123;number[]&#125; arr</span><br><span class="line"> * @returns &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function  getMinNumber(arr:number[]):number&#123;</span><br><span class="line">    var min&#x3D;arr[0];</span><br><span class="line">    arr.forEach((value)&#x3D;&gt;&#123;</span><br><span class="line">        if(value&lt;min)&#123;</span><br><span class="line">            min&#x3D;value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取数组中最小值 （字符串）</span><br><span class="line"> * @param &#123;number[]&#125; arr</span><br><span class="line"> * @returns &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function  getMinStr(arr:string[]):string&#123;</span><br><span class="line">    var min&#x3D;arr[0];</span><br><span class="line">    arr.forEach((value)&#x3D;&gt;&#123;</span><br><span class="line">        if(value&lt;min)&#123;</span><br><span class="line">            min&#x3D;value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(getMinNumber([1, 3, 5, 7, 8]));&#x2F;&#x2F;1</span><br><span class="line">console.log(getMinStr([&quot;tom&quot;,&quot;jerry&quot;,&quot;jack&quot;,&quot;sunny&quot;]));&#x2F;&#x2F;jack</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取数组中最小值 (T泛型通用)</span><br><span class="line"> * @param &#123;T[]&#125; arr</span><br><span class="line"> * @returns &#123;T&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function getMin&lt;T&gt;(arr:T[]):T&#123;</span><br><span class="line">   var min&#x3D;arr[0];</span><br><span class="line">   arr.forEach((value)&#x3D;&gt;&#123;</span><br><span class="line">      if(value&lt;min)&#123;</span><br><span class="line">          min&#x3D;value;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(getMin([1, 3, 5, 7, 8]));</span><br><span class="line">console.log(getMin([&quot;tom&quot;,&quot;jerry&quot;,&quot;jack&quot;,&quot;sunny&quot;]));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2 泛型类</span><br><span class="line">class GetMin&lt;T&gt;&#123;</span><br><span class="line">     arr:T[]&#x3D;[];</span><br><span class="line">     add(ele:T)&#123;</span><br><span class="line">         this.arr.push(ele);</span><br><span class="line">     &#125;</span><br><span class="line">    min():T&#123;</span><br><span class="line">       var min&#x3D;this.arr[0];</span><br><span class="line">       this.arr.forEach(function (value) &#123;</span><br><span class="line">          if(value&lt;min)&#123;</span><br><span class="line">              min&#x3D;value;</span><br><span class="line">          &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       return min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  var gm1&#x3D; new  GetMin&lt;number&gt;();</span><br><span class="line">   gm1.add(5);</span><br><span class="line">   gm1.add(3);</span><br><span class="line">   gm1.add(2);</span><br><span class="line">   gm1.add(9);</span><br><span class="line">console.log(gm1.min());</span><br><span class="line"></span><br><span class="line">var gm2&#x3D; new  GetMin&lt;string&gt;();</span><br><span class="line">gm2.add(&quot;tom&quot;);</span><br><span class="line">gm2.add(&quot;jerry&quot;);</span><br><span class="line">gm2.add(&quot;jack&quot;);</span><br><span class="line">gm2.add(&quot;sunny&quot;);</span><br><span class="line">console.log(gm2.min());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 3 泛型函数接口</span><br><span class="line"> *&#x2F;</span><br><span class="line">interface ConfigFn&#123;</span><br><span class="line">    &lt;T&gt;(value:T):T;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var getData:ConfigFn&#x3D;function&lt;T&gt;(value:T):T&#123;</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br><span class="line">getData&lt;string&gt;(&#39;张三&#39;);</span><br><span class="line">&#x2F;&#x2F; getData&lt;string&gt;(1243);  &#x2F;&#x2F;错误</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 类似  Map&lt;String,Object&gt; Param  接口</span><br><span class="line">interface Param&#123;</span><br><span class="line">    [index:string]:any</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;4 泛型类接口</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * page分页对象</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Page&#123;</span><br><span class="line">    private currentPage:number&#x3D;1; &#x2F;&#x2F;当前页码 默认1</span><br><span class="line">    private pageSize:number&#x3D;10;&#x2F;&#x2F;每页条数 默认为10</span><br><span class="line">    private sortName:string; &#x2F;&#x2F;排序字段</span><br><span class="line">    private sortOrder:string&#x3D;&quot;asc&quot;; &#x2F;&#x2F; 排序规则 asc | desc 默认为asc正序</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     constructor(param:Param)&#123;</span><br><span class="line">         if(param[&quot;currentPage&quot;])&#123;</span><br><span class="line">             this.currentPage&#x3D;param[&quot;currentPage&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;pageSize&quot;])&#123;</span><br><span class="line">             this.pageSize&#x3D;param[&quot;pageSize&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;sortName&quot;])&#123;</span><br><span class="line">             this.sortName&#x3D;param[&quot;sortName&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;sortOrder&quot;])&#123;</span><br><span class="line">             this.sortOrder&#x3D;param[&quot;sortOrder&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    public    getStartNum():number&#123;</span><br><span class="line">        return   (this.currentPage-1)*this.pageSize;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class User&#123;</span><br><span class="line">     id:number;&#x2F;&#x2F;id主键自增</span><br><span class="line">     name:string;&#x2F;&#x2F;姓名</span><br><span class="line">     sex:number;&#x2F;&#x2F;性别 1男 2女</span><br><span class="line">     age:number;&#x2F;&#x2F;年龄</span><br><span class="line">     city:string;&#x2F;&#x2F;城市</span><br><span class="line">     describe:string;&#x2F;&#x2F;描述</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;泛型接口</span><br><span class="line">interface  BaseDao&lt;T&gt; &#123;</span><br><span class="line">     findById(id:number):T;&#x2F;&#x2F;根据主键id查询一个实体</span><br><span class="line">     findPageList(param:Param,page:Page):T[];&#x2F;&#x2F;查询分页列表</span><br><span class="line">     findPageCount(param:Param):number;&#x2F;&#x2F;查询分页count</span><br><span class="line">     save(o:T):void;&#x2F;&#x2F;保存一个实体</span><br><span class="line">     update(o:T):void;&#x2F;&#x2F;更新一个实体</span><br><span class="line">     deleteById(id:number);&#x2F;&#x2F;删除一个实体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 接口实现类</span><br><span class="line"> *&#x2F;</span><br><span class="line">class UserDao&lt;User&gt; implements BaseDao&lt;User&gt;&#123;</span><br><span class="line">     findById(id:number):User&#123;</span><br><span class="line"></span><br><span class="line">        return null;</span><br><span class="line">     &#125;</span><br><span class="line">    findPageList(param:Param,page:Page):User[]&#123;</span><br><span class="line">         return [];</span><br><span class="line">    &#125;</span><br><span class="line">    findPageCount(param:Param):number&#123;</span><br><span class="line">         return   0;</span><br><span class="line">    &#125;</span><br><span class="line">    save(o:User):void&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    update(o:User):void&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    deleteById(id:number)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-try-catch 能抛出 promise 的异常吗" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/try-catch 能抛出 promise 的异常吗/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/try-catch 能抛出 promise 的异常吗/">try-catch 能抛出 promise 的异常吗</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="try-catch-能抛出-promise-的异常吗？"><a href="#try-catch-能抛出-promise-的异常吗？" class="headerlink" title="try-catch 能抛出 promise 的异常吗？"></a>try-catch 能抛出 promise 的异常吗？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	throw new Error(&#39;1&#39;)</span><br><span class="line">&#125; catch(error) &#123;</span><br><span class="line">	console.log(error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是最常见的 try-catch，会 log 下面的内容：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwMzkxOS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<p>注意，这里并不是红色的，因为 js 异常被捕获后，js 是能够正常往下执行的，如果没有被捕获的话，那么 js 将抛出异常，js 执行将会停止！</p>
+<p>例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 异步，宏任务</span><br><span class="line">try &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(b);</span><br><span class="line">	&#125;, 0);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error); &#x2F;&#x2F; 这里是不会执行的</span><br><span class="line">&#125;</span><br><span class="line">console.log(&#39;out try catch&#39;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjA5NTY0OS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<p>此时 js 会抛出异常，catch 后面的代码都不会执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 异步，微任务</span><br><span class="line">try &#123;</span><br><span class="line">	new Promise(() &#x3D;&gt; &#123;</span><br><span class="line">		throw new Error(&#39;new promise throw error&#39;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwMzQ1MS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><p>try-catch 主要用于捕获异常，注意，这里的异常，是指同步函数的异常，如果 try 里面的异步方法出现了异常，此时<strong>catch 是无法捕获到异常的</strong>，原因是因为：当异步函数抛出异常时，对于宏任务而言，执行函数时已经将该函数推入栈，此时并不在 try-catch 所在的栈，所以 try-catch 并不能捕获到错误。对于微任务而言，比如 promise，promise 的构造函数的异常只能被自带的 reject 也就是.catch 函数捕获到。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="对于同步函数"><a href="#对于同步函数" class="headerlink" title="对于同步函数"></a>对于同步函数</h3><p>放心用 try-catch 即可</p>
+<h3 id="对于异步函数-宏任务"><a href="#对于异步函数-宏任务" class="headerlink" title="对于异步函数-宏任务"></a>对于异步函数-宏任务</h3><p>window 有全局的错误捕获函数 onerror</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(b);</span><br><span class="line">	&#125;, 0);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error); &#x2F;&#x2F; 这里是不会执行的</span><br><span class="line">&#125;</span><br><span class="line">window.onerror &#x3D; function() &#123;</span><br><span class="line">	console.log(...arguments)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时，是可以捕获到比如 setTimeout 的回调函数异常的，这里可以针对全局的异常做一些处理，比如数据上报等</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwNTA1MS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="对于异步函数-微任务"><a href="#对于异步函数-微任务" class="headerlink" title="对于异步函数-微任务"></a>对于异步函数-微任务</h2><p>对于微任务，js 有专门捕获没有写 catch 的 promise，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&#39;unhandledrejection&#39;, function() &#123;</span><br><span class="line">	console.log(...arguments)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjExMzM1NC5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="更多知识点"><a href="#更多知识点" class="headerlink" title="更多知识点"></a>更多知识点</h2><p>try-catch 中的异常只会抛出一层，即不会冒泡，也就是如果你有多层的 try-catch 然后异常已经被内层的 catch 捕获了，外层的 catch 是捕获不到异常的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    throw new Error(&#39;oops&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  catch (ex) &#123;</span><br><span class="line">    console.error(&#39;inner&#39;, ex.message);</span><br><span class="line">  &#125;</span><br><span class="line">  finally &#123;</span><br><span class="line">    console.log(&#39;finally&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">catch (ex) &#123;</span><br><span class="line">  console.error(&#39;outer&#39;, ex.message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Output:</span><br><span class="line">&#x2F;&#x2F; &quot;inner&quot; &quot;oops&quot;</span><br><span class="line">&#x2F;&#x2F; &quot;finally&quot;</span><br></pre></td></tr></table></figure>
+<p>解决方案是可以在内层的 catch 再手动 throw 出异常</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-web worker的介绍和使用" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/web worker的介绍和使用/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/web worker的介绍和使用/">web worker的介绍和使用</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>什么是web worker呢？从名字上就可以看出，web worker就是在web应用程序中使用的worker。这个worker是独立于web主线程的，在后台运行的线程。</p>
+<p>web worker的优点就是可以将工作交给独立的其他线程去做，这样就不会阻塞主线程。</p>
+<h2 id="Web-Workers的基本概念和使用"><a href="#Web-Workers的基本概念和使用" class="headerlink" title="Web Workers的基本概念和使用"></a>Web Workers的基本概念和使用</h2><p>web workers是通过使用Worker(）来创建的。</p>
+<p>Worker可以指定后台执行的脚本，并在脚本执行完毕之后通常creator。</p>
+<p>worker有一个构造函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Worker(&quot;path&#x2F;to&#x2F;worker&#x2F;script&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>我们传入要执行脚本的路径，即可创建worker。</p>
+<p>Workers中也可以创建新的Workers,前提是这些worker都是同一个origin。</p>
+<p>我们看一下worker的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">interface Worker extends EventTarget, AbstractWorker &#123;</span><br><span class="line">    onmessage: ((this: Worker, ev: MessageEvent) &#x3D;&gt; any) | null;</span><br><span class="line">    onmessageerror: ((this: Worker, ev: MessageEvent) &#x3D;&gt; any) | null;</span><br><span class="line"></span><br><span class="line">    postMessage(message: any, transfer: Transferable[]): void;</span><br><span class="line">    postMessage(message: any, options?: PostMessageOptions): void;</span><br><span class="line"></span><br><span class="line">    terminate(): void;</span><br><span class="line">    addEventListener&lt;K extends keyof WorkerEventMap&gt;(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) &#x3D;&gt; any, options?: boolean | AddEventListenerOptions): void;</span><br><span class="line">    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;</span><br><span class="line">    removeEventListener&lt;K extends keyof WorkerEventMap&gt;(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) &#x3D;&gt; any, options?: boolean | EventListenerOptions): void;</span><br><span class="line">    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare var Worker: &#123;</span><br><span class="line">    prototype: Worker;</span><br><span class="line">    new(stringUrl: string | URL, options?: WorkerOptions): Worker;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到Worker的构造函数可以传入两个参数，第一个参数可以是string也可以是URL，表示要执行的脚本路径。</p>
+<p>第二个参数是WorkerOptions选项，表示worker的类型，名字和权限相关的选项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">interface WorkerOptions &#123;</span><br><span class="line">    credentials?: RequestCredentials;</span><br><span class="line">    name?: string;</span><br><span class="line">    type?: WorkerType;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，worker可以监听onmessage和onmessageerror两个事件。</p>
+<p>提供了两个方法：postMessage和terminate。</p>
+<p>worker和主线程都可以通过postMessage来给对方发送消息，也可以用onmessage来接收对方发送的消息。</p>
+<p>还可以添加和移除EventListener。</p>
+<p>我们看一个使用worker的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">const first &#x3D; document.querySelector(&#39;#number1&#39;);</span><br><span class="line">const second &#x3D; document.querySelector(&#39;#number2&#39;);</span><br><span class="line"></span><br><span class="line">const result &#x3D; document.querySelector(&#39;.result&#39;);</span><br><span class="line"></span><br><span class="line">if (window.Worker) &#123;</span><br><span class="line">	const myWorker &#x3D; new Worker(&quot;worker.js&quot;);</span><br><span class="line"></span><br><span class="line">	first.onchange &#x3D; function() &#123;</span><br><span class="line">	  myWorker.postMessage([first.value, second.value]);</span><br><span class="line">	  console.log(&#39;Message posted to worker&#39;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	second.onchange &#x3D; function() &#123;</span><br><span class="line">	  myWorker.postMessage([first.value, second.value]);</span><br><span class="line">	  console.log(&#39;Message posted to worker&#39;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	myWorker.onmessage &#x3D; function(e) &#123;</span><br><span class="line">		result.textContent &#x3D; e.data;</span><br><span class="line">		console.log(&#39;Message received from worker&#39;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	console.log(&#39;Your browser doesn\&#39;t support web workers.&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子创建了一个woker，并向worker post了一个消息。</p>
+<p>再看一下worker.js的内容是怎么样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">onmessage &#x3D; function(e) &#123;</span><br><span class="line">  console.log(&#39;Worker: Message received from main script&#39;);</span><br><span class="line">  const result &#x3D; e.data[0] * e.data[1];</span><br><span class="line">  if (isNaN(result)) &#123;</span><br><span class="line">    postMessage(&#39;Please write two numbers&#39;);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    const workerResult &#x3D; &#39;Result: &#39; + result;</span><br><span class="line">    console.log(&#39;Worker: Posting message back to main script&#39;);</span><br><span class="line">    postMessage(workerResult);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在主线程中向worker postmessage，在worker中通过onmessage监听消息，然后又在worker中post message，可以在main线程中通过onmessage来监听woker发送的消息。</p>
+<p>这样就做到了一次完美的交互。</p>
+<p>再看一下worker的兼容性：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201006122512486.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_0,text_aHR0cDovL3d3dy5mbHlkZWFuLmNvbQ==,size_25,color_8F8F8F,t_70" alt="image"></p>
+<p>可以看到，基本上所有的浏览器都支持worker，不过有些浏览器只支持部分的方法。</p>
+<p>如果想要立马结束一个worker，我们可以使用terminate：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myWorker.terminate();</span><br></pre></td></tr></table></figure>
+
+<p>要想处理worker的异常，可以使用onerror来处理异常。</p>
+<p>如果worker的script比较复杂，需要用到其他的script文件，我们可以使用importScripts来导入其他的脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">importScripts();                         &#x2F;* imports nothing *&#x2F;</span><br><span class="line">importScripts(&#39;foo.js&#39;);                 &#x2F;* imports just &quot;foo.js&quot; *&#x2F;</span><br><span class="line">importScripts(&#39;foo.js&#39;, &#39;bar.js&#39;);       &#x2F;* imports two scripts *&#x2F;</span><br><span class="line">importScripts(&#39;&#x2F;&#x2F;example.com&#x2F;hello.js&#39;); &#x2F;* You can import scripts from other origins *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Web-Workers的分类"><a href="#Web-Workers的分类" class="headerlink" title="Web Workers的分类"></a>Web Workers的分类</h2><p>Web Workers根据工作环境的不同，可以分为DedicatedWorker和SharedWorker两种。</p>
+<p>DedicatedWorker的Worker只能从创建该Woker的脚本中访问，而SharedWorker则可以被多个脚本所访问。</p>
+<p>上面的例子中我们创建的worker就是DedicatedWorker。</p>
+<p>怎么创建sharedWorker呢?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var myWorker &#x3D; new SharedWorker(&#39;worker.js&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>SharedWorker有一个单独的SharedWorker类，和dedicated worker不同的是SharedWorker是通过port对象来进行交互的。</p>
+<p>我们看一个shared worker的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var first &#x3D; document.querySelector(&#39;#number1&#39;);</span><br><span class="line">var second &#x3D; document.querySelector(&#39;#number2&#39;);</span><br><span class="line"></span><br><span class="line">var result1 &#x3D; document.querySelector(&#39;.result1&#39;);</span><br><span class="line"></span><br><span class="line">if (!!window.SharedWorker) &#123;</span><br><span class="line">  var myWorker &#x3D; new SharedWorker(&quot;worker.js&quot;);</span><br><span class="line"></span><br><span class="line">  first.onchange &#x3D; function() &#123;</span><br><span class="line">    myWorker.port.postMessage([first.value, second.value]);</span><br><span class="line">    console.log(&#39;Message posted to worker&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  second.onchange &#x3D; function() &#123;</span><br><span class="line">    myWorker.port.postMessage([first.value, second.value]);</span><br><span class="line">    console.log(&#39;Message posted to worker&#39;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  myWorker.port.onmessage &#x3D; function(e) &#123;</span><br><span class="line">    result1.textContent &#x3D; e.data;</span><br><span class="line">    console.log(&#39;Message received from worker&#39;);</span><br><span class="line">    console.log(e.lastEventId);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所有的postMessage和onmessage都是基于myWorker.port来的。</p>
+<p>再看一下worker的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">onconnect &#x3D; function(e) &#123;</span><br><span class="line">  var port &#x3D; e.ports[0];</span><br><span class="line"></span><br><span class="line">  port.onmessage &#x3D; function(e) &#123;</span><br><span class="line">    var workerResult &#x3D; &#39;Result: &#39; + (e.data[0] * e.data[1]);</span><br><span class="line">    port.postMessage(workerResult);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>worker也是通过port来进行通信。</p>
+<p>这里我们使用了onconnect用来监听父线程的onmessage事件或者start事件，这两种事件都可以启动一个SharedWorker。</p>
+<p>再看一下sharedWorker的浏览器兼容性：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201006234340881.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_0,text_aHR0cDovL3d3dy5mbHlkZWFuLmNvbQ==,size_25,color_8F8F8F,t_70" alt="image"></p>
+<p>可以看到，比worker的兼容性要低很多，只有部分浏览器才支持这个高级特性。</p>
+<h2 id="worker和main-thread之间的数据传输"><a href="#worker和main-thread之间的数据传输" class="headerlink" title="worker和main thread之间的数据传输"></a>worker和main thread之间的数据传输</h2><p>我们知道worker和main thread之间是通过postMessage和onMessage进行交互的。这里面涉及到了数据传输的问题。</p>
+<p>实际上数据在worker和main thread之间是以拷贝的方式并且是以序列化的形式进行传输的。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-上下高度固定，中间自适应，且可以滚动" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/上下高度固定，中间自适应，且可以滚动/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/上下高度固定，中间自适应，且可以滚动/">上下高度固定，中间自适应，且可以滚动</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>html布局三部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;wrap&quot;&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;header&quot;&gt;header&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;main&quot;&gt;</span><br><span class="line">       弹性滚动区域</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;footer&quot;&gt;footer&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p>css：</p>
+<p>flex布局方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">*&#123;</span><br><span class="line">    margin:0;</span><br><span class="line">    padding:0;</span><br><span class="line">&#125;</span><br><span class="line">html,body&#123;</span><br><span class="line">    height:100%;</span><br><span class="line">&#125;</span><br><span class="line">.wrap&#123;</span><br><span class="line">    display:-webkit-box;</span><br><span class="line">    display:-webkit-flex;</span><br><span class="line">    display:-ms-flexbox;</span><br><span class="line">    display:flex;</span><br><span class="line">    -webkit-box-orient:vertical;</span><br><span class="line">    -webkit-flex-direction:column;</span><br><span class="line">    -ms-flex-direction:column;</span><br><span class="line">    flex-direction:column;</span><br><span class="line">    width:100%;</span><br><span class="line">    height:100%;</span><br><span class="line">&#125;</span><br><span class="line">.header,.footer&#123;</span><br><span class="line">    height:40px;</span><br><span class="line">    line-height:40px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    background-color:#D8D8D8;</span><br><span class="line">&#125;</span><br><span class="line">.main&#123;</span><br><span class="line">    -webkit-box-flex:1;</span><br><span class="line">    -webkit-flex:1;</span><br><span class="line">    -ms-flex:1;</span><br><span class="line">    flex:1;</span><br><span class="line">    width:100%;</span><br><span class="line">    padding:10px;</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>absolute布局方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">*&#123; padding:0; margin:0; &#125;</span><br><span class="line">html,body&#123;height:100%;&#125;</span><br><span class="line">.wrap&#123;width:100%;&#125;</span><br><span class="line">.header,.footer&#123;height:40px;line-height:40px;background-color:#D8D8D8;text-align:center;&#125;</span><br><span class="line">.header&#123;position: absolute;top:0;left:0;width:100%;&#125;</span><br><span class="line">.footer&#123;position: absolute;bottom:0;left:0;width:100%;&#125;</span><br><span class="line">.main&#123;position:absolute;z-index:1;top:40px;left:0;bottom:40px;width:100%;&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-介绍防抖与节流的原理，并动手实现" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/介绍防抖与节流的原理，并动手实现/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/介绍防抖与节流的原理，并动手实现/">介绍防抖与节流的原理，并动手实现</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const debounce &#x3D; (fn,delay) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 介绍防抖函数原理，并实现</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; your code</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const throttle &#x3D; (fn,delay &#x3D; 500) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 介绍节流函数原理，并实现</span><br><span class="line"></span><br><span class="line">   &#x2F;&#x2F; your code</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-防抖函数"><a href="#1-防抖函数" class="headerlink" title="1)防抖函数"></a>1)防抖函数</h2><h3 id="防抖函数原理"><a href="#防抖函数原理" class="headerlink" title="防抖函数原理:"></a>防抖函数原理:</h3><p>在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。</p>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景:"></a>适用场景:</h3><p>1.按钮提交场景:防止多次提交按钮，只执行最后提交的一次。</p>
+<p>2.服务端验证场景:表单验证需要服务端配合，只执行—段连续的输入事件的最后一次，还有搜索联想词功能类似</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 手写简化版实现</span><br><span class="line"></span><br><span class="line">const debounce &#x3D; (fn,delay) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">  let timer &#x3D; null;</span><br><span class="line"></span><br><span class="line">  return (...args) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    clearTimeout(timer);</span><br><span class="line"></span><br><span class="line">    timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">      fn.apply(this,args);</span><br><span class="line"></span><br><span class="line">    &#125;,delay)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-节流函数"><a href="#2-节流函数" class="headerlink" title="2)节流函数"></a>2)节流函数</h2><h3 id="节流函数原理"><a href="#节流函数原理" class="headerlink" title="节流函数原理:"></a>节流函数原理:</h3><p>规定在一个单位时间内，只能触发—次函数。如果这个单位时间内触发多次函数，只有一次生效。防抖是延迟执行，而节流是间隔执行，函数节流即每隔一段时间就执行一次。</p>
+<h3 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景:"></a>适用场景:</h3><p>1.拖拽场景:固定时间内只执行一次，防止超高频次触发位置变动</p>
+<p>⒉缩放场景:监控浏览器resize</p>
+<p>3.动画场景:避免短时间内多次触发动画引起性能问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 手写简化版实现</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ①定时器实现</span><br><span class="line"></span><br><span class="line">const throttle &#x3D; (fn,delay &#x3D; 500) &#x3D;&gt;&#123;</span><br><span class="line"></span><br><span class="line">  let flag &#x3D; true;</span><br><span class="line"></span><br><span class="line">  return (...args) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    if(!flag) return;</span><br><span class="line"></span><br><span class="line">    flag &#x3D; false;</span><br><span class="line"></span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">      fn.apply(this,args);</span><br><span class="line"></span><br><span class="line">      flag &#x3D; true;</span><br><span class="line"></span><br><span class="line">    &#125;,delay);</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ②时间戳实现</span><br><span class="line"></span><br><span class="line">const throttle &#x3D; (fn,delay &#x3D; 500) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">  let preTime &#x3D; Date.now();</span><br><span class="line"></span><br><span class="line">  return (...args) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    const nowTime &#x3D; Date.now();</span><br><span class="line"></span><br><span class="line">    if(nowTime - preTime &gt;&#x3D; delay)&#123;</span><br><span class="line"></span><br><span class="line">          preTime &#x3D; Date.now();</span><br><span class="line"></span><br><span class="line">          fn.apply(this,args);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-利用js实现文件上传" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/利用js实现文件上传/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/利用js实现文件上传/">利用js实现文件上传</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、前端HTML部分"><a href="#一、前端HTML部分" class="headerlink" title="一、前端HTML部分"></a>一、前端HTML部分</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&#39;main&#39;&gt;</span><br><span class="line">	&lt;input type&#x3D;&#39;file&#39; class&#x3D;&#39;filebutton&#39; style&#x3D;&#39;display:none&#39; οnchange&#x3D;&#39;fileSelected()&#39;  &#x2F;&gt; &lt;br&gt;</span><br><span class="line">	&lt;button class&#x3D;&quot;upload&quot; οnclick&#x3D;&#39;openFileDialog()&#39; &gt; 选择文件上传 &lt;&#x2F;button&gt;</span><br><span class="line">	&lt;div class&#x3D;&quot;img&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="二、js部分"><a href="#二、js部分" class="headerlink" title="二、js部分"></a>二、js部分</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;点击普通按钮,打开文件选择框</span><br><span class="line">function openFileDialog()</span><br><span class="line">&#123;</span><br><span class="line">	$(&quot;.filebutton&quot;).click();</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;选择一个文件时onchange事件被触发</span><br><span class="line">function fileSelected()</span><br><span class="line">&#123;</span><br><span class="line">	var fbutton &#x3D; $(&quot;.filebutton&quot;)[0];&#x2F;&#x2F;dom元素</span><br><span class="line">	&#x2F;&#x2F;读取文件</span><br><span class="line">	var reader &#x3D; new FileReader();</span><br><span class="line">	reader.onload &#x3D; function(e)</span><br><span class="line">	&#123;</span><br><span class="line">		var dataURL &#x3D; e.target.result;&#x2F;&#x2F;&#39;data:image&#x2F;jpeg;base64,&#x2F;9j&#x2F;4AAQSk...(base64编码)...&#39;   </span><br><span class="line">		&#x2F;&#x2F;alert(data);</span><br><span class="line">		var htmlImg &#x3D; &quot;&lt;img src &#x3D; &#39;&quot; + dataURL + &quot;&#39;&#x2F;&gt;&quot;;</span><br><span class="line">    	$(&quot;.img&quot;).html(htmlImg);</span><br><span class="line">	&#125;</span><br><span class="line">	var file &#x3D; fbutton.files[0];</span><br><span class="line">	reader.readAsDataURL(file);</span><br><span class="line"></span><br><span class="line">	startFileUpload(file);	    	</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;开始上传</span><br><span class="line">function startFileUpload(file)</span><br><span class="line">&#123;</span><br><span class="line">	var uploadURL &#x3D; &quot;FileUploadServer&quot;;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;手工构造一个form对象</span><br><span class="line">	var formData &#x3D; new FormData();</span><br><span class="line">	formData.append(&quot;file&quot; , file);&#x2F;&#x2F; &#39;file&#39; 为HTTP Post里的字段名, file 对浏览器里的File对象</span><br><span class="line">	&#x2F;&#x2F;手工构造一个请求对象，用这个对象发送表单数据</span><br><span class="line">	&#x2F;&#x2F;设置 progress, load, error, abort 4个事件处理器</span><br><span class="line">	var request &#x3D; new XMLHttpRequest();</span><br><span class="line">	request.upload.addEventListener(&quot;progress&quot; , window.evt_upload_progress , false);</span><br><span class="line">    request.addEventListener(&quot;load&quot;, window.evt_upload_complete, false);</span><br><span class="line">    request.addEventListener(&quot;error&quot;, window.evt_upload_failed, false);</span><br><span class="line">    request.addEventListener(&quot;abort&quot;, window.evt_upload_cancel, false);			</span><br><span class="line">	request.open(&quot;POST&quot;, uploadURL ); &#x2F;&#x2F; 设置服务URL</span><br><span class="line">    request.send(formData);  &#x2F;&#x2F; 发送表单数据</span><br><span class="line">&#125;</span><br><span class="line">window.evt_upload_progress &#x3D; function(evt)</span><br><span class="line">&#123;</span><br><span class="line">	if(evt.lengthComputable)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		var progress &#x3D; Math.round(evt.loaded * 100 &#x2F; evt.total);</span><br><span class="line">		console.log(&quot;上传进度&quot; + progress);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">window.evt_upload_complete &#x3D; function (evt)</span><br><span class="line">&#123;</span><br><span class="line">	if(evt.loaded &#x3D;&#x3D; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		console.log (&quot;上传失败!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		console.log (&quot;上传完成!&quot;);</span><br><span class="line">    	var response &#x3D; JSON.parse(evt.target.responseText);</span><br><span class="line">    	console.log (response);</span><br><span class="line">	&#125;			</span><br><span class="line">&#125;;		 </span><br><span class="line">window.evt_upload_failed &#x3D; function (evt)</span><br><span class="line">&#123;			</span><br><span class="line">	console.log  (&quot;上传出错&quot;);</span><br><span class="line">&#125;;</span><br><span class="line">window.evt_upload_cancel &#x3D; function (evt)</span><br><span class="line">&#123;</span><br><span class="line">	console.log( &quot;上传中止!&quot;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="三、后端部分，需要两个jar包的支持，他们分别是：commons-fileupload-1-3-1-jar-commons-io-2-4-jar"><a href="#三、后端部分，需要两个jar包的支持，他们分别是：commons-fileupload-1-3-1-jar-commons-io-2-4-jar" class="headerlink" title="三、后端部分，需要两个jar包的支持，他们分别是：commons-fileupload-1.3.1.jar   commons-io-2.4.jar"></a>三、后端部分，需要两个jar包的支持，他们分别是：<code>commons-fileupload-1.3.1.jar</code>   <code>commons-io-2.4.jar</code></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line">package my.fileUpload;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.UUID;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.fileupload.FileItemIterator;</span><br><span class="line">import org.apache.commons.fileupload.FileItemStream;</span><br><span class="line">import org.apache.commons.fileupload.servlet.ServletFileUpload;</span><br><span class="line">import org.apache.commons.fileupload.util.Streams;</span><br><span class="line">import org.json.JSONObject;</span><br><span class="line"></span><br><span class="line">public class FileUploadServer extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">	File tmpDir;&#x2F;&#x2F;文件保存的临时目录</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void init() throws ServletException &#123;</span><br><span class="line">		System.out.println(&quot;初始化&quot;);</span><br><span class="line">	   File webRoot &#x3D; new File(getServletContext().getRealPath(&quot;&#x2F;&quot;));</span><br><span class="line">	   tmpDir &#x3D; new File(webRoot , &quot;upload&quot;);</span><br><span class="line">	   if(!tmpDir.exists()) tmpDir.mkdirs();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		doPost(request , response);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void doPost(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		System.out.println(&quot;进入&quot;);</span><br><span class="line">		int error &#x3D; 0;</span><br><span class="line">		String reason &#x3D; &quot;OK&quot;;</span><br><span class="line">		String data &#x3D; null;</span><br><span class="line">		try &#123;</span><br><span class="line">			 data &#x3D; doUpload(request , response);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			error &#x3D; -1;</span><br><span class="line">			reason &#x3D; e.getMessage();</span><br><span class="line">			&#x2F;&#x2F; TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		JSONObject jreq &#x3D; new JSONObject();</span><br><span class="line">		jreq.put(&quot;error&quot;, error);</span><br><span class="line">		jreq.put(&quot;reason&quot;, reason);</span><br><span class="line">		if(data !&#x3D; null) jreq.put(&quot;data&quot;, data);</span><br><span class="line">		response.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">		response.setContentType(&quot;text&#x2F;plain&quot;);</span><br><span class="line">		PrintWriter out &#x3D; response.getWriter();</span><br><span class="line">		out.write(jreq.toString(2));</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private String doUpload(HttpServletRequest request, HttpServletResponse response) throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		String result &#x3D; null;</span><br><span class="line">		boolean isMultipart &#x3D; ServletFileUpload.isMultipartContent(request);</span><br><span class="line">		if(!isMultipart)</span><br><span class="line">			throw new Exception(&quot;请求编码必须为: multipart&#x2F;form-data !&quot;);</span><br><span class="line">		request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">		ServletFileUpload upload &#x3D; new ServletFileUpload();</span><br><span class="line">		FileItemIterator iter &#x3D; upload.getItemIterator(request);</span><br><span class="line">		while(iter.hasNext())</span><br><span class="line">		&#123;</span><br><span class="line">			&#x2F;&#x2F;表单域</span><br><span class="line">			FileItemStream item &#x3D; iter.next();</span><br><span class="line">			String fieldName &#x3D; item.getFieldName();</span><br><span class="line">			InputStream fieldStream &#x3D; item.openStream();</span><br><span class="line">			if(item.isFormField())</span><br><span class="line">			&#123;</span><br><span class="line">				&#x2F;&#x2F;普通表单域直接读取</span><br><span class="line">				String fieldValue &#x3D; Streams.asString(fieldStream , &quot;utf-8&quot;);</span><br><span class="line">				System.out.println(&quot;表单域:&quot; + fieldName + &quot;&#x3D;&quot; + fieldValue);				</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				String realName &#x3D; item.getName();&#x2F;&#x2F;原始文件名</span><br><span class="line">				&#x2F;&#x2F;文件的后缀名</span><br><span class="line">				String suffix &#x3D; realName.substring(realName.lastIndexOf(&quot;.&quot;)+1);</span><br><span class="line">				System.out.println(&quot;文件名：&quot; + realName + &quot;.....&quot; + &quot;后缀名：&quot; + suffix);</span><br><span class="line"></span><br><span class="line">				&#x2F;&#x2F;创建已个临时文件名</span><br><span class="line">				String s &#x3D; UUID.randomUUID().toString();</span><br><span class="line">				String s2 &#x3D; s.substring(0,8)+s.substring(9,13)+s.substring(14,18)+s.substring(19,23)+s.substring(24);</span><br><span class="line">				s2 &#x3D; s2.toUpperCase();</span><br><span class="line">				SimpleDateFormat sdf &#x3D; new SimpleDateFormat(&quot;yyyyMMdd-HHmmss&quot;);</span><br><span class="line">				String dateStr &#x3D; sdf.format(new Date());</span><br><span class="line">				String fileName &#x3D; dateStr +&quot;-&quot; + s2 + &quot;.&quot; + suffix;</span><br><span class="line">				result &#x3D; fileName;</span><br><span class="line">				System.out.println(&quot;文件名：&quot; + fileName);</span><br><span class="line">				File file &#x3D; new File(tmpDir , fileName);</span><br><span class="line">				long fileSsize &#x3D; 0;&#x2F;&#x2F;文件大小</span><br><span class="line">				System.out.println(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;文件开始上传&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);</span><br><span class="line">				&#x2F;&#x2F;从FieldStream读取数据，保存到目标文件</span><br><span class="line">				file.getParentFile().mkdirs();</span><br><span class="line">				FileOutputStream fileStream &#x3D; new FileOutputStream(file);</span><br><span class="line">				try</span><br><span class="line">				&#123;</span><br><span class="line">					byte[] buf &#x3D; new byte[1024];</span><br><span class="line">					while(true)</span><br><span class="line">					&#123;</span><br><span class="line">						int n &#x3D; fieldStream.read(buf);</span><br><span class="line">						if(n &lt; 0) break;</span><br><span class="line">						if(n &#x3D;&#x3D; 0) continue;</span><br><span class="line">						fileStream.write(buf, 0, n);</span><br><span class="line"></span><br><span class="line">						fileSsize +&#x3D; n;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;finally</span><br><span class="line">				&#123;</span><br><span class="line">					fileStream.close();</span><br><span class="line">					fieldStream.close();</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.println(&quot;上传完成！&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-从URL输入到页面展现到底发生什么？" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/从URL输入到页面展现到底发生什么？/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2021/02/02/从URL输入到页面展现到底发生什么？/">从URL输入到页面展现到底发生什么？</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://segmentfault.com/img/remote/1460000017184704" alt="image"></p>
+<p>总体来说分为以下几个过程:</p>
+<ul>
+<li>DNS 解析:将域名解析成 IP 地址</li>
+<li>TCP 连接：TCP 三次握手</li>
+<li>发送 HTTP 请求</li>
+<li>服务器处理请求并返回 HTTP 报文</li>
+<li>浏览器解析渲染页面</li>
+<li>断开连接：TCP 四次挥手</li>
+</ul>
+<h2 id="一、URL-到底是啥"><a href="#一、URL-到底是啥" class="headerlink" title="一、URL 到底是啥"></a>一、URL 到底是啥</h2><p>URL（Uniform Resource Locator），统一资源定位符，用于定位互联网上资源，俗称网址。<br>比如 <a href="http://www.w3school.com.cn/html/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/ht…</a>，遵守以下的语法规则：</p>
+<ul>
+<li>scheme://host.domain:port/path/filename</li>
+<li>各部分解释如下：</li>
+<li>scheme - 定义因特网服务的类型。常见的协议有 http、https、ftp、file，其中最常见的类型是 http，而 https 则是进行加密的网络传输。</li>
+<li>host - 定义域主机（http 的默认主机是 www）</li>
+<li>domain - 定义因特网域名，比如 w3school.com.cn</li>
+<li>port - 定义主机上的端口号（http 的默认端口号是 80）</li>
+<li>path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。</li>
+<li>filename - 定义文档/资源的名称</li>
+</ul>
+<h2 id="二、域名解析（DNS）"><a href="#二、域名解析（DNS）" class="headerlink" title="二、域名解析（DNS）"></a>二、域名解析（DNS）</h2><p>在浏览器输入网址后，首先要经过域名解析，因为浏览器并不能直接通过域名找到对应的服务器，而是要通过 IP 地址。大家这里或许会有个疑问—-计算机既可以被赋予 IP 地址，也可以被赋予主机名和域名。比如 <a href="http://www.hackr.jp。那怎么不一开始就赋予个" target="_blank" rel="noopener">www.hackr.jp。那怎么不一开始就赋予个</a> IP 地址？这样就可以省去解析麻烦。我们先来了解下什么是 IP 地址</p>
+<h3 id="1-IP-地址"><a href="#1-IP-地址" class="headerlink" title="1.IP 地址"></a>1.IP 地址</h3><p>IP 地址是指互联网协议地址，是 IP Address 的缩写。IP 地址是 IP 协议提供的一种统一的地址格式，它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。IP 地址是一个 32 位的二进制数，比如 127.0.0.1 为本机 IP。<br><strong>域名就相当于 IP 地址乔装打扮的伪装者，带着一副面具。它的作用就是便于记忆和沟通的一组服务器的地址</strong>。用户通常使用主机名或域名来访问对方的计算机，而不是直接通过 IP 地址访问。<strong>因为与 IP 地址的一组纯数字相比，用字母配合数字的表示形式来指定计算机名更符合人类的记忆习惯。但要让计算机去理解名称，相对而言就变得困难了。因为计算机更擅长处理一长串数字。为了解决上述的问题，DNS 服务应运而生。</strong></p>
+<h3 id="2-什么是域名解析"><a href="#2-什么是域名解析" class="headerlink" title="2.什么是域名解析"></a>2.什么是域名解析</h3><p>DNS 协议提供通过域名查找 IP 地址，或逆向从 IP 地址反查域名的服务。<strong>DNS 是一个网络服务器，我们的域名解析简单来说就是在 DNS 上记录一条信息记录。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如 baidu.com  220.114.23.56（服务器外网IP地址）80（服务器端口号）</span><br></pre></td></tr></table></figure>
+<h3 id="3-浏览器如何通过域名去查询-URL-对应的-IP-呢"><a href="#3-浏览器如何通过域名去查询-URL-对应的-IP-呢" class="headerlink" title="3. 浏览器如何通过域名去查询 URL 对应的 IP 呢"></a>3. 浏览器如何通过域名去查询 URL 对应的 IP 呢</h3><ul>
+<li>浏览器缓存：浏览器会按照一定的频率缓存 DNS 记录。</li>
+<li>操作系统缓存：如果浏览器缓存中找不到需要的 DNS 记录，那就去操作系统中找。</li>
+<li>路由缓存：路由器也有 DNS 缓存。</li>
+<li>ISP 的 DNS 服务器：ISP 是互联网服务提供商(Internet Service Provider)的简称，ISP 有专门的 DNS 服务器应对 DNS 查询请求。</li>
+<li>根服务器：ISP 的 DNS 服务器还找不到的话，它就会向根服务器发出请求，进行递归查询（DNS 服务器先问根域名服务器.com 域名服务器的 IP 地址，然后再问.baidu 域名服务器，依次类推）</li>
+</ul>
+<p><img src="https://segmentfault.com/img/remote/1460000017184705" alt="image"></p>
+<h3 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h3><p>浏览器通过向 DNS 服务器发送域名，DNS 服务器查询到与域名相对应的 IP 地址，然后返回给浏览器，浏览器再将 IP 地址打在协议上，同时请求参数也会在协议搭载，然后一并发送给对应的服务器。接下来介绍向服务器发送 HTTP 请求阶段，HTTP 请求分为三个部分：TCP 三次握手、http 请求响应信息、关闭 TCP 连接。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184706" alt="image"></p>
+<h2 id="三、TCP-三次握手"><a href="#三、TCP-三次握手" class="headerlink" title="三、TCP 三次握手"></a>三、TCP 三次握手</h2><p><strong>在客户端发送数据之前会发起 TCP 三次握手用以同步客户端和服务端的序列号和确认号，并交换 TCP 窗口大小信息。</strong></p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184707" alt="image"></p>
+<h3 id="1-TCP-三次握手的过程如下："><a href="#1-TCP-三次握手的过程如下：" class="headerlink" title="1.TCP 三次握手的过程如下："></a>1.TCP 三次握手的过程如下：</h3><ul>
+<li><strong>客户端发送一个带 SYN=1，Seq=X 的数据包到服务器端口</strong>（第一次握手，由浏览器发起，告诉服务器我要发送请求了）</li>
+<li><strong>服务器发回一个带 SYN=1， ACK=X+1， Seq=Y 的响应包以示传达确认信息</strong>（第二次握手，由服务器发起，告诉浏览器我准备接受了，你赶紧发送吧）</li>
+<li><strong>客户端再回传一个带 ACK=Y+1， Seq=Z 的数据包，代表“握手结束”</strong>（第三次握手，由浏览器发送，告诉服务器，我马上就发了，准备接受吧）</li>
+</ul>
+<h3 id="2-为啥需要三次握手"><a href="#2-为啥需要三次握手" class="headerlink" title="2.为啥需要三次握手"></a>2.为啥需要三次握手</h3><p>谢希仁著《计算机网络》中讲“三次握手”的目的是<strong>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误</strong>。</p>
+<h2 id="四、发送-HTTP-请求"><a href="#四、发送-HTTP-请求" class="headerlink" title="四、发送 HTTP 请求"></a>四、发送 HTTP 请求</h2><p><strong>TCP 三次握手结束后，开始发送 HTTP 请求报文。</strong><br>请求报文由请求行（request line）、请求头（header）、请求体四个部分组成,如下图所示：</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184708" alt="image"></p>
+<h3 id="1-请求行包含请求方法、URL、协议版本"><a href="#1-请求行包含请求方法、URL、协议版本" class="headerlink" title="1.请求行包含请求方法、URL、协议版本"></a>1.请求行包含请求方法、URL、协议版本</h3><ul>
+<li>请求方法包含 8 种：GET、POST、PUT、DELETE、PATCH、HEAD、OPTIONS、TRACE。</li>
+<li>URL 即请求地址，由 &lt;协议&gt;：//&lt;主机&gt;：&lt;端口&gt;/&lt;路径&gt;?&lt;参数&gt; 组成</li>
+<li>协议版本即 http 版本号</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;chapter17&#x2F;user.html HTTP&#x2F;1.1</span><br></pre></td></tr></table></figure>
+<p>以上代码中“POST”代表请求方法，“/chapter17/user.html”表示 URL，“HTTP/1.1”代表协议和协议的版本。现在比较流行的是 Http1.1 版本</p>
+<h3 id="2-请求头包含请求的附加信息，由关键字-值对组成，每行一对，关键字和值用英文冒号“-”分隔。"><a href="#2-请求头包含请求的附加信息，由关键字-值对组成，每行一对，关键字和值用英文冒号“-”分隔。" class="headerlink" title="2.请求头包含请求的附加信息，由关键字/值对组成，每行一对，关键字和值用英文冒号“:”分隔。"></a>2.请求头包含请求的附加信息，由关键字/值对组成，每行一对，关键字和值用英文冒号“:”分隔。</h3><p>请求头部通知服务器有关于客户端请求的信息。它包含许多有关的客户端环境和请求正文的有用信息。其中比如：<strong>Host，表示主机名，虚拟主机；Connection,HTTP/1.1 增加的，使用 keepalive，即持久连接，一个连接可以发多个请求；User-Agent，请求发出者，兼容性以及定制化需求。</strong></p>
+<h3 id="3-请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。"><a href="#3-请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。" class="headerlink" title="3.请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。"></a>3.请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;tom&amp;password&#x3D;1234&amp;realName&#x3D;tomson</span><br></pre></td></tr></table></figure>
+<p>上面代码，承载着 name、password、realName 三个请求参数。</p>
+<h2 id="五、服务器处理请求并返回-HTTP-报文"><a href="#五、服务器处理请求并返回-HTTP-报文" class="headerlink" title="五、服务器处理请求并返回 HTTP 报文"></a>五、服务器处理请求并返回 HTTP 报文</h2><h3 id="1-服务器"><a href="#1-服务器" class="headerlink" title="1. 服务器"></a>1. 服务器</h3><p>服务器是网络环境中的高性能计算机，它侦听网络上的其他计算机（客户机）提交的服务请求，并提供相应的服务，比如网页服务、文件下载服务、邮件服务、视频服务。而客户端主要的功能是浏览网页、看视频、听音乐等等，两者截然不同。 每台服务器上都会安装处理请求的应用——web server。常见的 web server 产品有 apache、nginx、IIS 或 Lighttpd 等。<br><strong>web server 担任管控的角色</strong>，对于不同用户发送的请求，会结合配置文件，把不同请求委托给服务器上处理相应请求的程序进行处理（例如 CGI 脚本，JSP 脚本，servlets，ASP 脚本，服务器端 JavaScript，或者一些其它的服务器端技术等），然后返回后台程序处理产生的结果作为响应。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184709" alt="image"></p>
+<h3 id="2-MVC-后台处理阶段"><a href="#2-MVC-后台处理阶段" class="headerlink" title="2.MVC 后台处理阶段"></a>2.MVC 后台处理阶段</h3><p>后台开发现在有很多框架，但大部分都还是按照 MVC 设计模式进行搭建的。<br>MVC 是一个设计模式，将应用程序分成三个核心部件：模型（model）– 视图（view）–控制器（controller），它们各自处理自己的任务，实现输入、处理和输出的分离。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184710" alt="image"></p>
+<blockquote>
+<p>1、视图（view）</p>
+</blockquote>
+<p><strong>它是提供给用户的操作界面，是程序的外壳。</strong></p>
+<blockquote>
+<p>2、模型（model）</p>
+</blockquote>
+<p><strong>模型主要负责数据交互</strong>。在 MVC 的三个部件中，模型拥有最多的处理任务。一个模型能为多个视图提供数据。</p>
+<blockquote>
+<p>3、控制器（controller）</p>
+</blockquote>
+<p><strong>它负责根据用户从”视图层”输入的指令，选取”模型层”中的数据，然后对其进行相应的操作，产生最终结果</strong>。控制器属于管理者角色，从视图接收请求并决定调用哪个模型构件去处理请求，然后再确定用哪个视图来显示模型处理返回的数据。<br>这三层是紧密联系在一起的，但又是互相独立的，每一层内部的变化不影响其他层。每一层都对外提供接口（Interface），供上面一层调用。<br>至于这一阶段发生什么？简而言之，<strong>首先浏览器发送过来的请求先经过控制器，控制器进行逻辑处理和请求分发，接着会调用模型，这一阶段模型会获取 redis db 以及 MySQL 的数据，获取数据后将渲染好的页面，响应信息会以响应报文的形式返回给客户端，最后浏览器通过渲染引擎将网页呈现在用户面前。</strong></p>
+<h3 id="3-http-响应报文"><a href="#3-http-响应报文" class="headerlink" title="3.http 响应报文"></a>3.http 响应报文</h3><p>响应报文由响应行（request line）、响应头部（header）、响应主体三个部分组成。如下图所示：<br><img src="https://segmentfault.com/img/remote/1460000017184711" alt="image"></p>
+<p>(1) 响应行包含：协议版本，状态码，状态码描述</p>
+<p>状态码规则如下：</p>
+<ul>
+<li>1xx：指示信息–表示请求已接收，继续处理。</li>
+<li>2xx：成功–表示请求已被成功接收、理解、接受。</li>
+<li>3xx：重定向–要完成请求必须进行更进一步的操作。</li>
+<li>4xx：客户端错误–请求有语法错误或请求无法实现。</li>
+<li>5xx：服务器端错误–服务器未能实现合法的请求。</li>
+</ul>
+<p>(2) 响应头部包含响应报文的附加信息，由 名/值 对组成</p>
+<p>(3) 响应主体包含回车符、换行符和响应返回数据，并不是所有响应报文都有响应数据</p>
+<h2 id="六、浏览器解析渲染页面"><a href="#六、浏览器解析渲染页面" class="headerlink" title="六、浏览器解析渲染页面"></a>六、浏览器解析渲染页面</h2><p>浏览器拿到响应文本 HTML 后，接下来介绍下浏览器渲染机制</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184712" alt="image"></p>
+<p>浏览器解析渲染页面分为以下五个步骤：</p>
+<ul>
+<li>根据 HTML 解析出 DOM 树</li>
+<li>根据 CSS 解析生成 CSS 规则树</li>
+<li>结合 DOM 树和 CSS 规则树，生成渲染树</li>
+<li>根据渲染树计算每一个节点的信息</li>
+<li>根据计算好的信息绘制页面</li>
+</ul>
+<h3 id="1-根据-HTML-解析-DOM-树"><a href="#1-根据-HTML-解析-DOM-树" class="headerlink" title="1.根据 HTML 解析 DOM 树"></a>1.根据 HTML 解析 DOM 树</h3><ul>
+<li>根据 HTML 的内容，将标签按照结构解析成为 DOM 树，DOM 树解析的过程是一个深度优先遍历。即先构建当前节点的所有子节点，再构建下一个兄弟节点。</li>
+<li>在读取 HTML 文档，构建 DOM 树的过程中，若遇到 script 标签，则 DOM 树的构建会暂停，直至脚本执行完毕。</li>
+</ul>
+<h3 id="2-根据-CSS-解析生成-CSS-规则树"><a href="#2-根据-CSS-解析生成-CSS-规则树" class="headerlink" title="2.根据 CSS 解析生成 CSS 规则树"></a>2.根据 CSS 解析生成 CSS 规则树</h3><ul>
+<li>解析 CSS 规则树时 js 执行将暂停，直至 CSS 规则树就绪。</li>
+<li>浏览器在 CSS 规则树生成之前不会进行渲染。</li>
+</ul>
+<h3 id="3-结合-DOM-树和-CSS-规则树，生成渲染树"><a href="#3-结合-DOM-树和-CSS-规则树，生成渲染树" class="headerlink" title="3.结合 DOM 树和 CSS 规则树，生成渲染树"></a>3.结合 DOM 树和 CSS 规则树，生成渲染树</h3><ul>
+<li>DOM 树和 CSS 规则树全部准备好了以后，浏览器才会开始构建渲染树。</li>
+<li>精简 CSS 并可以加快 CSS 规则树的构建，从而加快页面响应速度。</li>
+</ul>
+<h3 id="4-根据渲染树计算每一个节点的信息（布局）"><a href="#4-根据渲染树计算每一个节点的信息（布局）" class="headerlink" title="4.根据渲染树计算每一个节点的信息（布局）"></a>4.根据渲染树计算每一个节点的信息（布局）</h3><ul>
+<li>布局：通过渲染树中渲染对象的信息，计算出每一个渲染对象的位置和尺寸</li>
+<li>回流：在布局完成后，发现了某个部分发生了变化影响了布局，那就需要倒回去重新渲染。</li>
+</ul>
+<h3 id="5-根据计算好的信息绘制页面"><a href="#5-根据计算好的信息绘制页面" class="headerlink" title="5.根据计算好的信息绘制页面"></a>5.根据计算好的信息绘制页面</h3><ul>
+<li>绘制阶段，系统会遍历呈现树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。</li>
+<li>重绘：某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的重绘。</li>
+<li>回流：某个元素的尺寸发生了变化，则需重新计算渲染树，重新渲染。</li>
+</ul>
+<h2 id="七、断开连接"><a href="#七、断开连接" class="headerlink" title="七、断开连接"></a>七、断开连接</h2><p><strong>当数据传送完毕，需要断开 tcp 连接，此时发起 tcp 四次挥手。</strong></p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184713" alt="image"></p>
+<ul>
+<li><strong>发起方向被动方发送报文，Fin、Ack、Seq，表示已经没有数据传输了。并进入 FIN_WAIT_1 状态。</strong>(第一次挥手：由浏览器发起的，发送给服务器，我请求报文发送完了，你准备关闭吧)</li>
+<li><strong>被动方发送报文，Ack、Seq，表示同意关闭请求。此时主机发起方进入 FIN_WAIT_2 状态。</strong>(第二次挥手：由服务器发起的，告诉浏览器，我请求报文接受完了，我准备关闭了，你也准备吧)</li>
+<li><strong>被动方向发起方发送报文段，Fin、Ack、Seq，请求关闭连接。并进入 LAST_ACK 状态。</strong>(第三次挥手：由服务器发起，告诉浏览器，我响应报文发送完了，你准备关闭吧)</li>
+<li><strong>发起方向被动方发送报文段，Ack、Seq。然后进入等待 TIME_WAIT 状态。被动方收到发起方的报文段以后关闭连接。发起方等待一定时间未收到回复，则正常关闭。</strong>(第四次挥手：由浏览器发起，告诉服务器，我响应报文接受完了，我准备关闭了，你也准备吧)</li>
+</ul>
+<p><strong>给大家推荐一个好用的BUG监控工具[Fundebug]<a href="https://www.fundebug.com/?utm_source=liao)，欢迎免费试用！" target="_blank" rel="noopener">https://www.fundebug.com/?utm_source=liao)，欢迎免费试用！</a></strong></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/page/9/" class="alignleft prev">Prev</a>
+  
+  
+    <a href="/page/11/" class="alignright next">Next</a>
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

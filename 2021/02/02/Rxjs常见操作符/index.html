@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Rxjs常见操作符 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Rxjs常见操作符" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Rxjs常见操作符" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Rxjs常见操作符/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Rxjs常见操作符</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一-RxJS初试"><a href="#一-RxJS初试" class="headerlink" title="一.RxJS初试"></a>一.RxJS初试</h2><ul>
+<li>在javascript中的试炼</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const height &#x3D; document.getElementById(&#39;height&#39;);</span><br><span class="line">const height$ &#x3D; Rx.Observable.fromEvent(height, &#39;keyup&#39;);&#x2F;&#x2F;$是约定俗称的命名方式,因为通过Rx.Observable已经将其转换成了流形式,其中含义是:将keyup事件转换成了Observable观察者</span><br><span class="line">&#x2F;&#x2F;既然是观察者,则可以订阅</span><br><span class="line">height$.subscribe(val &#x3D;&gt; console.log(val));&#x2F;&#x2F;当输入的时候会输出事件的对象,获得值则使用val.target.value</span><br><span class="line">&#x2F;&#x2F; 输入是1,console打印的就是1</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>RxJs的威力在于合并和转换流,实例如下</li>
+</ul>
+<p><strong>（1）html</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;length&quot;&#x2F;&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;width&quot; &#x2F;&gt;</span><br><span class="line">&lt;div id&#x3D;&quot;area&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>（2）js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const length &#x3D; document.getElementById(&#39;height&#39;);</span><br><span class="line">const width &#x3D; document.getElementById(&#39;width&#39;);</span><br><span class="line">const area &#x3D; document.getElementById(&#39;area&#39;);</span><br><span class="line">const length$ &#x3D; Rx.Observable.fromEvent(length, &#39;keyup&#39;).pluck(&#39;target&#39;,&#39;value&#39;);</span><br><span class="line">const width$ &#x3D; Rx.Observable.fromEvent(width, &#39;keyup&#39;).pluck(&#39;target&#39;,&#39;value&#39;);</span><br><span class="line">&#x2F;&#x2F;combineLatest表示如果监听的两个值有一个改变则会重新计算一遍</span><br><span class="line">const area$ &#x3D; Rx.Observable.combineLatest(length$, width$, (l,w)&#x3D;&gt;&#123;return l*w&#125;);&#x2F;&#x2F;用于将两个流合并成一个数据流</span><br><span class="line">area$.subscribe(val &#x3D;&gt; area.innerHTML &#x3D; val);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>事件流:理解Rx的关键是要把任何变化想象成事件流</li>
+</ul>
+<h2 id="二-RxJS常见操作符"><a href="#二-RxJS常见操作符" class="headerlink" title="二.RxJS常见操作符"></a>二.RxJS常见操作符</h2><h3 id="1-常见创建类操作符"><a href="#1-常见创建类操作符" class="headerlink" title="1.常见创建类操作符"></a>1.常见创建类操作符</h3><ul>
+<li>from:可以把数组、Promise、以及Iterable转化为Observable</li>
+<li>fromEvent:可以把事件转化为Observable</li>
+<li>of:接受一系列的数据，并把它们emit出去<ul>
+<li>如可以使用<code>object$ = Rx.Observable.of({id:1,value:20})</code>转化对象，使用的时候应该是object.value或object.id的方式<h3 id="2-常见转换操作符"><a href="#2-常见转换操作符" class="headerlink" title="2.常见转换操作符"></a>2.常见转换操作符</h3></li>
+</ul>
+</li>
+<li>map<ul>
+<li>是mapTo、pluck操作符的根本</li>
+<li>举例将上述pluck操作符取target的value值转换成使用map操作符</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const width$ &#x3D; Rx.Observable.fromEvent(width, &#39;keyup&#39;).map(ev&#x3D;&gt;ev.target.value);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在angular中灵活使用Observable如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 定义一个发起网络请求获取Observable的方法</span><br><span class="line">getQuote():Observable&lt;Quote&gt; &#123;</span><br><span class="line">    const uri &#x3D; &#39;http:&#x2F;&#x2F;localhost:3000&#39;;</span><br><span class="line">    return this.http.get(uri)</span><br><span class="line">    		.map(res &#x3D;&gt; res.json() as Quote);&#x2F;&#x2F; 将请求返回的内容转换成json并转换成对应定义的Quote对象</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>mapTo</p>
+<ul>
+<li><p>比如点击按钮事件或其他事件，我们不需要关注其值内容，只需要知道发生了即可，可以使用mapTo定义成一个固定值</p>
+</li>
+<li><p>实例代码</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const width$ &#x3D; Rx.Observable.fromEvent(width, &#39;keyup&#39;).mapTo(1);&#x2F;&#x2F;此时执行keyup事件，width$的值即为1</span><br><span class="line">&#x2F;&#x2F;等同于如下</span><br><span class="line">const width$ &#x3D; Rx.Observable.fromEvent(width, &#39;keyup&#39;).map(_ &#x3D;&gt; 1);&#x2F;&#x2F;此时执行keyup事件，width$的值即为1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>pluck</li>
+</ul>
+<h3 id="3-Observable的性质"><a href="#3-Observable的性质" class="headerlink" title="3.Observable的性质"></a>3.Observable的性质</h3><ul>
+<li>Observable有三种状态（即subscribe的三个参数）：next、error、complete<ul>
+<li>next是正常执行时的内容，subscribe的第一个参数</li>
+<li>error是当执行时出错，或监听了throw类型Observable时的执行内容，subscribe的第二个参数</li>
+<li>complete是Observable执行结束时的内容，subscribe的第三个参数</li>
+</ul>
+</li>
+<li>特殊的Observable：永不结束、Never、Empty（结束但不发射）、Throw<ul>
+<li>Never类型Observable表示不会发生也永远不会结束，会在执行过程中导致，也可直接通过Rx.Observable.error(‘xxx’)的方式声明，结果不会执行next、error、complete中任何一个阶段</li>
+<li>Empty类型Observable不会发射元素会直接结束，会在执行过程中导致，也可以通过Rx.Observable.empty()的方式声明，结果不会执行next、error，会执行complete阶段</li>
+<li>Throw类型Observable直接进入error状态，会在执行过程中抛出异常导致，也可以直接通过Rx.Observable.throw(‘xxx’)的方式声明，结果只会执行error阶段<h2 id="4-常见工作操作符：do"><a href="#4-常见工作操作符：do" class="headerlink" title="4.常见工作操作符：do"></a>4.常见工作操作符：do</h2></li>
+</ul>
+</li>
+<li>do操作符用于在流处理期间对数据进行操作，实例如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const interval$ &#x3D; Rx.Observable.interval(100)</span><br><span class="line">.do(v &#x3D;&gt; &#123;</span><br><span class="line">	console.log(&#39;val is :&#39;+v);    </span><br><span class="line">&#125;)</span><br><span class="line">.take(3);</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-常见变换类操作符：scan"><a href="#5-常见变换类操作符：scan" class="headerlink" title="5.常见变换类操作符：scan"></a>5.常见变换类操作符：scan</h3><ul>
+<li>scan(()=&gt;{})接受一个函数，参数1是上次处理后的结果，参数2是新值内容。实例代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const interval$ &#x3D; Rx.Observable.interval(100)</span><br><span class="line">.filter(v &#x3D;&gt; val%2 &#x3D;&#x3D;&#x3D; 0) &#x2F;&#x2F;表示是偶数才放行</span><br><span class="line">.scan((x,y)&#x3D;&gt;&#123;return x+y&#125;)&#x2F;&#x2F;表示结果累加操作</span><br><span class="line">.take(4);</span><br><span class="line">&#x2F;&#x2F;输出结果</span><br><span class="line">&#x2F;&#x2F; 0[0+0]</span><br><span class="line">&#x2F;&#x2F; 2[上次结果0+新值2]</span><br><span class="line">&#x2F;&#x2F; 6[上次结果2+新值4]</span><br><span class="line">&#x2F;&#x2F; 12[上次结果6+新值6]</span><br><span class="line">&#x2F;&#x2F;complete执行内容</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-常见数学类操作符：reduce"><a href="#6-常见数学类操作符：reduce" class="headerlink" title="6.常见数学类操作符：reduce"></a>6.常见数学类操作符：reduce</h3><ul>
+<li>reduce是将流计算结果做统一的最后处理并发射，实例代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const interval$ &#x3D; Rx.Observable.interval(100)</span><br><span class="line">.filter(v &#x3D;&gt; val%2 &#x3D;&#x3D;&#x3D; 0) &#x2F;&#x2F;表示是偶数才放行</span><br><span class="line">.take(4)</span><br><span class="line">.reduce((x,y)&#x3D;&gt;&#123;return x+y&#125;);</span><br><span class="line">&#x2F;&#x2F;输出结果</span><br><span class="line">&#x2F;&#x2F; 12[只发射最终值]</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-过滤类操作符：filter、take、first-last、skip…"><a href="#7-过滤类操作符：filter、take、first-last、skip…" class="headerlink" title="7.过滤类操作符：filter、take、first/last、skip…"></a>7.过滤类操作符：filter、take、first/last、skip…</h3><ul>
+<li>take(num)表示取流中前num个</li>
+<li>filter(()=&gt;{})表示对流处理的放行判断，如果满足条件则放行，不满足条件则不放行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const interval$ &#x3D; Rx.Observable.interval(100)</span><br><span class="line">.filter(v &#x3D;&gt; val%2 &#x3D;&#x3D;&#x3D; 0) &#x2F;&#x2F;表示是偶数才放行</span><br><span class="line">.take(3);&#x2F;&#x2F;订阅后会输出0 2 4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>first()表示取流第一个，相当于take(1)</li>
+<li>last()表示取流最后一个</li>
+<li>skip(num)表示跳过前num个</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const interval$ &#x3D; Rx.Observable.interval(100)</span><br><span class="line">.filter(v &#x3D;&gt; val%2 &#x3D;&#x3D;&#x3D; 0) &#x2F;&#x2F;表示是偶数才放行</span><br><span class="line">.skip(2);&#x2F;&#x2F;订阅后会输出4 6 8 ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-常见创建类操作符：Interval、Timer"><a href="#8-常见创建类操作符：Interval、Timer" class="headerlink" title="8.常见创建类操作符：Interval、Timer"></a>8.常见创建类操作符：Interval、Timer</h3><ul>
+<li>Interval实例代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const interval$ &#x3D; Rx.Observable.interval(100).take(3);</span><br><span class="line">interval$.subscribe(</span><br><span class="line">    val &#x3D;&gt; &#123;</span><br><span class="line">        console.log(val) &#x2F;&#x2F;next状态</span><br><span class="line">    &#125;,</span><br><span class="line">    err &#x3D;&gt; &#123;</span><br><span class="line">        console.log(err) &#x2F;&#x2F; error状态</span><br><span class="line">    &#125;,</span><br><span class="line">    ()&#x3D;&gt; &#123;</span><br><span class="line">        console.log(&#39;I am complete&#39;) &#x2F;&#x2F; complete状态</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line">&#x2F;&#x2F;输出结果:interval()是做循环用的,每次发射出来的是索引，故生成的是0&#x2F;1&#x2F;2&#x2F;3&#x2F;4....，又由于take表示取前多少个，故take(3)表示取前3个</span><br><span class="line">&#x2F;&#x2F; 0</span><br><span class="line">&#x2F;&#x2F; 1</span><br><span class="line">&#x2F;&#x2F; 2</span><br><span class="line">&#x2F;&#x2F; &quot;I am complete&quot; &#x2F;&#x2F; complete状态执行的内容</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Timer实例代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const timer$ &#x3D; Rx.Observable.timer(100,200);&#x2F;&#x2F;表示100毫秒之后启动，之后以200毫秒的频率一直发送</span><br><span class="line">&#x2F;&#x2F; 故timer比Interval多出起始延迟时间的设置</span><br><span class="line">timer$.subscribe(v&#x3D;&gt; console.log(v))</span><br><span class="line">&#x2F;&#x2F;输出结果</span><br><span class="line">&#x2F;&#x2F; 0 --运行后100毫秒之后输出</span><br><span class="line">&#x2F;&#x2F; 1 --输出0后200毫秒之后输出</span><br><span class="line">&#x2F;&#x2F; 2 --输出1后200毫秒之后输出</span><br><span class="line">&#x2F;&#x2F; 3 --...</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-实例：自行给rxjs中Observable添加debug方法"><a href="#9-实例：自行给rxjs中Observable添加debug方法" class="headerlink" title="9.实例：自行给rxjs中Observable添加debug方法"></a>9.实例：自行给rxjs中Observable添加debug方法</h3><ul>
+<li>通过Observable的原型中定义debug方法返回Observable对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import &#123;Observable&#125; from &#39;rxjs&#x2F;Observable&#39;;</span><br><span class="line">import &#123;environment&#125; from &#39;..&#x2F;..&#x2F;environment&#x2F;environment&#39;</span><br><span class="line">&#x2F;&#x2F; typescript用于解决自行添加对象属性的报错问题</span><br><span class="line">declare module &#39;rxjs&#x2F;Observable&#39; &#123;</span><br><span class="line">    interface Observable&lt;T&gt; &#123;</span><br><span class="line">        debug: (...any) &#x3D;&gt; Observable&lt;T&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 给Observable添加debug方法</span><br><span class="line">Observable.prototype.debug &#x3D; function(message:string) &#123;</span><br><span class="line">    return this.do(</span><br><span class="line">        (next)&#x3D;&gt;&#123;</span><br><span class="line">            if(!environment.production) &#123;</span><br><span class="line">                console.log(message,next)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        (err) &#x3D;&gt; &#123;</span><br><span class="line">            if(!environment.production) &#123;</span><br><span class="line">                console.error(&#39;ERROR&gt;&gt;&#39;,message,err);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        ()&#x3D;&gt; &#123;</span><br><span class="line">            if(!environment.production) &#123;</span><br><span class="line">                console.log(&#39;Completed -&#39;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;使用时直接在声明Observable期间添加即可以查看对应Observable对象内容,如</span><br><span class="line">this.http.get(&#39;url&#39;)</span><br><span class="line">	.debug(&#39;Test:&#39;)</span><br><span class="line">	.map(res &#x3D;&gt; res.json() as Quote);</span><br><span class="line">&#x2F;&#x2F;在subscribe监听后的会输出对应的log</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-过滤类操作符：debounce、debounceTime"><a href="#10-过滤类操作符：debounce、debounceTime" class="headerlink" title="10.过滤类操作符：debounce、debounceTime"></a>10.过滤类操作符：debounce、debounceTime</h3><ul>
+<li>debounce：比debounceTime灵活，debounceTime只能设定固定的毫秒间隔，而debounce可以通过接受的function设定毫秒间隔</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const length$ &#x3D; Rx.Observable.fromEvent(length,&#39;keyup&#39;).pluck(&#39;target&#39;,&#39;value&#39;).debounce(()&#x3D;&gt;Rx.Observable.interval(300));&#x2F;&#x2F;可以自行修改function返回内容从而决定滤掉的内容</span><br><span class="line">&#x2F;&#x2F;上述代码含义是：过滤掉300毫秒以内keyup事件监听内容</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>debouceTime(num)：时间滤波器，表示只关注大于等于num毫秒间隔的事件内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const length$ &#x3D; Rx.Observable.fromEvent(length,&#39;keyup&#39;).pluck(&#39;target&#39;,&#39;value&#39;).debounceTime(300);</span><br><span class="line">&#x2F;&#x2F;上述代码含义是：过滤掉300毫秒以内keyup事件监听内容</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>执行图片</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190602185826234.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0ODI5NDQ3,size_16,color_FFFFFF,t_70" alt="image"></p>
+<h3 id="11-过滤类操作符：distinct、distinctUtilChanged"><a href="#11-过滤类操作符：distinct、distinctUtilChanged" class="headerlink" title="11.过滤类操作符：distinct、distinctUtilChanged"></a>11.过滤类操作符：distinct、distinctUtilChanged</h3><ul>
+<li>distinct：整个序列中，过滤一样的，保留不一样的(要求序列中没有重复的元素)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const length$ &#x3D; Rx.Observable.fromEvent(length,&#39;keyup&#39;).pluck(&#39;target&#39;,&#39;value&#39;).distinct();&#x2F;&#x2F;过滤掉整个流中重复的元素</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>distinctUtilChanged：只跟前一个元素比，过滤一样的，保留不一样的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const length$ &#x3D; Rx.Observable.fromEvent(length,&#39;keyup&#39;).pluck(&#39;target&#39;,&#39;value&#39;).distinctUtilChanged();&#x2F;&#x2F;过滤掉流中前一个重复的元素</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行图片</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190602185839813.png" alt="image"></p>
+<h3 id="12-合并类操作符：merge、concat、startWith"><a href="#12-合并类操作符：merge、concat、startWith" class="headerlink" title="12.合并类操作符：merge、concat、startWith"></a>12.合并类操作符：merge、concat、startWith</h3><ul>
+<li>merge：在整个序列中按照流运行状态进行合并</li>
+<li>concat：在整个序列中将流前后拼接（如拼接的第一个流是无尽流，则永远只会输出第一个流内容，因为第二个流永远不会发生，第一个流没有执行完）</li>
+<li>startWith：设定流发射的初始值</li>
+<li>执行图片<br><img src="https://img-blog.csdnimg.cn/20190602185848388.png" alt="image"></li>
+</ul>
+<h3 id="13-合并类操作符：combineLatest、withLatestFrom、zip"><a href="#13-合并类操作符：combineLatest、withLatestFrom、zip" class="headerlink" title="13.合并类操作符：combineLatest、withLatestFrom、zip"></a>13.合并类操作符：combineLatest、withLatestFrom、zip</h3><p><img src="https://img-blog.csdnimg.cn/20190602185857966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0ODI5NDQ3,size_16,color_FFFFFF,t_70" alt="image"></p>
+<ul>
+<li>通过combineLatest可以对两个流进行对应的处理操作，实例请参照开头计算面积</li>
+<li>zip有对齐的感觉，将两个流对应位置的元素进行处理操作，慢的流决定最终zip生成流的速度</li>
+<li>withLatestFrom当基准流改变时才会进行流处理，使用方式是基准流.withLatestFrom(其他流)，如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const merged$ &#x3D; length$.withLatestFrom(width$);</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>区别：zip有对齐的特性，withLatestFrom是以源事件流为基准，combineLatest是无论任何一个流发生改变时都会处理</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Rxjs%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%AC%A6/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

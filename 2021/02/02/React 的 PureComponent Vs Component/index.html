@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>React 的 PureComponent Vs Component | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="React 的 PureComponent Vs Component" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-React 的 PureComponent Vs Component" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/React 的 PureComponent Vs Component/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">React 的 PureComponent Vs Component</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一-它们几乎完全相同，但是PureComponent通过prop和state的浅比较来实现shouldComponentUpdate，某些情况下可以用PureComponent提升性能"><a href="#一-它们几乎完全相同，但是PureComponent通过prop和state的浅比较来实现shouldComponentUpdate，某些情况下可以用PureComponent提升性能" class="headerlink" title="一.它们几乎完全相同，但是PureComponent通过prop和state的浅比较来实现shouldComponentUpdate，某些情况下可以用PureComponent提升性能"></a>一.它们几乎完全相同，但是PureComponent通过prop和state的浅比较来实现shouldComponentUpdate，某些情况下可以用PureComponent提升性能</h2><p>1.所谓浅比较(shallowEqual)，即react源码中的一个函数，然后根据下面的方法进行是不是PureComponent的判断，帮我们做了本来应该我们在shouldComponentUpdate中做的事情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (this._compositeType &#x3D;&#x3D;&#x3D; CompositeTypes.PureClass) &#123;</span><br><span class="line">  shouldUpdate &#x3D; !shallowEqual(prevProps, nextProps) || ! shallowEqual(inst.state, nextState);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而本来我们做的事情如下，这里判断了state有没有发生变化（prop同理），从而决定要不要重新渲染，这里的函数在一个继承了Component的组件中，而这里this.state.person是一个对象，你会发现，在这个对象的引用没有发生变化的时候是不会重新render的（即下面提到的第三点），所以我们可以用shouldComponentUpdate进行优化，这个方法如果返回false，表示不需要重新进行渲染，返回true则重新渲染，默认返回true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">    return (nextState.person !&#x3D;&#x3D; this.state.person);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.上面提到的某些情况下可以使用PureComponent来提升性能，那具体是哪些情况可以，哪些情况不可以呢，实践出真知</p>
+<p>3.如下显示的是一个IndexPage组件，设置了一个state是isShow，通过一个按钮点击可以改变它的值，结果是：初始化的时候输出的是constructor，render，而第一次点击按钮，会输出一次render，即重新渲染了一次，界面也会从显示false变成显示true，但是当这个组件是继承自PureComponent的时候，再点击的时，不会再输出render，即不会再重新渲染了，而当这个组件是继承自Component时，还是会输出render，还是会重新渲染，这时候就是PureComponent内部做了优化的体现</p>
+<p>4.同理也适用于string，number等基本数据类型，因为基本数据类型，值改变了就算改变了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; PureComponent &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">class IndexPage extends PureComponent&#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.state &#x3D; &#123;</span><br><span class="line">      isShow: false</span><br><span class="line">    &#125;;</span><br><span class="line">    console.log(&#39;constructor&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  changeState &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      isShow: true</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    console.log(&#39;render&#39;);</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;this.changeState&#125;&gt;点击&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;div&gt;&#123;this.state.isShow.toString()&#125;&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.当这个this.state.arr是一个数组时，且这个组件是继承自PureComponent时，初始化依旧是输出constructor和render，但是当点击按钮时，界面上没有变化，也没有输出render，证明没有渲染，但是我们可以从下面的注释中看到，每点击一次按钮，我们想要修改的arr的值已经改变，而这个值将去修改this.state.arr,但是因为在PureComponent中浅比较这个数组的引用没有变化所以没有渲染，this.state.arr也没有更新，因为在this.setState()以后，值是在render的时候更新的，这里涉及到this.setState()的知识</p>
+<p>6.但是当这个组件是继承自Component的时候，初始化依旧是输出constructor和render，但是当点击按钮时，界面上出现了变化，即我们打印处理的arr的值输出，而且每点击一次按钮都会输出一次render，证明已经重新渲染，this.state.arr的值已经更新，所以我们能在界面上看到这个变化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; PureComponent &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">class IndexPage extends PureComponent&#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.state &#x3D; &#123;</span><br><span class="line">      arr:[&#39;1&#39;]</span><br><span class="line">    &#125;;</span><br><span class="line">    console.log(&#39;constructor&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  changeState &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    let &#123; arr &#125; &#x3D; this.state;</span><br><span class="line">    arr.push(&#39;2&#39;);</span><br><span class="line">    console.log(arr);</span><br><span class="line">    &#x2F;&#x2F; [&quot;1&quot;, &quot;2&quot;]</span><br><span class="line">    &#x2F;&#x2F; [&quot;1&quot;, &quot;2&quot;, &quot;2&quot;]</span><br><span class="line">    &#x2F;&#x2F; [&quot;1&quot;, &quot;2&quot;, &quot;2&quot;, &quot;2&quot;]</span><br><span class="line">    &#x2F;&#x2F; ....</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      arr</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    console.log(&#39;render&#39;);</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;this.changeState&#125;&gt;点击&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &#123;this.state.arr.map((item) &#x3D;&gt; &#123;</span><br><span class="line">            return item;</span><br><span class="line">          &#125;)&#125;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>7.下面的例子用扩展运算符产生新数组，使this.state.arr的引用发生了变化，所以初始化的时候输出constructor和render后，每次点击按钮都会输出render，界面也会变化，不管该组件是继承自Component还是PureComponent的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; PureComponent &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">class IndexPage extends PureComponent&#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.state &#x3D; &#123;</span><br><span class="line">      arr:[&#39;1&#39;]</span><br><span class="line">    &#125;;</span><br><span class="line">    console.log(&#39;constructor&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  changeState &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    let &#123; arr &#125; &#x3D; this.state;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      arr: [...arr, &#39;2&#39;]</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    console.log(&#39;render&#39;);</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;this.changeState&#125;&gt;点击&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &#123;this.state.arr.map((item) &#x3D;&gt; &#123;</span><br><span class="line">            return item;</span><br><span class="line">          &#125;)&#125;</span><br><span class="line">          &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>8.上面的情况同样适用于对象的情况</p>
+<h2 id="二-PureComponent不仅会影响本身，而且会影响子组件，所以PureComponent最佳情况是展示组件"><a href="#二-PureComponent不仅会影响本身，而且会影响子组件，所以PureComponent最佳情况是展示组件" class="headerlink" title="二.PureComponent不仅会影响本身，而且会影响子组件，所以PureComponent最佳情况是展示组件"></a>二.PureComponent不仅会影响本身，而且会影响子组件，所以PureComponent最佳情况是展示组件</h2><p>1.我们让IndexPage组件里面包含一个子组件Example来展示PureComponent是如何影响子组件的</p>
+<p>2.父组件继承PureComponent，子组件继承Component时：下面的结果初始化时输出为constructor，IndexPage render，example render，但是当我们点击按钮时，界面没有变化，因为这个this.state.person对象的引用没有改变，只是改变了它里面的属性值所以尽管子组件是继承Component的也没有办法渲染，因为父组件是PureComponent，父组件根本没有渲染，所以子组件也不会渲染</p>
+<p>3.父组件继承PureComponent，子组件继承PureComponent时：因为渲染在父组件的时候就没有进行，相当于被拦截了，所以子组件是PureComponent还是Component根本不会影响结果，界面依旧没有变化</p>
+<p>4.父组件继承Component，子组件继承PureComponent时：结果和我们预期的一样，即初始化是会输出constructor，IndexPage render，example render，但是点击的时候只会出现IndexPage render，因为父组件是Component，所以父组件会渲染，但是<br>当父组件把值传给子组件的时候，因为子组件是PureComponent，所以它会对prop进行浅比较，发现这个person对象的引用没有发生变化，所以不会重新渲染，而界面显示是由子组件显示的，所以界面也不会变化</p>
+<p>5.父组件继承Component，子组件继承Component时：初始化是会输出constructor，IndexPage render，example render，当我们第一次点击按钮以后，界面发生变化，后面就不再改变，因为我们一直把它设置为sxt2，但是每点击一次都会输出IndexPage render，example render，因为每次不管父组件还是子组件都会渲染</p>
+<p>6.所以正如下面第四条说的，如果state和prop一直变化的话，还是建议使用Component，并且PureComponent最好作为展示组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;父组件</span><br><span class="line">import React, &#123; PureComponent, Component &#125; from &#39;react&#39;;</span><br><span class="line">import Example from &quot;..&#x2F;components&#x2F;Example&quot;;</span><br><span class="line"></span><br><span class="line">class IndexPage extends PureComponent&#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.state &#x3D; &#123;</span><br><span class="line">      person: &#123;</span><br><span class="line">        name: &#39;sxt&#39;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    console.log(&#39;constructor&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  changeState &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    let &#123; person &#125; &#x3D; this.state;</span><br><span class="line">    person.name &#x3D; &#39;sxt2&#39;;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      person</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    console.log(&#39;IndexPage render&#39;);</span><br><span class="line">    const &#123; person &#125; &#x3D; this.state;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button onClick&#x3D;&#123;this.changeState&#125;&gt;点击&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;Example person&#x3D;&#123;person&#125; &#x2F;&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;子组件</span><br><span class="line">import React, &#123; Component &#125; from &#39;react&#39;;</span><br><span class="line"></span><br><span class="line">class Example extends Component &#123;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    console.log(&#39;example render&#39;);</span><br><span class="line">    const &#123; person &#125; &#x3D; this.props;</span><br><span class="line">    return(</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &#123;person.name&#125;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三-若是数组和对象等引用类型，则要引用不同，才会渲染"><a href="#三-若是数组和对象等引用类型，则要引用不同，才会渲染" class="headerlink" title="三.若是数组和对象等引用类型，则要引用不同，才会渲染"></a>三.若是数组和对象等引用类型，则要引用不同，才会渲染</h2><h2 id="四-如果prop和state每次都会变，那么PureComponent的效率还不如Component，因为你知道的，进行浅比较也是需要时间"><a href="#四-如果prop和state每次都会变，那么PureComponent的效率还不如Component，因为你知道的，进行浅比较也是需要时间" class="headerlink" title="四.如果prop和state每次都会变，那么PureComponent的效率还不如Component，因为你知道的，进行浅比较也是需要时间"></a>四.如果prop和state每次都会变，那么PureComponent的效率还不如Component，因为你知道的，进行浅比较也是需要时间</h2><h2 id="五-若有shouldComponentUpdate，则执行它，若没有这个方法会判断是不是PureComponent，若是，进行浅比较"><a href="#五-若有shouldComponentUpdate，则执行它，若没有这个方法会判断是不是PureComponent，若是，进行浅比较" class="headerlink" title="五.若有shouldComponentUpdate，则执行它，若没有这个方法会判断是不是PureComponent，若是，进行浅比较"></a>五.若有shouldComponentUpdate，则执行它，若没有这个方法会判断是不是PureComponent，若是，进行浅比较</h2><p>1.继承自Component的组件，若是shouldComponentUpdate返回false，就不会渲染了，继承自PureComponent的组件不用我们手动去判断prop和state，所以在PureComponent中使用shouldComponentUpdate会有如下警告:</p>
+<p><code>IndexPage has a method called shouldComponentUpdate(). shouldComponentUpdate should not be used when extending React.PureComponent. Please extend React.Component if shouldComponentUpdate is used.</code></p>
+<p>也是比较好理解的，就是不要在PureComponent中使用shouldComponentUpdate，因为根本没有必要</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端易混知识点/">前端易混知识点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/易混知识点/">易混知识点</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/React%20%E7%9A%84%20PureComponent%20Vs%20Component/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

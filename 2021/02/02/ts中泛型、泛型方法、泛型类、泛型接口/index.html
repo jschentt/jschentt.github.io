@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>ts中泛型、泛型方法、泛型类、泛型接口 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="ts中泛型、泛型方法、泛型类、泛型接口" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-ts中泛型、泛型方法、泛型类、泛型接口" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/ts中泛型、泛型方法、泛型类、泛型接口/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">ts中泛型、泛型方法、泛型类、泛型接口</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>什么是泛型呢？我们可以理解为泛型就是在编译期间不确定方法的类型(广泛之意思)，在方法调用时，由程序员指定泛型具体指向什么类型。泛型在传统面向对象编程语言中是极为常见的，ts中当然也执行泛型，如果你理解c#或java中的泛型，相信本篇理解起来会很容易。</p>
+<h2 id="泛型函数、泛型类、泛型接口。"><a href="#泛型函数、泛型类、泛型接口。" class="headerlink" title="泛型函数、泛型类、泛型接口。"></a>泛型函数、泛型类、泛型接口。</h2><p><strong>generic.ts</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line"> * ts中泛型</span><br><span class="line"> *    泛型就是在编译期间不确定方法的类型(广泛之意思)，在方法调用时，由程序员指定泛型具体指向什么类型</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;1 泛型函数</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取数组中最小值 （数字）</span><br><span class="line"> * @param &#123;number[]&#125; arr</span><br><span class="line"> * @returns &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function  getMinNumber(arr:number[]):number&#123;</span><br><span class="line">    var min&#x3D;arr[0];</span><br><span class="line">    arr.forEach((value)&#x3D;&gt;&#123;</span><br><span class="line">        if(value&lt;min)&#123;</span><br><span class="line">            min&#x3D;value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取数组中最小值 （字符串）</span><br><span class="line"> * @param &#123;number[]&#125; arr</span><br><span class="line"> * @returns &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function  getMinStr(arr:string[]):string&#123;</span><br><span class="line">    var min&#x3D;arr[0];</span><br><span class="line">    arr.forEach((value)&#x3D;&gt;&#123;</span><br><span class="line">        if(value&lt;min)&#123;</span><br><span class="line">            min&#x3D;value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(getMinNumber([1, 3, 5, 7, 8]));&#x2F;&#x2F;1</span><br><span class="line">console.log(getMinStr([&quot;tom&quot;,&quot;jerry&quot;,&quot;jack&quot;,&quot;sunny&quot;]));&#x2F;&#x2F;jack</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取数组中最小值 (T泛型通用)</span><br><span class="line"> * @param &#123;T[]&#125; arr</span><br><span class="line"> * @returns &#123;T&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function getMin&lt;T&gt;(arr:T[]):T&#123;</span><br><span class="line">   var min&#x3D;arr[0];</span><br><span class="line">   arr.forEach((value)&#x3D;&gt;&#123;</span><br><span class="line">      if(value&lt;min)&#123;</span><br><span class="line">          min&#x3D;value;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(getMin([1, 3, 5, 7, 8]));</span><br><span class="line">console.log(getMin([&quot;tom&quot;,&quot;jerry&quot;,&quot;jack&quot;,&quot;sunny&quot;]));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2 泛型类</span><br><span class="line">class GetMin&lt;T&gt;&#123;</span><br><span class="line">     arr:T[]&#x3D;[];</span><br><span class="line">     add(ele:T)&#123;</span><br><span class="line">         this.arr.push(ele);</span><br><span class="line">     &#125;</span><br><span class="line">    min():T&#123;</span><br><span class="line">       var min&#x3D;this.arr[0];</span><br><span class="line">       this.arr.forEach(function (value) &#123;</span><br><span class="line">          if(value&lt;min)&#123;</span><br><span class="line">              min&#x3D;value;</span><br><span class="line">          &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       return min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  var gm1&#x3D; new  GetMin&lt;number&gt;();</span><br><span class="line">   gm1.add(5);</span><br><span class="line">   gm1.add(3);</span><br><span class="line">   gm1.add(2);</span><br><span class="line">   gm1.add(9);</span><br><span class="line">console.log(gm1.min());</span><br><span class="line"></span><br><span class="line">var gm2&#x3D; new  GetMin&lt;string&gt;();</span><br><span class="line">gm2.add(&quot;tom&quot;);</span><br><span class="line">gm2.add(&quot;jerry&quot;);</span><br><span class="line">gm2.add(&quot;jack&quot;);</span><br><span class="line">gm2.add(&quot;sunny&quot;);</span><br><span class="line">console.log(gm2.min());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 3 泛型函数接口</span><br><span class="line"> *&#x2F;</span><br><span class="line">interface ConfigFn&#123;</span><br><span class="line">    &lt;T&gt;(value:T):T;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var getData:ConfigFn&#x3D;function&lt;T&gt;(value:T):T&#123;</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br><span class="line">getData&lt;string&gt;(&#39;张三&#39;);</span><br><span class="line">&#x2F;&#x2F; getData&lt;string&gt;(1243);  &#x2F;&#x2F;错误</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 类似  Map&lt;String,Object&gt; Param  接口</span><br><span class="line">interface Param&#123;</span><br><span class="line">    [index:string]:any</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;4 泛型类接口</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * page分页对象</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Page&#123;</span><br><span class="line">    private currentPage:number&#x3D;1; &#x2F;&#x2F;当前页码 默认1</span><br><span class="line">    private pageSize:number&#x3D;10;&#x2F;&#x2F;每页条数 默认为10</span><br><span class="line">    private sortName:string; &#x2F;&#x2F;排序字段</span><br><span class="line">    private sortOrder:string&#x3D;&quot;asc&quot;; &#x2F;&#x2F; 排序规则 asc | desc 默认为asc正序</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     constructor(param:Param)&#123;</span><br><span class="line">         if(param[&quot;currentPage&quot;])&#123;</span><br><span class="line">             this.currentPage&#x3D;param[&quot;currentPage&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;pageSize&quot;])&#123;</span><br><span class="line">             this.pageSize&#x3D;param[&quot;pageSize&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;sortName&quot;])&#123;</span><br><span class="line">             this.sortName&#x3D;param[&quot;sortName&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;sortOrder&quot;])&#123;</span><br><span class="line">             this.sortOrder&#x3D;param[&quot;sortOrder&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    public    getStartNum():number&#123;</span><br><span class="line">        return   (this.currentPage-1)*this.pageSize;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class User&#123;</span><br><span class="line">     id:number;&#x2F;&#x2F;id主键自增</span><br><span class="line">     name:string;&#x2F;&#x2F;姓名</span><br><span class="line">     sex:number;&#x2F;&#x2F;性别 1男 2女</span><br><span class="line">     age:number;&#x2F;&#x2F;年龄</span><br><span class="line">     city:string;&#x2F;&#x2F;城市</span><br><span class="line">     describe:string;&#x2F;&#x2F;描述</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;泛型接口</span><br><span class="line">interface  BaseDao&lt;T&gt; &#123;</span><br><span class="line">     findById(id:number):T;&#x2F;&#x2F;根据主键id查询一个实体</span><br><span class="line">     findPageList(param:Param,page:Page):T[];&#x2F;&#x2F;查询分页列表</span><br><span class="line">     findPageCount(param:Param):number;&#x2F;&#x2F;查询分页count</span><br><span class="line">     save(o:T):void;&#x2F;&#x2F;保存一个实体</span><br><span class="line">     update(o:T):void;&#x2F;&#x2F;更新一个实体</span><br><span class="line">     deleteById(id:number);&#x2F;&#x2F;删除一个实体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 接口实现类</span><br><span class="line"> *&#x2F;</span><br><span class="line">class UserDao&lt;User&gt; implements BaseDao&lt;User&gt;&#123;</span><br><span class="line">     findById(id:number):User&#123;</span><br><span class="line"></span><br><span class="line">        return null;</span><br><span class="line">     &#125;</span><br><span class="line">    findPageList(param:Param,page:Page):User[]&#123;</span><br><span class="line">         return [];</span><br><span class="line">    &#125;</span><br><span class="line">    findPageCount(param:Param):number&#123;</span><br><span class="line">         return   0;</span><br><span class="line">    &#125;</span><br><span class="line">    save(o:User):void&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    update(o:User):void&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    deleteById(id:number)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端易混知识点/">前端易混知识点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/易混知识点/">易混知识点</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/ts%E4%B8%AD%E6%B3%9B%E5%9E%8B%E3%80%81%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E3%80%81%E6%B3%9B%E5%9E%8B%E7%B1%BB%E3%80%81%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

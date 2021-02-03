@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>如何编写一个d.ts文件 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="如何编写一个d.ts文件" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-如何编写一个d.ts文件" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/如何编写一个d.ts文件/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">如何编写一个d.ts文件</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这篇文章主要讲怎么写一个typescript的描述文件（以d.ts结尾的文件名，比如xxx.d.ts)。</p>
+</blockquote>
+<p>总结一下：<br>从类型type角度分为：基本类型（string、number、boolean等）及其混合；复杂类型（class、function、object）及其混合（比如说又是class又是function）。<br>从代码有效范围分为：全局变量、模块变量和又是全局变量又是模块变量的。<br>从定义文件来说：自己写的.d.ts文件和扩展别人写的.d.ts文件。<br>以上三个角度，应该覆盖了描述文件的各个方面了。</p>
+<p>2019.09.12更新说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.增加了用interface的方式声明函数。</span><br><span class="line">2.增加了在使用模块化导入的情况下如何声明全局变量。</span><br></pre></td></tr></table></figure>
+
+<p>2018.12.18更新说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.增加了全局声明的原理说明。</span><br><span class="line">2.增加了es6的import、export对应的d.ts文件写法。</span><br><span class="line">3.增加了d.ts文件放置位置的说明。</span><br></pre></td></tr></table></figure>
+
+
+<p>发现了一个关于typescript比较好的入门教程：<a href="https://ts.xcatliu.com/basics/declaration-files" target="_blank" rel="noopener">https://ts.xcatliu.com/basics…</a>，这是其中的关于描述文件的文档。</p>
+<p>最近开始从js转ts了。但是要用到一些描述文件（d.ts），常用的比如jquery等都可以通过 npm下载到别人已经写好的<code>npm install @types/jquery</code>。但是还是有一些小众的或者公司内部的公共库或者以前写过的公用js代码需要自己手动写描述文件。</p>
+<p>之前也从网上也找了一些资料，但还是看的云里雾里模糊不清，经过一段摸索，将摸索的结果记录下来，也希望可以给别人一个参考。</p>
+<p>如果你只写js，d.ts对你来说也是有用的，大部分编辑器能识别d.ts文件，当你写js代码的时候给你智能提示。效果像这样：</p>
+<p><img src="https://segmentfault.com/img/bVDReN?w=594&h=359" alt="image"></p>
+<p>详情可以看我以前写过的一些文章<a href="https://segmentfault.com/a/1190000007110845" target="_blank" rel="noopener">：https://segmentfault.com/a/11…</a></p>
+<p>通常，我们写js的时候有两种引入js的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1，在html文件中通过&lt;script&gt;标签全局引入全局变量。</span><br><span class="line">2，通过模块加载器require其他js文件：比如这样var j&#x3D;require(&#39;jquery&#39;)。</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="全局类型"><a href="#全局类型" class="headerlink" title="全局类型"></a>全局类型</h2><p>首先以第一种方式举例。</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>比如现在有一个全局变量，那对应的d.ts文件里面这样写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare var aaa:number</span><br></pre></td></tr></table></figure>
+
+<p>其中关键字declare表示声明的意思。<strong>在d.ts文件里面，在最外层声明变量或者函数或者类要在前面加上这个关键字。在typescript的规则里面，如果一个.ts、.d.ts文件如果没有用到import或者export语法的话，那么最顶层声明的变量就是全局变量。</strong></p>
+<p>所以我们在这里声明了一个全局变量aaa,类型是数字类型（number）。当然了也可以是string类型或者其他或者：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare var aaa:number|string &#x2F;&#x2F;注意这里用的是一个竖线表示&quot;或&quot;的意思</span><br></pre></td></tr></table></figure>
+
+<p>如果是常量的话用关键字const表示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare const max:200</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>由上面的全局变量的写法我们很自然的推断出一个全局函数的写法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;** id是用户的id，可以是number或者string *&#x2F;</span><br><span class="line">declare function getName(id:number|string):string</span><br></pre></td></tr></table></figure>
+
+<p>最后的那个string表示的是函数的返回值的类型。如果函数没有返回值可以用void表示。<br>在js里面调用的时候就会提示：</p>
+<p><img src="https://segmentfault.com/img/bVLuCP?w=579&h=122" alt="image"></p>
+<p>我们上面写的注释，写js的时候还可以提示。</p>
+<p>有时候同一个函数有若干种写法：</p>
+<p><img src="https://segmentfault.com/img/bVMXTD?w=431&h=107" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">get(1234)</span><br><span class="line">get(&quot;zhangsan&quot;,18)</span><br></pre></td></tr></table></figure>
+
+<p>那么d.ts对应的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare function get(id: string | number): string</span><br><span class="line">declare function get(name:string,age:number): string</span><br></pre></td></tr></table></figure>
+
+<p>如果有些参数可有可无，可以加个?表示非必须。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare function render(callback?:()&#x3D;&gt;void): string</span><br></pre></td></tr></table></figure>
+
+<p>js中调用的时候，回调传不传都可以：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">render()</span><br><span class="line"></span><br><span class="line">render(function () &#123;</span><br><span class="line">    alert(&#39;finish.&#39;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="用interface-声明函数"><a href="#用interface-声明函数" class="headerlink" title="用interface 声明函数"></a>用interface 声明函数</h3><p>也可以用interface去声明函数类型：</p>
+<p><img src="https://segmentfault.com/img/bVbxExG?w=440&h=178" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Get是一种类型</span><br><span class="line">declare interface Get&#123;</span><br><span class="line">    (id: string): string</span><br><span class="line">    (name:string,age:number):string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;get是Get类型的</span><br><span class="line">declare var get:Get</span><br></pre></td></tr></table></figure>
+
+<p>用起来长这个样子：</p>
+<p><img src="https://segmentfault.com/img/bVbxExy?w=432&h=136" alt="image"></p>
+<h3 id="class"><a href="#class" class="headerlink" title="class"></a>class</h3><p>当然除了变量和函数外，我们还有类（class）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">declare class Person &#123;</span><br><span class="line"></span><br><span class="line">    static maxAge: number &#x2F;&#x2F;静态变量</span><br><span class="line">    static getMaxAge(): number &#x2F;&#x2F;静态方法</span><br><span class="line"></span><br><span class="line">    constructor(name: string, age: number)  &#x2F;&#x2F;构造函数</span><br><span class="line">    getName(id: number): string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>constructor表示的是构造方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXy0?w=651&h=91" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXzk?w=524&h=100" alt="image"></p>
+<p>其中static表示静态的意思，用来表示静态变量和静态方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXAV?w=605&h=96" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXAg?w=568&h=112" alt="image"></p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declare namespace OOO&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然了这个对象上面可能有变量，可能有函数可能有类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">declare namespace OOO&#123;</span><br><span class="line">    var aaa: number | string</span><br><span class="line">    function getName(id: number | string): string</span><br><span class="line">    class Person &#123;</span><br><span class="line"></span><br><span class="line">        static maxAge: number &#x2F;&#x2F;静态变量</span><br><span class="line">        static getMaxAge(): number &#x2F;&#x2F;静态方法</span><br><span class="line"></span><br><span class="line">        constructor(name: string, age: number) &#x2F;&#x2F;构造函数</span><br><span class="line">        getName(id: number): string &#x2F;&#x2F;实例方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是把上面的那些写法放到这个namespace包起来的大括号里面，注意括号里面就不需要declare关键字了。<br>效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXBu?w=525&h=113" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXBv?w=581&h=63" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXBB?w=617&h=125" alt="image"></p>
+<p>对象里面套对象也是可以的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">declare namespace OOO&#123;</span><br><span class="line">    var aaa: number | string</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    namespace O2&#123;</span><br><span class="line">        let b:number</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXB5?w=547&h=67" alt="image"></p>
+<h2 id="混合类型"><a href="#混合类型" class="headerlink" title="混合类型"></a>混合类型</h2><p>有时候有些值既是函数又是class又是对象的复杂对象。比如我们常用的jquery有各种用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new $()</span><br><span class="line">$.ajax()</span><br><span class="line">$()</span><br></pre></td></tr></table></figure>
+
+<h3 id="既是函数又是对象"><a href="#既是函数又是对象" class="headerlink" title="既是函数又是对象"></a>既是函数又是对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare function $2(s:string): void</span><br><span class="line"></span><br><span class="line">declare namespace $2&#123;</span><br><span class="line">    let aaa:number</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p>作为函数用：</p>
+<p><img src="https://segmentfault.com/img/bVMXJ8?w=273&h=85" alt="image"></p>
+<p>作为对象用：</p>
+<p><img src="https://segmentfault.com/img/bVMXKa?w=540&h=78" alt="image"></p>
+<p>也就是ts会自动把同名的namespace和function合并到一起。</p>
+<h3 id="既是函数，又是类（可以new出来），又是对象"><a href="#既是函数，又是类（可以new出来），又是对象" class="headerlink" title="既是函数，又是类（可以new出来），又是对象"></a>既是函数，又是类（可以new出来），又是对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 实例方法</span><br><span class="line">interface People&#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">    getName(): string</span><br><span class="line">    getAge():number</span><br><span class="line">&#125;</span><br><span class="line">interface People_Static&#123;</span><br><span class="line">    &#x2F;** 构造函数 *&#x2F;</span><br><span class="line">    new (name: string, age: number): People</span><br><span class="line">    new (id:number): People</span><br><span class="line"></span><br><span class="line">    &#x2F;** 作为对象，调用对象上的方法或者变量 *&#x2F;</span><br><span class="line">    staticA():number</span><br><span class="line">    aaa:string</span><br><span class="line"></span><br><span class="line">    &#x2F;** 作为函数使用 *&#x2F;</span><br><span class="line">    (w:number):number</span><br><span class="line">    (w:string):number</span><br><span class="line">&#125;</span><br><span class="line">declare var People:People_Static</span><br></pre></td></tr></table></figure>
+
+<p>ts3.6增加了新功能，function声明和class声明可以合并了，所以又有了新的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;** 作为函数使用 *&#x2F;</span><br><span class="line">declare function People(w: number): number</span><br><span class="line">declare function People(w: string): number</span><br><span class="line"></span><br><span class="line">declare class People &#123;</span><br><span class="line">    &#x2F;** 构造函数 *&#x2F;</span><br><span class="line">    constructor(name: string, age: number)</span><br><span class="line">    constructor(id: number)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 实例属性和实例方法</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">    getName(): string</span><br><span class="line">    getAge(): number</span><br><span class="line"></span><br><span class="line">    &#x2F;** 作为对象，调用对象上的方法或者变量 *&#x2F;</span><br><span class="line">    static staticA(): number</span><br><span class="line">    static aaa: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;** 作为对象，调用对象上的方法或者变量 *&#x2F;</span><br><span class="line">declare namespace People &#123;</span><br><span class="line">    export var abc: number</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数用function，类用class声明，复杂对象就用namespace，这样的对应关系简洁明了。</p>
+<p>效果：</p>
+<p>作为函数使用：</p>
+<p><img src="https://segmentfault.com/img/bVMXNA?w=369&h=77" alt="image"></p>
+<p>类的静态方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXNN?w=595&h=83" alt="image"></p>
+<p>类的构造函数：</p>
+<p><img src="https://segmentfault.com/img/bVMXNB?w=626&h=103" alt="image"></p>
+<p>类的实例方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXNE?w=508&h=165" alt="image"></p>
+<h2 id="模块化的全局变量"><a href="#模块化的全局变量" class="headerlink" title="模块化的全局变量"></a>模块化的全局变量</h2><p>这个是怎么回事呢，就是有时候我们定义全局变量的时候需要引入(别人写的)文件，比如这样的，我想声明个全局变量req：</p>
+<p><img src="https://segmentfault.com/img/bVbxEAj?w=526&h=124" alt="image"></p>
+<p>由于我们当前的d.ts文件使用了import/export语法，那么ts编译器就不把我们通过declare var xxx:yyy当成了全局变量了，那么我们就需要通过以下的方式声明全局变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Request,Response&#125; from &#39;express&#39;</span><br><span class="line"></span><br><span class="line">declare global &#123;</span><br><span class="line">    var req: Request</span><br><span class="line">    var res: Response</span><br><span class="line"></span><br><span class="line">    namespace OOO &#123;</span><br><span class="line">        var a:number</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用起来长这个样子：</p>
+<p><img src="https://segmentfault.com/img/bVbxEBp?w=430&h=214" alt="image"></p>
+<p>其他类型（number、string blabla）就不一一举例了，参照上面的例子去掉declare填到global的大括号下就行了。</p>
+<h2 id="模块化（CommonJS）"><a href="#模块化（CommonJS）" class="headerlink" title="模块化（CommonJS）"></a>模块化（CommonJS）</h2><p>除了上面的全局的方式，我们有时候还是通过require的方式引入模块化的代码。</p>
+<p>比如这样的效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXOl?w=486&h=134" alt="image"></p>
+<p>对应的写法是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">declare module &quot;abcde&quot; &#123;</span><br><span class="line">    export let a: number</span><br><span class="line">    export function b(): number</span><br><span class="line">    export namespace c&#123;</span><br><span class="line">        let cd: string</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是外面套了一层 <code>module &quot;xxx&quot;</code>，里面的写法和之前其实差不多，把<code>declare</code>换成了<code>export</code>。</p>
+<p>此外，有时候我们导出去的是一个函数本身，比如这样的：</p>
+<p><img src="https://segmentfault.com/img/bVMXOU?w=358&h=110" alt="image"></p>
+<p>对应的写法很简单，长这个样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">declare module &quot;app&quot; &#123;</span><br><span class="line">    function aaa(some:number):number</span><br><span class="line">     export&#x3D;aaa</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>以此类推，导出一个变量或常量的话这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">declare module &quot;ccc&quot; &#123;</span><br><span class="line">    const c:400</span><br><span class="line">     export&#x3D;c</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXPc?w=671&h=109" alt="image"></p>
+<h2 id="ES6的模块化方式（import-export）"><a href="#ES6的模块化方式（import-export）" class="headerlink" title="ES6的模块化方式（import export）"></a>ES6的模块化方式（import export）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare var aaa: 1</span><br><span class="line">declare var bbb: 2</span><br><span class="line">declare var ccc: 3 &#x2F;&#x2F;因为这个文件里我们使用了import或者export语法，所以bbb和ccc在其他代码里不能访问到，即不是全局变量</span><br><span class="line"></span><br><span class="line">export &#123; aaa &#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import &#123; a1, a2 &#125; from &quot;.&#x2F;A&quot;</span><br><span class="line"></span><br><span class="line">console.log(a1)</span><br><span class="line">console.log(a2)</span><br></pre></td></tr></table></figure>
+
+<p>那么对应的A.d.ts文件是这样写的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">declare var a1: 1</span><br><span class="line">declare var a2: 2</span><br><span class="line"></span><br><span class="line">export &#123; a1,a2 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然了也能这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export declare var a1: 1</span><br><span class="line">export declare var a2: 2</span><br></pre></td></tr></table></figure>
+
+<p>不过建议之前的第一种写法，原因看这里<a href="https://segmentfault.com/a/1190000017419857" target="_blank" rel="noopener">https://segmentfault.com/a/11…</a></p>
+<p>当然了还有人经常问default导出的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare var a1: 1</span><br><span class="line">export default a1</span><br></pre></td></tr></table></figure>
+
+<p>使用的时候当然就是这样用了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import a1 from &quot;.&#x2F;A&quot;;</span><br><span class="line"></span><br><span class="line">console.log(a1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><p>有一种代码，既可以通过全局变量访问到，也可以通过require的方式访问到。比如我们最常见的jquery：</p>
+<p><img src="https://segmentfault.com/img/bVMXPg?w=539&h=174" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXPf?w=523&h=187" alt="image"></p>
+<p>其实就是按照全局的方式写d.ts，写完后在最后加上<code>declare module &quot;xxx&quot;</code>的描述：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">declare namespace UUU&#123;</span><br><span class="line">    let a:number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare module &quot;UUU&quot; &#123;</span><br><span class="line">    export &#x3D;UUU</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果这样：</p>
+<p>作为全局变量使用：</p>
+<p><img src="https://segmentfault.com/img/bVMXPB?w=520&h=86" alt="image"></p>
+<p>作为模块加载使用：</p>
+<p><img src="https://segmentfault.com/img/bVMXPM?w=513&h=104" alt="image"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>有时候我们扩展了一些内置对象。比如我们给Date增加了一个format的实例方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXRR?w=517&h=103" alt="image"></p>
+<p>对应的d.ts描述文件这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface Date &#123;</span><br><span class="line">    format(f: string): string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="d-ts文件放到哪里"><a href="#d-ts文件放到哪里" class="headerlink" title=".d.ts文件放到哪里"></a>.d.ts文件放到哪里</h2><p>经常有人问写出来的d.ts文件（A.d.ts）文件放到哪个目录里，如果是模块化的话那就放到和源码（A.js）文件同一个目录下，如果是全局变量的话理论上放到哪里都可以————当然除非你在tsconfig.json 文件里面特殊配置过。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端易混知识点/">前端易混知识点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/易混知识点/">易混知识点</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAd.ts%E6%96%87%E4%BB%B6/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

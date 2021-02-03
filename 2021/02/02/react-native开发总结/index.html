@@ -1,0 +1,499 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>react-native开发总结 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="react-native开发总结" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-react-native开发总结" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/react-native开发总结/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">react-native开发总结</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><a href="https://gitee.com/liu12fei08fei/rn_test" target="_blank" rel="noopener">项目总结代码地址</a></li>
+<li>记录开发react-native中各种有意思的事情</li>
+<li>最新探索，用来进行各种尝试的空间</li>
+<li>完成的探索，记录所有已经完成的模块、功能和效果</li>
+<li>中转站，暂时无用</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="全局脚手架"><a href="#全局脚手架" class="headerlink" title="全局脚手架"></a>全局脚手架</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g react-native-cli</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装基础项目"><a href="#安装基础项目" class="headerlink" title="安装基础项目"></a>安装基础项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native init &lt;项目名称&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><h3 id="优化后的运行"><a href="#优化后的运行" class="headerlink" title="优化后的运行"></a>优化后的运行</h3><ul>
+<li>ios：npm run ios</li>
+<li>android：npm run android</li>
+<li>ios and android：npm run s</li>
+</ul>
+<h3 id="原始启动"><a href="#原始启动" class="headerlink" title="原始启动"></a>原始启动</h3><ul>
+<li>ios：react-native run-ios</li>
+<li>android：react-native run-android</li>
+</ul>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
+<li><a href="https://github.com/react-navigation/react-navigation" target="_blank" rel="noopener">navigation集成</a></li>
+<li><a href="https://github.com/oblador/react-native-vector-icons" target="_blank" rel="noopener">集成icons</a></li>
+<li><a href="https://github.com/crazycodeboy/react-native-easy-toast" target="_blank" rel="noopener"> react-native-easy-toast</a></li>
+<li><a href="https://github.com/jondot/awesome-react-native" target="_blank" rel="noopener">rn资源列表</a></li>
+<li><a href="https://github.com/dancormier/react-native-swipeout" target="_blank" rel="noopener">横向滑动展示按钮效果</a></li>
+<li><a href="https://github.com/valerybugakov/react-native-custom-actionsheet" target="_blank" rel="noopener">自定义行动列表</a></li>
+<li><a href="https://github.com/danchokobo/react-native-code-verification" target="_blank" rel="noopener">密码输入效果</a></li>
+<li><a href="https://github.com/skv-headless/react-native-scrollable-tab-view" target="_blank" rel="noopener">选项卡导航之间滑动</a></li>
+<li><a href="https://github.com/cssivision/react-native-qrcode" target="_blank" rel="noopener">二维码生成</a></li>
+</ul>
+<h2 id="未探索的资源"><a href="#未探索的资源" class="headerlink" title="未探索的资源"></a>未探索的资源</h2><blockquote>
+<p>365个库中寻找77个</p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/beefe/react-native-picker" target="_blank" rel="noopener">select选择控件</a></li>
+<li><a href="https://github.com/App2Sales/react-native-switch-selector" target="_blank" rel="noopener">开关式选择列表</a></li>
+<li><a href="https://github.com/yonahforst/react-native-emoji-picker" target="_blank" rel="noopener">表情选择器</a></li>
+<li><a href="https://github.com/Tinysymphony/react-native-drawer-menu" target="_blank" rel="noopener">左右滑动层</a></li>
+<li><a href="https://github.com/Spikef/react-native-phone-picker" target="_blank" rel="noopener">手机号选择控件</a></li>
+<li><a href="https://github.com/zecaptus/react-native-md-motion-buttons" target="_blank" rel="noopener">登录动画</a></li>
+<li><a href="https://github.com/merryjs/photo-viewer" target="_blank" rel="noopener">图片查看器</a></li>
+<li><a href="https://github.com/SoftZen/react-native-bouncy-drawer" target="_blank" rel="noopener">菜单操作动画</a></li>
+<li><a href="https://github.com/charlot567/react-native-comparison-slider" target="_blank" rel="noopener">滑动操作图片展示样式</a></li>
+<li><a href="https://github.com/moschan/react-native-newsticker" target="_blank" rel="noopener">操作打字效果</a></li>
+<li><a href="https://github.com/prscX/react-native-siri-wave-view" target="_blank" rel="noopener">声音可视化</a></li>
+<li><a href="https://github.com/mfrachet/rn-placeholder" target="_blank" rel="noopener">占位符</a></li>
+<li><a href="https://github.com/oblador/react-native-lightbox" target="_blank" rel="noopener">图片查看器</a></li>
+<li><a href="https://github.com/react-native-community/react-native-blur" target="_blank" rel="noopener">模糊背景效果</a></li>
+<li><a href="https://github.com/ivpusic/react-native-image-crop-picker" target="_blank" rel="noopener">本地图片超级操作</a></li>
+<li><a href="https://github.com/meteor-factory/react-native-tinder-swipe-cards" target="_blank" rel="noopener">四面八方拖动效果</a></li>
+<li><a href="https://github.com/sbycrosz/react-native-credit-card-input" target="_blank" rel="noopener">信用卡输入效果</a></li>
+<li><a href="https://github.com/jmurzy/react-native-foldview" target="_blank" rel="noopener">展开动画效果</a></li>
+<li><a href="https://github.com/tomauty/react-native-chart" target="_blank" rel="noopener">chart</a></li>
+<li><a href="https://github.com/crazycodeboy/react-native-splash-screen" target="_blank" rel="noopener">初始化启动页</a></li>
+<li><a href="https://github.com/wix/react-native-calendars" target="_blank" rel="noopener">日期</a></li>
+<li><a href="https://github.com/archriss/react-native-snap-carousel" target="_blank" rel="noopener">左右滑动操作卡片效果</a></li>
+<li><a href="https://github.com/gitim/react-native-sortable-list" target="_blank" rel="noopener">列表拖拽</a></li>
+<li><a href="https://github.com/JesperLekland/react-native-svg-charts" target="_blank" rel="noopener">chart</a></li>
+<li><a href="https://github.com/spikef/react-native-gesture-password" target="_blank" rel="noopener">密码锁效果</a></li>
+<li><a href="https://github.com/djchie/react-native-star-rating" target="_blank" rel="noopener">星级评价</a></li>
+<li><a href="https://github.com/jgrancher/react-native-sketch" target="_blank" rel="noopener">手动签字</a></li>
+<li><a href="https://github.com/24ark/react-native-step-indicator" target="_blank" rel="noopener">滑动时间轴效果</a></li>
+<li><a href="https://github.com/xcarpentier/react-native-country-picker-modal" target="_blank" rel="noopener">国家26字母选择</a></li>
+<li><a href="https://github.com/cnjon/react-native-pdf-view" target="_blank" rel="noopener">PDF查看</a></li>
+<li><a href="https://github.com/i6mi6/react-native-alphabetlistview" target="_blank" rel="noopener">26字母选择</a></li>
+<li><a href="https://github.com/naoufal/react-native-activity-view" target="_blank" rel="noopener">分享</a></li>
+<li><a href="https://github.com/jeanregisser/react-native-popover" target="_blank" rel="noopener">对话框</a></li>
+<li><a href="https://github.com/taskrabbit/react-native-parsed-text" target="_blank" rel="noopener">电话、地址等操作</a></li>
+<li><a href="https://github.com/kayla-tech/react-native-privacy-snapshot" target="_blank" rel="noopener">后台信息保护</a></li>
+<li><a href="https://github.com/anvilabs/react-native-image-carousel" target="_blank" rel="noopener">图片查看器</a></li>
+<li><a href="https://github.com/chitezh/react-native-swiper-animated" target="_blank" rel="noopener">左右滑动动画</a></li>
+<li><a href="https://github.com/rauchy/react-native-offline-mode" target="_blank" rel="noopener">无网络操作</a></li>
+<li><a href="https://github.com/instea/react-native-color-picker" target="_blank" rel="noopener">颜色选择器</a></li>
+<li><a href="https://github.com/wix/react-native-custom-segmented-control" target="_blank" rel="noopener">左右滑动tab动效</a></li>
+<li><a href="https://github.com/mastermoo/react-native-pulse-loader" target="_blank" rel="noopener">加载中效果</a></li>
+<li><a href="https://github.com/machadogj/react-native-carousel-control" target="_blank" rel="noopener">左右滑动效果，类似酷划锁屏</a></li>
+<li><a href="https://github.com/awesomejerry/react-native-qrcode-svg" target="_blank" rel="noopener">二维码生成器</a></li>
+<li><a href="https://github.com/zachgibson/react-native-parallax-swiper" target="_blank" rel="noopener">图片查看器</a></li>
+<li><a href="https://github.com/bamlab/react-native-image-header-scroll-view" target="_blank" rel="noopener">视差效果</a></li>
+<li><a href="https://github.com/Tinysymphony/react-native-calendar-select" target="_blank" rel="noopener">日期</a></li>
+<li><a href="https://github.com/prscX/react-native-shine-button" target="_blank" rel="noopener">点击效果</a></li>
+<li><a href="https://github.com/geremih/react-native-circular-action-menu" target="_blank" rel="noopener">扇形菜单</a></li>
+<li><a href="https://github.com/johanneslumpe/react-native-gesture-recognizers/" target="_blank" rel="noopener">手势识别</a></li>
+</ul>
+<h2 id="新增页面需要在三个地方进行操作"><a href="#新增页面需要在三个地方进行操作" class="headerlink" title="新增页面需要在三个地方进行操作"></a>新增页面需要在三个地方进行操作</h2><ol>
+<li>data里面的complete.js中添加数据，方便在完成的探索中出现</li>
+<li>navigators中的AppStackNavigators.js里面进行引入=&gt;注册，使得路由正常</li>
+<li>pages里面添加页面</li>
+</ol>
+<h2 id="优化package-json使开发更加方便"><a href="#优化package-json使开发更加方便" class="headerlink" title="优化package.json使开发更加方便"></a>优化package.json使开发更加方便</h2><ul>
+<li>在scripts中添加，如下内容：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;ios&quot;:&quot;react-native run-ios&quot;,</span><br><span class="line">&quot;android&quot;:&quot;react-native run-android&quot;,</span><br><span class="line">&quot;s&quot;:&quot;npm run ios &amp;&amp; npm run android&quot;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="flex布局常用属性"><a href="#flex布局常用属性" class="headerlink" title="flex布局常用属性"></a>flex布局常用属性</h2><ul>
+<li>防止在flex中出现，固定元素被挤压的问题，使用flex:1进行优化</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">display: &#39;flex&#39;;</span><br><span class="line">flexDirection: row | row-reverse | column | column-reverse;</span><br><span class="line">flexWrap: nowrap | wrap | wrap-reverse;</span><br><span class="line">flexFlow: &lt;flex-direction&gt; | &lt;flex-wrap&gt;;</span><br><span class="line">justifyContent: flex-start | flex-end | center | space-between | space-around;</span><br><span class="line">alignItems: flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">alignContent: flex-start | flex-end | center | space-between | space-around | stretch;</span><br><span class="line"></span><br><span class="line">order: &lt;integer&gt;;</span><br><span class="line">flexGrow: &lt;number&gt;; &#x2F;* default 0 *&#x2F;</span><br><span class="line">flexShrink: &lt;number&gt;; &#x2F;* default 1 *&#x2F;</span><br><span class="line">flexBasis: &lt;length&gt; | auto; &#x2F;* default auto *&#x2F;</span><br><span class="line">flex: none | [ &lt;&#39;flex-grow&#39;&gt; &lt;&#39;flex-shrink&#39;&gt;? || &lt;&#39;flex-basis&#39;&gt; ]</span><br><span class="line">alignSelf: auto | flex-start | flex-end | center | baseline | stretch;</span><br></pre></td></tr></table></figure>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><h3 id="图片使用"><a href="#图片使用" class="headerlink" title="图片使用"></a>图片使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source&#x3D;&#123;require(&#39;.&#x2F;my-icon.png&#39;)&#125; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="命名规则"><a href="#命名规则" class="headerlink" title="命名规则"></a>命名规则</h3><ul>
+<li>icon_test.png</li>
+<li><a href="mailto:icon_test@2x.png">icon_test@2x.png</a></li>
+<li><a href="mailto:icon_test@3x.png">icon_test@3x.png</a></li>
+</ul>
+<h2 id="链接原生库"><a href="#链接原生库" class="headerlink" title="链接原生库"></a>链接原生库</h2><p><strong>第一步</strong></p>
+<blockquote>
+<p>安装带原生依赖的库</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;某个带有原生依赖的库&gt; --save</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二步</strong></p>
+<blockquote>
+<p>运行以下命令，它会根据package.json文件中的dependencies和devDependencies记录来链接所有需要链接的库</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native link</span><br></pre></td></tr></table></figure>
+
+<h2 id="开发技巧"><a href="#开发技巧" class="headerlink" title="开发技巧"></a>开发技巧</h2><ul>
+<li><p>启动hot或者debug的时候，切记不要同时启动ios and android，两者会发生冲突，导致出现程序崩溃，从而影响开发</p>
+</li>
+<li><p>最好的方式是，启动一个hot或debug，这样可以良好的进行开发；另一个手动足够了</p>
+<h2 id="处理触摸事件"><a href="#处理触摸事件" class="headerlink" title="处理触摸事件"></a>处理触摸事件</h2><blockquote>
+<p>使用”Touchable”开头的一系列组件<br>通过onPress属性接受一个点击事件的处理函数</p>
+</blockquote>
+</li>
+<li><p>两种方式绑定事件，并处理点击范围</p>
+</li>
+<li><p>推荐第二种，方便传递数据</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">_onPressButton&#x3D;((item)&#x3D;&gt;&#123;</span><br><span class="line">  alert(1)</span><br><span class="line">  console.log(item);</span><br><span class="line">&#125;)</span><br><span class="line">render() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;View&gt;</span><br><span class="line">      &lt;TouchableHighlight onPress&#x3D;&#123;this._onPressButton&#125;&gt;</span><br><span class="line">        &lt;View style&#x3D;&#123;[S.btn,&#123;backgroundColor:&#96;$&#123;this.state.bg&#125;&#96;&#125;]&#125;&gt;</span><br><span class="line">          &lt;Text style&#x3D;&#123;S.btnText&#125;&gt;&#123;this.state.bg&#125;&lt;&#x2F;Text&gt;</span><br><span class="line">        &lt;&#x2F;View&gt;</span><br><span class="line">      &lt;&#x2F;TouchableHighlight&gt;</span><br><span class="line">      &lt;TouchableHighlight onPress&#x3D;&#123;()&#x3D;&gt;&#123;</span><br><span class="line">        this._onPressButton(this.state.bg)</span><br><span class="line">      &#125;&#125;&gt;</span><br><span class="line">        &lt;View style&#x3D;&#123;[S.btn,&#123;backgroundColor:&#96;$&#123;this.state.bg&#125;&#96;&#125;]&#125;&gt;</span><br><span class="line">          &lt;Text style&#x3D;&#123;S.btnText&#125;&gt;&#123;this.state.bg&#125;&lt;&#x2F;Text&gt;</span><br><span class="line">        &lt;&#x2F;View&gt;</span><br><span class="line">      &lt;&#x2F;TouchableHighlight&gt;</span><br><span class="line">    &lt;&#x2F;View&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决版本冲突问题"><a href="#解决版本冲突问题" class="headerlink" title="解决版本冲突问题"></a>解决版本冲突问题</h2><p><strong>js版本和rn版本出现冲突</strong></p>
+<ul>
+<li>Watchman是由Facebook提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager可以快速捕捉文件的变化从而实现实时刷新）。</li>
+<li>清除Watchman：watchman watch-del-all</li>
+<li>清除rn缓存：react-native start –reset-cache<h2 id="解决路由失效问题"><a href="#解决路由失效问题" class="headerlink" title="解决路由失效问题"></a>解决路由失效问题</h2></li>
+<li>createTabNavigator要在createStackNavigator里面进行注册，才能够使用createStackNavigator具有的方法，这个是我第二次配置的时候掉进的一个坑</li>
+</ul>
+<p><strong>this.props.navigation属性详细说明</strong></p>
+<ul>
+<li><p>在createTabNavigator里面没有push、replace等方法</p>
+</li>
+<li><p>在createStackNavigator中存在push、replace等方法</p>
+<h2 id="AsyncStorage保存报错"><a href="#AsyncStorage保存报错" class="headerlink" title="AsyncStorage保存报错"></a>AsyncStorage保存报错</h2><blockquote>
+<p>JSON value ‘<null>‘ of type NSNull</p>
+</blockquote>
+</li>
+<li><p>当保存值为undefined的时候，报错</p>
+</li>
+<li><p>防止这种问题发生最好在this.state中保存初始值为空，必要时可以提醒用户</p>
+<h2 id="react-native支持的style-props"><a href="#react-native支持的style-props" class="headerlink" title="react-native支持的style props"></a>react-native支持的style props</h2></li>
+<li><p>查看最新版属性支持情况，最简单的直接在页面使用错误的属性，然后查看报错信息😂</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">Valid style props: [</span><br><span class="line">  &quot;alignContent&quot;,</span><br><span class="line">  &quot;alignItems&quot;,</span><br><span class="line">  &quot;alignSelf&quot;,</span><br><span class="line">  &quot;aspectRatio&quot;,</span><br><span class="line">  &quot;backfaceVisibility&quot;,</span><br><span class="line">  &quot;backgroundColor&quot;,</span><br><span class="line">  &quot;borderBottomColor&quot;,</span><br><span class="line">  &quot;borderBottomEndRadius&quot;,</span><br><span class="line">  &quot;borderBottomLeftRadius&quot;,</span><br><span class="line">  &quot;borderBottomRightRadius&quot;,</span><br><span class="line">  &quot;borderBottomStartRadius&quot;,</span><br><span class="line">  &quot;borderBottomWidth&quot;,</span><br><span class="line">  &quot;borderColor&quot;,</span><br><span class="line">  &quot;borderEndColor&quot;,</span><br><span class="line">  &quot;borderEndWidth&quot;,</span><br><span class="line">  &quot;borderLeftColor&quot;,</span><br><span class="line">  &quot;borderLeftWidth&quot;,</span><br><span class="line">  &quot;borderRadius&quot;,</span><br><span class="line">  &quot;borderRightColor&quot;,</span><br><span class="line">  &quot;borderRightWidth&quot;,</span><br><span class="line">  &quot;borderStartColor&quot;,</span><br><span class="line">  &quot;borderStartWidth&quot;,</span><br><span class="line">  &quot;borderStyle&quot;,</span><br><span class="line">  &quot;borderTopColor&quot;,</span><br><span class="line">  &quot;borderTopEndRadius&quot;,</span><br><span class="line">  &quot;borderTopLeftRadius&quot;,</span><br><span class="line">  &quot;borderTopRightRadius&quot;,</span><br><span class="line">  &quot;borderTopStartRadius&quot;,</span><br><span class="line">  &quot;borderTopWidth&quot;,</span><br><span class="line">  &quot;borderWidth&quot;,</span><br><span class="line">  &quot;bottom&quot;,</span><br><span class="line">  &quot;color&quot;,</span><br><span class="line">  &quot;decomposedMatrix&quot;,</span><br><span class="line">  &quot;direction&quot;,</span><br><span class="line">  &quot;display&quot;,</span><br><span class="line">  &quot;elevation&quot;,</span><br><span class="line">  &quot;end&quot;,</span><br><span class="line">  &quot;flex&quot;,</span><br><span class="line">  &quot;flexBasis&quot;,</span><br><span class="line">  &quot;flexDirection&quot;,</span><br><span class="line">  &quot;flexGrow&quot;,</span><br><span class="line">  &quot;flexShrink&quot;,</span><br><span class="line">  &quot;flexWrap&quot;,</span><br><span class="line">  &quot;fontFamily&quot;,</span><br><span class="line">  &quot;fontSize&quot;,</span><br><span class="line">  &quot;fontStyle&quot;,</span><br><span class="line">  &quot;fontVariant&quot;,</span><br><span class="line">  &quot;fontWeight&quot;,</span><br><span class="line">  &quot;height&quot;,</span><br><span class="line">  &quot;includeFontPadding&quot;,</span><br><span class="line">  &quot;justifyContent&quot;,</span><br><span class="line">  &quot;left&quot;,</span><br><span class="line">  &quot;letterSpacing&quot;,</span><br><span class="line">  &quot;lineHeight&quot;,</span><br><span class="line">  &quot;margin&quot;,</span><br><span class="line">  &quot;marginBottom&quot;,</span><br><span class="line">  &quot;marginEnd&quot;,</span><br><span class="line">  &quot;marginHorizontal&quot;,</span><br><span class="line">  &quot;marginLeft&quot;,</span><br><span class="line">  &quot;marginRight&quot;,</span><br><span class="line">  &quot;marginStart&quot;,</span><br><span class="line">  &quot;marginTop&quot;,</span><br><span class="line">  &quot;marginVertical&quot;,</span><br><span class="line">  &quot;maxHeight&quot;,</span><br><span class="line">  &quot;maxWidth&quot;,</span><br><span class="line">  &quot;minHeight&quot;,</span><br><span class="line">  &quot;minWidth&quot;,</span><br><span class="line">  &quot;opacity&quot;,</span><br><span class="line">  &quot;overflow&quot;,</span><br><span class="line">  &quot;overlayColor&quot;,</span><br><span class="line">  &quot;padding&quot;,</span><br><span class="line">  &quot;paddingBottom&quot;,</span><br><span class="line">  &quot;paddingEnd&quot;,</span><br><span class="line">  &quot;paddingHorizontal&quot;,</span><br><span class="line">  &quot;paddingLeft&quot;,</span><br><span class="line">  &quot;paddingRight&quot;,</span><br><span class="line">  &quot;paddingStart&quot;,</span><br><span class="line">  &quot;paddingTop&quot;,</span><br><span class="line">  &quot;paddingVertical&quot;,</span><br><span class="line">  &quot;position&quot;,</span><br><span class="line">  &quot;resizeMode&quot;,</span><br><span class="line">  &quot;right&quot;,</span><br><span class="line">  &quot;rotation&quot;,</span><br><span class="line">  &quot;scaleX&quot;,</span><br><span class="line">  &quot;scaleY&quot;,</span><br><span class="line">  &quot;shadowColor&quot;,</span><br><span class="line">  &quot;shadowOffset&quot;,</span><br><span class="line">  &quot;shadowOpacity&quot;,</span><br><span class="line">  &quot;shadowRadius&quot;,</span><br><span class="line">  &quot;start&quot;,</span><br><span class="line">  &quot;textAlign&quot;,</span><br><span class="line">  &quot;textAlignVertical&quot;,</span><br><span class="line">  &quot;textDecorationColor&quot;,</span><br><span class="line">  &quot;textDecorationLine&quot;,</span><br><span class="line">  &quot;textDecorationStyle&quot;,</span><br><span class="line">  &quot;textShadowColor&quot;,</span><br><span class="line">  &quot;textShadowOffset&quot;,</span><br><span class="line">  &quot;textShadowRadius&quot;,</span><br><span class="line">  &quot;textTransform&quot;,</span><br><span class="line">  &quot;tintColor&quot;,</span><br><span class="line">  &quot;top&quot;,</span><br><span class="line">  &quot;transform&quot;,</span><br><span class="line">  &quot;transformMatrix&quot;,</span><br><span class="line">  &quot;translateX&quot;,</span><br><span class="line">  &quot;translateY&quot;,</span><br><span class="line">  &quot;width&quot;,</span><br><span class="line">  &quot;writingDirection&quot;,</span><br><span class="line">  &quot;zIndex&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="StatusBar解决android状态栏问题"><a href="#StatusBar解决android状态栏问题" class="headerlink" title="StatusBar解决android状态栏问题"></a>StatusBar解决android状态栏问题</h2><p>设置StatusBar</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;StatusBar</span><br><span class="line">     backgroundColor&#x3D;&quot;transparent&quot;</span><br><span class="line">     translucent</span><br><span class="line">   &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>设置顶部模块的样式</p>
+<ul>
+<li>注：padding值需要+高度值=&gt;height最终值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">height: 50,</span><br><span class="line">paddingTop: 10,</span><br></pre></td></tr></table></figure>
+
+<h2 id="Platform区分ios-and-android平台"><a href="#Platform区分ios-and-android平台" class="headerlink" title="Platform区分ios and android平台"></a>Platform区分ios and android平台</h2><blockquote>
+<p>三种方法实现跨平台：</p>
+</blockquote>
+<ol>
+<li>Platform.OS</li>
+<li>使用Platform的select方法</li>
+<li>使用不能组件名：ios使用header.ios.js；android使用header.android.js</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const instructions &#x3D; Platform.select(&#123;</span><br><span class="line">  ios: &#39;ios&#39;,</span><br><span class="line">  android: &#39;android&#39;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="请求fetch封装"><a href="#请求fetch封装" class="headerlink" title="请求fetch封装"></a>请求fetch封装</h2><ul>
+<li>HttpUtils.js</li>
+</ul>
+<p><strong>引入</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import HttpUtils from &#39;..&#x2F;..&#x2F;HttpUtils&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用</strong></p>
+<ul>
+<li>在全局global.data.domain保存请求域名</li>
+<li>请求需要header传递token的使用,global.data.token</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HttpUtils.post(&#96;$&#123;apiConfig&#125;&#96;, &#123;</span><br><span class="line">    platform: &#39;ios&#39;</span><br><span class="line">&#125;,global.data.token)</span><br><span class="line">.then(rtn &#x3D;&gt; &#123;</span><br><span class="line">    global.data.config &#x3D; rtn;</span><br><span class="line">    &#x2F;&#x2F; console.log(&#96;配置&#x3D;&gt;( $&#123;JSON.stringify(rtn)&#125; )&#96;);</span><br><span class="line">&#125;)</span><br><span class="line">.catch(err &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;error&#39;, err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="请求环境-请求地址定义"><a href="#请求环境-请求地址定义" class="headerlink" title="请求环境+请求地址定义"></a>请求环境+请求地址定义</h2><h3 id="请求环境"><a href="#请求环境" class="headerlink" title="请求环境"></a>请求环境</h3><ul>
+<li><p>在addr.js中env变量定义</p>
+<h3 id="请求地址"><a href="#请求地址" class="headerlink" title="请求地址"></a>请求地址</h3></li>
+<li><p>在addr.js中addrList统一管理所有请求地址</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import addrList from &#39;..&#x2F;..&#x2F;addr&#39;;</span><br><span class="line">const &#123;apiConfig&#125;&#x3D;addrList;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>react-native-scrollable-tab-view</p>
+</blockquote>
+<ul>
+<li>解决逗号影响的报错问题：在路径~/node_modules/react-native-scrollable-tab-viewSceneComponent.js下删除即可<h2 id="react-native初始化报错，导致无法初始化"><a href="#react-native初始化报错，导致无法初始化" class="headerlink" title="react-native初始化报错，导致无法初始化"></a>react-native初始化报错，导致无法初始化</h2></li>
+<li>重新设置一下地址</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br><span class="line">npm config set disturl https:&#x2F;&#x2F;npm.taobao.org&#x2F;dist</span><br></pre></td></tr></table></figure>
+
+<h2 id="动态切换状态"><a href="#动态切换状态" class="headerlink" title="动态切换状态"></a>动态切换状态</h2><ul>
+<li>采用对象的形式来操作，这样可以使用state里面的参数，来动态切换</li>
+<li>解决了直接应用的报错问题，以后遇到同样的问题要及时想到对象方式<h2 id="声明周期-初始渲染-and-检测goBack"><a href="#声明周期-初始渲染-and-检测goBack" class="headerlink" title="声明周期-初始渲染 and 检测goBack()"></a>声明周期-初始渲染 and 检测goBack()</h2></li>
+<li>为了保证页面的数据实时性，最好在初始的时候进行请求</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="检测goBack"><a href="#检测goBack" class="headerlink" title="检测goBack()"></a>检测goBack()</h3><blockquote>
+<p>需要重新加载app</p>
+</blockquote>
+<p><strong>第一步</strong></p>
+<ul>
+<li>在删除组件的时候，定义goBack事件<br>componentWillUnmount(){<br>DeviceEventEmitter.emit(‘goBack’, ‘goBack刷新返回页面数据’);<br>}</li>
+</ul>
+<p><strong>第二步</strong></p>
+<ul>
+<li>在初始渲染中监听，goBack自定义事件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount()&#123;</span><br><span class="line">  &#x2F;&#x2F; 接收</span><br><span class="line">  this.deEmitter &#x3D; DeviceEventEmitter.addListener(&#39;goBack&#39;, (a) &#x3D;&gt; &#123;</span><br><span class="line">    this.loadData();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安卓打包"><a href="#安卓打包" class="headerlink" title="安卓打包"></a>安卓打包</h2><h3 id="第一步：生成Android签名证书"><a href="#第一步：生成Android签名证书" class="headerlink" title="第一步：生成Android签名证书"></a>第一步：<a href="https://developer.android.com/studio/publish/app-signing" target="_blank" rel="noopener">生成Android签名证书</a></h3><h3 id="第二步：设置gradle变量"><a href="#第二步：设置gradle变量" class="headerlink" title="第二步：设置gradle变量"></a>第二步：设置gradle变量</h3><ul>
+<li>将你的签名证书copy到android/app目录下</li>
+<li>编辑<code>~/.gradle/gradle.properties</code>或<code>../android/gradle.properties</code>(一个是全局gradle.properties，一个是项目中的gradle.properties，大家可以根据需要进行修改) ，加入如下代码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MYAPP_RELEASE_STORE_FILE&#x3D;ch09-keystore.jks</span><br><span class="line">MYAPP_RELEASE_KEY_ALIAS&#x3D;ch09-keystore</span><br><span class="line">MYAPP_RELEASE_STORE_PASSWORD&#x3D;123456</span><br><span class="line">MYAPP_RELEASE_KEY_PASSWORD&#x3D;123456</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三步：在gradle配置文件中添加签名配置"><a href="#第三步：在gradle配置文件中添加签名配置" class="headerlink" title="第三步：在gradle配置文件中添加签名配置"></a>第三步：在gradle配置文件中添加签名配置</h3><ul>
+<li>编辑<code>android/app/build.gradle</code>文件添加如下代码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    defaultConfig &#123; ... &#125;</span><br><span class="line">    signingConfigs &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            storeFile file(MYAPP_RELEASE_STORE_FILE)</span><br><span class="line">            storePassword MYAPP_RELEASE_STORE_PASSWORD</span><br><span class="line">            keyAlias MYAPP_RELEASE_KEY_ALIAS</span><br><span class="line">            keyPassword MYAPP_RELEASE_KEY_PASSWORD</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            ...</span><br><span class="line">            signingConfig signingConfigs.release</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="第四步：签名打包APK"><a href="#第四步：签名打包APK" class="headerlink" title="第四步：签名打包APK"></a>第四步：签名打包APK</h3><ul>
+<li>terminal进入项目下的android目录，运行如下代码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;gradlew assembleRelease</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>签名打包成功后你会在android/app/build/outputs/apk/目录下看到签名成功后的app-release.apk文件。</li>
+<li>提示：如果你需要对apk进行混淆打包 编辑android/app/build.gradle：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Run Proguard to shrink the Java bytecode in release builds.</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">def enableProguardInReleaseBuilds &#x3D; true</span><br></pre></td></tr></table></figure>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">fetch(apiLogin, &#123;</span><br><span class="line">    method: &#39;POST&#39;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#39;Accept&#39;: &#39;application&#x2F;json&#39;,&#x2F;&#x2F;通过头指定，获取的数据类型是JSON</span><br><span class="line">      &#39;Content-Type&#39;: &#39;application&#x2F;json&#39;,</span><br><span class="line">      &#39;Authorization&#39;:global.data.token,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123;</span><br><span class="line">      &#x2F;&#x2F; 请求参数</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(result &#x3D;&gt; &#123;</span><br><span class="line">    const &#123;status,statusText&#125; &#x3D; result;</span><br><span class="line">    if(status&gt;&#x3D;200 &amp;&amp; status&lt;300 || status&#x3D;&#x3D;304)&#123;</span><br><span class="line">      &#x2F;&#x2F; 成功</span><br><span class="line">      const promise &#x3D; result.json()</span><br><span class="line">      promise.then(rtn&#x3D;&gt;&#123;</span><br><span class="line">        &#x2F;&#x2F; 成功</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;else if(status&#x3D;&#x3D;403)&#123;</span><br><span class="line">      &#x2F;&#x2F; 跳转登录</span><br><span class="line">      this.props.navigation.replace(&#39;login&#39;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      &#x2F;&#x2F; 提醒 statusText</span><br><span class="line">      this.refs.toast.show(statusText);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(error &#x3D;&gt; &#123;</span><br><span class="line">    if(Object.prototype.toString.call(error) &#x3D;&#x3D;&#x3D; &#39;[object Object]&#39;)&#123;</span><br><span class="line">        this.refs.toast.show(JSON.stringify(error))</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        this.refs.toast.show(error)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="app的logo-and-name"><a href="#app的logo-and-name" class="headerlink" title="app的logo and name"></a>app的logo and name</h2><h3 id="android"><a href="#android" class="headerlink" title="android"></a>android</h3><p><strong>LOGO</strong></p>
+<ul>
+<li>将logo分别放到android/app/src/main/res下的四个文件夹中,命名为ic_launcher.png</li>
+<li>没有对应上的文件夹放一张<code>1024*1024</code>或者<code>512*512</code>的即可</li>
+</ul>
+<p><strong>app名称</strong></p>
+<ul>
+<li>在<code>android/app/src/main/res/values/strings.xml</code>中更改</li>
+</ul>
+<h3 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h3><p><strong>LOGO</strong></p>
+<ul>
+<li>xcode&gt; 根目录 &gt;Images.xcassets 将生成的图标拖入对应的位置</li>
+</ul>
+<p><strong>app名称</strong></p>
+<ul>
+<li>xcode&gt; 根目录 &gt;Info.plist 中修改 Bundlename 和 General&gt; Display Name</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/react-native%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

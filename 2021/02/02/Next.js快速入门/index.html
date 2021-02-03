@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Next.js快速入门 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Next.js快速入门" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Next.js快速入门" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Next.js快速入门/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Next.js快速入门</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>Next.js是一个用于React应用的极简的服务端渲染框架。框架中集成了Webpack，Babel等一系列React相关的工具并进行了默认的配置。因此省去了复杂的配置过程，实现了一键搭建开发环境和打包构建。同时提供了自定义配置接口，可以在默认配置的基础上对工具进行自定义配置，满足个性化需求。</p>
+<h2 id="二、基本用法"><a href="#二、基本用法" class="headerlink" title="二、基本用法"></a>二、基本用法</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>使用npm安装： npm install next –save</p>
+<p>为了方便的使用next提供的命令，把命令写在package.json文件的scripts中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;next&quot;,  &#x2F;&#x2F; 运行开发服务器，并监控源代码，具备hod reload功能</span><br><span class="line">    &quot;build&quot;: &quot;next build&quot;, &#x2F;&#x2F; 以生产模式打包代码</span><br><span class="line">    &quot;start&quot;: &quot;next start&quot;  &#x2F;&#x2F; 启动Next服务器，可以自定义服务器和端口</span><br><span class="line">    &quot;init&quot;: &quot;next init&quot; &#x2F;&#x2F; 初始化项目，创建基础的文件夹和index页面文件</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后，在项目的根目录下创建pages文件夹和static文件夹，分别用来放对应的页面资源和静态资源。</p>
+<p><strong>Note</strong>：也可以使用npm run init命令自动生成。</p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>如果使用npm run init命令的话，现在pages文件夹下已经有了index.js文件，如果是手动创建pages文件夹的话，现在在该文件下创建一个index.js文件，内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export default () &#x3D;&gt; &lt;p&gt;Hello, world&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<p>接着执行npm run dev命令并在浏览器中打开<a href="http://localhost:3000。">http://localhost:3000。</a></p>
+<p>现在，就得到了一个采用服务端渲染的极简React应用，这个应用还实现了自动代码分割，保证每个页面只会加载自身的依赖，不会有依赖冗余。</p>
+<p>Next的核心就是pages和static文件夹。其中pages文件夹用于存放每个页面的顶层组件，static用于存放项目中的静态资源。</p>
+<p>Next会将pages中的文件结构自动映射为对应的路由结构，例如现在该文件夹下有两个文件:pages/index.js和pages/about.js。则对应的路由分别为/和/about。并且支持多级目录，例如page/foo/bar.js对应的路由为/foo/bar。</p>
+<p>static文件夹用来存放静态文件，例如现在有一个图片文件static/image.png，使用的时候引用/static/image.png就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;img src&#x3D;&quot;&#x2F;static&#x2F;image.png&quot; &#x2F;&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>打包完成后，Next会在项目根目录生成一个.next文件夹，其中的两个文件夹dist和bundles，dist文件夹中存放着编译后的源代码，用于服务端渲染。bunldes文件夹中存放着pages中每个页面打包后的整体代码的JSON格式。在应用的初始页面，会使用dist文件夹中的代码进行服务端渲染，而其他使用路由到达的页面，则将bundles文件夹中的对应JSON格式的代码返回客户端执行渲染。</p>
+<p>Next的出现大大简化了React应用开发的配置和构建工作，使开发者能够专注于组件的开发，而不需要在Webpack，Babel等工具上花费过多的精力。基于简单的文件系统，就可以创建包含路由功能和服务端渲染的React应用。需要注意的是：创建的应用中只有初始页面采用服务端渲染，其他通过路由操作到达的页面均为客户端渲染。</p>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><p>Next对React组件的getInitialProps生命周期方法做了改造，传入一个上下文对象，该对象在服务端渲染和客户端渲染时，具有不同的属性：</p>
+<ul>
+<li>req: HTTP请求对象（服务端渲染独有）</li>
+<li>res: HTTP响应对象（服务端渲染独有）</li>
+<li>pathname: URL中的路径部分</li>
+<li>query：URL中的查询字符串部分解析出的对象</li>
+<li>err：错误对象，如果在渲染时发生了错误</li>
+<li>xhr：XMLHttpRequest对象（客户端渲染独有）</li>
+</ul>
+<p>因此，可以在组件的getInitialProps方法中处理上下文对象，控制传入组件的props数据。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;</span><br><span class="line">export default class extends React.Component &#123;</span><br><span class="line">  static async getInitialProps (&#123; req &#125;) &#123;</span><br><span class="line">    return req</span><br><span class="line">      ? &#123; userAgent: req.headers[&#39;user-agent&#39;] &#125;</span><br><span class="line">      : &#123; userAgent: navigator.userAgent &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  render () &#123;</span><br><span class="line">    return &lt;div&gt;</span><br><span class="line">      Hello World &#123;this.props.userAgent&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子根据是否有req对象来判断是服务端渲染还是客户端渲染，然后采用对应的方式取得用户代码数据并传入组件的props中。</p>
+<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><p>组件的getInitialProps还可以用来获取数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &#39;react&#39;;</span><br><span class="line">import &#39;isomorphic-fetch&#39;;</span><br><span class="line"></span><br><span class="line">export default class extends Component &#123;</span><br><span class="line">  static async getInitialProps() &#123;</span><br><span class="line">    const res &#x3D; await fetch(&#39;https:&#x2F;&#x2F;api.github.com&#x2F;repos&#x2F;zeit&#x2F;next.js&#39;);</span><br><span class="line">    const json &#x3D; await res.json();</span><br><span class="line">    return &#123;</span><br><span class="line">      stars: json.stargazers_count</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;div&gt;&#123;this.props.stars&#125;&lt;&#x2F;div&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的一点是，getInitialProps方法执行完毕之后，才会执行组件的render方法。这也就导致了如果网络状况不佳的情况下，会出现长时间的等待。并且只有每个页面的顶层组件的getInitialProps会被执行，所以想在子组件中获取数据的话只能在其他生命周期函数例如componentDidMount配合组件的state实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">export default class extends Component &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.state &#x3D; &#123;</span><br><span class="line">      stars: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  async componentDidMount() &#123;</span><br><span class="line">    const res &#x3D; await fetch(&#39;https:&#x2F;&#x2F;api.github.com&#x2F;repos&#x2F;zeit&#x2F;next.js&#39;);</span><br><span class="line">    const json &#x3D; await res.json();</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      stars: json.stargazers_count</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;div&gt;&#123;this.state.stars&#125;&lt;&#x2F;div&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、CSS"><a href="#三、CSS" class="headerlink" title="三、CSS"></a>三、CSS</h2><p>NEXT组件中声明CSS，目前主要有两种方式：</p>
+<ol>
+<li>内嵌CSS</li>
+<li>CSS-in-JS</li>
+</ol>
+<h3 id="内嵌（Built-in）CSS"><a href="#内嵌（Built-in）CSS" class="headerlink" title="内嵌（Built-in）CSS"></a>内嵌（Built-in）CSS</h3><p>Next采用的内嵌CSS方案是styled-jsx库，也是Next所推荐的CSS声明方式。优点是具有组件级的独立作用域，避免了样式污染问题。并且支持完整的CSS功能，如:hover等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    Hello world</span><br><span class="line">    &lt;p&gt;scoped!&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;style jsx&gt;&#123;&#96;</span><br><span class="line">      p &#123;</span><br><span class="line">        color: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      div &#123;</span><br><span class="line">        background: red;</span><br><span class="line">      &#125;</span><br><span class="line">      div:hover &#123;</span><br><span class="line">        background: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      @media (max-width: 600px) &#123;</span><br><span class="line">        div &#123;</span><br><span class="line">          background: blue;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#96;&#125;&lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="CSS-in-JS"><a href="#CSS-in-JS" class="headerlink" title="CSS-in-JS"></a>CSS-in-JS</h3><p>Next支持多种CSS-in-JS方案，例如基本的在组件style属性中写样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;div style&#x3D;&#123;&#123;color: red&#125;&#125;&gt;</span><br><span class="line">    Hello world</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>还有其他的CSS-in-JS库，可以根据自己的需要和喜好灵活选择。</p>
+<h2 id="四、路由系统"><a href="#四、路由系统" class="headerlink" title="四、路由系统"></a>四、路由系统</h2><h3 id="Link组件"><a href="#Link组件" class="headerlink" title="Link组件"></a>Link组件</h3><p>Next中提供了一个组件，用来实现路由功能。例如，我们的应用有两个页面：pages/index.js和pages/about.js，想要实现页面跳转，只需要：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; pages&#x2F;index.js</span><br><span class="line">import Link from &#39;next&#x2F;link&#39;</span><br><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;div&gt;Click &lt;Link href&#x3D;&quot;&#x2F;about&quot;&gt;&lt;a&gt;here&lt;&#x2F;a&gt;&lt;&#x2F;Link&gt; to read more&lt;&#x2F;div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; pages&#x2F;about.js</span><br><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;p&gt;Welcome to About!&lt;&#x2F;p&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<Link>组件的工作流程和浏览器很相似：
+
+<ol>
+<li>获取新的组件</li>
+<li>如果新组件定义了getInitialProps，则获取数据，如果发生错误，则渲染_error.js</li>
+<li>步骤1，2完成之后，执行pushState并渲染新组件<br>每个顶层组件中还会传入一个url对象，提供了几个路由相关的方法：</li>
+</ol>
+<ul>
+<li>pathname：String-当前URL不包括查询字符串的path部分</li>
+<li>query：Object-当前URL中查询字符串解析成的对象</li>
+<li>back-后退</li>
+<li>push(url, as=url)-使用传入的url（字符串）执行pushState操作</li>
+<li>replace(url, as=url)-使用传入的url（字符串）执行replaceState操作 注意：push和replace方法中的第二个参数as为可选项，只有在服务端配置了自定义路由才有作用。</li>
+</ul>
+<h3 id="Router对象"><a href="#Router对象" class="headerlink" title="Router对象"></a>Router对象</h3><p>除了使用<Link>组件之外，Next还提供了一个Router对象满足命令式写法的需要：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import Router from &#39;next&#x2F;router&#39;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;div&gt;Click &lt;span onClick&#x3D;&#123;() &#x3D;&gt; Router.push(&#39;&#x2F;about&#39;)&#125;&gt;here&lt;&#x2F;span&gt; to read more&lt;&#x2F;div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>与url对象相比，Router对象多了一个route属性，值为当前的路由。 需要注意的是，Router对象中的属性和方法仅可以在客户端部分使用，服务端渲染的页面无法使用，否则会报错。</p>
+<h3 id="路由事件"><a href="#路由事件" class="headerlink" title="路由事件"></a>路由事件</h3><p>Router对象还提供了三个路由事件方法：</p>
+<ul>
+<li>routeChangeStart(url) - 路由变化开始时触发</li>
+<li>routeChangeComplete(url) - 路由变化完成时触发</li>
+<li>routeChangeError(err, url) - 路由变化发生错误时触发 如果使用Router.push(url, as)或相似的方法并传入了as参数，则路由事件方法中的url参数值为as的值，否则，url参数的值是路由跳转目标的URL</li>
+</ul>
+<p><strong>注意</strong>：与Router对象中其他的属性和方法不同的是，这三个路由事件方法可以在服务端渲染的页面使用。</p>
+<p>监听路由变化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Router.onRouteChangeStart &#x3D; (url) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;App is changing to: &#39;, url)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取消监听：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Router.onRouteChangeStart &#x3D; null;</span><br></pre></td></tr></table></figure>
+<p>如果路由加载取消了（连续快速点击两个链接），就会触发routeChangeError的回调，传入的err参数中将包含一个cancelled属性，值为true。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Router.onRouteChangeError &#x3D; (err, url) &#x3D;&gt; &#123;</span><br><span class="line">  if (err.cancelled) &#123;</span><br><span class="line">    console.log(&#96;Route to $&#123;url&#125; was cancelled!&#96;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="五、预获取页面"><a href="#五、预获取页面" class="headerlink" title="五、预获取页面"></a>五、预获取页面</h2><p>Next提供了一个基于ServiceWorker实现的，具有预获取页面功能的模块：next/prefetch。 使用预获取功能，可以使APP预加载那些可能到达的页面，提升网站的使用体验和性能。当然，前提是你的浏览器必须支持ServiceWorker。并且预获取功能只支持应用内的页面，不支持外部链接。</p>
+<h3 id="组件-1"><a href="#组件-1" class="headerlink" title="组件"></a><Link>组件</h3><p>next/prefetch模块也提供了一个具有预获取功能的<Link>组件，代替路由系统中的<Link>组件，使用方法一致：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import Link from &#39;next&#x2F;prefetch&#39;</span><br><span class="line"></span><br><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;nav&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;li&gt;&lt;Link href&#x3D;&#39;&#x2F;&#39;&gt;&lt;a&gt;Home&lt;&#x2F;a&gt;&lt;&#x2F;Link&gt;&lt;&#x2F;li&gt;</span><br><span class="line">      &lt;li&gt;&lt;Link href&#x3D;&#39;&#x2F;about&#39;&gt;&lt;a&gt;About&lt;&#x2F;a&gt;&lt;&#x2F;Link&gt;&lt;&#x2F;li&gt;</span><br><span class="line">      &lt;li&gt;&lt;Link href&#x3D;&#39;&#x2F;contact&#39;&gt;&lt;a&gt;Contact&lt;&#x2F;a&gt;&lt;&#x2F;Link&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;&#x2F;ul&gt;</span><br><span class="line">  &lt;&#x2F;nav&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>此外预获取功能可以精确控制到每个<Link>标签，使用prefetch属性来控制开关：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link href&#x3D;&#39;&#x2F;contact&#39; prefetch&#x3D;&#123;false&#125;&gt;&lt;a&gt;Home&lt;&#x2F;a&gt;&lt;&#x2F;Link&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="prefetch方法"><a href="#prefetch方法" class="headerlink" title="prefetch方法"></a>prefetch方法</h3><p>和路由器一样，预获取模块也提供了一个prefetch方法，用来方便命令式的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import &#123; prefetch &#125; from &#39;next&#x2F;prefetch&#39;</span><br><span class="line">export default (&#123; url &#125;) &#x3D;&gt; (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;a onClick&#x3D;&#123; () &#x3D;&gt; setTimeout(() &#x3D;&gt; url.pushTo(&#39;&#x2F;dynamic&#39;), 100) &#125;&gt;</span><br><span class="line">      100ms后执行路由跳转</span><br><span class="line">    &lt;&#x2F;a&gt;</span><br><span class="line">    &#123;</span><br><span class="line">      预获取页面</span><br><span class="line">      prefetch(&#39;&#x2F;dynamic&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h3><p>如果默认的配置无法满足需要的话，Next还提供了诸多的自定义配置接口，可以根据自己的需求灵活配置。</p>
+<h3 id="自定义服务器和路由"><a href="#自定义服务器和路由" class="headerlink" title="自定义服务器和路由"></a>自定义服务器和路由</h3><p>默认的服务器和路由系统可能无法满足需要，比如，我需要把/a的路由解析到pages/b.js，把/b的路由解析到pages/a.js，此时，就需要通过自定义，手动控制页面渲染来实现，在项目根目录下创建server.js文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; server.js</span><br><span class="line"></span><br><span class="line">const &#123; createServer &#125; &#x3D; require(&#39;http&#39;)</span><br><span class="line">const &#123; parse &#125; &#x3D; require(&#39;url&#39;)</span><br><span class="line">const next &#x3D; require(&#39;next&#39;)</span><br><span class="line"></span><br><span class="line">const dev &#x3D; process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39;</span><br><span class="line">const app &#x3D; next(&#123; dev &#125;)</span><br><span class="line">const handle &#x3D; app.getRequestHandler()</span><br><span class="line"></span><br><span class="line">app.prepare().then(() &#x3D;&gt; &#123;</span><br><span class="line">  createServer((req, res) &#x3D;&gt; &#123;</span><br><span class="line">    const parsedUrl &#x3D; parse(req.url, true)</span><br><span class="line">    const &#123; pathname, query &#125; &#x3D; parsedUrl</span><br><span class="line"></span><br><span class="line">    if (pathname &#x3D;&#x3D;&#x3D; &#39;&#x2F;a&#39;) &#123;</span><br><span class="line">      app.render(req, res, &#39;&#x2F;b&#39;, query)</span><br><span class="line">    &#125; else if (pathname &#x3D;&#x3D;&#x3D; &#39;&#x2F;b&#39;) &#123;</span><br><span class="line">      app.render(req, res, &#39;&#x2F;a&#39;, query)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      handle(req, res, parsedUrl)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .listen(3000, (err) &#x3D;&gt; &#123;</span><br><span class="line">    if (err) throw err</span><br><span class="line">    console.log(&#39;&gt; Ready on http:&#x2F;&#x2F;localhost:3000&#39;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>你可以选择自己喜欢的服务端框架，express或者koa等，进行自定义。</p>
+<h3 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义<head></h3><p>Next提供了<HEAD>组件，可以自定义页面<head>标签中的内容。每个组件都可以在内部自定义<head>的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import Head from &#39;next&#x2F;head&#39;</span><br><span class="line">export default () &#x3D;&gt; (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Head&gt;</span><br><span class="line">      &lt;title&gt;My page title&lt;&#x2F;title&gt;</span><br><span class="line">      &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;initial-scale&#x3D;1.0, width&#x3D;device-width&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;Head&gt;</span><br><span class="line">    &lt;p&gt;Hello world!&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>每个页面组件只需要定义本页面需要的<head>内容，并且对于相同的标签，例如<title>。会按照组件渲染的顺序，后定义的覆盖先定义的内容。</p>
+<h3 id="自定义-1"><a href="#自定义-1" class="headerlink" title="自定义"></a>自定义<Document></h3><p>在前面的例子中，服务端渲染时，所有的页面我们只需要写内容组件，这是因为使用了默认的<Document>模板。当然，可以自定义自己的服务端渲染模板。首先，创建pages/_document.js文件，写上内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; pages&#x2F;_document.js</span><br><span class="line">import Document, &#123; Head, Main, NextScript &#125; from &#39;next&#x2F;document&#39;</span><br><span class="line"></span><br><span class="line">export default class MyDocument extends Document &#123;</span><br><span class="line">  static async getInitialProps (ctx) &#123;</span><br><span class="line">    const props &#x3D; await Document.getInitialProps(ctx)</span><br><span class="line">    return &#123; ...props, customValue: &#39;hi there!&#39; &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render () &#123;</span><br><span class="line">    return (</span><br><span class="line">     &lt;html&gt;</span><br><span class="line">       &lt;Head&gt;</span><br><span class="line">         &lt;style&gt;&#123;&#96;body &#123; margin: 0 &#125; &#x2F;* custom! *&#x2F;&#96;&#125;&lt;&#x2F;style&gt;</span><br><span class="line">       &lt;&#x2F;Head&gt;</span><br><span class="line">       &lt;body className&#x3D;&quot;custom_class&quot;&gt;</span><br><span class="line">         &#123;this.props.customValue&#125;</span><br><span class="line">         &lt;Main &#x2F;&gt;</span><br><span class="line">         &lt;NextScript &#x2F;&gt;</span><br><span class="line">       &lt;&#x2F;body&gt;</span><br><span class="line">     &lt;&#x2F;html&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的ctx对象与其他组件中的getInitialProps方法中收到的参数一样，只不过多了一个额外的方法：renderPage()。</p>
+<h3 id="自定义错误处理"><a href="#自定义错误处理" class="headerlink" title="自定义错误处理"></a>自定义错误处理</h3><p>Next中，有一个默认组件error.js，负责处理404或者500这种错误。当然，你也可以自定义一个_error.js组件覆盖默认的错误处理组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; _error.js</span><br><span class="line"></span><br><span class="line">import React from &#39;react&#39;</span><br><span class="line">export default class Error extends React.Component &#123;</span><br><span class="line">  static getInitialProps (&#123; res, xhr &#125;) &#123;</span><br><span class="line">    const statusCode &#x3D; res ? res.statusCode : (xhr ? xhr.status : null)</span><br><span class="line">    return &#123; statusCode &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render () &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;p&gt;&#123;</span><br><span class="line">        this.props.statusCode</span><br><span class="line">        ? &#96;An error $&#123;this.props.statusCode&#125; occurred on server&#96;</span><br><span class="line">        : &#39;An error occurred on client&#39;</span><br><span class="line">      &#125;&lt;&#x2F;p&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义配置-1"><a href="#自定义配置-1" class="headerlink" title="自定义配置"></a>自定义配置</h3><p>相对Next进行自定义配置的话，可以在项目根目录下创建一个next.config.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; next.config.js</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;* 自定义配置 *&#x2F;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义Webpack配置"><a href="#自定义Webpack配置" class="headerlink" title="自定义Webpack配置"></a>自定义Webpack配置</h3><p>在创建好的next.config.js文件中，可以扩展Webpack配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  webpack: (config, &#123; dev &#125;) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 修改config对象</span><br><span class="line"></span><br><span class="line">    return config</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该函数接收默认的Webpack config对象作为参数，返回修改后的config对象。需要注意的是，next.config.js文件会被直接执行，因为只能使用本机安装的Node.js所支持的JS语法。</p>
+<p><strong>警告：不建议</strong>在自定义Webpack配置中添加loader以支持新的文件类型！因为只有客户端渲染的代码会经过打包，而服务端执行的是源代码，并没有经过Webpack处理，因此新的loader对服务端渲染不起作用。所以最好是使用Babel插件来处理新的文件类型，因为无论是客户端还是服务端渲染的代码，都会经过Babel处理。</p>
+<h3 id="自定义Babel配置"><a href="#自定义Babel配置" class="headerlink" title="自定义Babel配置"></a>自定义Babel配置</h3><p>自定义Babel配置，只需要在项目根目录下创建.babelrc文件，因为自定义配置会覆盖默认配置，而不是扩展默认配置。因此需要把next preset写到.babelrc中。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [</span><br><span class="line">    &quot;next&#x2F;babel&quot;,  &#x2F;&#x2F; Next默认配置</span><br><span class="line">    &quot;stage-0&quot;</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>生产模式下，需要先使用生产模式构建代码，再启动服务器。因此，需要两条命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">next build</span><br><span class="line">next start</span><br></pre></td></tr></table></figure>
+
+<p>Next官方推荐使用<a href="https://zeit.co/now" target="_blank" rel="noopener">now</a>作为部署工具，只要在package.json文件中写入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;my-app&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;next&quot;: &quot;latest&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;next&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;next build&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;next start&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着运行now命令，就可以实现一键部署。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Next.js%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

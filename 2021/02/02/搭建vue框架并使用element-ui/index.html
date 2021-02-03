@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>搭建vue框架并使用element-ui | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="搭建vue框架并使用element-ui" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-搭建vue框架并使用element-ui" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/搭建vue框架并使用element-ui/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">搭建vue框架并使用element-ui</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="1-构建node下载环境"><a href="#1-构建node下载环境" class="headerlink" title="1.构建node下载环境"></a>1.构建node下载环境</h2><p>在nodejs官网下载node并且安装nodejs在wind10（推荐下载长期支持版）下载地址:<a href="https://nodejs.org/zh-cn/download/current/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/current/</a></p>
+<p>完成安装后打开电脑的cmd测试node环境:</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018152304127.png#pic_center" alt="image"></p>
+<p>出现以上显示表示node环境已经构建好了。</p>
+<h2 id="2-换淘宝的源提升下载速度"><a href="#2-换淘宝的源提升下载速度" class="headerlink" title="2.换淘宝的源提升下载速度"></a>2.换淘宝的源提升下载速度</h2><p>cmd中输入命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm –registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>下载完成后，输入测试命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201018152753844.png#pic_center" alt="image"></p>
+<p>出现以上显示表示换源成功，以后在用到npm的地方就用cnpm就好了，可提升效率</p>
+<h2 id="3-搭建vue前端框架环境"><a href="#3-搭建vue前端框架环境" class="headerlink" title="3.搭建vue前端框架环境:"></a>3.搭建vue前端框架环境:</h2><p>在cmd中输入命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install --global vue-cli</span><br></pre></td></tr></table></figure>
+<p>等待下载完成，速度很快，大概30秒</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018153346851.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>测试vue是否搭建完成:</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018153550205.png#pic_center" alt="image"></p>
+<p>显示版本号即搭建vue框架完成(注意vue和cli与中间的-要有空格)</p>
+<h2 id="4-新建vue框架项目"><a href="#4-新建vue框架项目" class="headerlink" title="4.新建vue框架项目"></a>4.新建vue框架项目</h2><h3 id="1-打开集成环境-我这里用的是WebStorm"><a href="#1-打开集成环境-我这里用的是WebStorm" class="headerlink" title="1.打开集成环境(我这里用的是WebStorm)"></a>1.打开集成环境(我这里用的是WebStorm)</h3><p>打开后,点击左下角的Terminal进入cmd命令框输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack element-test</span><br></pre></td></tr></table></figure>
+<p>vue init webpack +项目名，我这里用element-test为例</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018154607544.png#pic_center" alt="image"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201018155020882.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>说明：</p>
+<p>Vue build ==&gt; 打包方式，回车即可；</p>
+<p>Install vue-router ==&gt; 是否要安装 vue-router，项目中肯定要使用到 所以Y 回车；</p>
+<p>Use ESLint to lint your code ==&gt; 是否需要 js 语法检测 目前我们不需要 所以 n 回车；</p>
+<p>Set up unit tests ==&gt; 是否安装 单元测试工具 目前我们不需要 所以 n 回车；</p>
+<p>Setup e2e tests with Nightwatch ==&gt; 是否需要 端到端测试工具 目前我们不需要 所以 n 回车；<br>使用到的下载工具，我这里以npm为例<br>等待安装vue项目即创建了vue框架项目:</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018155332274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<h3 id="2-测试vue框架项目是否搭建成功"><a href="#2-测试vue框架项目是否搭建成功" class="headerlink" title="2.测试vue框架项目是否搭建成功"></a>2.测试vue框架项目是否搭建成功</h3><p>打开cmd控制台</p>
+<ol>
+<li>打开项目所在位置的文件夹</li>
+<li>运行cnpm start</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20201018160132611.png#pic_center" alt="image"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201018160216598.png#pic_center" alt="image"></p>
+<p>点击访问网址: <a href="http://localhost:8081,显示">http://localhost:8081,显示</a></p>
+<p><img src="https://img-blog.csdnimg.cn/20201018160334354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>表示项目构建成功！</p>
+<h2 id="5-使用element-ui框架"><a href="#5-使用element-ui框架" class="headerlink" title="5.使用element-ui框架"></a>5.使用element-ui框架</h2><h3 id="1-安装element框架依赖"><a href="#1-安装element框架依赖" class="headerlink" title="1.安装element框架依赖"></a>1.安装element框架依赖</h3><p>在cmd控制台输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i element-ui -S</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201018160838992.png#pic_center" alt="image"></p>
+<p>安装完毕</p>
+<h3 id="2-在main-js中引入element-ui"><a href="#2-在main-js中引入element-ui" class="headerlink" title="2.在main.js中引入element-ui"></a>2.在main.js中引入element-ui</h3><p>main.js在(你的项目)\src文件夹下，我这里是element-test\src\</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import App from &#39;.&#x2F;App&#39;</span><br><span class="line">import router from &#39;.&#x2F;router&#39;</span><br><span class="line">import ElementUI from &#39;element-ui&#39;;</span><br><span class="line">&#x2F;&#x2F;引入elementui</span><br><span class="line">import &#39;element-ui&#x2F;lib&#x2F;theme-chalk&#x2F;index.css&#39;;</span><br><span class="line">Vue.config.productionTip &#x3D; false</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;在vue中使用elementui</span><br><span class="line">Vue.use(ElementUI);</span><br><span class="line">&#x2F;* eslint-disable no-new *&#x2F;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  router,</span><br><span class="line">  components: &#123; App &#125;,</span><br><span class="line">  template: &#39;&lt;App&#x2F;&gt;&#39;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>如上图，引入并使用element-ui</p>
+<h3 id="3-element-ui的使用实例"><a href="#3-element-ui的使用实例" class="headerlink" title="3.element-ui的使用实例"></a>3.element-ui的使用实例</h3><p>1.在src\components的目录下新建一个组件(这里以Button.vue为例)</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018162204506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>2.注册Button.vue组件</p>
+<p>在src\router\index.js中写入import Button from “../components/Button”; 路由 组件 如下图:</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018162621318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>3.修改App.vue文件</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018162903891.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>4.引入element-ui样式(进入<a href="https://element.eleme.cn/#/zh-CN/component/installation" target="_blank" rel="noopener">element-ui官网</a>可使用其他大量组件)</p>
+<p>修改Button.vue文件，写入以下代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-row&gt;</span><br><span class="line">  &lt;el-button plain&gt;朴素按钮&lt;&#x2F;el-button&gt;</span><br><span class="line">  &lt;el-button type&#x3D;&quot;primary&quot; plain&gt;主要按钮&lt;&#x2F;el-button&gt;</span><br><span class="line">  &lt;el-button type&#x3D;&quot;success&quot; plain&gt;成功按钮&lt;&#x2F;el-button&gt;</span><br><span class="line">  &lt;el-button type&#x3D;&quot;info&quot; plain&gt;信息按钮&lt;&#x2F;el-button&gt;</span><br><span class="line">  &lt;el-button type&#x3D;&quot;warning&quot; plain&gt;警告按钮&lt;&#x2F;el-button&gt;</span><br><span class="line">  &lt;el-button type&#x3D;&quot;danger&quot; plain&gt;危险按钮&lt;&#x2F;el-button&gt;</span><br><span class="line">&lt;&#x2F;el-row&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201018164250212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjU5MTk2Mg==,size_16,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>保存在运行此项目(在控制台使用cnpm start)</p>
+<p>点击超链接</p>
+<p><img src="https://img-blog.csdnimg.cn/2020101816545912.png#pic_center" alt="image"></p>
+<p>即成功引用element-ui框架</p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6.总结"></a>6.总结</h2><h3 id="1-安装nodejs"><a href="#1-安装nodejs" class="headerlink" title="1.安装nodejs"></a>1.安装nodejs</h3><h3 id="2-在cmd中"><a href="#2-在cmd中" class="headerlink" title="2.在cmd中:"></a>2.在cmd中:</h3><h4 id="1-换源-：npm-install-g-cnpm-–registry-https-registry-npm-taobao-org"><a href="#1-换源-：npm-install-g-cnpm-–registry-https-registry-npm-taobao-org" class="headerlink" title="1.换源 ：npm install -g cnpm –registry=https://registry.npm.taobao.org"></a>1.换源 ：npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></h4><h4 id="2-安装vue"><a href="#2-安装vue" class="headerlink" title="2.安装vue:"></a>2.安装vue:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install --global vue-cli</span><br></pre></td></tr></table></figure>
+<h4 id="3-新建vue框架项目-切换至WS控制台"><a href="#3-新建vue框架项目-切换至WS控制台" class="headerlink" title="3.新建vue框架项目(切换至WS控制台)"></a>3.新建vue框架项目(切换至WS控制台)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack element-test</span><br></pre></td></tr></table></figure>
+<h4 id="4-下载element-ui依赖"><a href="#4-下载element-ui依赖" class="headerlink" title="4.下载element-ui依赖"></a>4.下载element-ui依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i element-ui -S</span><br></pre></td></tr></table></figure>
+<h4 id="5-修改main-js文件"><a href="#5-修改main-js文件" class="headerlink" title="5.修改main.js文件"></a>5.修改main.js文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import App from &#39;.&#x2F;App&#39;</span><br><span class="line">import router from &#39;.&#x2F;router&#39;</span><br><span class="line">import ElementUI from &#39;element-ui&#39;;</span><br><span class="line">&#x2F;&#x2F;引入elementui</span><br><span class="line">import &#39;element-ui&#x2F;lib&#x2F;theme-chalk&#x2F;index.css&#39;;</span><br><span class="line">Vue.config.productionTip &#x3D; false</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;在vue中使用elementui</span><br><span class="line">Vue.use(ElementUI);</span><br><span class="line">&#x2F;* eslint-disable no-new *&#x2F;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  router,</span><br><span class="line">  components: &#123; App &#125;,</span><br><span class="line">  template: &#39;&lt;App&#x2F;&gt;&#39;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>重点看//后面的注释</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E6%90%AD%E5%BB%BAvue%E6%A1%86%E6%9E%B6%E5%B9%B6%E4%BD%BF%E7%94%A8element-ui/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

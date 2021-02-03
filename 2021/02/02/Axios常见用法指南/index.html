@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Axios常见用法指南 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Axios常见用法指南" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Axios常见用法指南" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Axios常见用法指南/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Axios常见用法指南</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>axios是基于promise封装的异步请求插件，其中包含两套核心，基于浏览器的XHR核心，基于服务端http模块，可以兼容浏览器与服务端两个业务场景，同时通过了多种传参方式，拦截全局请求，全局数据格式化等功能，方便开发者使用。</p>
+<h2 id="一、发送请求"><a href="#一、发送请求" class="headerlink" title="一、发送请求"></a>一、发送请求</h2><h3 id="1-传统用法-类-Ajax"><a href="#1-传统用法-类-Ajax" class="headerlink" title="1. 传统用法 类$.Ajax"></a>1. 传统用法 类$.Ajax</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 发送 POST 请求</span><br><span class="line">axios(&#123;</span><br><span class="line">  method: &#39;&#39;,&#x2F;&#x2F;类型</span><br><span class="line">  url: &#39;&#39;,&#x2F;&#x2F; url</span><br><span class="line">  data: &#123;  &#x2F;&#x2F; data</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.then(res&#x3D;&gt;&#123;&#125;)</span><br><span class="line">.catch(err&#x3D;&gt;&#123;&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="2-get方法抽离"><a href="#2-get方法抽离" class="headerlink" title="2. get方法抽离"></a>2. get方法抽离</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; axios.post(url,&#123;params:&#39;&#39;&#125;)</span><br><span class="line">axios.get(&#39;&#x2F;user&#39;, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: 12345</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="3-post方法抽离"><a href="#3-post方法抽离" class="headerlink" title="3. post方法抽离"></a>3. post方法抽离</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; axios.post(url,body)</span><br><span class="line">axios.post(&#39;&#x2F;user&#39;, &#123;</span><br><span class="line">    ID: 12345</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>一定要注意两者参数传递时的区别，否则容易在项目中踩坑</strong></p>
+<h2 id="二、创建请求实例"><a href="#二、创建请求实例" class="headerlink" title="二、创建请求实例"></a>二、创建请求实例</h2><p>通过创建实例，可以避免在使用时 重复填写相同配置</p>
+<h3 id="1-在vue项目中创建一个实例，并挂载到全局"><a href="#1-在vue项目中创建一个实例，并挂载到全局" class="headerlink" title="1. 在vue项目中创建一个实例，并挂载到全局"></a>1. 在vue项目中创建一个实例，并挂载到全局</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$http &#x3D; axios.create(&#123;</span><br><span class="line">    baseURL: &#39;http:&#x2F;&#x2F;www.&#39;,&#x2F;&#x2F;配置一个默认域名</span><br><span class="line">    timeout: 5000, &#x2F;&#x2F; 超时时间</span><br><span class="line">    headers:&#123;&#39;Content-Type&#39;:&#39;application&#x2F;json;charset&#x3D;utf8&#39;&#125; &#x2F;&#x2F; 配置header</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">this.$http()</span><br><span class="line">this.$http.get()</span><br><span class="line">this.$http.post()</span><br></pre></td></tr></table></figure>
+<h3 id="2-其它配置项可参考官方文档"><a href="#2-其它配置项可参考官方文档" class="headerlink" title="2. 其它配置项可参考官方文档"></a>2. 其它配置项可参考官方文档</h3><h2 id="三、多接口并发统一处理"><a href="#三、多接口并发统一处理" class="headerlink" title="三、多接口并发统一处理"></a>三、多接口并发统一处理</h2><p>由于axios基于promise开发，所以promise.all()，Promise.race()同样适用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var p1 &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">  this.$axios.get(url).then(res&#x3D;&gt;&#123;</span><br><span class="line">      resolve(res)</span><br><span class="line">  &#125;).catch(err&#x3D;&gt;&#123;</span><br><span class="line">      reject(err)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var p2 &#x3D; new Promise((resolve,reject)&#x3D;&gt;&#123;</span><br><span class="line">  this.$axios.get(url).then(res&#x3D;&gt;&#123;</span><br><span class="line">      resolve(res)</span><br><span class="line">  &#125;).catch(err&#x3D;&gt;&#123;</span><br><span class="line">      reject(err)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 请求都完成后执行</span><br><span class="line">&#x2F;&#x2F; 调用Promise.all().then(res&#x3D;&gt;&#123;&#125;)</span><br><span class="line">Promise.all([p1,p2]).then(res&#x3D;&gt;&#123;</span><br><span class="line">  console.log(res);</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 有一个请求完成即执行</span><br><span class="line">&#x2F;&#x2F; 调用Promise.race().then(res&#x3D;&gt;&#123;&#125;)</span><br><span class="line">Promise.race([p1,p2]).then(res&#x3D;&gt;&#123;</span><br><span class="line">  console.log(res);</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、全局拦截器"><a href="#四、全局拦截器" class="headerlink" title="四、全局拦截器"></a>四、全局拦截器</h2><p>在<strong>请求，响应</strong>被 then 或 catch 处理前拦截它们，比如添加其它全局请求数据(token,签名)，集中处理catch报错，判断请求是否成功，避免分开处理。</p>
+<h3 id="1-向服务器发出请求前拦截处理"><a href="#1-向服务器发出请求前拦截处理" class="headerlink" title="1. 向服务器发出请求前拦截处理"></a>1. 向服务器发出请求前拦截处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 添加请求拦截器</span><br><span class="line">axios.interceptors.request.use(function (config) &#123;</span><br><span class="line">    &#x2F;&#x2F; 在发送请求之前做些什么</span><br><span class="line">    return config;</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">    &#x2F;&#x2F; 对请求错误做些什么</span><br><span class="line">    return Promise.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="2-被服务器响应后拦截处理"><a href="#2-被服务器响应后拦截处理" class="headerlink" title="2. 被服务器响应后拦截处理"></a>2. 被服务器响应后拦截处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 添加响应拦截器</span><br><span class="line">axios.interceptors.response.use(function (response) &#123;</span><br><span class="line">    &#x2F;&#x2F; 对响应数据做点什么</span><br><span class="line">    return response;</span><br><span class="line">&#125;, function (error) &#123;</span><br><span class="line">    &#x2F;&#x2F; 对响应错误做点什么</span><br><span class="line">    return Promise.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Axios%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E6%8C%87%E5%8D%97/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

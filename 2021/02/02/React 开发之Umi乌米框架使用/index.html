@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>React 开发之Umi乌米框架使用 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="React 开发之Umi乌米框架使用" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-React 开发之Umi乌米框架使用" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/React 开发之Umi乌米框架使用/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">React 开发之Umi乌米框架使用</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>以往搭建React应用时往往使用官方推荐的 # create-react-app 不过使用官方的脚手架往往不能很好的适应我们现有的项目，比如我们要集合webpack打包？我们要引入Redux状态管理器？Umi （乌米）框架应运而生。</p>
+<p>让我们来看看官方的自我介绍：</p>
+<blockquote>
+<p>umi 以路由为基础的，支持类 next.js 的约定式路由，以及各种进阶的路由功能，并以此进行功能扩展，比如支持路由级的按需加载。然后配以完善的插件体系，覆盖从源码到构建产物的每个生命周期，支持各种功能扩展和业务需求，目前内外部加起来已有 50+ 的插件。</p>
+</blockquote>
+<p>再让我们看看Umi的特色：</p>
+<ul>
+<li>📦 开箱即用，内置 react、react-router 等</li>
+<li>🏈 类 next.js 且功能完备的路由约定，同时支持配置的路由方式</li>
+<li>🎉 完善的插件体系，覆盖从源码到构建产物的每个生命周期</li>
+<li>🚀 高性能，通过插件支持 PWA、以路由为单元的 code splitting 等</li>
+<li>💈 支持静态页面导出，适配各种环境，比如中台业务、无线业务、egg、支付宝钱包、云凤蝶等</li>
+<li>🚄 开发启动快，支持一键开启 dll 等</li>
+<li>🐠 一键兼容到 IE9，基于 umi-plugin-polyfills</li>
+<li>🍁 完善的 TypeScript 支持，包括 d.ts 定义和 umi test</li>
+<li>🌴 与 dva 数据流的深入融合，支持 duck directory、model 的自动加载、code splitting 等等</li>
+</ul>
+<h2 id="一、搭建流程"><a href="#一、搭建流程" class="headerlink" title="一、搭建流程"></a>一、搭建流程</h2><p>现在我们自己手动搭建一套完整可用的Umi框架吧</p>
+<h3 id="第一步：环境检测及安装"><a href="#第一步：环境检测及安装" class="headerlink" title="第一步：环境检测及安装"></a>第一步：环境检测及安装</h3><p>首先需要node, 并确保 node 版本是 8.10 或以上。（mac 下推荐使用 nvm 来管理 node 版本）<br>而包管理器，这里推荐使用 yarn 管理 npm 依赖</p>
+<p>1.安装yarn<br>可根据官网介绍选择安装方式 <a href="https://yarnpkg.com/zh-Hans/docs/install#windows-stable" target="_blank" rel="noopener">https://yarnpkg.com/zh-Hans/docs/install#windows-stable</a></p>
+<p>2.全局安装 umi，并确保版本是 2.0.0 或以上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn global add umi</span><br></pre></td></tr></table></figure>
+<h3 id="第二步：通过脚手架创建项目"><a href="#第二步：通过脚手架创建项目" class="headerlink" title="第二步：通过脚手架创建项目"></a>第二步：通过脚手架创建项目</h3><p>umi 通过 create-umi 提供脚手架能力</p>
+<ol>
+<li>在需要生成项目的文件夹下，打开CMD or 终端 命令行输入 yarn create umi</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn create umi</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>选择需要生成的项目类型</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">? Select the boilerplate type (Use arrow keys)</span><br><span class="line">  ant-design-pro  - Create project with an layout-only ant-design-pro boilerplate, use together with umi block.</span><br><span class="line">❯ app             - Create project with a simple boilerplate, support typescript.</span><br><span class="line">  block           - Create a umi block.</span><br><span class="line">  library         - Create a library with umi.</span><br><span class="line">  plugin          - Create a umi plugin.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>app，通用项目脚手架，支持选择是否启用 TypeScript，以及 umi-plugin-react 包含的功能</li>
+<li>ant-design-pro，仅包含 ant-design-pro 布局的脚手架，具体页面可通过 umi block 添加</li>
+<li>block，区块脚手架</li>
+<li>plugin，插件脚手架</li>
+<li>library，依赖（组件）库脚手架，基于 umi-plugin-library<br>在此我们 上下箭头切换到 app 并回车确定选择。</li>
+</ul>
+<ol start="3">
+<li>其他选项</li>
+</ol>
+<p>此时会出现提示是否需要支持Typescript, 可根据实际项目开发情况选择是否使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">? Do you want to use typescript? (y&#x2F;N)</span><br></pre></td></tr></table></figure>
+<p>选择Typescript支持后再选择你需要的功能（多选），功能介绍详见 <a href="https://umijs.org/zh/plugin/umi-plugin-react.html" target="_blank" rel="noopener">plugin/umi-plugin-react</a>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">? What functionality do you want to enable? (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection)</span><br><span class="line">❯◯ antd</span><br><span class="line"> ◯ dva</span><br><span class="line"> ◯ code splitting</span><br><span class="line"> ◯ dll</span><br></pre></td></tr></table></figure>
+<p>同样按上下箭头移动，并按 空格 键选中需要的功能。<br>antd: UI框架，启用后实现antd, antd-mobile 和 antd-pro 的按需编译，无需要手动配置。<br>dva: 基于 redux 和 redux-saga 的数据流方案，然后为了简化开发体验，dva 还额外内置了 react-router 和 fetch，所以也可以理解为一个轻量级的应用框架<br>code splitting: 是否代码分包<br>dll: 通过 webpack 的 dll 插件预打包一份 dll 文件来达到二次启动提速的目的<br>注意 此处多选项未选择，后期也可以在配置文件中配置。</p>
+<p>确定后，会根据你的选择自动创建好目录和文件。</p>
+<h3 id="第三步：运行及编译"><a href="#第三步：运行及编译" class="headerlink" title="第三步：运行及编译"></a>第三步：运行及编译</h3><p>安装依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn</span><br></pre></td></tr></table></figure>
+<p>启动项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn start</span><br></pre></td></tr></table></figure>
+<p>这样我们就可以愉快的开发和调试了。</p>
+<p>当我们开发好要编译项目发布测试or生产时，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn build</span><br></pre></td></tr></table></figure>
+<h2 id="二、目录结构说明"><a href="#二、目录结构说明" class="headerlink" title="二、目录结构说明"></a>二、目录结构说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── dist&#x2F; &#x2F;&#x2F; 默认的 build 输出目录</span><br><span class="line">├── mock&#x2F; &#x2F;&#x2F; mock 文件所在目录，基于 express</span><br><span class="line">├── config&#x2F;</span><br><span class="line">├── config.js &#x2F;&#x2F; umi 配置，同 .umirc.js，二选一， 建议配置.umirc.js</span><br><span class="line">└── src&#x2F; &#x2F;&#x2F; 源码目录，可选</span><br><span class="line">├── layouts&#x2F;index.js &#x2F;&#x2F; 全局布局</span><br><span class="line">├── pages&#x2F; &#x2F;&#x2F; 页面目录，里面的文件即路由</span><br><span class="line">├── .umi&#x2F; &#x2F;&#x2F; dev 临时目录，需添加到 .gitignore</span><br><span class="line">├── .umi-production&#x2F; &#x2F;&#x2F; build 临时目录，会自动删除</span><br><span class="line">├── document.ejs &#x2F;&#x2F; HTML 模板</span><br><span class="line">├── 404.js &#x2F;&#x2F; 404 页面</span><br><span class="line">├── page1.js &#x2F;&#x2F; 页面 1，任意命名，导出 react 组件</span><br><span class="line">├── page1.test.js &#x2F;&#x2F; 用例文件，umi test 会匹配所有 .test.js 和 .e2e.js 结尾的文件</span><br><span class="line">└── page2.js &#x2F;&#x2F; 页面 2，任意命名</span><br><span class="line">├── global.css &#x2F;&#x2F; 约定的全局样式文件，自动引入，也可以用 global.less</span><br><span class="line">├── global.js &#x2F;&#x2F; 可以在这里加入 polyfill</span><br><span class="line">├── app.js &#x2F;&#x2F; 运行时配置文件</span><br><span class="line">├── .umirc.js &#x2F;&#x2F; umi 配置，同 config&#x2F;config.js，二选一</span><br><span class="line">├── .env &#x2F;&#x2F; 环境变量</span><br><span class="line">└── package.json</span><br></pre></td></tr></table></figure>
+<h2 id="三、开发提示"><a href="#三、开发提示" class="headerlink" title="三、开发提示"></a>三、开发提示</h2><p>.umirc.js 配置，<br>该文件中可以配置项目基本情况，如上面安装步骤中出现是否选用antd, dva等，在此文件中都可以更改为true, 另外还可以配置 webpack 打包配置，具体的配置项详见.umirc.js 配置。</p>
+<p>设置.umirc.local.js 文件<br>由于.umirc里的配置众多而且为了优化项目必然会分包代码抽离等，而在本地运行时无需这些，便可配置.umirc.local.js 文件，注意此文件中的选项配置和.umirc.js 配置一样，不要提交到 git，所以通常需要配置到 .gitignore。本地运行时会和 .umirc.js 合并后再返回。</p>
+<p>由于umi 会根据 pages 目录自动生成路由配置，所以无需要手动配置路由，会根据 src / pages 下 文件名自动生成路由，但是你也可以配置.umirc.js中的 routes 属性，此配置项存在时则不会对 src/pages 目录做约定式的解析。</p>
+<p>常用路由操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; PureComponent &#125; from &#39;react&#39;;</span><br><span class="line">import Link from &#39;umi&#x2F;link&#39;;</span><br><span class="line">import router from &#39;umi&#x2F;router&#39;;</span><br><span class="line"></span><br><span class="line">class Examples extends PureComponent &#123;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;&gt;</span><br><span class="line">                &#123;&#x2F;* 普通使用 *&#x2F;&#125;</span><br><span class="line">                &lt;Link to&#x3D;&quot;&#x2F;list&quot;&gt;跳转&lt;&#x2F;Link&gt;</span><br><span class="line"></span><br><span class="line">                &#123;&#x2F;* 带参数 *&#x2F;&#125;</span><br><span class="line">                &lt;Link to&#x3D;&quot;&#x2F;list?a&#x3D;b&quot;&gt;跳转&lt;&#x2F;Link&gt;</span><br><span class="line"></span><br><span class="line">                &#123;&#x2F;* 包含子组件 *&#x2F;&#125;</span><br><span class="line">                &lt;Link to&#x3D;&quot;&#x2F;list?a&#x3D;b&quot;&gt;&lt;button&gt;跳转&lt;&#x2F;button&gt;&lt;&#x2F;Link&gt;</span><br><span class="line"></span><br><span class="line">                &#123;&#x2F;* 点击跳转 *&#x2F;&#125;</span><br><span class="line">                &lt;button onClick&#x3D;&#123;() &#x3D;&gt; router.push(&#39;&#x2F;list&#39;)&#125;&gt;跳转&lt;&#x2F;button&gt;</span><br><span class="line">            &lt;&#x2F;&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Examples;</span><br></pre></td></tr></table></figure>
+<p>更多查看<a href="https://umijs.org/zh/api/#%E8%B7%AF%E7%94%B1" target="_blank" rel="noopener">路由配置</a></p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>umi框架为我们开发项目提升了效率，而其本身也在不断的升级完善中，在2.8.0+版本，umi 可配置ssr 服务器端渲染，相信umi还将越来越完善。<br>更多查看官方文档 <a href="https://umijs.org/" target="_blank" rel="noopener">https://umijs.org/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/React%20%E5%BC%80%E5%8F%91%E4%B9%8BUmi%E4%B9%8C%E7%B1%B3%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

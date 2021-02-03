@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>try-catch 能抛出 promise 的异常吗 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="try-catch 能抛出 promise 的异常吗" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-try-catch 能抛出 promise 的异常吗" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/try-catch 能抛出 promise 的异常吗/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">try-catch 能抛出 promise 的异常吗</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="try-catch-能抛出-promise-的异常吗？"><a href="#try-catch-能抛出-promise-的异常吗？" class="headerlink" title="try-catch 能抛出 promise 的异常吗？"></a>try-catch 能抛出 promise 的异常吗？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	throw new Error(&#39;1&#39;)</span><br><span class="line">&#125; catch(error) &#123;</span><br><span class="line">	console.log(error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是最常见的 try-catch，会 log 下面的内容：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwMzkxOS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<p>注意，这里并不是红色的，因为 js 异常被捕获后，js 是能够正常往下执行的，如果没有被捕获的话，那么 js 将抛出异常，js 执行将会停止！</p>
+<p>例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 异步，宏任务</span><br><span class="line">try &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(b);</span><br><span class="line">	&#125;, 0);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error); &#x2F;&#x2F; 这里是不会执行的</span><br><span class="line">&#125;</span><br><span class="line">console.log(&#39;out try catch&#39;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjA5NTY0OS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<p>此时 js 会抛出异常，catch 后面的代码都不会执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 异步，微任务</span><br><span class="line">try &#123;</span><br><span class="line">	new Promise(() &#x3D;&gt; &#123;</span><br><span class="line">		throw new Error(&#39;new promise throw error&#39;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwMzQ1MS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><p>try-catch 主要用于捕获异常，注意，这里的异常，是指同步函数的异常，如果 try 里面的异步方法出现了异常，此时<strong>catch 是无法捕获到异常的</strong>，原因是因为：当异步函数抛出异常时，对于宏任务而言，执行函数时已经将该函数推入栈，此时并不在 try-catch 所在的栈，所以 try-catch 并不能捕获到错误。对于微任务而言，比如 promise，promise 的构造函数的异常只能被自带的 reject 也就是.catch 函数捕获到。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="对于同步函数"><a href="#对于同步函数" class="headerlink" title="对于同步函数"></a>对于同步函数</h3><p>放心用 try-catch 即可</p>
+<h3 id="对于异步函数-宏任务"><a href="#对于异步函数-宏任务" class="headerlink" title="对于异步函数-宏任务"></a>对于异步函数-宏任务</h3><p>window 有全局的错误捕获函数 onerror</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(b);</span><br><span class="line">	&#125;, 0);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error); &#x2F;&#x2F; 这里是不会执行的</span><br><span class="line">&#125;</span><br><span class="line">window.onerror &#x3D; function() &#123;</span><br><span class="line">	console.log(...arguments)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时，是可以捕获到比如 setTimeout 的回调函数异常的，这里可以针对全局的异常做一些处理，比如数据上报等</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwNTA1MS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="对于异步函数-微任务"><a href="#对于异步函数-微任务" class="headerlink" title="对于异步函数-微任务"></a>对于异步函数-微任务</h2><p>对于微任务，js 有专门捕获没有写 catch 的 promise，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&#39;unhandledrejection&#39;, function() &#123;</span><br><span class="line">	console.log(...arguments)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjExMzM1NC5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="更多知识点"><a href="#更多知识点" class="headerlink" title="更多知识点"></a>更多知识点</h2><p>try-catch 中的异常只会抛出一层，即不会冒泡，也就是如果你有多层的 try-catch 然后异常已经被内层的 catch 捕获了，外层的 catch 是捕获不到异常的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    throw new Error(&#39;oops&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  catch (ex) &#123;</span><br><span class="line">    console.error(&#39;inner&#39;, ex.message);</span><br><span class="line">  &#125;</span><br><span class="line">  finally &#123;</span><br><span class="line">    console.log(&#39;finally&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">catch (ex) &#123;</span><br><span class="line">  console.error(&#39;outer&#39;, ex.message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Output:</span><br><span class="line">&#x2F;&#x2F; &quot;inner&quot; &quot;oops&quot;</span><br><span class="line">&#x2F;&#x2F; &quot;finally&quot;</span><br></pre></td></tr></table></figure>
+<p>解决方案是可以在内层的 catch 再手动 throw 出异常</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端易混知识点/">前端易混知识点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/易混知识点/">易混知识点</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/try-catch%20%E8%83%BD%E6%8A%9B%E5%87%BA%20promise%20%E7%9A%84%E5%BC%82%E5%B8%B8%E5%90%97/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

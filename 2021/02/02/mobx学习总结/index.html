@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>mobx学习总结 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="mobx学习总结" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-mobx学习总结" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/mobx学习总结/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">mobx学习总结</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一、Mobx解决的问题"><a href="#一、Mobx解决的问题" class="headerlink" title="一、Mobx解决的问题"></a>一、Mobx解决的问题</h2><p>传统React使用的数据管理库为Redux。Redux要解决的问题是统一数据流，数据流完全可控并可追踪。要实现该目标，便需要进行相关的约束。Redux由此引出了dispatch action reducer等概念，对state的概念进行强约束。然而对于一些项目来说，太过强，便失去了灵活性。Mobx便是来填补此空缺的。</p>
+<p>这里对Redux和Mobx进行简单的对比：</p>
+<ol>
+<li><p>Redux的编程范式是函数式的而Mobx是面向对象的；</p>
+</li>
+<li><p>因此数据上来说Redux理想的是immutable的，每次都返回一个新的数据，而Mobx从始至终都是一份引用。因此Redux是支持数据回溯的；</p>
+</li>
+<li><p>然而和Redux相比，使用Mobx的组件可以做到精确更新，这一点得益于Mobx的observable；对应的，Redux是用dispath进行广播，通过Provider和connect来比对前后差别控制更新粒度，有时需要自己写SCU；Mobx更加精细一点。</p>
+</li>
+</ol>
+<h2 id="二、-Mobx核心概念"><a href="#二、-Mobx核心概念" class="headerlink" title="二、 Mobx核心概念"></a>二、 Mobx核心概念</h2><p><img src="https://segmentfault.com/img/remote/1460000013810517" alt="image"></p>
+<p>Mobx的核心原理是通过action触发state的变化，进而触发state的衍生对象（computed value &amp; Reactions）。</p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>在Mobx中，State就对应业务的最原始状态，通过observable方法，可以使这些状态变得可观察。</p>
+<p>通常支持被observable的类型有三个，分别是Object, Array, Map；对于原始类型，可以使用Obserable.box。</p>
+<p>值得注意的一点是，当某一数据被observable包装后，他返回的其实是被observable包装后的类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">const &#123; observable, autorun &#125; &#x3D; Mobx;</span><br><span class="line">const obArray &#x3D; observable([1, 2, 3]);</span><br><span class="line">console.log(&quot;ob is Array:&quot;, Array.isArray(obArray));</span><br><span class="line">console.log(&quot;ob:&quot;, obArray);</span><br></pre></td></tr></table></figure>
+<p>控制台输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ob is Array: false</span><br><span class="line">ob: ObservableArray &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>对于该问题，解决方法也很简单，可以通过Mobx原始提供的observable.toJS()转换成JS再判断，或者直接使用Mobx原生提供的APIisObservableArray进行判断。</p>
+<h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><p>Mobx中state的设计原则和redux有一点是相同的，那就是尽可能保证state足够小，足够原子。这样设计的原则不言而喻，无论是维护性还是性能。那么对于依赖state的数据而衍生出的数据，可以使用computed。</p>
+<p>简而言之，你有一个值，该值的结果依赖于state，并且该值也需要被observable，那么就使用computed。</p>
+<p>通常应该尽可能的使用计算属性，并且由于其函数式的特点，可以最大化优化性能。如果计算属性依赖的state没改变，或者该计算值没有被其他计算值或响应（reaction）使用，computed便不会运行。在这种情况下，computed处于暂停状态，此时若该计算属性不再被observable。那么其便会被Mobx垃圾回收。</p>
+<p>简单介绍computed的一个使用场景</p>
+<p>假如你观察了一个数组，你想根据数组的长度变化作出反应，在不使用computed时代码是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">const &#123; observable, autorun, computed &#125; &#x3D; Mobx;</span><br><span class="line">var numbers &#x3D; observable([1, 2, 3]);</span><br><span class="line">autorun(() &#x3D;&gt; console.log(numbers.length));</span><br><span class="line">&#x2F;&#x2F; 输出 &#39;3&#39;</span><br><span class="line">numbers.push(4);</span><br><span class="line">&#x2F;&#x2F; 输出 &#39;4&#39;</span><br><span class="line">numbers[0] &#x3D; 0;</span><br><span class="line">&#x2F;&#x2F; 输出 &#39;4&#39;</span><br></pre></td></tr></table></figure>
+<p>最后一行其实只是改了数组中的一个值，但是也触发了autorun的执行。此时如果用computed便会解决该问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">const &#123; observable, autorun, computed &#125; &#x3D; Mobx;</span><br><span class="line">var numbers &#x3D; observable([1, 2, 3]);</span><br><span class="line">var sum &#x3D; computed(() &#x3D;&gt; numbers.length);</span><br><span class="line">autorun(() &#x3D;&gt; console.log(sum.get()));</span><br><span class="line">&#x2F;&#x2F; 输出 &#39;3&#39;</span><br><span class="line">numbers.push(4);</span><br><span class="line">&#x2F;&#x2F; 输出 &#39;4&#39;</span><br><span class="line">numbers[0] &#x3D; 1;</span><br></pre></td></tr></table></figure>
+<h3 id="autorun"><a href="#autorun" class="headerlink" title="autorun"></a>autorun</h3><p>另一个响应state的api便是autorun。和computed类似，每当依赖的值改变时，其都会改变。不同的是，autorun没有了computed的优化（当然，依赖值未改变的情况下也不会重新运行，但不会被自动回收）。因此在使用场景来说，autorun通常用来执行一些有副作用的。例如打印日志，更新UI等等。</p>
+<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>在redux中，唯一可以更改state的途径便是dispatch一个action。这种约束性带来的一个好处是可维护性。整个state只要改变必定是通过action触发的，对此只要找到reducer中对应的action便能找到影响数据改变的原因。强约束性是好的，但是Redux要达到约束性的目的，似乎要写许多样板代码，虽说有许多库都在解决该问题，然而Mobx从根本上来说会更加优雅。</p>
+<p>首先Mobx并不强制所有state的改变必须通过action来改变，这主要适用于一些较小的项目。对于较大型的，需要多人合作的项目来说，可以使用Mobx提供的api configure来强制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mobx.configure(&#123;enforceActions: true&#125;)</span><br></pre></td></tr></table></figure>
+<p>其原理也很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function configure(options)&#123;</span><br><span class="line">    if (options.enforceActions !&#x3D;&#x3D; undefined) &#123;</span><br><span class="line">        globalState.enforceActions &#x3D; !!options.enforceActions</span><br><span class="line">        globalState.allowStateChanges &#x3D; !options.enforceActions</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过改变全局的strictMode以及allowStateChanges属性的方式来实现强制使用action。</p>
+<h2 id="三、Mobx异步处理"><a href="#三、Mobx异步处理" class="headerlink" title="三、Mobx异步处理"></a>三、Mobx异步处理</h2><p>和Redux不同的是，Mobx在异步处理上并不复杂，不需要引入额外的类似redux-thunk、redux-saga这样的库。</p>
+<p>唯一需要注意的是，在严格模式下，对于异步action里的回调，若该回调也要修改observable的值，那么</p>
+<p>该回调也需要绑定action。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">Mobx.configure(&#123; enforceActions: true &#125;);</span><br><span class="line">const &#123; observable, autorun, computed, extendObservable, action &#125; &#x3D; Mobx;</span><br><span class="line">class Store &#123;</span><br><span class="line">  @observable a &#x3D; 123;</span><br><span class="line"></span><br><span class="line">  @action</span><br><span class="line">  changeA() &#123;</span><br><span class="line">    this.a &#x3D; 0;</span><br><span class="line">    setTimeout(this.changeB, 1000);</span><br><span class="line">  &#125;</span><br><span class="line">  @action.bound</span><br><span class="line">  changeB() &#123;</span><br><span class="line">    this.a &#x3D; 1000;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var s &#x3D; new Store();</span><br><span class="line">autorun(() &#x3D;&gt; console.log(s.a));</span><br><span class="line">s.changeA();</span><br></pre></td></tr></table></figure>
+<p>这里用了action.bound语法糖，目的是为了解决javascript作用域问题。</p>
+<p>另外一种更简单的写法是直接包装action</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">Mobx.configure(&#123; enforceActions: true &#125;);</span><br><span class="line">const &#123; observable, autorun, computed, extendObservable, action &#125; &#x3D; Mobx;</span><br><span class="line">class Store &#123;</span><br><span class="line">  @observable a &#x3D; 123;</span><br><span class="line">  @action</span><br><span class="line">  changeA() &#123;</span><br><span class="line">    this.a &#x3D; 0;</span><br><span class="line">    setTimeout(action(&#39;changeB&#39;,()&#x3D;&gt;&#123;</span><br><span class="line">      this.a &#x3D; 1000;</span><br><span class="line">    &#125;), 1000);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var s &#x3D; new Store();</span><br><span class="line">autorun(() &#x3D;&gt; console.log(s.a));</span><br><span class="line">s.changeA();</span><br></pre></td></tr></table></figure>
+<p>如果不想到处写action，可以使用Mobx提供的工具函数runInAction来简化操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"> @action</span><br><span class="line">  changeA() &#123;</span><br><span class="line">    this.a &#x3D; 0;</span><br><span class="line">    setTimeout(</span><br><span class="line">      runInAction(() &#x3D;&gt; &#123;</span><br><span class="line">        this.a &#x3D; 1000;</span><br><span class="line">      &#125;),</span><br><span class="line">      1000</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>通过该工具函数，可以将所有对observable值的操作放在一个回调里，而不是命名各种各样的action。</p>
+<p>最后，Mobx提供的一个工具函数，其原理redux-saga，使用ES6的generator来实现异步操作，可以彻底摆脱action的干扰。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@asyncAction</span><br><span class="line">  changeA() &#123;</span><br><span class="line">    this.a &#x3D; 0;</span><br><span class="line">    const data &#x3D; yield Promise.resolve(1)</span><br><span class="line">    this.a &#x3D; data;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、Mobx原理分析"><a href="#四、Mobx原理分析" class="headerlink" title="四、Mobx原理分析"></a>四、Mobx原理分析</h2><h3 id="autorun-1"><a href="#autorun-1" class="headerlink" title="autorun"></a>autorun</h3><p>Mobx的核心就是通过observable观察某一个变量，当该变量产生变化时，对应的autorun内的回调函数就会发生变化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">const &#123; observable, autorun &#125; &#x3D; Mobx;</span><br><span class="line">const ob &#x3D; observable(&#123; a: 1, b: 1 &#125;);</span><br><span class="line">autorun(() &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&quot;ob.b:&quot;, ob.b);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ob.b &#x3D; 2;</span><br></pre></td></tr></table></figure>
+<p>执行该代码会发现，log了两遍ob.b的值。其实从这个就能猜到，<strong>Mobx是通过代理变量的getter和setter来实现的变量更新功能</strong>。首先先代理变量的getter函数，然后通过预执行一遍autorun中回调，从而触发getter函数，来实现观察值的收集，依次来代理setter。之后只要setter触发便执行收集好的回调就ok了。<br>具体源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function autorun(view, opts)&#123;</span><br><span class="line">    reaction &#x3D; new Reaction(name, function () &#123;</span><br><span class="line">           this.track(reactionRunner);</span><br><span class="line">    &#125;, opts.onError);</span><br><span class="line">   function reactionRunner() &#123;</span><br><span class="line">        view(reaction);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>autorun的核心就是这一段，这里view就是autorun里的回调函数。具体到track函数，比较关键到代码是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Reaction.prototype.track &#x3D; function (fn) &#123;</span><br><span class="line">    var result &#x3D; trackDerivedFunction(this, fn, undefined);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>trackDerivedFunction函数中会执行autorun里的回调函数，紧接着会触发observable中代理的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function generateObservablePropConfig(propName) &#123;</span><br><span class="line">    return (observablePropertyConfigs[propName] ||</span><br><span class="line">        (observablePropertyConfigs[propName] &#x3D; &#123;</span><br><span class="line">            configurable: true,</span><br><span class="line">            enumerable: true,</span><br><span class="line">            get: function () &#123;</span><br><span class="line">                return this.$mobx.read(this, propName);</span><br><span class="line">            &#125;,</span><br><span class="line">            set: function (v) &#123;</span><br><span class="line">                this.$mobx.write(this, propName, v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在get中会将回调与其绑定，之后更改了observable中的值时，都会触发这里的set，然后随即触发绑定的函数。</p>
+<h2 id="五、Mobx的一些坑"><a href="#五、Mobx的一些坑" class="headerlink" title="五、Mobx的一些坑"></a>五、Mobx的一些坑</h2><p>通过autorun的实现原理可以发现，会出现很多我们想象中应该触发，但是没有触发的场景，例如：</p>
+<ol>
+<li>无法收集新增的属性</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">const &#123; observable, autorun &#125; &#x3D; Mobx;</span><br><span class="line">let ob &#x3D; observable(&#123; a: 1, b: 1 &#125;);</span><br><span class="line">autorun(() &#x3D;&gt; &#123;</span><br><span class="line">  if(ob.c)&#123;</span><br><span class="line">    console.log(&quot;ob.c:&quot;, ob.c);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">ob.c &#x3D; 1</span><br></pre></td></tr></table></figure>
+<p>对于该问题，可以通过extendObservable(target, props)方法来实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">const &#123; observable, autorun, computed, extendObservable &#125; &#x3D; Mobx;</span><br><span class="line">var numbers &#x3D; observable(&#123; a: 1, b: 2 &#125;);</span><br><span class="line">extendObservable(numbers, &#123; c: 1 &#125;);</span><br><span class="line">autorun(() &#x3D;&gt; console.log(numbers.c));</span><br><span class="line">numbers.c &#x3D; 3;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
+<p>extendObservable该API会可以为对象新增加observal属性。</p>
+<p><strong>当然，如果你对变量的entry增删非常关心，应该使用Map数据结构而不是Object。</strong></p>
+<ol start="2">
+<li>回调函数若依赖外部环境，则无法进行收集</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const Mobx &#x3D; require(&quot;mobx&quot;);</span><br><span class="line">const &#123; observable, autorun &#125; &#x3D; Mobx;</span><br><span class="line">let ob &#x3D; observable(&#123; a: 1, b: 1 &#125;);</span><br><span class="line">let x &#x3D; 0;</span><br><span class="line">autorun(() &#x3D;&gt; &#123;</span><br><span class="line">  if(x &#x3D;&#x3D; 1)&#123;</span><br><span class="line">    console.log(&quot;ob.c:&quot;, ob.b);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">x &#x3D; 1;</span><br><span class="line">ob.b &#x3D; 2;</span><br></pre></td></tr></table></figure>
+<p>很好理解，autorun的回调函数在预执行的时候无法到达ob.b那一行代码，所以收集不到。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/mobx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

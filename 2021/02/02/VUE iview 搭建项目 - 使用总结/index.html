@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>VUE iview 搭建项目 - 使用总结 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="VUE iview 搭建项目 - 使用总结" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-VUE iview 搭建项目 - 使用总结" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/VUE iview 搭建项目 - 使用总结/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">VUE iview 搭建项目 - 使用总结</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="iView放大招了-一口气发布3款新产品"><a href="#iView放大招了-一口气发布3款新产品" class="headerlink" title="iView放大招了!一口气发布3款新产品"></a>iView放大招了!一口气发布3款新产品</h2><p>本次发布的主要内容有：</p>
+<ul>
+<li>iView Pro</li>
+<li>iView Pro Admin</li>
+<li>iView 4.0的预告</li>
+<li>iView weapp + mpvue</li>
+</ul>
+<p><a href="https://v.qq.com/x/page/t0905b3h0qj.html?start=4574" target="_blank" rel="noopener">iView 2019发布会视频观看</a></p>
+<p>使用方法：</p>
+<p>先安装或引入</p>
+<h2 id="CDN-引入"><a href="#CDN-引入" class="headerlink" title="CDN 引入"></a>CDN 引入</h2><p>通过 <a href="https://unpkg.com/iview/" target="_blank" rel="noopener">unpkg.com/iview</a> 可以看到 iView 最新版本的资源，也可以切换版本选择需要的资源，在页面上引入 js 和 css 文件即可开始使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- import Vue.js --&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;&#x2F;&#x2F;vuejs.org&#x2F;js&#x2F;vue.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;!-- import stylesheet --&gt;</span><br><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;&#x2F;&#x2F;unpkg.com&#x2F;iview&#x2F;dist&#x2F;styles&#x2F;iview.css&quot;&gt;</span><br><span class="line">&lt;!-- import iView --&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;&#x2F;&#x2F;unpkg.com&#x2F;iview&#x2F;dist&#x2F;iview.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="NPM-安装"><a href="#NPM-安装" class="headerlink" title="NPM 安装"></a>NPM 安装</h2><p>推荐使用 npm 来安装，享受生态圈和工具带来的便利，更好地和 webpack 配合使用，推荐使用 ES2015。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install iview --save</span><br></pre></td></tr></table></figure>
+<h2 id="使用vue-CLI3"><a href="#使用vue-CLI3" class="headerlink" title="使用vue CLI3"></a>使用vue CLI3</h2><h3 id="引入-iView-方法一："><a href="#引入-iView-方法一：" class="headerlink" title="引入 iView  方法一："></a>引入 iView  方法一：</h3><p>一般在 webpack 入口页面 main.js 中如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;;</span><br><span class="line">import VueRouter from &#39;vue-router&#39;;</span><br><span class="line">import App from &#39;components&#x2F;app.vue&#39;;</span><br><span class="line">import Routers from &#39;.&#x2F;router.js&#39;;</span><br><span class="line">import iView from &#39;iview&#39;;</span><br><span class="line">import &#39;iview&#x2F;dist&#x2F;styles&#x2F;iview.css&#39;;</span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line">Vue.use(iView);</span><br></pre></td></tr></table></figure>
+<p>引入成功，在你需要的地方直接使用组件。</p>
+<h3 id="引入-iView-方法二："><a href="#引入-iView-方法二：" class="headerlink" title="引入 iView  方法二："></a>引入 iView  方法二：</h3><h4 id="按需引用"><a href="#按需引用" class="headerlink" title="按需引用"></a>按需引用</h4><p>借助插件<a href="https://github.com/ant-design/babel-plugin-import" target="_blank" rel="noopener"> babel-plugin-import</a>可以实现按需加载组件，减少文件体积。首先安装，并在文件 .babelrc 中配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-plugin-import --save-dev</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; .babelrc</span><br><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: [[&quot;import&quot;, &#123;</span><br><span class="line">    &quot;libraryName&quot;: &quot;iview&quot;,</span><br><span class="line">    &quot;libraryDirectory&quot;: &quot;src&#x2F;components&quot;</span><br><span class="line">  &#125;]]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后这样按需引入组件，就可以减小体积了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Button, Table &#125; from &#39;iview&#39;;</span><br><span class="line">Vue.component(&#39;Button&#39;, Button);</span><br><span class="line">Vue.component(&#39;Table&#39;, Table);</span><br></pre></td></tr></table></figure>
+<h2 id="特别提醒"><a href="#特别提醒" class="headerlink" title="特别提醒"></a>特别提醒</h2><ul>
+<li>按需引用仍然需要导入样式，即在 main.js 或根组件执行 import ‘iview/dist/styles/iview.css’;</li>
+</ul>
+<p>引入成功之后</p>
+<p><a href="https://www.iviewui.com/docs/guide/install" target="_blank" rel="noopener">https://www.iviewui.com/docs/guide/install</a></p>
+<p>打开官方文档就可以随意使用了。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/VUE%20iview%20%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE%20-%20%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

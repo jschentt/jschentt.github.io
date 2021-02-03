@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>试玩NodeJS多进程 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="试玩NodeJS多进程" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-试玩NodeJS多进程" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/试玩NodeJS多进程/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">试玩NodeJS多进程</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>NodeJS的JavaScript运行在单个进程的单个线程上，一个JavaScript执行进程只能利用一个CPU核心，而如今大多数CPU均为多核CPU，为了充分利用CPU资源，Node提供了child_process和cluster模块来实现多进程以及进程管理。本文将根据Master-Worker模式，搭建一个简单的服务器集群来充分利用多核CPU资源，探索进程间通信、负载均衡、进程重启等知识。</p>
+<p>下图是Master-Worker模式，进程分为master进程和worker进程，master进程负责调度或管理worker进程，worker进程则负责具体的业务处理。在服务器层面，worker可以是一个服务进程，负责处理来自客户端的请求，多个worker便相当于多个服务器，从而构成一个服务器集群。master则是负责创建worker，将来自客户端的请求分配到各个服务器上去处理，并监控worker的运行状态以及进行管理等操作。</p>
+<p><img src="https://img-blog.csdn.net/20180411162337266?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p>本文将从child_process模块开始，熟悉该模块的基本用法。后面再继续进入cluster模块的学习。本文所用的代码示例可以从该仓库中找到–【<a href="https://github.com/hongchh/nodejs-demo/tree/master/multi-process" target="_blank" rel="noopener">multi-process</a>】。</p>
+<h2 id="一、child-process"><a href="#一、child-process" class="headerlink" title="一、child_process"></a>一、child_process</h2><h3 id="1-1、Hello-world"><a href="#1-1、Hello-world" class="headerlink" title="1.1、Hello world"></a>1.1、Hello world</h3><p>child_process模块提供了spawn()、exec()、execFile()、fork()这4个方法用于创建子进程，本文将使用fork()方法来创建子进程，fork()方法只需指定要执行的JavaScript文件模块，即可创建Node的子进程。下面是简单的HelloWorld示例，master进程根据CPU数量创建出相应数量的worker进程，worker进程中利用进程ID来标记自己。</p>
+<p>以下是master进程代码，文件名为master.js。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const childProcess &#x3D; require(&#39;child_process&#39;)</span><br><span class="line">const cpuNum &#x3D; require(&#39;os&#39;).cpus().length</span><br><span class="line"></span><br><span class="line">for (let i &#x3D; 0; i &lt; cpuNum; ++i) &#123;</span><br><span class="line">  childProcess.fork(&#39;.&#x2F;worker.js&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(&#39;Master: Hello world.&#39;)</span><br></pre></td></tr></table></figure>
+
+
+<p>以下是worker进程的代码，文件名为worker.js。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#39;Worker-&#39; + process.pid + &#39;: Hello world.&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>执行<code>node master.js</code>，得到如下结果，master创建4个worker后输出HelloWorld信息，每个worker也分别输出自己的HelloWorld信息。</p>
+<p><img src="https://img-blog.csdn.net/201804111624180?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h3 id="1-2、父子进程间的通信"><a href="#1-2、父子进程间的通信" class="headerlink" title="1.2、父子进程间的通信"></a>1.2、父子进程间的通信</h3><p>创建worker之后，接下来实现master和worker之间的通信。Node父子进程之间可以通过<code>on(&#39;message&#39;)</code>和<code>send()</code>来实现通信，<code>on(&#39;message&#39;)</code>其实是监听message事件，当该进程收到其他进程发送的消息时，便会触发message事件。<code>send()</code>方法则是用于向其他进程发送信息。master进程中调用<code>child_process</code>的<code>fork()</code>方法后会得到一个子进程的实例，通过这个实例可以监听来自子进程的消息或者向子进程发送消息。worker进程则通过process对象接口监听来自父进程的消息或者向父进程发送消息。</p>
+<p><img src="https://img-blog.csdn.net/20180411162446285?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p>下面是简单示例，master创建worker之后，向worker发送信息，worker在收到master的信息后将信息输出，并回复master。master收到回复后输出信息。</p>
+<p><strong>master.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const childProcess &#x3D; require(&#39;child_process&#39;)</span><br><span class="line">const worker &#x3D; childProcess.fork(&#39;.&#x2F;worker.js&#39;)</span><br><span class="line"></span><br><span class="line">worker.send(&#39;Hello world.&#39;)</span><br><span class="line"></span><br><span class="line">worker.on(&#39;message&#39;, (msg) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;[Master] Received message from worker: &#39; + msg)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>worker.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">process.on(&#39;message&#39;, (msg) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;[Worker] Received message from master: &#39; + msg)</span><br><span class="line">  process.send(&#39;Hi master.&#39;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>执行<code>node master.js</code>，结果如下，master和worker可以正常通信。</p>
+<p><img src="https://img-blog.csdn.net/20180411162506991?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h3 id="1-3、Master分发请求给Worker处理"><a href="#1-3、Master分发请求给Worker处理" class="headerlink" title="1.3、Master分发请求给Worker处理"></a>1.3、Master分发请求给Worker处理</h3><p>进程通信时使用到的<code>send()</code>方法，除了发送普通的对象之外，还可以用于发送句柄。句柄是一种引用，可以用来标识资源，例如通过句柄可以标识一个socket对象、一个server对象等。利用句柄传递，可以实现请求的分发。master进程创建一个TCP服务器监听特定端口，收到客户端的请求后，会得到一个socket对象，通过这个socket对象可以跟客户端进行通信从而处理客户端的请求。master进程可以通过句柄传递将该socket对象发送给worker进程，让worker进程去处理请求。该模式的结构图如下，在master上还可以通过特定的算法实现负载均衡，将客户端的请求均衡地分发给worker去处理。</p>
+<p><img src="https://img-blog.csdn.net/20180411162530412?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p>下面是一个简单示例。master创建TCP服务器并监听8080端口，收到请求后将请求分发给worker处理。worker收到master发来的socket以后，通过socket对客户端进行响应。为方便看到请求的处理情况，worker给出的响应内容会说明该请求是被哪个worker处理。</p>
+<p><strong>master.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">const childProcess &#x3D; require(&#39;child_process&#39;)</span><br><span class="line">const net &#x3D; require(&#39;net&#39;)</span><br><span class="line">const cpuNum &#x3D; require(&#39;os&#39;).cpus().length</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建工作进程</span><br><span class="line">let workers &#x3D; []</span><br><span class="line">let cur &#x3D; 0</span><br><span class="line">for (let i &#x3D; 0; i &lt; cpuNum; ++i) &#123;</span><br><span class="line">  workers.push(childProcess.fork(&#39;.&#x2F;worker.js&#39;))</span><br><span class="line">  console.log(&#39;Create worker-&#39; + workers[i].pid)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建TCP服务器</span><br><span class="line">const server &#x3D; net.createServer()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 服务器收到请求后分发给工作进程去处理</span><br><span class="line">&#x2F;&#x2F; 通过轮转方式实现工作进程的负载均衡</span><br><span class="line">server.on(&#39;connection&#39;, (socket) &#x3D;&gt; &#123;</span><br><span class="line">  workers[cur].send(&#39;socket&#39;, socket)</span><br><span class="line">  cur &#x3D; Number.parseInt((cur + 1) % cpuNum)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(8080, () &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;TCP server: 127.0.0.1:8080&#39;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>worker.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">process.on(&#39;message&#39;, (msg, socket) &#x3D;&gt; &#123;</span><br><span class="line">  if (msg &#x3D;&#x3D;&#x3D; &#39;socket&#39; &amp;&amp; socket) &#123;</span><br><span class="line">    &#x2F;&#x2F; 利用setTimeout模拟处理请求时的操作耗时</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      socket.end(&#39;Request handled by worker-&#39; + process.pid)</span><br><span class="line">    &#125;, 10)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>为了访问TCP服务器进行实验，这里需要写一个简单的TCP客户端，代码如下。该客户端会创建10个TCP连接，得到服务器响应之后将响应的内容进行输出。</p>
+<p><strong>tcp_client.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const net &#x3D; require(&#39;net&#39;)</span><br><span class="line">const maxConnectCount &#x3D; 10</span><br><span class="line"></span><br><span class="line">for (let i &#x3D; 0; i &lt; maxConnectCount; ++i) &#123;</span><br><span class="line">  net.createConnection(&#123;</span><br><span class="line">    port: 8080,</span><br><span class="line">    host: &#39;127.0.0.1&#39;</span><br><span class="line">  &#125;).on(&#39;data&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(data.toString())</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先执行<code>node master.js</code>启动服务器，然后执行node tcp_client.js启动客户端。得到的结果如下，10个请求被分发到不同服务器上进行处理，并且可以看到master中的轮转分发请求起到了作用，实现了简单的负载均衡。</p>
+<p><img src="https://img-blog.csdn.net/20180411162556605?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h3 id="1-4、Worker监听同一个端口"><a href="#1-4、Worker监听同一个端口" class="headerlink" title="1.4、Worker监听同一个端口"></a>1.4、Worker监听同一个端口</h3><p>前面说过，<code>send()</code>方法可以传递句柄，通过传递句柄，我们除了发送socket对象之外，还可以直接发送一个server对象。我们可以在master进程中创建一个TCP服务器，将服务器对象直接发送给worker进程，让worker去监听端口并处理请求。这样的话，master和worker进程都会监听相同端口，当客户端发起请求时，请求可能被master接收，也可能被worker接收。而master不负责处理业务，如果请求被master接收到，由于master上没有处理业务的逻辑，请求将无法得到处理。因此可以实现为如下图所示的模式，master将TCP服务器发送给worker使得所有worker监听同一个端口以后，master关闭对端口的监听。这样便只有worker在监听同一端口，请求将会都被worker进行处理，与master无关。</p>
+<p><img src="https://img-blog.csdn.net/20180411162619227?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p>这种模式下，多个进程监听相同端口，当网络请求到来时，会进行抢占式调度，只有一个进程会抢到连接然后进行服务。因此，可以确保每个请求都会被特定的worker处理，而不是一个请求同时被多个worker处理。但由于是抢占式的调度，不能够保证每个worker的负载均衡。可能由于处理不同业务时CPU和IO繁忙度的不同导致进程抢到的请求数量不同，形成负载不均衡的情况。</p>
+<p>下面是简单示例。</p>
+<p><strong>master.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const childProcess &#x3D; require(&#39;child_process&#39;)</span><br><span class="line">const net &#x3D; require(&#39;net&#39;)</span><br><span class="line">const cpuNum &#x3D; require(&#39;os&#39;).cpus().length</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建工作进程</span><br><span class="line">let workers &#x3D; []</span><br><span class="line">let cur &#x3D; 0</span><br><span class="line">for (let i &#x3D; 0; i &lt; cpuNum; ++i) &#123;</span><br><span class="line">  workers.push(childProcess.fork(&#39;.&#x2F;worker.js&#39;))</span><br><span class="line">  console.log(&#39;Create worker-&#39; + workers[i].pid)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建TCP服务器</span><br><span class="line">const server &#x3D; net.createServer()</span><br><span class="line"></span><br><span class="line">server.listen(8080, () &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;TCP server: 127.0.0.1:8080&#39;)</span><br><span class="line">  &#x2F;&#x2F; 监听端口后将服务器句柄发送给工作进程</span><br><span class="line">  for (let i &#x3D; 0; i &lt; cpuNum; ++i) &#123;</span><br><span class="line">    workers[i].send(&#39;server&#39;, server)</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 关闭主线程服务器的端口监听</span><br><span class="line">  server.close()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>worker.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">process.on(&#39;message&#39;, (msg, server) &#x3D;&gt; &#123;</span><br><span class="line">  if (msg &#x3D;&#x3D;&#x3D; &#39;server&#39; &amp;&amp; server) &#123;</span><br><span class="line">    server.on(&#39;connection&#39;, (socket) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; 利用setTimeout模拟处理请求时的操作耗时</span><br><span class="line">      setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">        socket.end(&#39;Request handled by worker-&#39; + process.pid)</span><br><span class="line">      &#125;, 10)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>继续使用之前的<code>tcp_client</code>来进行实验，先执行<code>node master.js</code>启动服务器，然后执行<code>node tcp_client.js</code>启动客户端。得到结果如下，请求可以被不同的worker进程处理，但由于worker进程是抢占式地为请求进行服务，所以不一定能实现每个worker的负载均衡。</p>
+<p><img src="https://img-blog.csdn.net/20180411162643242?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h3 id="1-5、进程重启"><a href="#1-5、进程重启" class="headerlink" title="1.5、进程重启"></a>1.5、进程重启</h3><p>worker进程可能因为某些异常情况而退出，为了提高集群的稳定性，master进程需要监听子进程的存活状态，当子进程退出之后，master进程要及时重启新的子进程。在Node中，子进程退出时，会在父进程中触发exit事件。父进程只需通过监听该事件便可知道子进程是否退出，并在退出的时候做出相应的处理。下面是在之前的监听同一端口模式下，增加了进程重启功能。进程重启时，master进程需要重新传递server对象给新的worker进程，因此不能关闭master进程上的server，否则在进程重启时server被关闭，得到的句柄将为空，无法正常传递。master进程的server不关闭，会导致master进程也监听端口，会有部分请求被master进程接收，为了让着部分请求能够得到处理，可以在master进程添加处理业务的代码。由于master也参与了业务处理，业务处理进程的数量增加1个，所以worker进程可以少创建1个。这也就是下面简单示例中的做法。</p>
+<p>这种实现方式使得master既进行进程管理又参与了业务处理，如果要保持master只负责进程管理而不涉及业务处理，可以采取另外一种实现方式：master接收到请求后，按照前面1.3节的做法将请求转发给worker进行处理，这样master将继续只负责对worker进程的管理。</p>
+<p><strong>master.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">const childProcess &#x3D; require(&#39;child_process&#39;)</span><br><span class="line">const net &#x3D; require(&#39;net&#39;)</span><br><span class="line">const cpuNum &#x3D; require(&#39;os&#39;).cpus().length - 1</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建工作进程</span><br><span class="line">let workers &#x3D; []</span><br><span class="line">let cur &#x3D; 0</span><br><span class="line">for (let i &#x3D; 0; i &lt; cpuNum; ++i) &#123;</span><br><span class="line">  workers.push(childProcess.fork(&#39;.&#x2F;worker.js&#39;))</span><br><span class="line">  console.log(&#39;Create worker-&#39; + workers[i].pid)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建TCP服务器</span><br><span class="line">const server &#x3D; net.createServer()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 由于master进程也会监听端口。因此需要对请求做出处理</span><br><span class="line">server.on(&#39;connection&#39;, (socket) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F; 利用setTimeout模拟处理请求时的操作耗时</span><br><span class="line">  setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">    socket.end(&#39;Request handled by master&#39;)</span><br><span class="line">  &#125;, 10)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(8080, () &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;TCP server: 127.0.0.1:8080&#39;)</span><br><span class="line">  &#x2F;&#x2F; 监听端口后将服务器句柄发送给工作进程</span><br><span class="line">  for (let i &#x3D; 0; i &lt; cpuNum; ++i) &#123;</span><br><span class="line">    workers[i].send(&#39;server&#39;, server)</span><br><span class="line">    &#x2F;&#x2F; 工作进程退出后重启</span><br><span class="line">    workers[i].on(&#39;exit&#39;, ((i) &#x3D;&gt; &#123;</span><br><span class="line">      return () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&#39;Worker-&#39; + workers[i].pid + &#39; exited&#39;)</span><br><span class="line">        workers[i] &#x3D; childProcess.fork(&#39;.&#x2F;worker.js&#39;)</span><br><span class="line">        console.log(&#39;Create worker-&#39; + workers[i].pid)</span><br><span class="line">        workers[i].send(&#39;server&#39;, server)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)(i))</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 关闭主线程服务器的端口监听</span><br><span class="line">  &#x2F;&#x2F; server.close()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>worker.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">process.on(&#39;message&#39;, (msg, server) &#x3D;&gt; &#123;</span><br><span class="line">  if (msg &#x3D;&#x3D;&#x3D; &#39;server&#39; &amp;&amp; server) &#123;</span><br><span class="line">    server.on(&#39;connection&#39;, (socket) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; 利用setTimeout模拟处理请求时的操作耗时</span><br><span class="line">      setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">        socket.end(&#39;Request handled by worker-&#39; + process.pid)</span><br><span class="line">      &#125;, 10)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>执行<code>node master.js</code>启动服务器后，可以通过任务管理器直接杀掉进程来模拟进程异常退出。可以看到worker进程退出后，master能够发现并及时创建新的worker进程。任务管理器中的Node进程数量恢复原样。</p>
+<p><img src="https://img-blog.csdn.net/20180411162706612?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p><img src="https://img-blog.csdn.net/20180411162725201?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p>执行<code>node tcp_client.js</code>启动客户端，客户端发出的连接请求被处理的情况如下，同样地，由于监听同一端口，进程之间采取抢占式服务，不一定保障负载均衡。</p>
+<p><img src="https://img-blog.csdn.net/20180411162742587?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h3 id="1-6、处理HTTP服务"><a href="#1-6、处理HTTP服务" class="headerlink" title="1.6、处理HTTP服务"></a>1.6、处理HTTP服务</h3><p>前面的示例所使用的是TCP服务器，如果要处理HTTP请求，需要使用HTTP服务器。而HTTP其实是基于TCP的，发送HTTP请求的时候同样也会发起TCP连接。只需要对前面的TCP服务器进行一点小改动便可以支持HTTP了。在进程中新增HTTP服务器，当TCP服务器收到请求时，把请求提交给HTTP服务器处理即可。下面是worker进程的改动示例。</p>
+<p><strong>worker.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const http &#x3D; require(&#39;http&#39;)</span><br><span class="line">const httpServer &#x3D; http.createServer((req, res) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F; 利用setTimeout模拟处理请求时的操作耗时</span><br><span class="line">  setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">    res.writeHead(200, &#123; &#39;Content-Type&#39;: &#39;text&#x2F;plain&#39; &#125;)</span><br><span class="line">    res.end(&#39;Request handled by worker-&#39; + process.pid)</span><br><span class="line">  &#125;, 10)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">process.on(&#39;message&#39;, (msg, server) &#x3D;&gt; &#123;</span><br><span class="line">  if (msg &#x3D;&#x3D;&#x3D; &#39;server&#39; &amp;&amp; server) &#123;</span><br><span class="line">    server.on(&#39;connection&#39;, (socket) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; 提交给HTTP服务器处理</span><br><span class="line">      httpServer.emit(&#39;connection&#39;, socket)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/20180411162802792?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h2 id="二、cluster"><a href="#二、cluster" class="headerlink" title="二、cluster"></a>二、cluster</h2><p>前面简单描述了使用child_process实现单机Node集群的做法，需要处理挺多的细节。Node提供了cluster模块，该模块提供了更完善的API，除了能够实现多进程充分利用CPU资源以外，还能够帮助我们更好地进行进程管理和处理进程的健壮性问题。下面是简单示例，if条件语句判断当前进程是master还是worker，master进程会执行if语句块包含的代码，而worker进程则执行else语句块包含的代码。master进程中，利用cluster模块创建了与CPU数量相应的worker进程，并通过监听cluster的online事件来判断worker的创建成功。在worker进程退出后，会触发master进程中cluster模块上的exit事件，通过监听该事件可以了解worker进程的退出情况并及时fork新的worker。最后，worker进程中只需创建服务器监听端口，对客户端请求做出处理即可。（这里设置相同端口8080之后，所有worker都将监听同一个端口）</p>
+<p><strong>server.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">const cluster &#x3D; require(&#39;cluster&#39;)</span><br><span class="line"></span><br><span class="line">if (cluster.isMaster) &#123;</span><br><span class="line">  const cpuNum &#x3D; require(&#39;os&#39;).cpus().length</span><br><span class="line"></span><br><span class="line">  for (let i &#x3D; 0; i &lt; cpuNum; ++i) &#123;</span><br><span class="line">    cluster.fork()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建进程完成后输出提示信息</span><br><span class="line">  cluster.on(&#39;online&#39;, (worker) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;Create worker-&#39; + worker.process.pid)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 子进程退出后重启</span><br><span class="line">  cluster.on(&#39;exit&#39;, (worker, code, signal) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;[Master] worker &#39; + worker.process.pid + &#39; died with code: &#39; + code + &#39;, and signal: &#39; + signal)</span><br><span class="line">    cluster.fork()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  const net &#x3D; require(&#39;net&#39;)</span><br><span class="line">  net.createServer().on(&#39;connection&#39;, (socket) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; 利用setTimeout模拟处理请求时的操作耗时</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      socket.end(&#39;Request handled by worker-&#39; + process.pid)</span><br><span class="line">    &#125;, 10)</span><br><span class="line">  &#125;).listen(8080)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行<code>node server.js</code>启动服务器，继续按照之前的做法，利用任务管理器杀死进程，可以看到在进程被杀后master能够及时启动新的worker。</p>
+<p><img src="https://img-blog.csdn.net/2018041116282181?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p>继续运行tcp_client，可以看到服务器能够正常处理请求。</p>
+<p><img src="https://img-blog.csdn.net/20180411162838577?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hvbmdjaGg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h2 id="三、小结"><a href="#三、小结" class="headerlink" title="三、小结"></a>三、小结</h2><p>利用<code>child_process</code>和<code>cluster</code>模块能够很好地实现<code>Master-Worker</code>模式多进程架构，实现单机服务器集群，充分利用了多核CPU资源。通过进程通信能够实现进程管理、重启以及负载均衡，从而提高集群的稳定性和健壮性。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端易混知识点/">前端易混知识点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/易混知识点/">易混知识点</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/%E8%AF%95%E7%8E%A9NodeJS%E5%A4%9A%E8%BF%9B%E7%A8%8B/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Tree-Shaking性能优化实践 - 原理篇 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Tree-Shaking性能优化实践 - 原理篇" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Tree-Shaking性能优化实践 - 原理篇" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Tree-Shaking性能优化实践 - 原理篇/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Tree-Shaking性能优化实践 - 原理篇</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一-什么是Tree-shaking"><a href="#一-什么是Tree-shaking" class="headerlink" title="一. 什么是Tree-shaking"></a>一. 什么是Tree-shaking</h2><p><img src="https://pic4.zhimg.com/80/v2-8b075867835d03be30338855aaea126b_720w.jpg" alt="image"></p>
+<p>先来看一下Tree-shaking原始的本意</p>
+<p><img src="https://tse2-mm.cn.bing.net/th/id/OIP.FK1leNlztl80mibxa-uu8QHaEM?w=322&h=183&c=7&o=5&dpr=1.25&pid=1.7" alt="image"></p>
+<p>上图形象的解释了Tree-shaking 的本意，本文所说的前端中的tree-shaking可以理解为通过工具”摇”我们的JS文件，将其中用不到的代码”摇”掉，是一个性能优化的范畴。具体来说，在 webpack 项目中，有一个入口文件，相当于一棵树的主干，入口文件有很多依赖的模块，相当于树枝。实际情况中，虽然依赖了某个模块，但其实只使用其中的某些功能。通过 tree-shaking，将没有使用的模块摇掉，这样来达到删除无用代码的目的。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-d415073437f0ce3c2349717b4e13a9fb_720w.jpg" alt="image"></p>
+<p>Tree-shaking 较早由 Rich_Harris 的 rollup 实现，后来，webpack2 也增加了tree-shaking 的功能。其实在更早，google closure compiler 也做过类似的事情。三个工具的效果和使用各不相同，使用方法可以通过官网文档去了解，三者的效果对比，后文会详细介绍。</p>
+<h2 id="二-tree-shaking的原理"><a href="#二-tree-shaking的原理" class="headerlink" title="二. tree-shaking的原理"></a>二. tree-shaking的原理</h2><p><img src="https://pic2.zhimg.com/80/v2-ff9d9ea4b5313771471c2796a6741d91_720w.jpg" alt="image"></p>
+<p>Tree-shaking的本质是消除无用的js代码。无用代码消除在广泛存在于传统的编程语言编译器中，编译器可以判断出某些代码根本不影响输出，然后消除这些代码，这个称之为DCE（dead code elimination）。</p>
+<p>Tree-shaking 是 DCE 的一种新的实现，Javascript同传统的编程语言不同的是，javascript绝大多数情况需要通过网络进行加载，然后执行，加载的文件大小越小，整体执行时间更短，所以去除无用代码以减少文件体积，对javascript来说更有意义。</p>
+<p>Tree-shaking 和传统的 DCE的方法又不太一样，传统的DCE 消灭不可能执行的代码，而Tree-shaking 更关注于消除没有用到的代码。下面详细介绍一下DCE和Tree-shaking。</p>
+<h3 id="（1）先来看一下DCE消除大法"><a href="#（1）先来看一下DCE消除大法" class="headerlink" title="（1）先来看一下DCE消除大法"></a>（1）先来看一下DCE消除大法</h3><p><img src="https://pic3.zhimg.com/80/v2-18129c123fbaebba27ac786c856abfd2_720w.jpg" alt="image"></p>
+<p>Dead Code 一般具有以下几个特征</p>
+<ul>
+<li>代码不会被执行，不可到达</li>
+<li>代码执行的结果不会被用到</li>
+<li>代码只会影响死变量（只写不读）</li>
+</ul>
+<p>下面红框标示的代码就属于死码，满足以上特征</p>
+<p><img src="https://pic4.zhimg.com/80/v2-e7063073c59b49906e6aa9cefac1281f_720w.jpg" alt="image"></p>
+<p>传统编译型的语言中，都是由编译器将Dead Code从AST（抽象语法树）中删除，那javascript中是由谁做DCE呢？</p>
+<p>首先肯定不是浏览器做DCE，因为当我们的代码送到浏览器，那还谈什么消除无法执行的代码来优化呢，所以肯定是送到浏览器之前的步骤进行优化。</p>
+<p>其实也不是上面提到的三个工具，rollup，webpack，cc做的，而是著名的代码压缩优化工具uglify，uglify完成了javascript的DCE，下面通过一个实验来验证一下。</p>
+<blockquote>
+<p>以下所有的示例代码都能在github中找到</p>
+</blockquote>
+<p><a href="https://github.com/lin-xi/treeshaking/tree/master/rollup-webpack" target="_blank" rel="noopener">https://github.com/lin-xi/treeshaking/tree/master/rollup-webpack</a></p>
+<p><strong>分别用rollup和webpack将图4中的代码进行打包</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-87a1817d027f5e000b80ada132e11b33_720w.jpg" alt="image"></p>
+<p>中间是rollup打包的结果，右边是webpack打包的结果</p>
+<p>可以发现，rollup将无用的代码foo函数和unused函数消除了，但是仍然保留了不会执行到的代码，而webpack完整的保留了所有的无用代码和不会执行到的代码。</p>
+<p><strong>分别用rollup + uglify和 webpack + uglify 将图4中的代码进行打包</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-cd8913573d1862aa0799b28ca84e048d_720w.jpg" alt="image"></p>
+<p>中间是配置文件，右侧是结果</p>
+<p>可以看到右侧最终打包结果中都去除了无法执行到的代码，结果符合我们的预期。</p>
+<h3 id="2-再来看一下Tree-shaking消除大法"><a href="#2-再来看一下Tree-shaking消除大法" class="headerlink" title="(2) 再来看一下Tree-shaking消除大法"></a>(2) 再来看一下Tree-shaking消除大法</h3><p>前面提到了tree-shaking更关注于无用模块的消除，消除那些引用了但并没有被使用的模块。</p>
+<p>先思考一个问题，为什么tree-shaking是最近几年流行起来了？而前端模块化概念已经有很多年历史了，其实tree-shaking的消除原理是依赖于ES6的模块特性。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-e56729aa4ee3efa34ebbfe8ec02d9583_720w.jpg" alt="image"></p>
+<p>ES6 module 特点：</p>
+<ul>
+<li>只能作为模块顶层的语句出现</li>
+<li>import 的模块名只能是字符串常量</li>
+<li>import binding 是 immutable的<br>ES6模块依赖关系是确定的，和运行时的状态无关，可以进行可靠的静态分析，这就是tree-shaking的基础。</li>
+</ul>
+<p>所谓静态分析就是不执行代码，从字面量上对代码进行分析，ES6之前的模块化，比如我们可以动态require一个模块，只有执行后才知道引用的什么模块，这个就不能通过静态分析去做优化。</p>
+<p>这是 ES6 modules 在设计时的一个重要考量，也是为什么没有直接采用 CommonJS，正是基于这个基础上，才使得 tree-shaking 成为可能，这也是为什么 rollup 和 webpack 2 都要用 ES6 module syntax 才能 tree-shaking。</p>
+<p>我们还是通过例子来详细了解一下</p>
+<p>面向过程编程函数和面向对象编程是javascript最常用的编程模式和代码组织方式，从这两个方面来实验：</p>
+<ul>
+<li>函数消除实验</li>
+<li>类消除实验</li>
+</ul>
+<p><strong>先看下函数消除实验</strong></p>
+<p>utils中get方法没有被使用到，我们期望的是get方法最终被消除。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-0ab75edb6d645a574fca0f7cfed6eaf2_720w.jpg" alt="image"></p>
+<p>注意，uglify目前不会跨文件去做DCE，所以上面这种情况，uglify是不能优化的。</p>
+<p><strong>先看看rollup的打包结果</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-c6212005445fa180a103ff7c8b26c234_720w.jpg" alt="image"></p>
+<p>完全符合预期，最终结果中没有get方法</p>
+<p><strong>再看看webpack的结果</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-19c1884f6deaeab166036df5dc7af121_720w.jpg" alt="image"></p>
+<p>也符合预期，最终结果中没有get方法</p>
+<p>可以看到rollup打包的结果比webpack更优化</p>
+<blockquote>
+<p>函数消除实验中，rollup和webpack都通过，符合预期</p>
+</blockquote>
+<p><strong>再来看下类消除实验</strong></p>
+<p>增加了对menu.js的引用，但其实代码中并没有用到menu的任何方法和变量，所以我们的期望是，最终代码中menu.js里的内容被消除</p>
+<p><img src="https://pic2.zhimg.com/80/v2-eb682abb2e27a72ce2ab031ad94cdc09_720w.jpg" alt="image"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-7aab6ee6e04416d34a30208d3a8125ac_720w.jpg" alt="image"></p>
+<p>rollup打包结果</p>
+<p><img src="https://pic2.zhimg.com/80/v2-559f5911b18e201ca7407277ecdd3911_720w.jpg" alt="image"></p>
+<p>包中竟然包含了menu.js的全部代码</p>
+<p><strong>webpack打包结果</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-444d7415f84a373778702747372d2370_720w.jpg" alt="image"></p>
+<p>包中竟然也包含了menu.js的全部代码</p>
+<blockquote>
+<p>类消除实验中，rollup，webpack 全军覆没，都没有达到预期</p>
+</blockquote>
+<p><img src="https://pic3.zhimg.com/80/v2-b796932873b2f5b217a1fdd00212c376_720w.jpg" alt="image"></p>
+<p>这跟我们想象的完全不一样啊？为什么呢？无用的类不能消除，这还能叫做tree-shaking吗？我当时一度怀疑自己的demo有问题，后来各种网上搜索，才明白demo没有错。</p>
+<p>下面摘取了rollup核心贡献者的的一些回答：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-a04ef2070513c5a4d90966c8e80df0ca_720w.jpg" alt="image"></p>
+<ul>
+<li>rollup只处理函数和顶层的import/export变量，不能把没用到的类的方法消除掉</li>
+<li>javascript动态语言的特性使得静态分析比较困难</li>
+<li>图7下部分的代码就是副作用的一个例子，如果静态分析的时候删除run或者jump，程序运行时就可能报错，那就本末倒置了，我们的目的是优化，肯定不能影响执行</li>
+</ul>
+<p>再举个例子说明下为什么不能消除menu.js，比如下面这个场景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Menu() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Menu.prototype.show &#x3D; function() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Array.prototype.unique &#x3D; function() &#123;</span><br><span class="line">    &#x2F;&#x2F; 将 array 中的重复元素去除</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default Menu;</span><br></pre></td></tr></table></figure>
+
+<p>如果删除menu.js，那Array的扩展也会被删除，就会影响功能。那也许你会问，难道rollup，webpack不能区分是定义Menu的proptotype 还是定义Array的proptotype吗？当然如果代码写成上面这种形式是可以区分的，如果我写成这样呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function Menu() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Menu.prototype.show &#x3D; function() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a &#x3D; &#39;Arr&#39; + &#39;ay&#39;</span><br><span class="line">var b</span><br><span class="line">if(a &#x3D;&#x3D; &#39;Array&#39;) &#123;</span><br><span class="line">    b &#x3D; Array</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    b &#x3D; Menu</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.prototype.unique &#x3D; function() &#123;</span><br><span class="line">    &#x2F;&#x2F; 将 array 中的重复元素去除</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default Menu;</span><br></pre></td></tr></table></figure>
+<p>这种代码，静态分析是分析不了的，就算能静态分析代码，想要正确完全的分析也比较困难。</p>
+<p>更多关于副作用的讨论，可以看这个</p>
+<p><a href="https://github.com/rollup/rollup/issues/349" target="_blank" rel="noopener">https://github.com/rollup/rollup/issues/349</a></p>
+<p><img src="https://pic3.zhimg.com/80/v2-0417d8e35bd25ec6fb184b2c378d65e6_720w.jpg" alt="image"></p>
+<blockquote>
+<p>tree-shaking对函数效果较好</p>
+</blockquote>
+<p>函数的副作用相对较少，顶层函数相对来说更容易分析，加上babel默认都是”use strict”严格模式，减少顶层函数的动态访问的方式，也更容易分析</p>
+<p>我们开始说的三个工具，rollup和webpack表现不理想，那closure compiler又如何呢？</p>
+<p>将示例中的代码用cc打包后得到的结果如下：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-91bc794a87ea5c35f2981ebb55b9b44b_720w.jpg" alt="image"></p>
+<p>天啊，这不就是我们要的结果吗？完美消除所有无用代码的结果，输出的结果非常性感</p>
+<blockquote>
+<p>closure compiler， tree-shaking的结果完美！</p>
+</blockquote>
+<p>可是不能高兴得太早，能得到这么完美结果是需要条件的，那就是cc的侵入式约束规范。必须在代码里添加这样的代码，看红线框标示的</p>
+<p><img src="https://pic2.zhimg.com/80/v2-6346776acfa7b0c50a331afd22d260ad_720w.jpg" alt="image"></p>
+<p>google定义一整套注解规范Annotating JavaScript for the Closure Compiler，想更多了解的，可以去看下官网。</p>
+<p>侵入式这个就让人很不爽，google Closure Compiler是java写的，和我们基于node的各种构建库不可能兼容（不过目前好像已经有nodejs版 Closure Compiler），Closure Compiler使用起来也比较麻烦，所以虽然效果很赞，但比较难以应用到项目中，迁移成本较大。</p>
+<p><strong>说了这么多，总结一下：</strong></p>
+<p>三大工具的tree-shaking对于无用代码，无用模块的消除，都是有限的，有条件的。closure compiler是最好的，但与我们日常的基于node的开发流很难兼容。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-f74aabd0006d76162998f04ac09c87ac_720w.jpg" alt="image"></p>
+<p>tree-shaking对web意义重大，是一个极致优化的理想世界，是前端进化的又一个终极理想。</p>
+<p>理想是美好的，但目前还处在发展阶段，还比较困难，有各个方面的，甚至有目前看来无法解</p>
+<p>决的问题，但还是应该相信新技术能带来更好的前端世界。</p>
+<p>但优化是一种态度，不因小而不为，不因艰而不攻。</p>
+<h2 id="三、Tree-Shaking的工作原理"><a href="#三、Tree-Shaking的工作原理" class="headerlink" title="三、Tree-Shaking的工作原理"></a>三、Tree-Shaking的工作原理</h2><p>Tree-shaking （树摇）最早是由Rollup实现，是一种采用删除不需要的额外代码的方式优化代码体积的技术，webpack2借鉴了这个特性也增加了tree-shaking的功能。</p>
+<p>tree-shaking 只能在静态modules下工作，在ES6之前我们使用CommonJS规范引入模块，具体采用require()的方式动态引入模块，这个特性可以通过判断条件解决按需加载的优化问题，具体如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let module;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(condition) &#123;</span><br><span class="line"></span><br><span class="line">    module &#x3D;  require(&quot;HellowModule&quot;) ;</span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line"></span><br><span class="line">    module &#x3D; requitre(&#39;BeyModule&#39;);  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是CommonJS规范无法确定在实际运行前需要或者不需要某些模块，所以CommonJS不适合tree-shaking机制。</p>
+<p>在JavaScript模块化方案中，只有ES6的模块方案：import()引入模块的方式采用静态导入，可以采用一次导入所有的依赖包再根据条件判断的方式，获取不需要的包，然后执行删除操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import hello from &quot;Hellow&quot;;</span><br><span class="line"></span><br><span class="line">import bey from &quot;Bey&quot;;</span><br><span class="line"></span><br><span class="line">import other from &quot;Other&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(condition) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; hello</span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; bey</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Tree-shaking的实现原理</strong></p>
+<p><strong>利用ES6模块特性：</strong></p>
+<ul>
+<li>只能作为模块顶层的语句出现</li>
+<li>import的模块名只能是字符串常量</li>
+<li>import binding 是 immutable的，引入的模块不能再进行修改</li>
+</ul>
+<p><strong>代码删除：</strong></p>
+<ul>
+<li>uglify：判断程序流，判断变量是否被使用和引用，进而删除代码</li>
+</ul>
+<p>实现原理可以简单的概况：</p>
+<ol>
+<li>ES6 Module引入进行静态分析，故而编译的时候正确判断到底加载了那些模块</li>
+<li>静态分析程序流，判断那些模块和变量未被使用或者引用，进而删除对应代码</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端易混知识点/">前端易混知识点</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/易混知识点/">易混知识点</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Tree-Shaking%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%AE%9E%E8%B7%B5%20-%20%E5%8E%9F%E7%90%86%E7%AF%87/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Nuxt.js的踩坑指南 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Nuxt.js的踩坑指南" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Nuxt.js的踩坑指南" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Nuxt.js的踩坑指南/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Nuxt.js的踩坑指南</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="1-路径匹配问题："><a href="#1-路径匹配问题：" class="headerlink" title="1.路径匹配问题："></a>1.路径匹配问题：</h2><p>In Nuxt.js, the path match is as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import url(&#39;~assets&#x2F;css&#x2F;style.css&#39;) &#x2F;&#x2F;Error</span><br></pre></td></tr></table></figure>
+
+<p>This path matching is an error, and writing it like this is possible:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import url(&#39;~&#x2F;assets&#x2F;css&#x2F;style.css&#39;) &#x2F;&#x2F;success</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，在最新版本更新中，官方修复了路径匹配问题：</p>
+<p>而官方推荐使用<code>~/assets</code>匹配路径，而不是使用在中文文档中的<code>~assets</code>去匹配路径。</p>
+<p>而在中文文档中，也并未见修复及更改此问题。</p>
+<h2 id="2-按需引入-UI框架等等"><a href="#2-按需引入-UI框架等等" class="headerlink" title="2.按需引入(UI框架等等)"></a>2.按需引入(UI框架等等)</h2><p>例如使用UI框架：element-ui</p>
+<p>我找了很多相关文章，并没有详细说明该如何引入。所以我要拿出来将他说明：</p>
+<p>先来看下，如果不按需引入vendor.js的体积大小为：</p>
+<p><img src="https://image-static.segmentfault.com/894/966/894966456-5adc42411f633_articlex" alt="image"></p>
+<blockquote>
+<p>第一步，下载依赖：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 先下载element-ui</span><br><span class="line"></span><br><span class="line">npm install element-ui --save</span><br><span class="line"></span><br><span class="line"># 如果使用按需引入，必须安装babel-plugin-component(官网有需要下载说明，此插件根据官网规则不同，安装插件不同)</span><br><span class="line"></span><br><span class="line">npm install babel-plugin-component --save-dev</span><br></pre></td></tr></table></figure>
+<p>安装好以后，按照nuxt.js中的规则，你需要在 plugins/ 目录下创建相应的插件文件</p>
+<p>在文件根目录创建(或已经存在)plugins/目录，创建名为：element-ui.js的文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line"></span><br><span class="line">import &#123; Button &#125; from &#39;element-ui&#39;    &#x2F;&#x2F;引入Button按钮</span><br><span class="line"></span><br><span class="line">export default ()&#x3D;&gt;&#123;</span><br><span class="line">    Vue.use(Button)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第二步，引入插件</p>
+</blockquote>
+<p>在nuxt.config.js中，添加配置为：plugins</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">css:[</span><br><span class="line">&#39;element-ui&#x2F;lib&#x2F;theme-chalk&#x2F;index.css&#39;</span><br><span class="line">],</span><br><span class="line">plugins:[</span><br><span class="line">&#39;~&#x2F;plugins&#x2F;element-ui&#39;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>默认为：开启SSR,采用服务端渲染，也可以<strong>手动配置关闭SSR</strong>，配置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">css:[</span><br><span class="line">&#39;element-ui&#x2F;lib&#x2F;theme-chalk&#x2F;index.css&#39;</span><br><span class="line">],</span><br><span class="line">plugins:[</span><br><span class="line">    &#123;</span><br><span class="line">        src:&#39;~&#x2F;plugins&#x2F;element-ui&#39;,</span><br><span class="line">        ssr:false    &#x2F;&#x2F;关闭ssr</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第三步，配置 babel选项</p>
+</blockquote>
+<p>在nuxt.config.js中，配置在build选项中，规则为官网规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">build: &#123;</span><br><span class="line">      babel:&#123;        &#x2F;&#x2F;配置按需引入规则</span><br><span class="line">          &quot;plugins&quot;:[</span><br><span class="line">              [</span><br><span class="line">                  &quot;component&quot;,</span><br><span class="line">                  &#123;</span><br><span class="line">                      &quot;libraryName&quot;:&quot;element-ui&quot;,</span><br><span class="line">                      &quot;styleLibraryName&quot;:&quot;theme-chalk&quot;</span><br><span class="line">                  &#125;</span><br><span class="line">              ]</span><br><span class="line">          ]</span><br><span class="line">      &#125;,</span><br><span class="line">    &#x2F;*</span><br><span class="line">     ** Run ESLINT on save</span><br><span class="line">     *&#x2F;</span><br><span class="line">    extend (config, ctx) &#123;</span><br><span class="line">      if (ctx.isClient) &#123;</span><br><span class="line">        config.module.rules.push(&#123;</span><br><span class="line">           enforce: &#39;pre&#39;,</span><br><span class="line">           test: &#x2F;\.(js|vue)$&#x2F;,</span><br><span class="line">           loader: &#39;eslint-loader&#39;,</span><br><span class="line">           exclude: &#x2F;(node_modules)&#x2F;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>此时，我们在观察打包以后文件体积大小，如图：<br><img src="https://image-static.segmentfault.com/135/492/1354920410-5adc428eed953_articlex" alt="image"></p>
+<p>此时，我们成功完成了按需引入配置。</p>
+<h2 id="3-初始化脚手架的选择："><a href="#3-初始化脚手架的选择：" class="headerlink" title="3.初始化脚手架的选择："></a>3.初始化脚手架的选择：</h2><p>官网提供的初始化脚手架为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 基本的Nuxt.js项目模板</span><br><span class="line"></span><br><span class="line">vue init nuxt&#x2F;starter template</span><br></pre></td></tr></table></figure>
+
+<p>而其实，官方也提供了更多的模板以便于我们使用，而我在中文文档并未发现有说明：</p>
+<ul>
+<li>nuxt/starter 基本的Nuxt.js项目模板</li>
+<li>nuxt/express Nuxt.js + Express</li>
+<li>nuxt/koa Nuxt.js + Koa2</li>
+<li>nuxt/adonuxt Nuxt.js + AdonisJS</li>
+<li>nuxt/micro Nuxt.js + Micro</li>
+<li>nuxt/nuxtent 适用于内容较重网站的Nuxt.js + Nuxtent模块</li>
+</ul>
+<p>而我们使用基础的模板进行初始化项目，部署方式为：</p>
+<blockquote>
+<p>第一步，打包：<br>在执行npm run build的时候，nuxt会自动打包</p>
+</blockquote>
+<blockquote>
+<p>第二步，选择要部署的文件：</p>
+</blockquote>
+<ul>
+<li>.nuxt文件夹</li>
+<li>package.json 文件</li>
+<li>nuxt.config.js 文件(如果你部署一些proxy，则需要上传这个文件，个人建议把它传上去)<blockquote>
+<p>第三步，启动你的 nuxt （重要）</p>
+</blockquote>
+</li>
+</ul>
+<p>使用pm2启动你的nuxt.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start npm --name &quot;demo&quot; -- run start</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我发现个问题，如果你使用window server 服务器，在使用pm2启动时候，会出现错误，错误如下：</p>
+<p><img src="https://image-static.segmentfault.com/166/822/1668224023-5adc47462ea06_articlex" alt="image"></p>
+<p>如果在Linux服务器下启动，同样的命令，同样的执行，则不会出现错误：<br>这里采用Linux CentOS 7</p>
+<p><img src="https://image-static.segmentfault.com/284/057/2840577851-5adc47ba7502f_articlex" alt="image"></p>
+<p>所以，个人建议，在采用初始化模板的时候，请选用express 或者 koa 进行初始化，理由如下：</p>
+<h3 id="1-采用基础模板初始化，观察package-json的启动方式如下："><a href="#1-采用基础模板初始化，观察package-json的启动方式如下：" class="headerlink" title="1.采用基础模板初始化，观察package.json的启动方式如下："></a>1.采用基础模板初始化，观察package.json的启动方式如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;nuxt&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;nuxt build&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;nuxt start&quot;,</span><br><span class="line">    &quot;generate&quot;: &quot;nuxt generate&quot;,</span><br><span class="line">    &quot;lint&quot;: &quot;eslint --ext .js,.vue --ignore-path .gitignore .&quot;,</span><br><span class="line">    &quot;precommit&quot;: &quot;npm run lint&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-采用express-koa初始化模板，观察package-json的启动方式如下："><a href="#2-采用express-koa初始化模板，观察package-json的启动方式如下：" class="headerlink" title="2.采用express/koa初始化模板，观察package.json的启动方式如下："></a>2.采用express/koa初始化模板，观察package.json的启动方式如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;backpack dev&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;nuxt build &amp;&amp; backpack build&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;cross-env NODE_ENV&#x3D;production node build&#x2F;main.js&quot;,</span><br><span class="line">    &quot;precommit&quot;: &quot;npm run lint&quot;,</span><br><span class="line">    &quot;lint&quot;: &quot;eslint --ext .js,.vue --ignore-path .gitignore .&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在start中，对比下，个人觉得express/koa更灵活一些，它直接启动了build/main.js文件，更能直观的启动方式，而关键在于，也可以在windows server下运行起来。</strong></p>
+<blockquote>
+<p>注意事项：如果采用 express/ koa的模板初始化，服务器部署的时候，同时要上传 build/目录！！！</p>
+</blockquote>
+<h2 id="4-插件中获取vue绑定"><a href="#4-插件中获取vue绑定" class="headerlink" title="4.插件中获取vue绑定"></a>4.插件中获取vue绑定</h2><p>我们需要在axios的插件中配置Loading加载效果，例如使用element-ui框架作为示例：</p>
+<blockquote>
+<p>1.创建插件<br>在文件根目录创建(或已经存在)plugins/目录，创建名为：axios.js的文件，内容如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line"></span><br><span class="line">var vm &#x3D; new Vue(&#123;&#125;)    &#x2F;&#x2F;获取vue实例</span><br><span class="line"></span><br><span class="line">export default function (&#123; $axios, redirect &#125;) &#123;</span><br><span class="line"></span><br><span class="line">  $axios.onRequest(config &#x3D;&gt; &#123;</span><br><span class="line">    if (process.browser) &#123;    &#x2F;&#x2F;判断是否为客户端（必须）</span><br><span class="line">        vm.$loading();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  $axios.onResponse(response&#x3D;&gt;&#123;</span><br><span class="line">      if (process.browser) &#123;    &#x2F;&#x2F;判断是否为客户端（必须）</span><br><span class="line">          let load &#x3D; vm.$loading();</span><br><span class="line">          load.close();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  $axios.onError(error &#x3D;&gt; &#123;</span><br><span class="line">    const code &#x3D; parseInt(error.response &amp;&amp; error.response.status)</span><br><span class="line">    if (code &#x3D;&#x3D;&#x3D; 400) &#123;</span><br><span class="line">      redirect(&#39;&#x2F;400&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>如官方所说，并不需要像<strong>原生axios</strong>一样，去return一个config出来。</p>
+<blockquote>
+<p>2.配置 nuxt.config.js文件<br>在plugins选项添加：</p>
+</blockquote>
+<blockquote>
+<p> plugins:[‘~/plugins/axios’]</p>
+</blockquote>
+<p>添加modules选项并添加如下示例：</p>
+<blockquote>
+<p>modules:[‘@nuxtjs/axios’]</p>
+</blockquote>
+<p>配置防止多次打包：</p>
+<p>在build选项中(nuxt.config.js会默认配置)添加vendor配置项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">build:&#123;</span><br><span class="line">    vendor:[&#39;axios&#39;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以调用loading加载方法,并且愉快的使用了。</p>
+<p>（当然还有其他的方法去调用vue实例，每个人习惯不同，使用方式不同。）</p>
+<h2 id="5-Nuxt-js中配置代理解决跨域"><a href="#5-Nuxt-js中配置代理解决跨域" class="headerlink" title="5.Nuxt.js中配置代理解决跨域"></a>5.Nuxt.js中配置代理解决跨域</h2><p>我们知道在vue-cli中配置代理很方便，只需要在config/目录下的index.js中找到proxyTable添加即可，而在nuxt中同样需要修改nuxt.config.js配置文件。</p>
+<blockquote>
+<p>1.原始配置代理方式<br>使用@nuxtjs/axios和@nuxtjs/proxy进行代理解决跨域</p>
+</blockquote>
+<h3 id="1）-下载插件"><a href="#1）-下载插件" class="headerlink" title="1）.下载插件"></a>1）.下载插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 下载插件</span><br><span class="line"></span><br><span class="line">npm install @nuxtjs&#x2F;axios @nuxtjs&#x2F;proxy --save</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2）-配置插件"><a href="#2）-配置插件" class="headerlink" title="2）.配置插件"></a>2）.配置插件</h3><p>在nuxt.config.js添加配置项：modules和proxy。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export default &#x3D; &#123;</span><br><span class="line"></span><br><span class="line">    modules:[</span><br><span class="line">        &#39;@nuxtjs&#x2F;axios&#39;,</span><br><span class="line">        &#39;@nuxtjs&#x2F;proxy&#39;</span><br><span class="line">    ],</span><br><span class="line">    proxy:[</span><br><span class="line">        [&#39;&#x2F;json.html&#39;,&#123;target:&#39;http:&#x2F;&#x2F;www.xxxx.com&#39;&#125;]    &#x2F;&#x2F;注意这也是一个数组</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>按照上面的方式已经完成了代理，可以进行跨域请求了。</p>
+<blockquote>
+<p>2.第二种方式的代理配置</p>
+</blockquote>
+<h3 id="1）-下载插件-1"><a href="#1）-下载插件-1" class="headerlink" title="1）.下载插件"></a>1）.下载插件</h3><p>这次只需要下载@nuxtjs/axios插件就可以。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 下载插件</span><br><span class="line"></span><br><span class="line">npm install @nuxtjs&#x2F;axios --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="2）-配置插件-1"><a href="#2）-配置插件-1" class="headerlink" title="2）.配置插件"></a>2）.配置插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line"></span><br><span class="line">  modules: [</span><br><span class="line">    &#39;@nuxtjs&#x2F;axios&#39;,</span><br><span class="line">  ],</span><br><span class="line">  axios: &#123;</span><br><span class="line">    proxy:true</span><br><span class="line">  &#125;,</span><br><span class="line">  proxy:&#123;</span><br><span class="line">    &#39;&#x2F;api&#39;: &#39;http:&#x2F;&#x2F;api.example.com&#39;,</span><br><span class="line">    &#39;&#x2F;api2&#39;: &#39;http:&#x2F;&#x2F;api.another-website.com&#39;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>特别注意：此时，axios选项为对象(object)，proxy选项为对象(object)。</strong></p>
+<h2 id="6-nuxtjs-axios的配置项"><a href="#6-nuxtjs-axios的配置项" class="headerlink" title="6.@nuxtjs/axios的配置项"></a>6.@nuxtjs/axios的配置项</h2><h3 id="pathRewrite选项-重写地址"><a href="#pathRewrite选项-重写地址" class="headerlink" title="pathRewrite选项(重写地址)"></a>pathRewrite选项(重写地址)</h3><p>如果配置pathRewrite选项，可以采用第二种写法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxy: &#123;</span><br><span class="line"></span><br><span class="line">  &#39;&#x2F;api&#x2F;&#39;: &#123; target: &#39;http:&#x2F;&#x2F;api.example.com&#39;, pathRewrite: &#123;&#39;^&#x2F;api&#x2F;&#39;: &#39;&#39;&#125; &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>/api/将被添加到API端点的所有请求中。可以使用pathRewrite选项删除。</p>
+<p>因为在 ajax 的 url 中加了前缀 /api，而原本的接口是没有这个前缀的。</p>
+<p>所以需要通过 pathRewrite 来重写地址，将前缀 /api 转为 /或者是’’。</p>
+<p>如果本身的接口地址就有 /api 这种通用前缀，就可以把 pathRewrite 删掉。</p>
+<h3 id="retry选项-自动拦截失败请求"><a href="#retry选项-自动拦截失败请求" class="headerlink" title="retry选项(自动拦截失败请求)"></a>retry选项(自动拦截失败请求)</h3><p>可以在axios选项中，配置retry配置项，自动拦截失败请求，默认为3次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">axios: &#123;</span><br><span class="line">  retry: &#123; retries: 3 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="progress选项-发出请求时显示加载栏"><a href="#progress选项-发出请求时显示加载栏" class="headerlink" title="progress选项(发出请求时显示加载栏)"></a>progress选项(发出请求时显示加载栏)</h3><p>与Nuxt.js进度条集成，在发出请求时显示加载栏。（仅在浏览器上，当加载栏可用时。）</p>
+<p>您还可以使用progress配置为每个请求禁用进度条。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$axios.$get(&#39;URL&#39;, &#123; progress: false &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="baseURL选项（服务器端默认请求地址）"><a href="#baseURL选项（服务器端默认请求地址）" class="headerlink" title="baseURL选项（服务器端默认请求地址）"></a>baseURL选项（服务器端默认请求地址）</h3><p>在服务器端使用和预先创建请求的基本URL。</p>
+<h3 id="browserBaseURL选项（客户端默认请求地址）"><a href="#browserBaseURL选项（客户端默认请求地址）" class="headerlink" title="browserBaseURL选项（客户端默认请求地址）"></a>browserBaseURL选项（客户端默认请求地址）</h3><p>在客户端使用和预先创建请求的基本URL。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Nuxt.js%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8C%87%E5%8D%97/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

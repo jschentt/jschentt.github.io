@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>electron开发总结 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="electron开发总结" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-electron开发总结" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/electron开发总结/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">electron开发总结</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="一、用得到的electron开发总结"><a href="#一、用得到的electron开发总结" class="headerlink" title="一、用得到的electron开发总结"></a>一、用得到的electron开发总结</h1><p>Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。 Electron通过将Chromium和Node.js合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。</p>
+<h3 id="添加启动动画"><a href="#添加启动动画" class="headerlink" title="添加启动动画"></a>添加启动动画</h3><p>由于Electron第一次启动比较慢,需要一些启动动画提高下用户体验。在主进程添加以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">const electron &#x3D; require(&#39;electron&#39;)</span><br><span class="line">const app &#x3D; electron.app</span><br><span class="line">const BrowserWindow &#x3D; electron.BrowserWindow</span><br><span class="line">let mainWindow</span><br><span class="line"></span><br><span class="line">function createWindow(callback) &#123;</span><br><span class="line">    mainWindow &#x3D; new BrowserWindow(&#123;</span><br><span class="line">        width: 1400,</span><br><span class="line">        height: 900,</span><br><span class="line">        show: false</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    mainWindow.once(&#39;ready-to-show&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">      if (callback)&#123;</span><br><span class="line">        callback();</span><br><span class="line">      &#125;</span><br><span class="line">        mainWindow.show()</span><br><span class="line">    &#125;)</span><br><span class="line">    mainWindow.loadURL(&#96;file:&#x2F;&#x2F;$&#123;__dirname&#125;&#x2F;build&#x2F;index.html&#96;);</span><br><span class="line">&#125;</span><br><span class="line">app.on(&#39;ready&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">    const useH &#x3D; parseInt(0.865 * electron.screen.getPrimaryDisplay().workAreaSize.height);</span><br><span class="line">    const useW &#x3D; parseInt(0.625 * electron.screen.getPrimaryDisplay().workAreaSize.width);</span><br><span class="line"></span><br><span class="line">    let logoWindow &#x3D; new BrowserWindow(&#123;</span><br><span class="line">        width: useW,</span><br><span class="line">        height: useH,</span><br><span class="line">        transparent: true,</span><br><span class="line">        frame: false,</span><br><span class="line">        center: true,</span><br><span class="line">        show: false</span><br><span class="line">    &#125;);</span><br><span class="line">    logoWindow.loadURL(&#96;file:&#x2F;&#x2F;$&#123;__dirname&#125;&#x2F;build&#x2F;logo&#x2F;logo.html&#96;);</span><br><span class="line">    logoWindow.once(&#39;ready-to-show&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">        logoWindow.show();</span><br><span class="line">    &#125;);</span><br><span class="line">    const closeLogoWindow &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">        logoWindow.close();</span><br><span class="line">    &#125;;</span><br><span class="line">    createWindow(closeLogoWindow);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="实现自动更新"><a href="#实现自动更新" class="headerlink" title="实现自动更新"></a>实现自动更新</h3><p>使用 <strong>electron-builder</strong> 结合 <strong>electron-updater</strong> 实现自动更新。</p>
+<p>配置package.json文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot;build&quot;: &#123;</span><br><span class="line">    &quot;publish&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;provider&quot;: &quot;generic&quot;,</span><br><span class="line">        &quot;url&quot;: &quot;http:&#x2F;&#x2F;ossactivity.tongyishidai.com&#x2F;&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主进程添加自动更新检测和事件监听：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">import &#123; autoUpdater &#125; from &quot;electron-updater&quot;</span><br><span class="line">import &#123; ipcMain &#125; from &quot;electron&quot;</span><br><span class="line"></span><br><span class="line">function updateHandle() &#123;</span><br><span class="line">  let message &#x3D; &#123;</span><br><span class="line">    error: &#39;检查更新出错&#39;,</span><br><span class="line">    checking: &#39;正在检查更新……&#39;,</span><br><span class="line">    updateAva: &#39;检测到新版本，正在下载……&#39;,</span><br><span class="line">    updateNotAva: &#39;现在使用的就是最新版本，不用更新&#39;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  autoUpdater.setFeedURL(&#39;http:&#x2F;&#x2F;ossactivity.tongyishidai.com&#x2F;&#39;);</span><br><span class="line">  autoUpdater.on(&#39;error&#39;, function (error) &#123;</span><br><span class="line">    console.log(error)</span><br><span class="line">    sendUpdateMessage(message.error)</span><br><span class="line">  &#125;);</span><br><span class="line">  autoUpdater.on(&#39;checking-for-update&#39;, function () &#123;</span><br><span class="line">    sendUpdateMessage(message.checking)</span><br><span class="line">  &#125;);</span><br><span class="line">  autoUpdater.on(&#39;update-available&#39;, function (info) &#123;</span><br><span class="line">    sendUpdateMessage(message.updateAva)</span><br><span class="line">  &#125;);</span><br><span class="line">  autoUpdater.on(&#39;update-not-available&#39;, function (info) &#123;</span><br><span class="line">    sendUpdateMessage(message.updateNotAva)</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 更新下载进度事件</span><br><span class="line">  autoUpdater.on(&#39;download-progress&#39;, function (progressObj) &#123;</span><br><span class="line">    mainWindow.webContents.send(&#39;downloadProgress&#39;, progressObj)</span><br><span class="line">  &#125;)</span><br><span class="line">  autoUpdater.on(&#39;update-downloaded&#39;, function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) &#123;</span><br><span class="line"></span><br><span class="line">    ipcMain.on(&#39;isUpdateNow&#39;, (e, arg) &#x3D;&gt; &#123;</span><br><span class="line">      console.log(arguments);</span><br><span class="line">      console.log(&quot;开始更新&quot;);</span><br><span class="line">      &#x2F;&#x2F;some code here to handle event</span><br><span class="line">      autoUpdater.quitAndInstall();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    mainWindow.webContents.send(&#39;isUpdateNow&#39;)</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  ipcMain.on(&quot;checkForUpdate&quot;,()&#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F;执行自动更新检查</span><br><span class="line">      autoUpdater.checkForUpdates();</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 通过main进程发送事件给renderer进程，提示更新信息</span><br><span class="line">function sendUpdateMessage(text) &#123;</span><br><span class="line">  mainWindow.webContents.send(&#39;message&#39;, text)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>在添加自动更新检测和事件监听之后，在主进程createWindow中需要调用一下updateHandle()。</li>
+<li>这个autoUpdater不是electron中的autoUpdater，是electron-updater的autoUpdater。(这里曾报错曾纠结一整天)</li>
+</ul>
+</blockquote>
+<p>在视图（View）层中触发自动更新，并添加自动更新事件的监听。</p>
+<p>触发自动更新：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipcRenderer.send(&quot;checkForUpdate&quot;);</span><br></pre></td></tr></table></figure>
+<p>监听自动更新事件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ipcRenderer.on(&quot;message&quot;, (event, text) &#x3D;&gt; &#123;</span><br><span class="line">   console.log(text)</span><br><span class="line">&#125;);</span><br><span class="line">ipcRenderer.on(&quot;downloadProgress&quot;, (event, progressObj)&#x3D;&gt; &#123;</span><br><span class="line">  console.log(progressObj.percent)</span><br><span class="line">  this.setState(&#123;</span><br><span class="line">    downloadPercent: parseInt(progressObj.percent) || 0</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line">ipcRenderer.on(&quot;isUpdateNow&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">    ipcRenderer.send(&quot;isUpdateNow&quot;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>为避免多次切换页面造成监听的滥用，切换页面前必须移除监听事件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipcRenderer.removeAll([&quot;message&quot;, &quot;downloadProgress&quot;, &quot;isUpdateNow&quot;]);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考地址 segmentfault.com/a/119000001…</p>
+</blockquote>
+<h3 id="使用-electron-builder-打包exe安装包"><a href="#使用-electron-builder-打包exe安装包" class="headerlink" title="使用 electron-builder 打包exe安装包"></a>使用 electron-builder 打包exe安装包</h3><p>package.json文件配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;build&quot;: &#123;</span><br><span class="line">    &quot;productName&quot;: &quot;CubeScratch&quot;,</span><br><span class="line">    &quot;appId&quot;: &quot;org.develar.CubeScratch&quot;,</span><br><span class="line">    &quot;publish&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;provider&quot;: &quot;generic&quot;,</span><br><span class="line">        &quot;url&quot;: &quot;http:&#x2F;&#x2F;ossactivity.tongyishidai.com&#x2F;&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;win&quot;: &#123;</span><br><span class="line">      &quot;icon&quot;: &quot;icon.ico&quot;,</span><br><span class="line">      &quot;artifactName&quot;: &quot;$&#123;productName&#125;_Setup_$&#123;version&#125;.$&#123;ext&#125;&quot;,</span><br><span class="line">      &quot;target&quot;: [</span><br><span class="line">        &quot;nsis&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mac&quot;: &#123;</span><br><span class="line">      &quot;icon&quot;: &quot;icon.icns&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;nsis&quot;: &#123;</span><br><span class="line">      &quot;oneClick&quot;: false,</span><br><span class="line">      &quot;allowElevation&quot;: true,</span><br><span class="line">      &quot;allowToChangeInstallationDirectory&quot;: true,</span><br><span class="line">      &quot;installerIcon&quot;: &quot;icon.ico&quot;,</span><br><span class="line">      &quot;uninstallerIcon&quot;: &quot;icon.ico&quot;,</span><br><span class="line">      &quot;installerHeaderIcon&quot;: &quot;icon.ico&quot;,</span><br><span class="line">      &quot;createDesktopShortcut&quot;: true,</span><br><span class="line">      &quot;createStartMenuShortcut&quot;: true,</span><br><span class="line">      &quot;shortcutName&quot;: &quot;CubeScratch&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;directories&quot;: &#123;</span><br><span class="line">      &quot;buildResources&quot;: &quot;resources&quot;,</span><br><span class="line">      &quot;output&quot;: &quot;release&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;dmg&quot;: &#123;</span><br><span class="line">      &quot;contents&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;x&quot;: 410,</span><br><span class="line">          &quot;y&quot;: 150,</span><br><span class="line">          &quot;type&quot;: &quot;link&quot;,</span><br><span class="line">          &quot;path&quot;: &quot;&#x2F;Applications&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;x&quot;: 130,</span><br><span class="line">          &quot;y&quot;: 150,</span><br><span class="line">          &quot;type&quot;: &quot;file&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考地址 juejin.im/post/684490…</p>
+</blockquote>
+<h3 id="windows平台-serialport-串口编译"><a href="#windows平台-serialport-串口编译" class="headerlink" title="windows平台 serialport 串口编译"></a>windows平台 serialport 串口编译</h3><p>如果需要serialport作为Electron项目的依赖项，则必须针对项目使用的Electron版本对其进行编译。<br>对于大多数最常见的用例（标准处理器平台上的Linux，Mac，Windows），我们使用prebuild来编译和发布库的二进制文件。<br>使用nodejs进行编译node-gyp需要使用Python 2.x，因此请确保已安装它，并且在所有操作系统的路径中。Python 3.x无法正常工作。<br>安装windows构建工具和配置想省时省力请选择以下方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global --production windows-build-tools</span><br></pre></td></tr></table></figure>
+<p>上边命令决定串口编译是否成功。安装过程非常缓慢,安装完成就等于串口编译成功了99%。<br>手动安装工具和配置请看<a href="https://github.com/nodejs/node-gyp/" target="_blank" rel="noopener">https://github.com/nodejs/node-gyp/</a><br>接下来用 electron-rebuild 包重建模块以适配 Electron。这个包可以自动识别当前 Electron 版本，为你的应用自动完成下载 headers、重新编译原生模块等步骤。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;rebuild&quot;: &quot;electron-rebuild&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行以下命令完成串口编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run rebuild</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>编译过的串口不同系统不可通用，需在各平台重新编译</li>
+<li>windows系统最好是正版，或净化版。否正很有可能安装失败。</li>
+</ul>
+</blockquote>
+<h1 id="二、Electron：使用-React-作为-Renderer"><a href="#二、Electron：使用-React-作为-Renderer" class="headerlink" title="二、Electron：使用 React 作为 Renderer"></a>二、Electron：使用 React 作为 Renderer</h1><h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>通过之前对 Electron 的了解，现在多少也能看出 Electron 的一些特点。</p>
+<p>其中，Main Process 用来调度各个 Renderer Process；而各个 Renderer Process 实际上就是 web+（比 web 功能要强，姑且就允许我这么叫一次吧），他们除了 web 应用本身所拥有的特征之外，还可以通过引入 Electron 来扩展，当然也可以使用 NodeJs 的特性，比如在 React 中使用 fs.writeFile()（听起来很诡异）。</p>
+<p>如果之前的意见记不清楚了的话，可以再去翻翻看《<a href="https://segmentfault.com/a/1190000021820641" target="_blank" rel="noopener">Electron：Web 应用桌面化</a>》、《<a href="https://segmentfault.com/a/1190000021843332" target="_blank" rel="noopener">Electron：主进程与渲染器进程</a>》。</p>
+<p>本篇呢，主要是为了来总结一下如何将 React 与 Electron 结合起来，让编码更加高效。</p>
+<h2 id="2-为什么要引入-React-？"><a href="#2-为什么要引入-React-？" class="headerlink" title="2. 为什么要引入 React ？"></a>2. 为什么要引入 React ？</h2><p>实际上在最初学习的时候直接在 Electron 的应用中写 html+js+css 感觉也不错，但是当场景稍微复杂起来后就会感觉写起来比较繁琐。</p>
+<p>另外还有就是在切换页面的场景，如果复用渲染器进程而直接采用切换 Url 的方式虽然也可以完成导航，但是会有一个“白屏时间”让人挺不舒服的。如果每个页面都起一个自己的渲染器进程，由于新窗口的启动有一个过渡，因此不会感觉到“白屏时间”，但是总感觉每个页面都起一个渲染器进程也并不是适用于任意位置。</p>
+<p>所以说 SPA 是非常合适的一个选择，至于选什么框架并不重要。</p>
+<h3 id="最基础的整合"><a href="#最基础的整合" class="headerlink" title="最基础的整合"></a>最基础的整合</h3><p>通过分别在 Electron 中添加 React 和在 React 中添加 Electron 作比较之后，我发现在 React 中添加 Electron 仿佛要简单一些（也可能目前场景比较简单🤔）。</p>
+<h3 id="新建一个-React-App"><a href="#新建一个-React-App" class="headerlink" title="新建一个 React App"></a>新建一个 React App</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn create react-app electron-react</span><br></pre></td></tr></table></figure>
+<p>结束之后跑起来这个站点，假设站点地址是 <a href="http://localhost:3000，成功执行就可以了，保持这个执行状态不用关闭。">http://localhost:3000，成功执行就可以了，保持这个执行状态不用关闭。</a></p>
+<h3 id="添加-Electron"><a href="#添加-Electron" class="headerlink" title="添加 Electron"></a>添加 Electron</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add electron --dev</span><br></pre></td></tr></table></figure>
+<p>在 src/ 目录下新建 main.js 入口文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;main.js</span><br><span class="line">const &#123; app, BrowserWindow &#125; &#x3D; require(&#39;electron&#39;)</span><br><span class="line"></span><br><span class="line">app.allowRendererProcessReuse &#x3D; true</span><br><span class="line"></span><br><span class="line">function createWindow () &#123;</span><br><span class="line">  let win &#x3D; new BrowserWindow(&#123;</span><br><span class="line">    height: 500,</span><br><span class="line">    width: 800,</span><br><span class="line">    webPreferences: &#123;</span><br><span class="line">      nodeIntegration: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  win.loadURL(&#96;http:&#x2F;&#x2F;localhost:3000&#96;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.on(&#39;ready&#39;, () &#x3D;&gt; createWindow())</span><br></pre></td></tr></table></figure>
+<p>之后修改 package.json 文件，改一下入口文件，加一个 script：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;main&quot;: &quot;src&#x2F;main.js&quot;,</span><br><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;start:main&quot;: &quot;electron .&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn start:main</span><br></pre></td></tr></table></figure>
+<p>不出意外应该是成功了的。</p>
+<h3 id="在-React-中使用-Electron"><a href="#在-React-中使用-Electron" class="headerlink" title="在 React 中使用 Electron"></a>在 React 中使用 Electron</h3><p>默认在 React 中 使用 require(‘electron’) 是不行的，会报错:</p>
+<p><img src="https://segmentfault.com/img/bVbD0ug" alt="image"></p>
+<p>报错的原因是通过 <strong>create-react-app</strong> 创建的应用中 target 是 web 环境 ，因此不能识别 node api。</p>
+<p>下面通过两种途径可以来解决这个问题。</p>
+<h4 id="1-绕过-Webpack-的检查机制解决"><a href="#1-绕过-Webpack-的检查机制解决" class="headerlink" title="1. 绕过 Webpack 的检查机制解决"></a>1. 绕过 Webpack 的检查机制解决</h4><p>比较简单的处理办法就是使用 <code>window.require(&#39;electron&#39;)</code> 代替 <code>require(&#39;electron&#39;)</code>。window 对象在 electron 中是指向 global 的，所以它在执行时可以找到 require 函数。</p>
+<h4 id="2-修改-React-Webpack-配置解决"><a href="#2-修改-React-Webpack-配置解决" class="headerlink" title="2. 修改 React Webpack 配置解决"></a>2. 修改 React Webpack 配置解决</h4><p>为了验证上面报错原因的猜测，我尝试 eject 了一个项目去观察，配置中的 target 确实是缺失的，那么理论上把这个 target 修改为对应的 target 就可以支持 <code>require(&#39;electron&#39;)</code> 了。</p>
+<p><a href="https://www.webpackjs.com/configuration/target/" target="_blank" rel="noopener">你可以点击这里来查看 target 都有哪些</a></p>
+<p>显然我们需要的是：<code>electron-renderer</code>。</p>
+<p>为了修改这个 target，首先需要把 React 项目 <a href="https://create-react-app.dev/docs/available-scripts#npm-run-eject" target="_blank" rel="noopener">eject</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run eject</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: this is a one-way operation. Once you eject, you can’t go back!（此过程不可逆，请谨慎操作！）</p>
+</blockquote>
+<p>弹出后，打开 <code>config/webpack.config.js</code> 文件，大约在 <strong>130</strong> 行左右，添加代码片段中标记的那一句，我截取了一小段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">return &#123;</span><br><span class="line">   target: &#39;electron-renderer&#39;, &#x2F;&#x2F; &lt;- 添加这一句</span><br><span class="line">   mode: isEnvProduction ? &#39;production&#39; : isEnvDevelopment &amp;&amp; &#39;development&#39;,</span><br><span class="line">   &#x2F;&#x2F; Stop compilation early in production</span><br><span class="line">   bail: isEnvProduction,</span><br><span class="line">   devtool: isEnvProduction</span><br><span class="line">     ? shouldUseSourceMap</span><br></pre></td></tr></table></figure>
+<p>好了，重新启动后 <code>require(&#39;electron&#39;)</code> 就生效了，值得注意的是 <strong>无法直接在 Chrome 中运行，必须从 Electron 中打开。</strong></p>
+<h3 id="取消-React-默认打开浏览器的行为"><a href="#取消-React-默认打开浏览器的行为" class="headerlink" title="取消 React 默认打开浏览器的行为"></a>取消 React 默认打开浏览器的行为</h3><h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h4><ul>
+<li><strong>bash</strong>:</li>
+</ul>
+<p>bash 可能还是比较常用的一个 terminal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 设置临时环境变量</span><br><span class="line">BROWSER&#x3D;none</span><br><span class="line"># 执行</span><br><span class="line">yarn start:render</span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line"></span><br><span class="line"># 连续命令</span><br><span class="line">BROWSER&#x3D;none &amp;&amp; yarn start:render</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>cmd</strong>:</li>
+</ul>
+<p>如果你用的是 cmd，你可以使用下面的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 设置变量</span><br><span class="line">set &quot;BROWSER&#x3D;none&quot;</span><br><span class="line"># 执行</span><br><span class="line">yarn start:render</span><br><span class="line"></span><br><span class="line"># or</span><br><span class="line"></span><br><span class="line"># 连续命令</span><br><span class="line">set &quot;BROWSER&#x3D;none&quot; &amp;&amp; yarn start:render</span><br></pre></td></tr></table></figure>
+<p>设置临时环境变量只需要一次就可以了，该变量只在当前打开的 cmd 中有效。</p>
+<ul>
+<li><strong>pwsh</strong>:</li>
+</ul>
+<p>powser shell 与 cmd 有所不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 设置变量</span><br><span class="line">$env:BROWSER&#x3D;&quot;none&quot;</span><br><span class="line"># 执行</span><br><span class="line">yarn start:render</span><br><span class="line"></span><br><span class="line"># or</span><br><span class="line"></span><br><span class="line"># 连续命令(我这里尝试会卡住)</span><br><span class="line">($env:BROWSER&#x3D;&quot;none&quot;) -and (yarn start:render)</span><br></pre></td></tr></table></figure>
+<h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h4><p>在根目录添加一个 .env 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; .env</span><br><span class="line">BROWSER&#x3D;none</span><br></pre></td></tr></table></figure>
+<p>之后正常执行就可以。</p>
+<h2 id="3-打包🛠️"><a href="#3-打包🛠️" class="headerlink" title="3. 打包🛠️"></a>3. 打包🛠️</h2><p>没有打包功能的 Electron App 就没有意义，毕竟软件做出来是给人用的🙃。</p>
+<p>Electron 方面推荐有两个打包工具：</p>
+<ul>
+<li>electron-forge</li>
+<li>electron-builder<br>相对来讲，electron-forge 更加适合于从零开始，直接基于 electron-forge 提供的模板项目开始开发 electron 应用。而 electron-builder 适合于对已有项目的打包。</li>
+</ul>
+<p>相信一般来到这里的大家或者我自己也是，已经准备好了一个项目，就差打包了，所以大家一般更倾向于使用 electron-builder。</p>
+<h3 id="安装-electron-builder"><a href="#安装-electron-builder" class="headerlink" title="安装 electron-builder"></a>安装 electron-builder</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev electron-builder</span><br></pre></td></tr></table></figure>
+<h3 id="配置-electron-builder"><a href="#配置-electron-builder" class="headerlink" title="配置 electron-builder"></a>配置 electron-builder</h3><p>在根目录创建一个 <strong>electron-builder.yml</strong> 的配置文件，用于配置 <strong>electron-builder</strong> 打包相关内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">appId: com.example.app</span><br><span class="line">copyright: ©2020 bey6</span><br><span class="line">productName: bey6</span><br><span class="line"># asar 加密</span><br><span class="line">asar: false</span><br><span class="line">extends: null</span><br><span class="line"></span><br><span class="line"># 目录</span><br><span class="line">directories:</span><br><span class="line">  buildResources: assets&#x2F;</span><br><span class="line">  output: dist&#x2F;</span><br><span class="line"></span><br><span class="line">files:</span><br><span class="line">  - package.json</span><br><span class="line">  - build&#x2F;</span><br><span class="line">  - node_modules&#x2F;</span><br><span class="line">  - src&#x2F;main.js</span><br><span class="line"></span><br><span class="line">dmg:</span><br><span class="line">  contents:</span><br><span class="line">    - type: link</span><br><span class="line">      path: &#x2F;Applications</span><br><span class="line">      x: 410</span><br><span class="line">      y: 150</span><br><span class="line">    - type: file</span><br><span class="line">      x: 130</span><br><span class="line">      y: 150</span><br><span class="line">win:</span><br><span class="line">  # 目标类型</span><br><span class="line">  target: nsis</span><br><span class="line"></span><br><span class="line">nsis:</span><br><span class="line">  oneClick: false</span><br><span class="line">  # 允许修改安装路径</span><br><span class="line">  allowToChangeInstallationDirectory: true</span><br><span class="line">  # 安装给所有用户</span><br><span class="line">  perMachine: true</span><br></pre></td></tr></table></figure>
+<h3 id="修改-package-json"><a href="#修改-package-json" class="headerlink" title="修改 package.json"></a>修改 package.json</h3><ul>
+<li>修改 homepage</li>
+<li>scripts 中添加一个打包 win64 的脚本</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;homepage&quot;: &quot;.&quot;,</span><br><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;build:win64&quot;: &quot;yarn build &amp;&amp; electron-builder --win --x64&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="修改-Main-Process"><a href="#修改-Main-Process" class="headerlink" title="修改 Main Process"></a>修改 Main Process</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;main.js</span><br><span class="line">const &#123; app, BrowserWindow, ipcMain &#125; &#x3D; require(&#39;electron&#39;)</span><br><span class="line">const path &#x3D; require(&#39;path&#39;)</span><br><span class="line"></span><br><span class="line">app.allowRendererProcessReuse &#x3D; true</span><br><span class="line"></span><br><span class="line">function createWindow () &#123;</span><br><span class="line">  let win &#x3D; new BrowserWindow(&#123;</span><br><span class="line">    height: 500,</span><br><span class="line">    width: 800,</span><br><span class="line">    webPreferences: &#123;</span><br><span class="line">      nodeIntegration: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 修改这里</span><br><span class="line">    if (process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#39;dev&#39;) win.loadURL(&#96;http:&#x2F;&#x2F;localhost:3000&#96;)</span><br><span class="line">    else win.loadFile(path.resolve(__dirname, &#39;..&#x2F;build&#x2F;index.html&#39;))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn build:win64</span><br></pre></td></tr></table></figure>
+<p>打包结束后会在根目录多出来一个 dist/ 目录，执行其中的 .exe 即可完成安装。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/electron%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

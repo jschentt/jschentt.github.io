@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Taro 使用指南 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="Taro 使用指南" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Taro 使用指南" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/Taro 使用指南/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Taro 使用指南</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>Taro 就是可以用 React 语法写小程序的框架，拥有多端转换能力，一套代码可编译为微信小程序、百度小程序、支付宝小程序、H5、RN等</p>
+<h2 id="1、入门"><a href="#1、入门" class="headerlink" title="1、入门"></a>1、入门</h2><h3 id="1-1、安装-CLI-及项目初始化"><a href="#1-1、安装-CLI-及项目初始化" class="headerlink" title="1.1、安装 CLI 及项目初始化"></a>1.1、安装 CLI 及项目初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @tarojs&#x2F;cli</span><br><span class="line">taro init 项目名</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/6813214-f9a34c9f56809815.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/607/format/webp" alt="image"></p>
+<p>可以选择使用 SCSS 、TS、Redux</p>
+<h3 id="1-2、编译至各种平台"><a href="#1-2、编译至各种平台" class="headerlink" title="1.2、编译至各种平台"></a>1.2、编译至各种平台</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 编译为小程序</span><br><span class="line">npm run dev:weapp</span><br><span class="line">npm run build:weapp</span><br><span class="line">&#x2F;&#x2F; 编译为 H5</span><br><span class="line">npm run dev:h5</span><br><span class="line">&#x2F;&#x2F; 编译为 RN</span><br><span class="line">npm run dev:rn</span><br></pre></td></tr></table></figure>
+<p>编译为小程序时，小程序代码位于 dist 目录下</p>
+<h3 id="1-3、微信小程序须知"><a href="#1-3、微信小程序须知" class="headerlink" title="1.3、微信小程序须知"></a>1.3、微信小程序须知</h3><ul>
+<li>小程序注册<br/><br><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fmp.weixin.qq.com%2Fwxopen%2Fwaregister%3Faction%3Dstep1" target="_blank" rel="noopener">注册地址</a>，注意一个邮箱只能注册一个小程序</li>
+<li>小程序后台<br/><br><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fmp.weixin.qq.com%2Fwxopen%2Fauthprofile%3Faction%3Dindex%26token%3D1030929877%26lang%3Dzh_CN" target="_blank" rel="noopener">后台地址</a>，后台可查看当前小程序版本，添加开发者，查看小程序 AppID 和 AppSecret 等功能</li>
+<li>小程序开发者工具<br/><br><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fdevelopers.weixin.qq.com%2Fminiprogram%2Fdev%2Fdevtools%2Fdownload.html" target="_blank" rel="noopener">下载地址</a></li>
+<li>小程序开发流程<br/><br>1、在开发者工具中新建项目，填入对应的AppID<br/><br>2、在小程序后台配置服务器域名（开发-服务器域名）</li>
+<li>小程序发布流程<br/><br>1、在开发者工具中上传代码<br/><br>2、在管理后台-版本管理-开发版本中提交审核，注意提交审核前可先生成体验版，确认体验版没问题后再提交审核</li>
+</ul>
+<h2 id="2、注意点"><a href="#2、注意点" class="headerlink" title="2、注意点"></a>2、注意点</h2><p>由于 Taro 编译后的代码已经经过了转义和压缩，因此还需要注意微信开发者工具的项目设置</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6813214-5e31c3c6ab19a603.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/710/format/webp" alt="image"></p>
+<ul>
+<li>只能在render里使用jsx语法</li>
+<li>不能在包含 JSX 元素的 map 循环中使用 if 表达式<br>尽量在 map 循环中使用条件表达式或逻辑表达式</li>
+<li>不能使用 Array.map 之外的方法操作 JSX 数组<br>先处理好需要遍历的数组，然后再用处理好的数组调用 map 方法。</li>
+<li>不能在 JSX 参数中使用匿名函数<br>使用 bind 或 类参数绑定函数。</li>
+<li>不能在 JSX 参数中使用对象展开符<br>开发者自行赋值：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;View &#123;...props&#125; &#x2F;&gt;　 &#x2F;&#x2F; wrong</span><br><span class="line">&lt;View id&#x3D;&#123;id&#125; title&#x3D;&#123;title&#125; &#x2F;&gt;  &#x2F;&#x2F; ok</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不允许在 JSX 参数（props）中传入 JSX 元素</li>
+<li>不支持无状态组件（Stateless Component)</li>
+<li>函数名驼峰，且不能包含数字，不能以下划线开始或结尾以及长度不超过２０</li>
+<li>必须使用单引号，不支持双引号</li>
+<li>对于process.env，建议直接书写process.env.NODE_ENV，而不是解构</li>
+<li>组件传递函数属性名以 on 开头</li>
+<li>小程序端不要将在模板中用到的数据设置为 undefined</li>
+<li>小程序端不要在组件中打印 this.props.children</li>
+<li>组件属性传递注意<br/><br>不要以 id、class、style 作为自定义组件的属性与内部 state 的名称，因为这些属性名在微信小程序中会丢失。</li>
+<li>组件 state 与 props 里字段重名的问题<br/><br>不要在 state 与 props 上用同名的字段，因为这些被字段在微信小程序中都会挂在 data 上。</li>
+<li>小程序中页面生命周期 componentWillMount 不一致问题</li>
+<li>组件的 constructor 与 render 提前调用<h2 id="3、Taro实战"><a href="#3、Taro实战" class="headerlink" title="3、Taro实战"></a>3、Taro实战</h2><h3 id="3-1、相关库介绍"><a href="#3-1、相关库介绍" class="headerlink" title="3.1、相关库介绍"></a>3.1、相关库介绍</h3></li>
+<li>@tarojs/taro<br/><br>taro 核心库，相当于 react</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import Taro, &#123; Component &#125; from &#39;@tarojs&#x2F;taro&#39;</span><br><span class="line">class App extends Component &#123;&#125;</span><br><span class="line">Taro.render(&lt;App &#x2F;&gt;, document.getElementById(&#39;app&#39;))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>@tarojs/redux<br>taro 状态管理辅助库，相当于 react-redux</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Provider,connect  &#125; from &#39;@tarojs&#x2F;redux&#39;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>@tarojs/components<br>taro 为屏蔽多端差异而制定的标准组件库，在taro中不能直接写常规的HTML标签，而必须用这个组件库里的标签，就像写RN一样：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; View, Button, Text &#125; from &quot;@tarojs&#x2F;components&quot;;</span><br><span class="line">&lt;View className&#x3D;&#39;index&#39;&gt;</span><br><span class="line">   &lt;Button className&#x3D;&#39;add_btn&#39; onClick&#x3D;&#123;this.props.add&#125;&gt;</span><br><span class="line">       +</span><br><span class="line">   &lt;&#x2F;Button&gt;</span><br><span class="line">   &lt;Text&gt; Hello, World &lt;&#x2F;Text&gt;</span><br><span class="line">&lt;&#x2F;View&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>@tarojs/async-await<br>taro 支持 async await 写法库</li>
+<li>taro-ui<br>taro 为屏蔽多端差异而制定的业务组件库，比如 Tabs，Modal，Menu之类的常用的业务组件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123; AtTabs, AtTabsPane &#125; from &quot;taro-ui&quot;;</span><br><span class="line"> &lt;AtTabs</span><br><span class="line">    current&#x3D;&#123;this.state.current&#125;</span><br><span class="line">    tabList&#x3D;&#123;tabList&#125;</span><br><span class="line">    onClick&#x3D;&#123;this.handleClick.bind(this)&#125;</span><br><span class="line">  &gt;</span><br><span class="line">    &lt;AtTabsPane current&#x3D;&#123;this.state.current&#125; index&#x3D;&#123;0&#125;&gt;</span><br><span class="line">      &lt;AllContainer &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;AtTabsPane&gt;</span><br><span class="line">    &lt;AtTabsPane current&#x3D;&#123;this.state.current&#125; index&#x3D;&#123;1&#125;&gt;</span><br><span class="line">      &lt;View style&#x3D;&#39;padding: 100px 50px;background-color: #FAFBFC;text-align: center;&#39;&gt;</span><br><span class="line">        标签页二的内容</span><br><span class="line">      &lt;&#x2F;View&gt;</span><br><span class="line">    &lt;&#x2F;AtTabsPane&gt;</span><br><span class="line">    &lt;AtTabsPane current&#x3D;&#123;this.state.current&#125; index&#x3D;&#123;2&#125;&gt;</span><br><span class="line">      &lt;View style&#x3D;&#39;padding: 100px 50px;background-color: #FAFBFC;text-align: center;&#39;&gt;</span><br><span class="line">        标签页三的内容</span><br><span class="line">      &lt;&#x2F;View&gt;</span><br><span class="line">    &lt;&#x2F;AtTabsPane&gt;</span><br><span class="line">  &lt;&#x2F;AtTabs&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2、常用工具类封装"><a href="#3-2、常用工具类封装" class="headerlink" title="3.2、常用工具类封装"></a>3.2、常用工具类封装</h3><ul>
+<li>本地存储</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import Taro from &quot;@tarojs&#x2F;taro&quot;;</span><br><span class="line"></span><br><span class="line">class Store &#123;</span><br><span class="line">  removeItem(key) &#123;</span><br><span class="line">    return Taro.removeStorageSync(key);</span><br><span class="line">  &#125;</span><br><span class="line">  getItem(key) &#123;</span><br><span class="line">    return Taro.getStorageSync(key);</span><br><span class="line">  &#125;</span><br><span class="line">  setItem(key, value) &#123;</span><br><span class="line">    return Taro.setStorageSync(key, value);</span><br><span class="line">  &#125;</span><br><span class="line">  clear() &#123;</span><br><span class="line">    return Taro.clearStorageSync();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default  new Store();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>请求封装</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">import Taro from &#39;@tarojs&#x2F;taro&#39;</span><br><span class="line">import &#123;</span><br><span class="line">  API_USER_LOGIN</span><br><span class="line">&#125; from &#39;@constants&#x2F;api&#39;</span><br><span class="line"></span><br><span class="line">const CODE_SUCCESS &#x3D; &#39;200&#39;</span><br><span class="line">const CODE_AUTH_EXPIRED &#x3D; &#39;600&#39;</span><br><span class="line"></span><br><span class="line">function getStorage(key) &#123;</span><br><span class="line">  return Taro.getStorage(&#123;</span><br><span class="line">    key</span><br><span class="line">  &#125;).then(res &#x3D;&gt; res.data).catch(() &#x3D;&gt; &#39;&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function updateStorage(data &#x3D; &#123;&#125;) &#123;</span><br><span class="line">  return Promise.all([</span><br><span class="line">    Taro.setStorage(&#123;</span><br><span class="line">      key: &#39;token&#39;,</span><br><span class="line">      data: data[&#39;3rdSession&#39;] || &#39;&#39;</span><br><span class="line">    &#125;),</span><br><span class="line">    Taro.setStorage(&#123;</span><br><span class="line">      key: &#39;uid&#39;,</span><br><span class="line">      data: data[&#39;uid&#39;] || &#39;&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">  ])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 简易封装网络请求</span><br><span class="line"> * &#x2F;&#x2F; NOTE 需要注意 RN 不支持 *StorageSync，此处用 async&#x2F;await 解决</span><br><span class="line"> * @param &#123;*&#125; options</span><br><span class="line"> *&#x2F;</span><br><span class="line">export default async function fetch(options) &#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    url,</span><br><span class="line">    payload,</span><br><span class="line">    method &#x3D; &#39;GET&#39;,</span><br><span class="line">    showToast &#x3D; true</span><br><span class="line">  &#125; &#x3D; options</span><br><span class="line">  const token &#x3D; await getStorage(&#39;token&#39;)</span><br><span class="line">  const header &#x3D; token ? &#123;</span><br><span class="line">    &#39;WX-PIN-SESSION&#39;: token,</span><br><span class="line">    &#39;X-WX-3RD-Session&#39;: token</span><br><span class="line">  &#125; : &#123;&#125;</span><br><span class="line">  if (method &#x3D;&#x3D;&#x3D; &#39;POST&#39;) &#123;</span><br><span class="line">    header[&#39;content-type&#39;] &#x3D; &#39;application&#x2F;json&#39;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return Taro.request(&#123;</span><br><span class="line">    url,</span><br><span class="line">    method,</span><br><span class="line">    data: payload,</span><br><span class="line">    header</span><br><span class="line">  &#125;).then(async (res) &#x3D;&gt; &#123;</span><br><span class="line">    const &#123;</span><br><span class="line">      code,</span><br><span class="line">      data</span><br><span class="line">    &#125; &#x3D; res.data</span><br><span class="line">    if (code !&#x3D;&#x3D; CODE_SUCCESS) &#123;</span><br><span class="line">      if (code &#x3D;&#x3D;&#x3D; CODE_AUTH_EXPIRED) &#123;</span><br><span class="line">        await updateStorage(&#123;&#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      return Promise.reject(res.data)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (url &#x3D;&#x3D;&#x3D; API_USER_LOGIN) &#123;</span><br><span class="line">      await updateStorage(data)</span><br><span class="line">    &#125;</span><br><span class="line">    return data</span><br><span class="line">  &#125;).catch((err) &#x3D;&gt; &#123;</span><br><span class="line">    const defaultMsg &#x3D; err.code &#x3D;&#x3D;&#x3D; CODE_AUTH_EXPIRED ? &#39;登录失效&#39; : &#39;请求异常&#39;</span><br><span class="line">    if (showToast) &#123;</span><br><span class="line">      Taro.showToast(&#123;</span><br><span class="line">        title: err &amp;&amp; err.errorMsg || defaultMsg,</span><br><span class="line">        icon: &#39;none&#39;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return Promise.reject(&#123;</span><br><span class="line">      message: defaultMsg,</span><br><span class="line">      ...err</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-3-常用API介绍"><a href="#3-3-常用API介绍" class="headerlink" title="3.3 常用API介绍"></a>3.3 常用API介绍</h3><ul>
+<li>授权</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button</span><br><span class="line">   className&#x3D;&#39;btn-max-w&#39;</span><br><span class="line">   plain</span><br><span class="line">   type&#x3D;&#39;primary&#39;</span><br><span class="line">   open-type&#x3D;&#39;getUserInfo&#39;</span><br><span class="line">   onGetUserInfo&#x3D;&#123;this.handleUserInfo&#125;</span><br><span class="line">&gt;</span><br><span class="line">    授权</span><br><span class="line">&lt;&#x2F;Button&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取位置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Taro.getLocation(&#123;type:&#39;gcj02&#39;&#125;).then(data&#x3D;&gt;console.log(data))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>操作反馈</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Taro.showToast(&#123;</span><br><span class="line">  title: &quot;成功&quot;,</span><br><span class="line">  icon: &quot;success&quot;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Taro.setTabBarBadge(&#123; index: 1, text: &quot;1&quot; &#125;);</span><br><span class="line"></span><br><span class="line">Taro.showLoading(&#123;</span><br><span class="line">  title: &quot;加载中...&quot;</span><br><span class="line">&#125;).then(res &#x3D;&gt;</span><br><span class="line">  setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">    Taro.hideLoading();</span><br><span class="line">  &#125;, 2000)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、其他问题记录"><a href="#4、其他问题记录" class="headerlink" title="4、其他问题记录"></a>4、其他问题记录</h2><ul>
+<li>设置页面全屏</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; app.scss</span><br><span class="line">page &#123;</span><br><span class="line">  height: 100%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Css Modules 支持<br>配置 config/index.js 下的 h5 和 weapp 中的 module.cssModules 即可</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; css modules 功能开关与相关配置</span><br><span class="line">cssModules: &#123;</span><br><span class="line">  enable: true, &#x2F;&#x2F; 默认为 false，如需使用 css modules 功能，则设为 true</span><br><span class="line">  config: &#123;</span><br><span class="line">    namingPattern: &#39;module&#39;, &#x2F;&#x2F; 转换模式，取值为 global&#x2F;module，下文详细说明</span><br><span class="line">    generateScopedName: &#39;[name]__[local]___[hash:base64:5]&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置路径别名<br>配置 config/index.js 下的 alias</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">    &#39;components&#39;: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;components&#39;),</span><br><span class="line">    &#39;pages&#39;: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;pages&#39;),</span><br><span class="line">    &#39;store&#39;: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;store&#39;),</span><br><span class="line">    &#39;constants&#39;: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;constants&#39;),</span><br><span class="line">    &#39;api&#39;: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;api&#39;),</span><br><span class="line">    &#39;assets&#39;: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;assets&#39;),</span><br><span class="line">    &#39;utils&#39;: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;utils&#39;),</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多端兼容性问题，引入lodash包，支付宝不支持</li>
+</ul>
+<p>引入utils.js 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">global.Object &#x3D; Object</span><br><span class="line">global.Array &#x3D; Array</span><br><span class="line">global.Buffer &#x3D; Buffer</span><br><span class="line">global.DataView &#x3D; DataView</span><br><span class="line">global.Date &#x3D; Date</span><br><span class="line">global.Error &#x3D; Error</span><br><span class="line">global.Float32Array &#x3D; Float32Array</span><br><span class="line">global.Float64Array &#x3D; Float64Array</span><br><span class="line">global.Function &#x3D; Function</span><br><span class="line">global.Int8Array &#x3D; Int8Array</span><br><span class="line">global.Int16Array &#x3D; Int16Array</span><br><span class="line">global.Int32Array &#x3D; Int32Array</span><br><span class="line">global.Map &#x3D; Map</span><br><span class="line">global.Math &#x3D; Math</span><br><span class="line">global.Promise &#x3D; Promise</span><br><span class="line">global.RegExp &#x3D; RegExp</span><br><span class="line">global.Set &#x3D; Set</span><br><span class="line">global.String &#x3D; String</span><br><span class="line">global.Symbol &#x3D; Symbol</span><br><span class="line">global.TypeError &#x3D; TypeError</span><br><span class="line">global.Uint8Array &#x3D; Uint8Array</span><br><span class="line">global.Uint8ClampedArray &#x3D; Uint8ClampedArray</span><br><span class="line">global.Uint16Array &#x3D; Uint16Array</span><br><span class="line">global.Uint32Array &#x3D; Uint32Array</span><br><span class="line">global.WeakMap &#x3D; WeakMap</span><br><span class="line">global.clearTimeout &#x3D; clearTimeout</span><br><span class="line">global.isFinite &#x3D; isFinite</span><br><span class="line">global.parseInt &#x3D; parseInt</span><br><span class="line">global.setTimeout &#x3D; setTimeout</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>打包微信，支付宝出问题</li>
+</ul>
+<p>npm包版本不统一导致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">  &quot;@tarojs&#x2F;components&quot;: &quot;3.0.18&quot;,</span><br><span class="line">  &quot;@tarojs&#x2F;react&quot;: &quot;3.0.18&quot;,</span><br><span class="line">  &quot;@tarojs&#x2F;runtime&quot;: &quot;3.0.18&quot;,</span><br><span class="line">  &quot;@tarojs&#x2F;taro&quot;: &quot;3.0.18&quot;,</span><br><span class="line">&#125;,</span><br><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">  &quot;@tarojs&#x2F;cli&quot;: &quot;3.0.18&quot;,</span><br><span class="line">  &quot;@tarojs&#x2F;mini-runner&quot;: &quot;3.0.18&quot;,</span><br><span class="line">  &quot;@tarojs&#x2F;webpack-runner&quot;: &quot;3.0.18&quot;,</span><br><span class="line">  &quot;babel-preset-taro&quot;: &quot;3.0.18&quot;,</span><br><span class="line">  &quot;eslint-config-taro&quot;: &quot;3.0.18&quot;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>全局scss设置，</li>
+</ul>
+<p>config.js中可以设置，但是必须要重新启动才可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sass: &#123;</span><br><span class="line">    resource: path.resolve(__dirname, &#39;..&#39;, &#39;src&#x2F;assets&#x2F;styles&#x2F;global.scss&#39;),</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>设置代理问题</li>
+</ul>
+<p>nginx配合fiddler代理转发可以实现本地开发，app端进行调试</p>
+<ul>
+<li>手机页面头部点击返回，不能触发页面生命周期</li>
+</ul>
+<p>可以通过componentDidShow或者useDidShwo实现</p>
+<ul>
+<li>map 结构存储订单数据(存储二维数组)</li>
+</ul>
+<p>用法实现 order.get(status)</p>
+<ul>
+<li>不同业务线的状态扭转问题</li>
+</ul>
+<p>利用回调函数，函数式编程实现</p>
+<ul>
+<li>地图坐标系问题</li>
+</ul>
+<p>百度（bd09ll）、高德（gcj02）、腾讯（gcj02）</p>
+<ul>
+<li>轨迹渲染问题</li>
+</ul>
+<p>polyline, label, marker</p>
+<p>动态设置展示区域</p>
+<p>includePoints,并且通过updateComponent强制渲染，手机端和开发工具展示不一致问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">this.mapCtx.updateComponents(&#123;</span><br><span class="line">      markers,</span><br><span class="line">      includePoints,</span><br><span class="line">      polyline,</span><br><span class="line">      longitude: cLocation.lng,</span><br><span class="line">      latitude: cLocation.lat,</span><br><span class="line">      setting: &#123;</span><br><span class="line">        showCompass: 0,</span><br><span class="line">        showScale: 0,</span><br><span class="line">        gestureEnable: 1,</span><br><span class="line">        tiltGesturesEnabled: 0,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>处理多个不同任务的定时器，清除问题</li>
+</ul>
+<p>static 静态局部变量</p>
+<ul>
+<li>发布订阅者模式，处理登陆问题</li>
+</ul>
+<p>发布订阅的service类库封装</p>
+<ul>
+<li>定时器（汽车位置，订单状态，订单详情，支付状态），状态扭转类，支付类</li>
+</ul>
+<p>类封装</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/Taro%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

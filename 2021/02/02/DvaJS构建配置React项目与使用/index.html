@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!--
+ * @Descripttion: 
+ * @Author: jschen
+ * @Date: 2020-05-29 10:25:56
+ * @LastEditors: jschen
+ * @LastEditTime: 2020-05-29 10:50:09
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>DvaJS构建配置React项目与使用 | Arvin.Lin的万事屋</title>
+  
+  <meta name="author" content="Arvin.Lin" />
+   
+  <meta name="description" content="专注web前端开发" />
+   
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
+
+  
+  <meta property="og:title" content="DvaJS构建配置React项目与使用" />
+  
+  <meta property="og:site_name" content="Arvin.Lin的万事屋" />
+
+  
+  <meta property="og:image" content="" />
+  
+  <meta name="referrer" content="no-referrer" />
+
+  <link href="/favicon.png" rel="icon" />
+  <link
+    rel="alternate"
+    href="/atom.xml"
+    title="Arvin.Lin的万事屋"
+    type="application/atom+xml"
+  />
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+    media="screen"
+    type="text/css"
+  />
+  <!--[if lt IE 9
+    ]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script
+  ><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Arvin.Lin的万事屋</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-DvaJS构建配置React项目与使用" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2021-02-02T02:12:01.000Z"><a href="/2021/02/02/DvaJS构建配置React项目与使用/">2021-02-02</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">DvaJS构建配置React项目与使用</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="一-介绍与需求分析"><a href="#一-介绍与需求分析" class="headerlink" title="一,介绍与需求分析"></a>一,介绍与需求分析</h2><h3 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1,介绍"></a>1.1,介绍</h3><p>dva 首先是一个基于 redux 和 redux-saga 的数据流方案，然后为了简化开发体验，dva 还额外内置了 react-router 和 fetch，所以dva是基于现有应用架构 (redux + react-router + redux-saga 等)的一层轻量封装。是由阿里架构师 sorrycc 带领 team 完成的一套前端框架。</p>
+<h3 id="1-2-需求"><a href="#1-2-需求" class="headerlink" title="1.2,需求"></a>1.2,需求</h3><p>快速搭建基于react的项目(PC端,移动端)。</p>
+<h2 id="二-DvaJS构建项目"><a href="#二-DvaJS构建项目" class="headerlink" title="二,DvaJS构建项目"></a>二,DvaJS构建项目</h2><h3 id="2-1-初始化项目"><a href="#2-1-初始化项目" class="headerlink" title="2.1,初始化项目"></a>2.1,初始化项目</h3><p>第一步:安装node</p>
+<p>第二步:安装最新版本dva-cli</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 $ npm install dva-cli -g</span><br><span class="line">2 $ dva -v</span><br></pre></td></tr></table></figure>
+<p>第三步:dva new 创建新应用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 $ dva new myapp</span><br></pre></td></tr></table></figure>
+<p>也可以在创建项目目录myapp后，用dva init初始化项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 $ dva init</span><br></pre></td></tr></table></figure>
+<p>第四步:运行项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 $ cd myapp</span><br><span class="line">2 $ npm start</span><br></pre></td></tr></table></figure>
+<p>浏览器会自动打开一个窗口</p>
+<p><img src="https://img2018.cnblogs.com/blog/1040068/201812/1040068-20181213123909876-330673805.png" alt="image"></p>
+<h3 id="2-2-项目架构介绍"><a href="#2-2-项目架构介绍" class="headerlink" title="2.2,项目架构介绍"></a>2.2,项目架构介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">|-mock             &#x2F;&#x2F;存放用于 mock 数据的文件</span><br><span class="line">|-node_modules             &#x2F;&#x2F;项目包</span><br><span class="line">|-public             &#x2F;&#x2F;一般用于存放静态文件，打包时会被直接复制到输出目录(.&#x2F;dist)</span><br><span class="line">|-src               &#x2F;&#x2F;项目源代码</span><br><span class="line">  |  |-assets         &#x2F;&#x2F;用于存放静态资源，打包时会经过 webpack 处理</span><br><span class="line">  |  |-caches         &#x2F;&#x2F;缓存</span><br><span class="line">  |  |-components     &#x2F;&#x2F;组件 存放 React 组件，一般是该项目公用的无状态组件</span><br><span class="line">  |  |-entries        &#x2F;&#x2F;入口</span><br><span class="line">  |  |-models         &#x2F;&#x2F;数据模型 存放模型文件</span><br><span class="line">  |  |-pages          &#x2F;&#x2F;页面视图</span><br><span class="line">  |  |-routes         &#x2F;&#x2F;路由 存放需要 connect model 的路由组件</span><br><span class="line">  |  |-services       &#x2F;&#x2F;服务 存放服务文件，一般是网络请求等</span><br><span class="line">  |  |-test           &#x2F;&#x2F;测试</span><br><span class="line">  |  |-utils          &#x2F;&#x2F;辅助工具 工具类库</span><br><span class="line">|-package.json      &#x2F;&#x2F;包管理代码</span><br><span class="line">|-webpackrc.js   &#x2F;&#x2F;开发配置</span><br><span class="line">|-tsconfig.json     &#x2F;&#x2F;&#x2F; ts配置</span><br><span class="line">|-webpack.config.js &#x2F;&#x2F;webpack配置</span><br><span class="line">|-.gitignore &#x2F;&#x2F;Git忽略文件</span><br><span class="line">在dva项目目录中主要分3层，models,services,components,其中models是最重要概念，这里放的是各种数据，与数据交互的应该都是在这里。services是请求后台接口的方法。components是组件了。</span><br></pre></td></tr></table></figure>
+<h2 id="三-DvaJS的使用"><a href="#三-DvaJS的使用" class="headerlink" title="三,DvaJS的使用"></a>三,DvaJS的使用</h2><h3 id="3-1-DvaJS的五个Api"><a href="#3-1-DvaJS的五个Api" class="headerlink" title="3.1,DvaJS的五个Api"></a>3.1,DvaJS的五个Api</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import dva from &#39;dva&#39;;</span><br><span class="line">import &#123;message&#125; from &#39;antd&#39;;</span><br><span class="line">import &#39;.&#x2F;index.css&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1. Initialize 创建 dva 应用实例</span><br><span class="line">const app &#x3D; dva();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2. Plugins 装载插件（可选）</span><br><span class="line">app.use(&#123;</span><br><span class="line">  onError: function (error, action) &#123;</span><br><span class="line">    message.error(error.message || &#39;失败&#39;, 5);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3. Model 注册model</span><br><span class="line"> app.model(require(&#39;..&#x2F;models&#x2F;example&#39;).default);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 4. Router 配置路由</span><br><span class="line">app.router(require(&#39;..&#x2F;routes&#x2F;router&#39;).default);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 5. Start 启动应用</span><br><span class="line">app.start(&#39;#root&#39;);</span><br><span class="line"></span><br><span class="line">export default app._store; &#x2F;&#x2F; eslint-disable-line 抛出</span><br></pre></td></tr></table></figure>
+<h4 id="1-app-dva-Opts-：创建应用，返回-dva-实例。-注：dva-支持多实例"><a href="#1-app-dva-Opts-：创建应用，返回-dva-实例。-注：dva-支持多实例" class="headerlink" title="1,app = dva(Opts)：创建应用，返回 dva 实例。(注：dva 支持多实例)"></a>1,app = dva(Opts)：创建应用，返回 dva 实例。(注：dva 支持多实例)</h4><p>在opts可以配置所有的hooks</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const app &#x3D; dva(&#123;</span><br><span class="line">     history,</span><br><span class="line">     initialState,</span><br><span class="line">     onError,</span><br><span class="line">     onHmr,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里比较常用的是，history的配置，一般默认的是hashHistory，如果要配置 history 为 browserHistory，可以这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 import dva from &#39;dva&#39;;</span><br><span class="line">2 import createHistory from &#39;history&#x2F;createBrowserHistory&#39;;</span><br><span class="line">3 const app &#x3D; dva(&#123;</span><br><span class="line">4   history: createHistory(),</span><br><span class="line">5 &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>initialState：指定初始数据，优先级高于 model 中的 state，默认是 {}，但是基本上都在modal里面设置相应的state</li>
+</ul>
+<h4 id="2-app-use-Hooks-：配置-hooks-或者注册插件。"><a href="#2-app-use-Hooks-：配置-hooks-或者注册插件。" class="headerlink" title="2,app.use(Hooks)：配置 hooks 或者注册插件。"></a>2,app.use(Hooks)：配置 hooks 或者注册插件。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 app.use(&#123;</span><br><span class="line">2   onError: function (error, action) &#123;</span><br><span class="line">3     message.error(error.message || &#39;失败&#39;, 5);</span><br><span class="line">4   &#125;</span><br><span class="line">5 &#125;);</span><br></pre></td></tr></table></figure>
+<p>可以根据自己的需要来选择注册相应的插件</p>
+<h4 id="3-app-model-ModelObject-：这里是数据逻辑处理，数据流动的地方。"><a href="#3-app-model-ModelObject-：这里是数据逻辑处理，数据流动的地方。" class="headerlink" title="3,app.model(ModelObject)：这里是数据逻辑处理，数据流动的地方。"></a>3,app.model(ModelObject)：这里是数据逻辑处理，数据流动的地方。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line"></span><br><span class="line">  namespace: &#39;example&#39;,&#x2F;&#x2F;model 的命名空间，同时也是他在全局 state 上的属性，只能用字符串，我们在发送 action 到相应的 reducer 时，就会需要用到 namespace</span><br><span class="line"></span><br><span class="line">  state: &#123;&#125;,&#x2F;&#x2F;表示 Model 的状态数据，通常表现为一个 javascript 对象（当然它可以是任何值）</span><br><span class="line"></span><br><span class="line">  subscriptions: &#123;&#x2F;&#x2F;语义是订阅，用于订阅一个数据源，然后根据条件 dispatch 需要的 action</span><br><span class="line">    setup(&#123; dispatch, history &#125;) &#123;  &#x2F;&#x2F; eslint-disable-line</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  effects: &#123;&#x2F;&#x2F;Effect 被称为副作用，最常见的就是异步操作</span><br><span class="line">    *fetch(&#123; payload &#125;, &#123; call, put &#125;) &#123;  &#x2F;&#x2F; eslint-disable-line</span><br><span class="line">      yield put(&#123; type: &#39;save&#39; &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  reducers: &#123;&#x2F;&#x2F;reducers 聚合积累的结果是当前 model 的 state 对象</span><br><span class="line">    save(state, action) &#123;</span><br><span class="line">      return &#123; ...state, ...action.payload &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="4-app-router-Function-：注册路由表，我们做路由跳转的地方"><a href="#4-app-router-Function-：注册路由表，我们做路由跳转的地方" class="headerlink" title="4,app.router(Function)：注册路由表，我们做路由跳转的地方"></a>4,app.router(Function)：注册路由表，我们做路由跳转的地方</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;;</span><br><span class="line">import &#123; routerRedux, Route ,Switch&#125; from &#39;dva&#x2F;router&#39;;</span><br><span class="line">import &#123; LocaleProvider &#125; from &#39;antd&#39;;</span><br><span class="line">import App from &#39;..&#x2F;components&#x2F;App&#x2F;App&#39;;</span><br><span class="line">import Flex from &#39;..&#x2F;components&#x2F;Header&#x2F;index&#39;;</span><br><span class="line">import Login from &#39;..&#x2F;pages&#x2F;Login&#x2F;Login&#39;;</span><br><span class="line">import Home from &#39;..&#x2F;pages&#x2F;Home&#x2F;Home&#39;;</span><br><span class="line">import zhCN from &#39;antd&#x2F;lib&#x2F;locale-provider&#x2F;zh_CN&#39;;</span><br><span class="line">const &#123;ConnectedRouter&#125; &#x3D; routerRedux;</span><br><span class="line"></span><br><span class="line">function RouterConfig(&#123;history&#125;) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;ConnectedRouter history&#x3D;&#123;history&#125;&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route path&#x3D;&quot;&#x2F;login&quot;  component&#x3D;&#123;Login&#125; &#x2F;&gt;</span><br><span class="line">        &lt;LocaleProvider locale&#x3D;&#123;zhCN&#125;&gt;</span><br><span class="line">        &lt;App&gt;</span><br><span class="line">          &lt;Flex&gt;</span><br><span class="line">            &lt;Switch&gt;</span><br><span class="line">            &lt;Route path&#x3D;&quot;&#x2F;&quot;  exact component&#x3D;&#123;Home&#125; &#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;Switch&gt;</span><br><span class="line">          &lt;&#x2F;Flex&gt;</span><br><span class="line">        &lt;&#x2F;App&gt;</span><br><span class="line">        &lt;&#x2F;LocaleProvider&gt;</span><br><span class="line">      &lt;&#x2F;Switch&gt;</span><br><span class="line">    &lt;&#x2F;ConnectedRouter&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default RouterConfig;</span><br></pre></td></tr></table></figure>
+<p>5,app.start([HTMLElement], opts)<br>启动我们自己的应用</p>
+<h3 id="3-2-DvaJS的十个概念"><a href="#3-2-DvaJS的十个概念" class="headerlink" title="3.2,DvaJS的十个概念"></a>3.2,DvaJS的十个概念</h3><h4 id="1-Model"><a href="#1-Model" class="headerlink" title="1,Model"></a>1,Model</h4><p>model 是 dva 中最重要的概念，Model 非 MVC 中的 M，而是领域模型，用于把数据相关的逻辑聚合到一起，几乎所有的数据，逻辑都在这边进行处理分发</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import Model from &#39;dva-model&#39;;</span><br><span class="line">&#x2F;&#x2F; import effect from &#39;dva-model&#x2F;effect&#39;;</span><br><span class="line">import queryString from &#39;query-string&#39;;</span><br><span class="line">import pathToRegexp from &#39;path-to-regexp&#39;;</span><br><span class="line">import &#123;ManagementPage as namespace&#125; from &#39;..&#x2F;..&#x2F;utils&#x2F;namespace&#39;;</span><br><span class="line">import &#123;</span><br><span class="line">  getPages,</span><br><span class="line">&#125; from &#39;..&#x2F;..&#x2F;services&#x2F;page&#39;;</span><br><span class="line"></span><br><span class="line">export default Model(&#123;</span><br><span class="line">  namespace,</span><br><span class="line">  subscriptions: &#123;</span><br><span class="line">    setup(&#123;dispatch, history&#125;) &#123;  &#x2F;&#x2F; eslint-disable-line</span><br><span class="line">      history.listen(location &#x3D;&gt; &#123;</span><br><span class="line">        const &#123;pathname, search&#125; &#x3D; location;</span><br><span class="line">        const query &#x3D; queryString.parse(search);</span><br><span class="line">        const match &#x3D; pathToRegexp(namespace + &#39;&#x2F;:action&#39;).exec(pathname);</span><br><span class="line">        if (match) &#123;</span><br><span class="line">           dispatch(&#123;</span><br><span class="line">             type:&#39;getPages&#39;,</span><br><span class="line">            payload:&#123;</span><br><span class="line">               s:query.s || 10,</span><br><span class="line">               p:query.p || 1,</span><br><span class="line">               j_code:parseInt(query.j,10) || 1,</span><br><span class="line">             &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  reducers: &#123;</span><br><span class="line">    getPagesSuccess(state, action) &#123;</span><br><span class="line">      const &#123;list, total&#125; &#x3D; action.result;</span><br><span class="line">      return &#123;...state, list, loading: false, total&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">  getPages,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="2-namespace"><a href="#2-namespace" class="headerlink" title="2,namespace"></a>2,namespace</h4><p>model 的命名空间，同时也是他在全局 state 上的属性，只能用字符串，我们在发送 action 到相应的 reducer 时，就会需要用到 namespace</p>
+<h4 id="3-State（状态）"><a href="#3-State（状态）" class="headerlink" title="3,State（状态）"></a>3,State（状态）</h4><p>初始值，我们在 dva() 初始化的时候和在 modal 里面的 state 对其两处进行定义，其中 modal 中的优先级低于传给 dva() 的 opts.initialState</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; dva()初始化</span><br><span class="line">const app &#x3D; dva(&#123;</span><br><span class="line">  initialState: &#123; count: 1 &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; modal()定义事件</span><br><span class="line">app.model(&#123;</span><br><span class="line">  namespace: &#39;count&#39;,</span><br><span class="line">  state: 0,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Model中state的优先级比初始化的低，但是基本上项目中的 state 都是在这里定义的</p>
+<h4 id="4-Subscription"><a href="#4-Subscription" class="headerlink" title="4,Subscription"></a>4,Subscription</h4><p>Subscriptions 是一种从 源 获取数据的方法，它来自于 elm。语义是订阅，用于订阅一个数据源，然后根据条件 dispatch 需要的 action。数据源可以是当前的时间、服务器的 websocket 连接、keyboard 输入、geolocation 变化、history 路由变化等等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">subscriptions: &#123; &#x2F;&#x2F;触发器。setup表示初始化即调用。</span><br><span class="line">    setup(&#123;dispatch, history&#125;) &#123;</span><br><span class="line">      history.listen(location &#x3D;&gt; &#123;&#x2F;&#x2F;listen监听路由变化 调用不同的方法</span><br><span class="line">        if (location.pathname &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;</span><br><span class="line">         &#x2F;&#x2F;清除缓存</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          dispatch(&#123;</span><br><span class="line">            type: &#39;fetch&#39;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="5-Effects"><a href="#5-Effects" class="headerlink" title="5,Effects"></a>5,Effects</h4><p>用于处理异步操作和业务逻辑，不直接修改 state，简单的来说，就是从服务端获取数据，并且发起一个 action 交给 reducer 的地方。其中它用到了redux-saga里面几个常用的函数。</p>
+<ul>
+<li>put  用来发起一条action</li>
+<li>call 以异步的方式调用函数</li>
+<li>select 从state中获取相关的数据</li>
+<li>take 获取发送的数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">effects: &#123;</span><br><span class="line">    *login(action, saga)&#123;</span><br><span class="line">      const data &#x3D; yield saga.call(effect(login, &#39;loginSuccess&#39;, authCache), action, saga);&#x2F;&#x2F;call 用户调用异步逻辑 支持Promise</span><br><span class="line">      if (data &amp;&amp; data.token) &#123;</span><br><span class="line">        yield saga.put(routerRedux.replace(&#39;&#x2F;home&#39;));&#x2F;&#x2F;put 用于触发action 什么是action下面会讲到</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    *logout(action, saga)&#123;</span><br><span class="line">      const state &#x3D; yield saga.select(state &#x3D;&gt; state);&#x2F;&#x2F;select 从state里获取数据</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p>如果effect与reducers中的add方法重合了，这里会陷入一个死循环，因为当组件发送一个dispatch的时候，model会首先去找effect里面的方法，当又找到add的时候，就又会去请求effect里面的方法。</p>
+<p>这里的 delayDeal，是我这边写的一个延时的函数，我们在 utils 里面编写一个 utils.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> *超时函数处理</span><br><span class="line"> * @param timeout  ：timeout超时的时间参数</span><br><span class="line"> * @returns &#123;*&#125; ：返回样式值</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function delayDeal(timeout) &#123;</span><br><span class="line">  return new Promise((resolve) &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(resolve, timeout);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>接着我们在 models/example.js 导入这个 utils.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 import &#123; delayDeal&#125; from &#39;..&#x2F;utils&#x2F;utils&#39;;</span><br></pre></td></tr></table></figure>
+<h4 id="6-Reducer"><a href="#6-Reducer" class="headerlink" title="6,Reducer"></a>6,Reducer</h4><p>以key/value 格式定义 reducer，用于处理同步操作，唯一可以修改 state 的地方。由 action 触发。其实是一个纯函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1  reducers: &#123;</span><br><span class="line">2     loginSuccess(state, action)&#123;</span><br><span class="line">3       return &#123;...state, auth: action.result, loading: false&#125;;</span><br><span class="line">4     &#125;,</span><br><span class="line">5   &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-Router"><a href="#7-Router" class="headerlink" title="7,Router"></a>7,Router</h4><p>Router 表示路由配置信息，项目中的 router.js</p>
+<h4 id="8-RouteComponent"><a href="#8-RouteComponent" class="headerlink" title="8,RouteComponent"></a>8,RouteComponent</h4><p>RouteComponent 表示 Router 里匹配路径的 Component，通常会绑定 model 的数据</p>
+<h4 id="9-Action：表示操作事件，可以是同步，也可以是异步"><a href="#9-Action：表示操作事件，可以是同步，也可以是异步" class="headerlink" title="9,Action：表示操作事件，可以是同步，也可以是异步"></a>9,Action：表示操作事件，可以是同步，也可以是异步</h4><p>action 的格式如下，它需要有一个 type ，表示这个 action 要触发什么操作；payload则表示这个 action 将要传递的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">     type: namespace + &#39;&#x2F;login&#39;,</span><br><span class="line">     payload: &#123;</span><br><span class="line">          userName: payload.userName,</span><br><span class="line">          password: payload.password</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>构建一个Action 创建函数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function goLogin(payload) &#123;</span><br><span class="line">    let loginInfo &#x3D; &#123;</span><br><span class="line">        type: namespace + &#39;&#x2F;login&#39;,</span><br><span class="line">        payload: &#123;</span><br><span class="line">          userName: payload.userName,</span><br><span class="line">          password: payload.password</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return loginInfo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;我们直接dispatch(goLogin()),就发送了一个action。</span><br><span class="line">dispatch(goLogin())</span><br></pre></td></tr></table></figure>
+<h4 id="10-dispatch"><a href="#10-dispatch" class="headerlink" title="10,dispatch"></a>10,dispatch</h4><p>type dispatch = (a: Action) =&gt; Action</p>
+<p>dispatching function 是一个用于触发 action 的函数，action 是改变 State 的唯一途径，但是它只描述了一个行为，而 dipatch 可以看作是触发这个行为的方式，而 Reducer 则是描述如何改变数据的。</p>
+<p>在 dva 中，connect Model 的组件通过 props 可以访问到 dispatch，可以调用 Model 中的 Reducer 或者 Effects，常见的形式如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 dispatch(&#123;</span><br><span class="line">2    type: namespace + &#39;&#x2F;login&#39;, &#x2F;&#x2F; 如果在 model 外调用，需要添加 namespace,如果在model内调用 无需添加 namespace</span><br><span class="line">3   payload: &#123;&#125;, &#x2F;&#x2F; 需要传递的信息</span><br><span class="line">4 &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-使用antd"><a href="#3-3-使用antd" class="headerlink" title="3.3,使用antd"></a>3.3,使用antd</h3><p>先安装 antd 和 babel-plugin-import</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 npm install antd babel-plugin-import --save</span><br><span class="line">2 # 或</span><br><span class="line">3 yarn add antd babel-plugin-import</span><br></pre></td></tr></table></figure>
+<p>babel-plugin-import 也可以通过 -D 参数安装到 devDependencies 中，它用于实现按需加载。然后在 .webpackrc 中添加如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;extraBabelPlugins&quot;: [</span><br><span class="line">    [&quot;import&quot;, &#123;</span><br><span class="line">      &quot;libraryName&quot;: &quot;antd&quot;,</span><br><span class="line">      &quot;libraryDirectory&quot;: &quot;es&quot;,</span><br><span class="line">      &quot;style&quot;: true</span><br><span class="line">    &#125;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在就可以按需引入 antd 的组件了，如 import { Button } from ‘antd’，Button 组件的样式文件也会自动帮你引入。</p>
+<h3 id="3-4-配置-webpackrc"><a href="#3-4-配置-webpackrc" class="headerlink" title="3.4,配置.webpackrc"></a>3.4,配置.webpackrc</h3><p>1,entry是入口文件配置</p>
+<p>单页类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 entry: &#39;.&#x2F;src&#x2F;entries&#x2F;index.js&#39;,</span><br></pre></td></tr></table></figure>
+<p>多页类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 &quot;entry&quot;: &quot;src&#x2F;entries&#x2F;*.js&quot;</span><br></pre></td></tr></table></figure>
+<p>2,extraBabelPlugins 定义额外的 babel plugin 列表，格式为数组。</p>
+<p>3,env针对特定的环境进行配置。dev 的环境变量是 development，build 的环境变量是 production。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;extraBabelPlugins&quot;: [&quot;transform-runtime&quot;],</span><br><span class="line">&quot;env&quot;: &#123;</span><br><span class="line">  development: &#123;</span><br><span class="line">      extraBabelPlugins: [&#39;dva-hmr&#39;],</span><br><span class="line">    &#125;,</span><br><span class="line">    production: &#123;</span><br><span class="line">      define: &#123;</span><br><span class="line">        __CDN__: process.env.CDN ? &#39;&#x2F;&#x2F;cdn.dva.com&#x2F;&#39; : &#39;&#x2F;&#39; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开发环境下的 extraBabelPlugins 是 [“transform-runtime”, “dva-hmr”]，而生产环境下是 [“transform-runtime”]</p>
+<p>4,配置 webpack 的 externals 属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 &#x2F;&#x2F; 配置 @antv&#x2F;data-set和 rollbar 不打入代码</span><br><span class="line">2 &quot;externals&quot;: &#123;</span><br><span class="line">3     &#39;@antv&#x2F;data-set&#39;: &#39;DataSet&#39;,</span><br><span class="line">4     rollbar: &#39;rollbar&#39;,</span><br><span class="line">5 &#125;</span><br></pre></td></tr></table></figure>
+<p>5,配置 webpack-dev-server 的 proxy 属性。 如果要代理请求到其他服务器，可以这样配：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">proxy: &#123;</span><br><span class="line">    &quot;&#x2F;api&quot;: &#123;</span><br><span class="line">      &#x2F;&#x2F; &quot;target&quot;: &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;&quot;,</span><br><span class="line">      &#x2F;&#x2F; &quot;target&quot;: &quot;http:&#x2F;&#x2F;127.0.0.1:9090&#x2F;&quot;,</span><br><span class="line">      &quot;target&quot;: &quot;http:&#x2F;&#x2F;localhost:8080&#x2F;&quot;,</span><br><span class="line">      &quot;changeOrigin&quot;: true,</span><br><span class="line">     &quot;pathRewrite&quot;: &#123; &quot;^&#x2F;api&quot; : &quot;&quot; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p>6,disableDynamicImport</p>
+<p>禁用 import() 按需加载，全部打包在一个文件里，通过 <a href="https://github.com/seeden/babel-plugin-dynamic-import-node-sync" target="_blank" rel="noopener">babel-plugin-dynamic-import-node-sync</a> 实现。</p>
+<p>7,publicPath</p>
+<p>配置 webpack 的 <a href="https://webpack.js.org/configuration/output/#output-publicpath" target="_blank" rel="noopener">output.publicPath</a> 属性。</p>
+<p>8,extraBabelIncludes</p>
+<p>定义额外需要做 babel 转换的文件匹配列表，格式为数组</p>
+<p>9,outputPath</p>
+<p>配置 webpack 的 <a href="https://webpack.js.org/configuration/output/#output-path" target="_blank" rel="noopener">output.path</a> 属性。</p>
+<p>打包输出的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 config[&quot;outputPath&quot;] &#x3D; path.join(process.cwd(), &#39;.&#x2F;build&#x2F;&#39;)</span><br></pre></td></tr></table></figure>
+<p>10,根据需求完整配置如下：</p>
+<p>文件名称是:.webpackrc.js,可根据实际情况添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">const path &#x3D; require(&#39;path&#39;);</span><br><span class="line"></span><br><span class="line">const config &#x3D; &#123;</span><br><span class="line">  entry: &#39;.&#x2F;src&#x2F;entries&#x2F;index.js&#39;,</span><br><span class="line">  extraBabelPlugins: [[&#39;import&#39;, &#123; libraryName: &#39;antd&#39;, libraryDirectory: &#39;es&#39;, style: true &#125;]],</span><br><span class="line">  env: &#123;</span><br><span class="line">    development: &#123;</span><br><span class="line">      extraBabelPlugins: [&#39;dva-hmr&#39;],</span><br><span class="line">    &#125;,</span><br><span class="line">    production: &#123;</span><br><span class="line">      define: &#123;</span><br><span class="line">        __CDN__: process.env.CDN ? &#39;&#x2F;&#x2F;cdn.dva.com&#x2F;&#39; : &#39;&#x2F;&#39; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  externals: &#123;</span><br><span class="line">    &#39;@antv&#x2F;data-set&#39;: &#39;DataSet&#39;,</span><br><span class="line">    rollbar: &#39;rollbar&#39;,</span><br><span class="line">  &#125;,</span><br><span class="line">  lessLoaderOptions: &#123;</span><br><span class="line">    javascriptEnabled: true,</span><br><span class="line">  &#125;,</span><br><span class="line">  proxy: &#123;</span><br><span class="line">    &quot;&#x2F;api&quot;: &#123;</span><br><span class="line">      &#x2F;&#x2F; &quot;target&quot;: &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;&quot;,</span><br><span class="line">      &#x2F;&#x2F; &quot;target&quot;: &quot;http:&#x2F;&#x2F;127.0.0.1:9090&#x2F;&quot;,</span><br><span class="line">      &quot;target&quot;: &quot;http:&#x2F;&#x2F;localhost:8080&#x2F;&quot;,</span><br><span class="line">      &quot;changeOrigin&quot;: true,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  es5ImcompatibleVersions:true,</span><br><span class="line">  disableDynamicImport: true,</span><br><span class="line">  publicPath: &#39;&#x2F;&#39;,</span><br><span class="line">  hash: false,</span><br><span class="line">  extraBabelIncludes:[</span><br><span class="line">    &quot;node_modules&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line">if (module.exports.env !&#x3D;&#x3D; &#39;development&#39;) &#123;</span><br><span class="line">  config[&quot;outputPath&quot;] &#x3D; path.join(process.cwd(), &#39;.&#x2F;build&#x2F;&#39;)</span><br><span class="line">&#125;</span><br><span class="line">export default config</span><br></pre></td></tr></table></figure>
+<p>更多 .webpackrc 的配置请参考<a href="https://github.com/sorrycc/roadhog/blob/master/README_zh-cn.md" target="_blank" rel="noopener"> roadhog 配置</a>。</p>
+<h3 id="3-5-使用antd-mobile"><a href="#3-5-使用antd-mobile" class="headerlink" title="3.5,使用antd-mobile"></a>3.5,使用antd-mobile</h3><p>先安装 antd-mobile 和 babel-plugin-import</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 npm install antd-mobile babel-plugin-import --save # 或</span><br><span class="line">2 yarn add antd-mobile babel-plugin-import</span><br></pre></td></tr></table></figure>
+<p>babel-plugin-import 也可以通过 -D 参数安装到 devDependencies 中，它用于实现按需加载。然后在 .webpackrc 中添加如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 &#123;</span><br><span class="line">2   &quot;plugins&quot;: [</span><br><span class="line">3     [&quot;import&quot;, &#123; libraryName: &quot;antd-mobile&quot;, style: &quot;css&quot; &#125;] &#x2F;&#x2F; &#96;style: true&#96; 会加载 less 文件</span><br><span class="line">4   ]</span><br><span class="line">5 &#125;</span><br></pre></td></tr></table></figure>
+<p>现在就可以按需引入antd-mobile 的组件了，如 import { DatePicker} from ‘antd-mobile’，DatePicker 组件的样式文件也会自动帮你引入。</p>
+<h2 id="四-整体架构"><a href="#四-整体架构" class="headerlink" title="四,整体架构"></a>四,整体架构</h2><ul>
+<li>我们根据 url 访问相关的 Route-Component，在组件中我们通过 dispatch 发送 action 到 model 里面的 effect 或者直接 Reducer</li>
+<li>当我们将action发送给Effect，基本上是取服务器上面请求数据的，服务器返回数据之后，effect 会发送相应的 action 给 reducer，由唯一能改变 state 的 reducer 改变 state ，然后通过connect重新渲染组件。</li>
+<li>当我们将action发送给reducer，那直接由 reducer 改变 state，然后通过 connect 重新渲染组件。如下图所示:</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/blog/1040068/201812/1040068-20181213134636345-1589136271.png" alt="image"></p>
+<h3 id="数据流向"><a href="#数据流向" class="headerlink" title="数据流向"></a>数据流向</h3><p>数据的改变发生通常是通过用户交互行为或者浏览器行为（如路由跳转等）触发的，当此类行为会改变数据的时候可以通过 dispatch 发起一个 action，如果是同步行为会直接通过 Reducers 改变 State ，如果是异步行为（副作用）会先触发 Effects 然后流向 Reducers 最终改变 State</p>
+<h3 id="重置models里的数据"><a href="#重置models里的数据" class="headerlink" title="重置models里的数据:"></a>重置models里的数据:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 dispatch(&#123;type:namespace+&#39;&#x2F;set&#39;,payload:&#123;mdata:[]&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<p>set是内置的方法</p>
+<ul>
+<li><a href="https://dvajs.com/" target="_blank" rel="noopener">Dva官方文档</a></li>
+<li><a href="https://www.cnblogs.com/jackson-zhangjiang/p/10273352.html" target="_blank" rel="noopener">nginx代理部署Vue与React项目</a></li>
+</ul>
+<h2 id="五-问题记录"><a href="#五-问题记录" class="headerlink" title="五,问题记录"></a>五,问题记录</h2><h3 id="5-1-路由相关的问题"><a href="#5-1-路由相关的问题" class="headerlink" title="5.1,路由相关的问题"></a>5.1,路由相关的问题</h3><p>1,使用match后的路由跳转问题，版本routerV4</p>
+<p>match是一个匹配路径参数的对象，它有一个属性params，里面的内容就是路径参数，除常用的params属性外，它还有url、path、isExact属性。</p>
+<p>问题描述:不能跳转新页面或匹配跳转后,刷新时url所传的值会被重置掉</p>
+<p>不能跳转的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">const &#123;ConnectedRouter&#125; &#x3D; routerRedux;</span><br><span class="line"></span><br><span class="line">function RouterConfig(&#123;history&#125;) &#123;</span><br><span class="line">const tests &#x3D;(&#123;match&#125;) &#x3D;&gt;(</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;&#96;$&#123;match.url&#125;&#x2F;:tab&#96;&#125; component&#x3D;&#123;Test&#125;&#x2F;&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;match.url&#125; component&#x3D;&#123;Test&#125;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">  return (</span><br><span class="line">    &lt;ConnectedRouter history&#x3D;&#123;history&#125;&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route path&#x3D;&quot;&#x2F;login&quot; component&#x3D;&#123;Login&#125;&#x2F;&gt;</span><br><span class="line">        &lt;LocaleProvider locale&#x3D;&#123;zhCN&#125;&gt;</span><br><span class="line">          &lt;App&gt;</span><br><span class="line">            &lt;Flex&gt;</span><br><span class="line">              &lt;Switch&gt;</span><br><span class="line">                &lt;Route path&#x3D;&quot;&#x2F;test&quot; component&#x3D;&#123;tests &#125;&#x2F;&gt;</span><br><span class="line">               &lt;Route exact path&#x3D;&quot;&#x2F;test&#x2F;bindTest&quot; component&#x3D;&#123;BindTest&#125;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">              &lt;&#x2F;Switch&gt;</span><br><span class="line">            &lt;&#x2F;Flex&gt;</span><br><span class="line">          &lt;&#x2F;App&gt;</span><br><span class="line">        &lt;&#x2F;LocaleProvider&gt;</span><br><span class="line">      &lt;&#x2F;Switch&gt;</span><br><span class="line">    &lt;&#x2F;ConnectedRouter&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>路由如上写法,使用下面方式不能跳转,但是地址栏路径变了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import &#123; routerRedux&#125; from &#39;dva&#x2F;router&#39;;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">this.props.dispatch(routerRedux.push(&#123;</span><br><span class="line">      pathname: &#39;&#x2F;test&#x2F;bindTest&#39;,</span><br><span class="line">      search:queryString.stringify(&#123;</span><br><span class="line">        &#x2F;&#x2F; ...query,</span><br><span class="line">        Code: code,</span><br><span class="line">        Name: name</span><br><span class="line">      &#125;)</span><br><span class="line">&#125;));</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>能跳转,但是刷新所传的参数被重置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">const &#123;ConnectedRouter&#125; &#x3D; routerRedux;</span><br><span class="line"></span><br><span class="line">function RouterConfig(&#123;history&#125;) &#123;</span><br><span class="line">const tests &#x3D;(&#123;match&#125;) &#x3D;&gt;(</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;&#96;$&#123;match.url&#125;&#x2F;bindTest&#96;&#125; component&#x3D;&#123;BindTest&#125;&#x2F;&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;&#96;$&#123;match.url&#125;&#x2F;:tab&#96;&#125; component&#x3D;&#123;Test&#125;&#x2F;&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;match.url&#125; component&#x3D;&#123;Test&#125;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">  return (</span><br><span class="line">    &lt;ConnectedRouter history&#x3D;&#123;history&#125;&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route path&#x3D;&quot;&#x2F;login&quot; component&#x3D;&#123;Login&#125;&#x2F;&gt;</span><br><span class="line">        &lt;LocaleProvider locale&#x3D;&#123;zhCN&#125;&gt;</span><br><span class="line">          &lt;App&gt;</span><br><span class="line">            &lt;Flex&gt;</span><br><span class="line">              &lt;Switch&gt;</span><br><span class="line">                &lt;Route path&#x3D;&quot;&#x2F;test&quot; component&#x3D;&#123;tests &#125;&#x2F;&gt;</span><br><span class="line">              &lt;&#x2F;Switch&gt;</span><br><span class="line">            &lt;&#x2F;Flex&gt;</span><br><span class="line">          &lt;&#x2F;App&gt;</span><br><span class="line">        &lt;&#x2F;LocaleProvider&gt;</span><br><span class="line">      &lt;&#x2F;Switch&gt;</span><br><span class="line">    &lt;&#x2F;ConnectedRouter&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>路由如上写法,使用下面方式可以跳转,但是刷新时所传的参数会被test里所传的参数重置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">this.props.dispatch(routerRedux.push(&#123;</span><br><span class="line">    pathname: &#39;&#x2F;test&#x2F;bindTest&#39;,</span><br><span class="line">    search:queryString.stringify(&#123;</span><br><span class="line">      &#x2F;&#x2F; ...query,</span><br><span class="line">      Code: code,</span><br><span class="line">      Name: name</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>解决办法如下：地址多加一级,跳出以前的界面</p>
+<p>路由配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const &#123;ConnectedRouter&#125; &#x3D; routerRedux;</span><br><span class="line"></span><br><span class="line">function RouterConfig(&#123;history&#125;) &#123;</span><br><span class="line">const tests &#x3D;(&#123;match&#125;) &#x3D;&gt;(</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;&#96;$&#123;match.url&#125;&#x2F;bind&#x2F;test&#96;&#125; component&#x3D;&#123;BindTest&#125;&#x2F;&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;&#96;$&#123;match.url&#125;&#x2F;:tab&#96;&#125; component&#x3D;&#123;Test&#125;&#x2F;&gt;</span><br><span class="line">      &lt;Route exact path&#x3D;&#123;match.url&#125; component&#x3D;&#123;Test&#125;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">  return (</span><br><span class="line">    &lt;ConnectedRouter history&#x3D;&#123;history&#125;&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route path&#x3D;&quot;&#x2F;test&quot; component&#x3D;&#123;tests &#125;&#x2F;&gt;</span><br><span class="line">      &lt;&#x2F;Switch&gt;</span><br><span class="line">    &lt;&#x2F;ConnectedRouter&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">this.props.dispatch(routerRedux.push(&#123;</span><br><span class="line">  pathname: &#39;&#x2F;test&#x2F;bind&#x2F;test1&#39;,</span><br><span class="line">  search:queryString.stringify(&#123;</span><br><span class="line">    &#x2F;&#x2F; ...query,</span><br><span class="line">    Code: code,</span><br><span class="line">    Name: name</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-箭头函数this指向问题"><a href="#5-2-箭头函数this指向问题" class="headerlink" title="5.2,箭头函数this指向问题"></a>5.2,箭头函数this指向问题</h3><p>箭头函数的this定义：<strong>箭头函数的this是在定义函数时绑定的，不是在执行过程中绑定的。简单的说，函数在定义时，this就继承了定义函数的对象</strong>。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/前端UI框架/">前端UI框架</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/UI框架/">UI框架</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2021/02/02/DvaJS%E6%9E%84%E5%BB%BA%E9%85%8D%E7%BD%AEReact%E9%A1%B9%E7%9B%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/40个javascript面试必考点/">40个javascript面试必考点</a><small>40</small></li>
+  
+    <li><a href="/categories/前端UI框架/">前端UI框架</a><small>14</small></li>
+  
+    <li><a href="/categories/前端易混知识点/">前端易混知识点</a><small>29</small></li>
+  
+    <li><a href="/categories/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/categories/前端算法实现/">前端算法实现</a><small>6</small></li>
+  
+    <li><a href="/categories/小程序开发/">小程序开发</a><small>5</small></li>
+  
+    <li><a href="/categories/常用指令合集/">常用指令合集</a><small>9</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/UI框架/">UI框架</a><small>14</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>40</small></li>
+  
+    <li><a href="/tags/前端框架总结/">前端框架总结</a><small>10</small></li>
+  
+    <li><a href="/tags/小程序/">小程序</a><small>5</small></li>
+  
+    <li><a href="/tags/常用算法/">常用算法</a><small>6</small></li>
+  
+    <li><a href="/tags/指令合集/">指令合集</a><small>9</small></li>
+  
+    <li><a href="/tags/易混知识点/">易混知识点</a><small>29</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 Arvin.Lin
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
