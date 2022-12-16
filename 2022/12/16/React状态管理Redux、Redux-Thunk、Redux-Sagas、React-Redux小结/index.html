@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="一、React 环境配置安装脚手架工具 1$ npm install -g create-react-app  创建项目工程 12&#x2F;&#x2F; demo是项目名称，不能有大写字母$ create-react-app demo  安装浏览器调试工具  在 FireFox 中安装 React Developer Tools 和 Redux DevTools React Developer Tools 能够在工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React状态管理Redux、Redux-Thunk、Redux-Sagas、React-Redux小结">
+<meta property="og:url" content="http://example.com/2022/12/16/React%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86Redux%E3%80%81Redux-Thunk%E3%80%81Redux-Sagas%E3%80%81React-Redux%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="一、React 环境配置安装脚手架工具 1$ npm install -g create-react-app  创建项目工程 12&#x2F;&#x2F; demo是项目名称，不能有大写字母$ create-react-app demo  安装浏览器调试工具  在 FireFox 中安装 React Developer Tools 和 Redux DevTools React Developer Tools 能够在工">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190725211305715.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU1MzY5NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190725212421249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU1MzY5NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190725213027838.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190725213849116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU1MzY5NA==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2022-12-16T06:17:28.000Z">
+<meta property="article:modified_time" content="2022-12-16T06:22:35.710Z">
+<meta property="article:author" content="Bruce Chen">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190725211305715.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU1MzY5NA==,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2022/12/16/React%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86Redux%E3%80%81Redux-Thunk%E3%80%81Redux-Sagas%E3%80%81React-Redux%E5%B0%8F%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>React状态管理Redux、Redux-Thunk、Redux-Sagas、React-Redux小结 | Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/React%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86Redux%E3%80%81Redux-Thunk%E3%80%81Redux-Sagas%E3%80%81React-Redux%E5%B0%8F%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React状态管理Redux、Redux-Thunk、Redux-Sagas、React-Redux小结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 14:17:28 / 修改时间：14:22:35" itemprop="dateCreated datePublished" datetime="2022-12-16T14:17:28+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">前端框架总结</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="一、React-环境配置"><a href="#一、React-环境配置" class="headerlink" title="一、React 环境配置"></a>一、React 环境配置</h1><p><strong>安装脚手架工具</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g create-react-app</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建项目工程</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// demo是项目名称，不能有大写字母</span><br><span class="line">$ create-react-app demo</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装浏览器调试工具</strong></p>
+<ul>
+<li>在 FireFox 中安装 React Developer Tools 和 Redux DevTools</li>
+<li>React Developer Tools 能够在工具栏中很方便的看到页面的布局</li>
+<li>Redux DevTools 能够追踪页面 state、action 等的变化</li>
+</ul>
+<h1 id="二、Redux"><a href="#二、Redux" class="headerlink" title="二、Redux"></a>二、Redux</h1><h2 id="Redux-作用"><a href="#Redux-作用" class="headerlink" title="Redux 作用"></a>Redux 作用</h2><p>当项目越来越复杂时，组件越来越多的时候，组件之间数据的共享就成为了一个问题，那么 Redux 就是用来解决各个组件之间数据共享的问题的。</p>
+<h2 id="在项目中安装-Redux"><a href="#在项目中安装-Redux" class="headerlink" title="在项目中安装 Redux"></a>在项目中安装 Redux</h2><p>redux 的 GitHub 地址：<a target="_blank" rel="noopener" href="https://github.com/reduxjs/redux">https://github.com/reduxjs/redux</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 两种安装方法</span><br><span class="line">$ npm install --save redux</span><br><span class="line">$ yarn add redux</span><br></pre></td></tr></table></figure>
+
+<h2 id="理解-Redux-工作流程"><a href="#理解-Redux-工作流程" class="headerlink" title="理解 Redux 工作流程"></a>理解 Redux 工作流程</h2><p><img src="https://img-blog.csdnimg.cn/20190725211305715.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU1MzY5NA==,size_16,color_FFFFFF,t_70" alt="image"></p>
+<ol>
+<li>Store 就是项目中的数据仓库，但是数据是交给 Reducer 管理的</li>
+<li>Store 向组件提供数据，组件订阅数据后，会根据状态的变化自动更新数据</li>
+<li>组件要修改 Store 中的数据，需要创建一个 action 利用 dispatch 函数通知 Store</li>
+<li>Store 把 action 和数据交给 Reducer，Reducer 根据 action 的类型来处理数据</li>
+<li>Reducer 把处理好的数据返回给 Store</li>
+</ol>
+<h2 id="从-Store-中读取数据：派发-action-改变-Store-中的数据"><a href="#从-Store-中读取数据：派发-action-改变-Store-中的数据" class="headerlink" title="从 Store 中读取数据：派发 action 改变 Store 中的数据"></a>从 Store 中读取数据：派发 action 改变 Store 中的数据</h2><p>action 是一个字符串，在 App 组件、reducer 文件中都使用了，容易引起难以调试的 Bug，也不利于后期维护。<br>所以使用一个 actionType 和 actionCreator 来管理 action 的类型和 action 的创建。<br>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">// App组件</span><br><span class="line">import React, &#123; Component &#125; from &#x27;react&#x27;;</span><br><span class="line">import store from &#x27;./store&#x27;;</span><br><span class="line">import &#123; changeInputValue &#125; from &#x27;./store/actionCreators&#x27;;</span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = store.getState();</span><br><span class="line">        this.handleChangeInput = this.handleChangeInput.bind(this);</span><br><span class="line">        this.handleStoreChange = this.handleStoreChange.bind(this);</span><br><span class="line">        store.subscribe(this.handleStoreChange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    placeholder=&quot;请输入信息&quot;</span><br><span class="line">                    style=&#123;&#123;width: &quot;200px&quot;, height: &#x27;40px&#x27;, border: &#x27;1px solid red&#x27;&#125;&#125;</span><br><span class="line">                    value=&#123;this.state.inputValue&#125;</span><br><span class="line">                    onChange=&#123;this.handleChangeInput&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleChangeInput (e) &#123;</span><br><span class="line">        store.dispatch(changeInputValue(e.target.value));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleStoreChange () &#123;</span><br><span class="line">        this.setState(store.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">// actionTypes.js 管理action类型</span><br><span class="line">export const CHANGE_INPUT_VALUE = &#x27;change_input_value&#x27;;</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">// actionCreators.js 管理action的创建</span><br><span class="line"></span><br><span class="line">import &#123; CHANGE_INPUT_VALUE &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line"></span><br><span class="line">export const changeInputValue = (value) =&gt; (&#123;</span><br><span class="line">    type: CHANGE_INPUT_VALUE,</span><br><span class="line">    value: value</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">// reducer.js</span><br><span class="line"></span><br><span class="line">import &#123; CHANGE_INPUT_VALUE &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line"></span><br><span class="line">const defaultState = &#123;</span><br><span class="line">    inputValue: &#x27;zhangsan&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default (state = defaultState, action) =&gt; &#123;</span><br><span class="line">    if (action.type === CHANGE_INPUT_VALUE) &#123;</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.inputValue = action.value;</span><br><span class="line">        return newState;</span><br><span class="line">    &#125;</span><br><span class="line">    return state;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">// store/index.js</span><br><span class="line"></span><br><span class="line">import &#123; createStore &#125; from &#x27;redux&#x27;;</span><br><span class="line">import reducer from &#x27;./reducer&#x27;;</span><br><span class="line"></span><br><span class="line">const store = createStore(</span><br><span class="line">    reducer,</span><br><span class="line">    window.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; window.__REDUX_DEVTOOLS_EXTENSION__()</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">export default store;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="三、Redux-Thunk"><a href="#三、Redux-Thunk" class="headerlink" title="三、Redux-Thunk"></a>三、Redux-Thunk</h1><h2 id="Redux-Thunk-的作用"><a href="#Redux-Thunk-的作用" class="headerlink" title="Redux-Thunk 的作用"></a>Redux-Thunk 的作用</h2><p>Redux-Thunk<strong>是 Redux</strong>的中间件(<strong>并不是 React 的中间件</strong>)，用来将组件异步获取数据的操作封装到 action 中去，以此来减少组件中复杂的异步操作。<br>使用 Redux-Thunk 之后 action 可以返回一个函数(Redux 的 action 默认只能返回对象)。</p>
+<h2 id="安装以及配置"><a href="#安装以及配置" class="headerlink" title="安装以及配置"></a>安装以及配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add redux-thunk</span><br><span class="line">$ npm install --save redux-thunk</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Redux-Thunk-之后的数据流程"><a href="#使用-Redux-Thunk-之后的数据流程" class="headerlink" title="使用 Redux-Thunk 之后的数据流程"></a>使用 Redux-Thunk 之后的数据流程</h2><p><img src="https://img-blog.csdnimg.cn/20190725212421249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU1MzY5NA==,size_16,color_FFFFFF,t_70" alt="image"></p>
+<p>实际上变化就在 Dispatch 中，使用 Redux-Thunk 之后 action 不仅可以返回对象，还可以返回函数，然后将异步操作代码放在 action 中了。</p>
+<h2 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2><p>这里采用从服务端获取数据展示一个 ul 列表</p>
+<p>使用 Redux-Thunk 之后的代码以及配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">// App.js</span><br><span class="line">import React, &#123; Component &#125; from &#x27;react&#x27;;</span><br><span class="line">import store from &#x27;./store&#x27;;</span><br><span class="line">import &#123; getListDataAction &#125; from &#x27;./store/actionCreators&#x27;;</span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line"></span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = store.getState();</span><br><span class="line">        this.handleStoreChange = this.handleStoreChange.bind(this);</span><br><span class="line">        store.subscribe(this.handleStoreChange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;ul&gt;</span><br><span class="line">                    &#123;this.state.list.map((item, index) =&gt; &#123;</span><br><span class="line">                        return &lt;li key=&#123;index&#125;&gt;&#123;item&#125;&lt;/li&gt;</span><br><span class="line">                    &#125;)&#125;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        // 着重变化的代码</span><br><span class="line">        store.dispatch(getListDataAction())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleStoreChange () &#123;</span><br><span class="line">        this.setState(store.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line"></span><br><span class="line">// actionCreators.js</span><br><span class="line">import &#123; GET_LIST_DATA &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line">import axios from &#x27;axios&#x27;;</span><br><span class="line"></span><br><span class="line">export const getListData = (data) =&gt; (&#123;</span><br><span class="line">    type: GET_LIST_DATA,</span><br><span class="line">    value: data</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// action 返回一个函数，异步操作在这里进行</span><br><span class="line">export const getListDataAction = () =&gt; &#123;</span><br><span class="line">    return (dispatch) =&gt; &#123;</span><br><span class="line">        axios.get(&#x27;/list.json&#x27;).then((res) =&gt; &#123;</span><br><span class="line">            if (res.data) &#123;</span><br><span class="line">                dispatch(getListData(res.data));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).catch((e) =&gt; &#123;</span><br><span class="line">            console.log(e);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line"></span><br><span class="line">// store.js</span><br><span class="line">import &#123; createStore, applyMiddleware, compose &#125; from &#x27;redux&#x27;;</span><br><span class="line">import thunk from &#x27;redux-thunk&#x27;;</span><br><span class="line">import reducer from &#x27;./reducer&#x27;;</span><br><span class="line"></span><br><span class="line">const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;&#125;) : compose;</span><br><span class="line"></span><br><span class="line">const enhancer = composeEnhancers(</span><br><span class="line">    applyMiddleware(thunk)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">const store = createStore(</span><br><span class="line">    reducer,</span><br><span class="line">    enhancer</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">export default store;</span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line"></span><br><span class="line">// reducer.js无变化</span><br><span class="line">import &#123; GET_LIST_DATA &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line">const defaultState = &#123;</span><br><span class="line">    list: []</span><br><span class="line">&#125;</span><br><span class="line">export default (state = defaultState, action) =&gt; &#123;</span><br><span class="line">    if (action.type === GET_LIST_DATA) &#123;</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.list = action.value;</span><br><span class="line">        console.log(action);</span><br><span class="line">        return newState;</span><br><span class="line">    &#125;</span><br><span class="line">    return state;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190725213027838.png" alt="image"></p>
+<h1 id="四、Redux-saga"><a href="#四、Redux-saga" class="headerlink" title="四、Redux-saga"></a>四、Redux-saga</h1><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>redux-saga 同样是用来拆分组件异步代码的中间件，它和 Redux-Thunk 的区别就是将异步代码的操作放到一个单独的文件中去管理。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save redux-saga</span><br><span class="line">$ yarn add redux-saga</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码演示-1"><a href="#代码演示-1" class="headerlink" title="代码演示"></a>代码演示</h2><p>这里采用上面的例子，同样从服务器获取数据展示在 ul 列表中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">// App.js</span><br><span class="line">import React, &#123; Component &#125; from &#x27;react&#x27;;</span><br><span class="line">import store from &#x27;./store&#x27;;</span><br><span class="line">import &#123; getListDataSagas &#125; from &#x27;./store/actionCreators&#x27;;</span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line"></span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = store.getState();</span><br><span class="line">        this.handleStoreChange = this.handleStoreChange.bind(this);</span><br><span class="line">        store.subscribe(this.handleStoreChange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;ul&gt;</span><br><span class="line">                    &#123;this.state.list.map((item, index) =&gt; &#123;</span><br><span class="line">                        return &lt;li key=&#123;index&#125;&gt;&#123;item&#125;&lt;/li&gt;</span><br><span class="line">                    &#125;)&#125;</span><br><span class="line">                &lt;/ul&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        store.dispatch(getListDataSagas());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleStoreChange () &#123;</span><br><span class="line">        this.setState(store.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line"></span><br><span class="line">// actionTypes.js</span><br><span class="line">export const GET_LIST_DATA = &#x27;get_list_data&#x27;;</span><br><span class="line">export const GET_LIST_DATA_SAGAS = &#x27;get_list_data_sagas&#x27;;</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line"></span><br><span class="line">// actionCreators.js</span><br><span class="line">import &#123; GET_LIST_DATA, GET_LIST_DATA_SAGAS &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line"></span><br><span class="line">export const getListData = (data) =&gt; (&#123;</span><br><span class="line">    type: GET_LIST_DATA,</span><br><span class="line">    value: data</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 这里创建了一个sagas中需要的action</span><br><span class="line">export const getListDataSagas = () =&gt; (&#123;</span><br><span class="line">    type: GET_LIST_DATA_SAGAS,</span><br><span class="line">&#125;)</span><br><span class="line">------------------------</span><br><span class="line"></span><br><span class="line">// reducer.js</span><br><span class="line">import &#123; GET_LIST_DATA &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line"></span><br><span class="line">const defaultState = &#123;</span><br><span class="line">    list: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default (state = defaultState, action) =&gt; &#123;</span><br><span class="line">    if (action.type === GET_LIST_DATA) &#123;</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.list = action.value;</span><br><span class="line">        console.log(action);</span><br><span class="line">        return newState;</span><br><span class="line">    &#125;</span><br><span class="line">    return state;</span><br><span class="line">&#125;</span><br><span class="line">------------------------</span><br><span class="line"></span><br><span class="line">// store.js</span><br><span class="line">import &#123; createStore, applyMiddleware, compose &#125; from &#x27;redux&#x27;;</span><br><span class="line">import reducer from &#x27;./reducer&#x27;;</span><br><span class="line">import createSagaMiddleware from &#x27;redux-saga&#x27;;</span><br><span class="line">// 新创建的sagas.js文件用来管理异步操作的代码</span><br><span class="line">import sagas from &#x27;./sagas&#x27;;</span><br><span class="line"></span><br><span class="line">const sagaMiddleware = createSagaMiddleware();</span><br><span class="line">const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;&#125;) : compose;</span><br><span class="line">const enhancer = composeEnhancers(</span><br><span class="line">    applyMiddleware(sagaMiddleware)</span><br><span class="line">);</span><br><span class="line">const store = createStore(</span><br><span class="line">    reducer,</span><br><span class="line">    enhancer</span><br><span class="line">);</span><br><span class="line">sagaMiddleware.run(sagas);</span><br><span class="line">export default store;</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line">// sagas.js  单独管理异步操作的文件</span><br><span class="line">import &#123; put, takeEvery &#125; from &#x27;redux-saga/effects&#x27;;</span><br><span class="line">import &#123; GET_LIST_DATA_SAGAS &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line">import axios from &#x27;axios&#x27;;</span><br><span class="line">import &#123; getListData &#125; from  &#x27;./actionCreators&#x27;;</span><br><span class="line"></span><br><span class="line">function* mySaga() &#123;</span><br><span class="line">    // 这句代码意思是：当接收到一个名叫GET_LIST_DATA_SAGAS的action的时候</span><br><span class="line">    //会去调用getDataFromServer方法</span><br><span class="line">    yield takeEvery(GET_LIST_DATA_SAGAS, getDataFromServer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 获取数据的异步操作</span><br><span class="line">function* getDataFromServer() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        const res = yield axios.get(&#x27;/list.json&#x27;);</span><br><span class="line">        yield put(getListData(res.data));</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">        console.log(&#x27;请求错误&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default mySaga;</span><br></pre></td></tr></table></figure>
+
+<h1 id="五、React-Redux"><a href="#五、React-Redux" class="headerlink" title="五、React-Redux"></a>五、React-Redux</h1><h2 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h2><p>React-Redux 的作用是为了在项目中使用 Redux 更加方便。</p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save react-redux</span><br><span class="line">$ yarn add react-redux</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码演示-2"><a href="#代码演示-2" class="headerlink" title="代码演示"></a>代码演示</h2><p>代码演示的例子是改变 input 输入框中的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">// index.js 项目的入口文件</span><br><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line">import ReactDOM from &#x27;react-dom&#x27;;</span><br><span class="line">import App from &#x27;./App&#x27;;</span><br><span class="line">import &#123; Provider &#125; from  &#x27;react-redux&#x27;;</span><br><span class="line">import store from  &#x27;./store&#x27;;</span><br><span class="line"></span><br><span class="line">const AppRoot = (</span><br><span class="line">    // 重点把store提供给每一个组件</span><br><span class="line">  &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">      &lt;App&gt;&lt;/App&gt;</span><br><span class="line">  &lt;/Provider&gt;</span><br><span class="line">);</span><br><span class="line">ReactDOM.render(AppRoot, document.getElementById(&#x27;root&#x27;));</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line">// actionTypes.js</span><br><span class="line">export const INPUT_CHANGE = &#x27;input_change&#x27;;</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line">// actionCreators.js</span><br><span class="line">import &#123; INPUT_CHANGE &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line"></span><br><span class="line">export const inputChange = (data) =&gt; (&#123;</span><br><span class="line">    type: INPUT_CHANGE,</span><br><span class="line">    value: data</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line">// reducer.js</span><br><span class="line">import &#123; INPUT_CHANGE &#125; from &#x27;./actionTypes&#x27;;</span><br><span class="line">const defaultState = &#123;</span><br><span class="line">    inputValue: &#x27;&#x27;</span><br><span class="line">&#125;</span><br><span class="line">export default (state = defaultState, action) =&gt; &#123;</span><br><span class="line">    if (action.type === INPUT_CHANGE) &#123;</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.inputValue = action.value;</span><br><span class="line">        return newState;</span><br><span class="line">    &#125;</span><br><span class="line">    return state;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------------------------</span><br><span class="line">// App.js</span><br><span class="line">import React, &#123; Component &#125; from &#x27;react&#x27;;</span><br><span class="line">import &#123; inputChange &#125; from &#x27;./store/actionCreators&#x27;;</span><br><span class="line">import &#123; connect &#125; from &#x27;react-redux&#x27;;</span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input</span><br><span class="line">                    placeholder=&quot;请输入信息&quot;</span><br><span class="line">                    style=&#123;&#123;width: &quot;200px&quot;, height: &#x27;40px&#x27;, border: &#x27;1px solid red&#x27;&#125;&#125;</span><br><span class="line">                    value=&#123;this.props.inputValue&#125;</span><br><span class="line">                    onChange=&#123;this.props.handleChangeInput&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 将store中存储的数据映射到当前组件的props中</span><br><span class="line">const mapStateToProps = (state) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        inputValue: state.inputValue</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const mapDispatchToProps = (dispatch) =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        handleChangeInput (e) &#123;</span><br><span class="line">            dispatch(inputChange(e.target.value));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 利用connect将组件和store连接(连接规则mapStateToProps、mapDispatchToProps)</span><br><span class="line">export default connect(mapStateToProps, mapDispatchToProps)(App);</span><br></pre></td></tr></table></figure>
+
+<h2 id="react-推崇的是组件化开发"><a href="#react-推崇的是组件化开发" class="headerlink" title="react 推崇的是组件化开发"></a>react 推崇的是组件化开发</h2><p>下面就是一个有两个组件的 demo 演示基本骨架的搭建。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190725213849116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzU1MzY5NA==,size_16,color_FFFFFF,t_70" alt="image"></p>
+<h1 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h1><ul>
+<li>Redux: 就是用来管理项目中状态或者数据的</li>
+<li>Redux-Thunk: Redux 的中间件，用来将异步操作的代码拆分到 action 中去的</li>
+<li>Redux-Sagas: Redux 的中间件，用来将异步操作的代码拆分到单独的文件中管理</li>
+<li>React-Redux: 更能方便的管理和使用 Redux</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/16/React16%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" rel="prev" title="React16的新特性">
+      <i class="fa fa-chevron-left"></i> React16的新特性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/16/Angular%E2%80%94%E2%80%94%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" rel="next" title="Angular——前端知识点总结">
+      Angular——前端知识点总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81React-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">一、React 环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Redux"><span class="nav-number">2.</span> <span class="nav-text">二、Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">Redux 作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%AE%89%E8%A3%85-Redux"><span class="nav-number">2.2.</span> <span class="nav-text">在项目中安装 Redux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%A7%A3-Redux-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">理解 Redux 工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-Store-%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%EF%BC%9A%E6%B4%BE%E5%8F%91-action-%E6%94%B9%E5%8F%98-Store-%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">2.4.</span> <span class="nav-text">从 Store 中读取数据：派发 action 改变 Store 中的数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81Redux-Thunk"><span class="nav-number">3.</span> <span class="nav-text">三、Redux-Thunk</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-Thunk-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">Redux-Thunk 的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">安装以及配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Redux-Thunk-%E4%B9%8B%E5%90%8E%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">3.3.</span> <span class="nav-text">使用 Redux-Thunk 之后的数据流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA"><span class="nav-number">3.4.</span> <span class="nav-text">代码演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Redux-saga"><span class="nav-number">4.</span> <span class="nav-text">四、Redux-saga</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">4.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-1"><span class="nav-number">4.3.</span> <span class="nav-text">代码演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81React-Redux"><span class="nav-number">5.</span> <span class="nav-text">五、React-Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8-1"><span class="nav-number">5.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-1"><span class="nav-number">5.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-2"><span class="nav-number">5.3.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react-%E6%8E%A8%E5%B4%87%E7%9A%84%E6%98%AF%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91"><span class="nav-number">5.4.</span> <span class="nav-text">react 推崇的是组件化开发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">六、总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

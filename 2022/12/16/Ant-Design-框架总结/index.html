@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Ant Design 常用命令汇总一、安装1. 安装脚手架工具antd-init 是一个用于演示 antd 如何使用的脚手架工具，真实项目建议使用 dva-cli。 更多功能请参考 脚手架工具 和 开发工具文档。 除了官方提供的脚手架，您也可以使用社区提供的脚手架和范例：  antd-admin reactSPA react-redux-antd by Justin-lu react-redux-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ant Design 框架总结">
+<meta property="og:url" content="http://example.com/2022/12/16/Ant-Design-%E6%A1%86%E6%9E%B6%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="Ant Design 常用命令汇总一、安装1. 安装脚手架工具antd-init 是一个用于演示 antd 如何使用的脚手架工具，真实项目建议使用 dva-cli。 更多功能请参考 脚手架工具 和 开发工具文档。 除了官方提供的脚手架，您也可以使用社区提供的脚手架和范例：  antd-admin reactSPA react-redux-antd by Justin-lu react-redux-">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-16T06:45:30.000Z">
+<meta property="article:modified_time" content="2022-12-16T06:48:25.630Z">
+<meta property="article:author" content="Bruce Chen">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/12/16/Ant-Design-%E6%A1%86%E6%9E%B6%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Ant Design 框架总结 | Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/Ant-Design-%E6%A1%86%E6%9E%B6%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ant Design 框架总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 14:45:30 / 修改时间：14:48:25" itemprop="dateCreated datePublished" datetime="2022-12-16T14:45:30+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AFUI%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">前端UI框架</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Ant-Design-常用命令汇总"><a href="#Ant-Design-常用命令汇总" class="headerlink" title="Ant Design 常用命令汇总"></a>Ant Design 常用命令汇总</h1><h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><h3 id="1-安装脚手架工具"><a href="#1-安装脚手架工具" class="headerlink" title="1. 安装脚手架工具"></a>1. 安装脚手架工具</h3><p><a target="_blank" rel="noopener" href="https://github.com/ant-design/antd-init/">antd-init</a> 是一个用于演示 antd 如何使用的脚手架工具，真实项目建议使用 <a target="_blank" rel="noopener" href="https://github.com/dvajs/dva-cli">dva-cli</a>。</p>
+<p>更多功能请参考 <a target="_blank" rel="noopener" href="https://github.com/ant-design/antd-init/">脚手架工具</a> 和 <a target="_blank" rel="noopener" href="http://ant-tool.github.io/">开发工具文档</a>。</p>
+<p>除了官方提供的脚手架，您也可以使用社区提供的脚手架和范例：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/zuiidea/antd-admin">antd-admin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JasonBai007/reactSPA">reactSPA</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Justin-lu/react-redux-antd">react-redux-antd by Justin-lu</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/okoala/react-redux-antd">react-redux-antd by okoala</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/fireyy/react-antd-admin">react-antd-admin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yuzhouisme/react-antd-redux-router-starter">react-antd-redux-router-starter</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BetaRabbit/react-redux-antd-starter">react-redux-antd-starter</a></li>
+</ul>
+<p>更多脚手架可以查看 <a target="_blank" rel="noopener" href="http://scaffold.ant.design/">脚手架市场</a></p>
+<h3 id="创建一个项目"><a href="#创建一个项目" class="headerlink" title="创建一个项目"></a>创建一个项目</h3><p>使用命令行进行初始化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir antd-demo &amp;&amp; cd antd-demo</span><br><span class="line">$ antd-init</span><br><span class="line">antd-init 会自动安装 npm 依赖，若有问题则可自行安装。</span><br><span class="line"></span><br><span class="line">若安装缓慢报错，可尝试用 cnpm 或别的镜像源自行安装：rm -rf node_modules &amp;&amp; cnpm install。</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用组件"><a href="#3-使用组件" class="headerlink" title="3. 使用组件"></a>3. 使用组件</h3><p>脚手架会生成一个 Todo 应用实例（一个很有参考价值的 React 上手示例），先不管它，我们用来测试组件。</p>
+<p>直接用下面的代码替换 index.js 的内容，用 React 的方式直接使用 antd 组件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line">import ReactDOM from &#x27;react-dom&#x27;;</span><br><span class="line">import &#123; LocaleProvider, DatePicker, message &#125; from &#x27;antd&#x27;;</span><br><span class="line">// 由于 antd 组件的默认文案是英文，所以需要修改为中文</span><br><span class="line">import zhCN from &#x27;antd/lib/locale-provider/zh_CN&#x27;;</span><br><span class="line">import moment from &#x27;moment&#x27;;</span><br><span class="line">import &#x27;moment/locale/zh-cn&#x27;;</span><br><span class="line"></span><br><span class="line">moment.locale(&#x27;zh-cn&#x27;);</span><br><span class="line"></span><br><span class="line">class App extends React.Component &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.state = &#123;</span><br><span class="line">      date: &#x27;&#x27;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  handleChange(date) &#123;</span><br><span class="line">    message.info(&#x27;您选择的日期是: &#x27; + date.toString());</span><br><span class="line">    this.setState(&#123; date &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;LocaleProvider locale=&#123;zhCN&#125;&gt;</span><br><span class="line">        &lt;div style=&#123;&#123; width: 400, margin: &#x27;100px auto&#x27; &#125;&#125;&gt;</span><br><span class="line">          &lt;DatePicker onChange=&#123;value =&gt; this.handleChange(value)&#125; /&gt;</span><br><span class="line">          &lt;div style=&#123;&#123; marginTop: 20 &#125;&#125;&gt;当前日期：&#123;this.state.date.toString()&#125;&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      &lt;/LocaleProvider&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(&lt;App /&gt;, document.getElementById(&#x27;root&#x27;));</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-开发调试"><a href="#4-开发调试" class="headerlink" title="4. 开发调试"></a>4. 开发调试</h3><p>一键启动调试，访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/">http://127.0.0.1:8000</a> 查看效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm start</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-构建和部署"><a href="#5-构建和部署" class="headerlink" title="5. 构建和部署"></a>5. 构建和部署</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run build</span><br></pre></td></tr></table></figure>
+
+<p>入口文件会构建到 dist 目录中，你可以自由部署到不同环境中进行引用。</p>
+<h2 id="二、Ant-Design-Pro-安装"><a href="#二、Ant-Design-Pro-安装" class="headerlink" title="二、Ant Design Pro 安装"></a>二、Ant Design Pro 安装</h2><p>有两种方式进行安装：</p>
+<h3 id="1-直接-clone-git-仓库"><a href="#1-直接-clone-git-仓库" class="headerlink" title="1. 直接 clone git 仓库"></a>1. 直接 clone git 仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clone --depth=1 https://github.com/ant-design/ant-design-pro.git my-project</span><br><span class="line">$ cd my-project</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-使用命令行工具"><a href="#2-使用命令行工具" class="headerlink" title="2. 使用命令行工具"></a>2. 使用命令行工具</h3><p>你可以使用集成化的命令行工具 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design-pro-cli">ant-design-pro-cli</a>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install ant-design-pro-cli -g</span><br><span class="line">$ mkdir my-project &amp;&amp; cd my-project</span><br><span class="line">$ pro new  # 安装脚手架</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、目录结构"><a href="#三、目录结构" class="headerlink" title="三、目录结构"></a>三、目录结构</h2><p>我们已经为你生成了一个完整的开发框架，提供了涵盖中后台开发的各类功能和坑位，下面是整个项目的目录结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">├── mock                     # 本地模拟数据</span><br><span class="line">├── public</span><br><span class="line">│   └── favicon.ico          # Favicon</span><br><span class="line">├── src</span><br><span class="line">│   ├── assets               # 本地静态资源</span><br><span class="line">│   ├── common               # 应用公用配置，如导航信息</span><br><span class="line">│   ├── components           # 业务通用组件</span><br><span class="line">│   ├── e2e                  # 集成测试用例</span><br><span class="line">│   ├── layouts              # 通用布局</span><br><span class="line">│   ├── models               # dva model</span><br><span class="line">│   ├── routes               # 业务页面入口和常用模板</span><br><span class="line">│   ├── services             # 后台接口服务</span><br><span class="line">│   ├── utils                # 工具库</span><br><span class="line">│   ├── g2.js                # 可视化图形配置</span><br><span class="line">│   ├── theme.js             # 主题配置</span><br><span class="line">│   ├── index.ejs            # HTML 入口模板</span><br><span class="line">│   ├── index.js             # 应用入口</span><br><span class="line">│   ├── index.less           # 全局样式</span><br><span class="line">│   └── router.js            # 路由入口</span><br><span class="line">├── tests                    # 测试工具</span><br><span class="line">├── README.md</span><br><span class="line">└── package.json</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、本地开发"><a href="#四、本地开发" class="headerlink" title="四、本地开发"></a>四、本地开发</h2><p>安装依赖。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+
+<p>如果网络状况不佳，可以使用 cnpm 进行加速。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm start</span><br></pre></td></tr></table></figure>
+
+<p>启动完成后会自动打开浏览器访问 <a href="http://localhost:8000，你看到下面的页面就代表成功了。">http://localhost:8000，你看到下面的页面就代表成功了。</a></p>
+<h3 id="1-创建一个项目"><a href="#1-创建一个项目" class="headerlink" title="1. 创建一个项目"></a>1. 创建一个项目</h3><p>可以是已有项目，或者是使用 <a target="_blank" rel="noopener" href="https://github.com/dvajs/dva">dva</a> &#x2F; create-react(-native)-app 新创建的空项目，你也可以从 <a target="_blank" rel="noopener" href="https://github.com/ant-design/antd-mobile-samples/tree/master/rn-web">官方示例</a> 脚手架里拷贝并修改</p>
+<blockquote>
+<p>参考更多<a target="_blank" rel="noopener" href="https://github.com/ant-design/antd-mobile-samples">官方示例集</a> 或者你可以利用 React 生态圈中的 <a target="_blank" rel="noopener" href="https://github.com/enaqx/awesome-react#boilerplates">各种脚手架</a></p>
+</blockquote>
+<h3 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install antd-mobile --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h3><p>Web 使用方式<br>React Native 使用方式<br>入口页面 (html 或 模板) 相关设置：</p>
+<blockquote>
+<p>引入 <a target="_blank" rel="noopener" href="https://github.com/ftlabs/fastclick">FastClick</a> 并且设置 html meta</p>
+</blockquote>
+<p>引入 Promise 的 fallback 支持 (部分安卓手机不支持 Promise)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;!-- set `maximum-scale` for some compatibility issues --&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot; /&gt;</span><br><span class="line">  &lt;script src=&quot;https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (&#x27;addEventListener&#x27; in document) &#123;</span><br><span class="line">      document.addEventListener(&#x27;DOMContentLoaded&#x27;, function() &#123;</span><br><span class="line">        FastClick.attach(document.body);</span><br><span class="line">      &#125;, false);</span><br><span class="line">    &#125;</span><br><span class="line">    if(!window.Promise) &#123;</span><br><span class="line">      document.writeln(&#x27;&lt;script src=&quot;https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js&quot;&#x27;+&#x27;&gt;&#x27;+&#x27;&lt;&#x27;+&#x27;/&#x27;+&#x27;script&gt;&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>组件使用实例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Button &#125; from &#x27;antd-mobile&#x27;;</span><br><span class="line">ReactDOM.render(&lt;Button&gt;Start&lt;/Button&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+
+<p>引入样式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#x27;antd-mobile/dist/antd-mobile.css&#x27;;  // or &#x27;antd-mobile/dist/antd-mobile.less&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-按需加载"><a href="#4-按需加载" class="headerlink" title="4. 按需加载"></a>4. 按需加载</h3><p>注意：强烈推荐使用。</p>
+<p>下面两种方式都可以只加载用到的组件，选择其中一种方式即可。</p>
+<ul>
+<li>使用 <a target="_blank" rel="noopener" href="https://github.com/ant-design/babel-plugin-import">babel-plugin-import</a>（推荐）。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// .babelrc or babel-loader option</span><br><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: [</span><br><span class="line">    [&quot;import&quot;, &#123; libraryName: &quot;antd-mobile&quot;, style: &quot;css&quot; &#125;] // `style: true` 会加载 less 文件</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">然后只需从 antd-mobile 引入模块即可，无需单独引入样式。</span><br><span class="line"></span><br><span class="line">// babel-plugin-import 会帮助你加载 JS 和 CSS</span><br><span class="line">import &#123; DatePicker &#125; from &#x27;antd-mobile&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>手动引入</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import DatePicker from &#x27;antd-mobile/lib/date-picker&#x27;;  // 加载 JS</span><br><span class="line">import &#x27;antd-mobile/lib/date-picker/style/css&#x27;;        // 加载 CSS</span><br><span class="line">// import &#x27;antd-mobile/lib/date-picker/style&#x27;;         // 加载 LESS</span><br></pre></td></tr></table></figure>
+
+<p><strong>更多增强 (非必须)：</strong></p>
+<blockquote>
+<p>如何自定义主题？<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design-mobile/blob/master/docs/react/theme-config.zh-CN.md">见此文档</a>， 基于 antd-mobile 的自定义 UI 库：<a target="_blank" rel="noopener" href="https://github.com/ant-design/antd-mobile-samples/tree/master/web-custom-ui">web-custom-ui</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/ant-design/antd-mobile-samples/tree/master/web-custom-ui-pro">web-custom-ui-pro</a></p>
+</blockquote>
+<h1 id="antd-常用组件的问题及实现"><a href="#antd-常用组件的问题及实现" class="headerlink" title="antd 常用组件的问题及实现"></a>antd 常用组件的问题及实现</h1><p>在基于 react 的 web 后台开发中，常常会使用到 antd 组件，可以使用现有所提供的，也可以自己再次封装使用。基于平时开发中遇到较多关于 antd 组件问题的情况，记录一下平时常用的代码实现。</p>
+<h2 id="1-Radio"><a href="#1-Radio" class="headerlink" title="1.Radio"></a>1.Radio</h2><p>单选框</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;FormItem &#123;...formItemLayout&#125; label=&quot;是否启用&quot; required&gt;</span><br><span class="line">  &#123;getFieldDecorator(&#x27;enabled&#x27;,&#123;</span><br><span class="line">    initialValue: data.enabled,</span><br><span class="line">    rules: [&#123; required: true, message: &#x27;请选择是否启用&#x27; &#125;],</span><br><span class="line">  &#125;)(</span><br><span class="line">    &lt;RadioGroup&gt;</span><br><span class="line">      &lt;Radio value=&#123;true&#125;&gt;启用&lt;/Radio&gt;</span><br><span class="line">      &lt;Radio value=&#123;false&#125;&gt;禁用&lt;/Radio&gt;</span><br><span class="line">    &lt;/RadioGroup&gt;</span><br><span class="line">  )&#125;</span><br><span class="line">&lt;/FormItem&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Select"><a href="#2-Select" class="headerlink" title="2.Select"></a>2.Select</h2><p>下拉选择，数据源根据接口获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;FormItem &#123;...formItemLayout&#125; label=&#x27;xxx&#x27;&gt;</span><br><span class="line">   &#123;getFieldDecorator(&#x27;feedHabit&#x27;, &#123;</span><br><span class="line">     initialValue: (detail &amp;&amp; detail.feedHabit) || undefined,</span><br><span class="line">     rules: [</span><br><span class="line">       &#123; required: false, message: &#x27;xxx&#x27; &#125;</span><br><span class="line">     ]</span><br><span class="line">     &#125;)(</span><br><span class="line">       &lt;Select</span><br><span class="line">         showSearch</span><br><span class="line">         allowClear</span><br><span class="line">         placeholder=&#x27;xxx&#x27;</span><br><span class="line">         filterOption=&#123;(inputValue, option) =&gt; option.props.children.indexOf(inputValue) &gt; -1&#125;</span><br><span class="line">         notFoundContent=&#123;</span><br><span class="line">           &lt;Empty</span><br><span class="line">             image=&#123;Empty.PRESENTED_IMAGE_SIMPLE&#125;</span><br><span class="line">             style=&#123;&#123; margin: 8 &#125;&#125;</span><br><span class="line">           &gt;</span><br><span class="line">             &lt;Button</span><br><span class="line">               type=&#x27;primary&#x27;</span><br><span class="line">               onClick=&#123;() =&gt; dispatch(&#123; type: `$&#123;namespace&#125;/getFeedHabitList` &#125;)&#125;</span><br><span class="line">             &gt;刷新</span><br><span class="line">             &lt;/Button&gt;</span><br><span class="line">           &lt;/Empty&gt;</span><br><span class="line">         &#125;</span><br><span class="line">       &gt;</span><br><span class="line">         &#123;</span><br><span class="line">           feedHabitList &amp;&amp; feedHabitList.map((item, index) =&gt; (</span><br><span class="line">             &lt;Select.Option key=&#123;item.code&#125; value=&#123;item.code&#125;&gt;&#123;item.name&#125;&lt;/Select.Option&gt;</span><br><span class="line">           ))</span><br><span class="line">         &#125;</span><br><span class="line">       &lt;/Select&gt;</span><br><span class="line">     )&#125;</span><br><span class="line"> &lt;/FormItem&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Switch"><a href="#3-Switch" class="headerlink" title="3.Switch"></a>3.Switch</h2><p>开发的切换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form.Item &#123;...formItemLayout&#125; label=&#x27;xxx&#x27;&gt;</span><br><span class="line">  &#123;getFieldDecorator(&#x27;enabledAutoFeed&#x27;, &#123;</span><br><span class="line">    initialValue: (detail &amp;&amp; detail.enabledAutoFeed) || undefined,</span><br><span class="line">    valuePropName: &#x27;checked&#x27;, // 记得加上这个属性</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;required: false, message: &#x27;xxx&#x27;&#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;)(</span><br><span class="line">    &lt;Switch</span><br><span class="line">      checkedChildren=&#x27;是&#x27;</span><br><span class="line">      unCheckedChildren=&#x27;否&#x27;</span><br><span class="line">      onChange=&#123;(val, event) =&gt; &#123;</span><br><span class="line">        event.preventDefault();</span><br><span class="line">        event.stopPropagation();</span><br><span class="line">        this.setState(&#123; enabledAutoFeed: val &#125;)		// 将当前改变的值存至state中，提交时直接用state中存储的值就好了</span><br><span class="line">      &#125;&#125;</span><br><span class="line">    /&gt;</span><br><span class="line">  )&#125;</span><br><span class="line">&lt;/Form.Item&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Cascader"><a href="#4-Cascader" class="headerlink" title="4.Cascader"></a>4.Cascader</h2><h3 id="情况一：只有两个层级数"><a href="#情况一：只有两个层级数" class="headerlink" title="情况一：只有两个层级数"></a>情况一：只有两个层级数</h3><p>此情况组件用例是在一个新增&#x2F;编辑的弹出框中使用，新增时不带数据，可选择；编辑时带出默认数据，也可选择；层级是 2 级。<br>开发思路：</p>
+<ul>
+<li>（1）新增时，不带默认数据出来，但是已经请求到第一层级的数据，点击第一层级中的某一项 item 时，加载请求第二层级的数据给到 item 的 children 中，这样就可以显示第二层级的数据了；</li>
+<li>（2）编辑时，带出默认数据，此时 defaultMaterialIds 应该是有两个 id 值的，如：[parentId, sonId]，但是在点编辑弹出弹框而还没有点击级联组件时，只显示了第一层级的数据，因为此时页面起始已经有第一层级的数据源，而不知道第二层级的数据源，只单纯的有第二层级项的 id（也就是 sonId），是不知道它的 label（或 name）的，思路是：在点击编辑的时候，拿到它的第一层级 id（也就是 parentId），请求第二层级的数据就好了（其实就是点击编辑时再次调用 loadData 方法~~~）</li>
+</ul>
+<p>附上实现逻辑代码：</p>
+<p>1.弹框中（editModal.jsx）：</p>
+<p>render 中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;Form.Item &#123;...formItemLayout&#125; label=&#x27;物料名称&#x27;&gt;</span><br><span class="line">    &#123;getFieldDecorator(`materialId`, &#123;</span><br><span class="line">      // defaultMaterialIds 是默认的数据（一个数组形式），如：[parentId, sonId]</span><br><span class="line">      initialValue: defaultMaterialIds || []</span><br><span class="line">      &#125;)(</span><br><span class="line">        &lt;Cascader</span><br><span class="line">          fieldNames=&#123;fieldNames&#125;</span><br><span class="line">          options=&#123;materialLabel&#125;</span><br><span class="line">          loadData=&#123;this.loadData&#125;</span><br><span class="line">          onChange=&#123;this.onChange&#125;</span><br><span class="line">          placeholder=&#x27;请选择物料名称&#x27;</span><br><span class="line">          changeOnSelect</span><br><span class="line">        /&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">  &lt;/Form.Item&gt;</span><br></pre></td></tr></table></figure>
+
+<p>相应方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 级联-选择后的回调</span><br><span class="line">  onChange = (value, selectedOptions) =&gt; &#123;</span><br><span class="line">    const &#123; dispatch, namespace &#125; = this.props;</span><br><span class="line">    const name = [];</span><br><span class="line">    const id = [];</span><br><span class="line">    const code = [];</span><br><span class="line">    // console.log(value, selectedOptions);</span><br><span class="line"></span><br><span class="line">    selectedOptions.map((v) =&gt; &#123;</span><br><span class="line">      name.push(v.name);</span><br><span class="line">      id.push(v.id);</span><br><span class="line">      code.push(v.code)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      currentId: value</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  // 动态加载选项</span><br><span class="line">  loadData = (selectedOptions) =&gt; &#123;</span><br><span class="line">    const &#123; dispatch, namespace, materialLabel, form: &#123; setFieldsValue &#125;, &#125; = this.props;</span><br><span class="line">    const targetOption = selectedOptions[selectedOptions.length - 1];</span><br><span class="line">    targetOption.loading = true;</span><br><span class="line">    // 异步加载数据，targetOption 是选中的那一项数据</span><br><span class="line">    dispatch(&#123;</span><br><span class="line">      type:`$&#123;namespace&#125;/getMaterialList`,</span><br><span class="line">      payload:&#123; targetOption &#125;,</span><br><span class="line">      callback:(res)=&gt;&#123;</span><br><span class="line">        targetOption.loading = false;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.view.jsx 中（editModal 在 view 中被引用）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// 点击编辑时，传第一级id，请求第二级数据显示</span><br><span class="line">loadData = (parentId) =&gt; &#123;</span><br><span class="line">const &#123; dispatch, pigfarmConfListIndexMod: &#123; materialLabel &#125; &#125;= this.props;</span><br><span class="line">// materialLabel为第一层级数据源</span><br><span class="line">const targetOption = materialLabel.find(item =&gt; item.id === parentId)</span><br><span class="line"></span><br><span class="line">// 异步加载数据</span><br><span class="line">dispatch(&#123;</span><br><span class="line">  type:`$&#123;namespace&#125;/getMaterialList`,</span><br><span class="line">  payload:&#123; targetOption &#125;,</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 点击编辑时调用的方法</span><br><span class="line">showModal = (&#123;data = null, type = &#x27;add&#x27; &#125;) =&gt; &#123;</span><br><span class="line">    const &#123; dispatch &#125; = this.props;</span><br><span class="line">    if(type === &#x27;add&#x27;) &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: `$&#123;namespace&#125;/updateStore`,</span><br><span class="line">        payload: &#123; showModal: true, detail: data, modalType: type,  &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">      // 编辑时拿到parentId请求第二层级数据</span><br><span class="line">      this.loadData(data.parentId);</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: `$&#123;namespace&#125;/updateStore`,</span><br><span class="line">        payload: &#123; showModal: true, detail: data, defaultMaterialIds: [data.parentId, data.materialId], modalType: type,  &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.mod.js 中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">// 获取物料列表---这是第二层级</span><br><span class="line">*getMaterialList(&#123; payload, callback &#125;, &#123; put, call, select &#125;) &#123;</span><br><span class="line">  // ...</span><br><span class="line">  // targetOption 是点击的第一层级的项</span><br><span class="line">  let targetOption = payload.targetOption;</span><br><span class="line">  const children = [];</span><br><span class="line">  // 第一层级数据源materialLabel是一个对象数组，数组中的每一项都是一个对象，带有id,name等属性</span><br><span class="line">  const _materialLabel = [...materialLabel]</span><br><span class="line">  // payload.targetOption.id是点击的第一层级的项，用来获取第二层级的数据源</span><br><span class="line">  const result = yield call(urlMaterialList, &#123;id: payload.targetOption.id&#125;);</span><br><span class="line">  // idx是在第一层级中点击的项的位置</span><br><span class="line">  const idx = _materialLabel.findIndex(item=&gt;item.id===targetOption.id)</span><br><span class="line">  // 深拷贝第一层级中选中的项，后面会加上一个children属性，而children就是第二层级的数据源</span><br><span class="line">  // 把这个第二层级数据源 替换掉 第一层级中选中的那个项</span><br><span class="line">  // 然后赋值给整个第一层级的数据源，因为第一层级选中的那个项已经加上了children属性，可以显示第二层级的数据了</span><br><span class="line"></span><br><span class="line">  const materialItem = cloneDeep(targetOption);</span><br><span class="line">  // ...</span><br><span class="line">    if(result.data.length &gt; 0) &#123;</span><br><span class="line">      result.data.map(item =&gt; &#123;</span><br><span class="line">        // 因为第2级就是末级了，所以isLeaf为true</span><br><span class="line">        let obj = &#123; ...item, isLeaf: true &#125;;</span><br><span class="line">        children.push(obj);</span><br><span class="line">      &#125;)</span><br><span class="line">      // 当前项加上children ，loading 属性</span><br><span class="line">      materialItem.children = children;</span><br><span class="line">      materialItem.loading = false;</span><br><span class="line">      // 然后替换第一层级中选中的那一项</span><br><span class="line">      _materialLabel.splice(idx,1,materialItem)</span><br><span class="line">      yield put(&#123;</span><br><span class="line">        type: &#x27;updateStore&#x27;,</span><br><span class="line">        payload: &#123;</span><br><span class="line">          materialList: result.data,</span><br><span class="line">          materialLabel:_materialLabel</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      callback &amp;&amp; callback();</span><br><span class="line">    &#125;</span><br><span class="line">  // ...</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="情况二：多个层级（以下例子为-4-级：地址的省-市-区-镇）"><a href="#情况二：多个层级（以下例子为-4-级：地址的省-市-区-镇）" class="headerlink" title="情况二：多个层级（以下例子为 4 级：地址的省-市-区-镇）"></a>情况二：多个层级（以下例子为 4 级：地址的省-市-区-镇）</h3><p>此情况是用于获取一个中国地区各省市级地址信息的获取及展示&#x2F;显示；<br>在平时开发项目中，一般会封装好一个组件，然后多个地方使用，提高开发效率。</p>
+<p><strong>开发思路</strong>：一开始获得第一层级的地址 a，将 a 的 id 传至后端请求 a 的第二层级 b，b 的 id 又请求第三层级 c…以此类推，将请求到的数据 b 每一项加上 isLeaf 属性（末级为 true，非末级为 false），然后将这个新的 b 赋值给 a 的 children，就可以显示第二层级 b 的数据了，依此类推，第三第四级也是…</p>
+<p>以下是有关子组件及父组件的逻辑及实现：（主要看注释吧~）</p>
+<h4 id="1-子组件中（封装-export-名为-CascaderAddress-）："><a href="#1-子组件中（封装-export-名为-CascaderAddress-）：" class="headerlink" title="1.子组件中（封装 export 名为 CascaderAddress ）："></a>1.子组件中（封装 export 名为 CascaderAddress ）：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;Cascader</span><br><span class="line">	// 在实际编辑器中，应该不能这样注释的，这里是为理解外加的注释</span><br><span class="line">   &#123;...options&#125; 	// 可选项配置，如placeHolder,changeOnSelect等，当然也可直接分开写</span><br><span class="line">  value=&#123;defaultAddress&#125;	// 指定的或默认的数据</span><br><span class="line">  options=&#123;addressOptions&#125;	// 级联地址的数据源</span><br><span class="line">  loadData=&#123;this.loadAddressData&#125;	// 动态加载数据（如点击第一层，加载第二层...）</span><br><span class="line">  onChange=&#123;this.onChangeAddress&#125;	// 点击/选择完成后的回调</span><br><span class="line">  fieldNames=&#123;fieldNames&#125;	// 自定义数据源options的label,value,children</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">// 地址选择</span><br><span class="line">  onChangeAddress = (value, selectedOptions) =&gt; &#123;</span><br><span class="line">    const &#123; changeCallback &#125; = this.props;</span><br><span class="line">    const dataString = [];</span><br><span class="line">    const ids = [];</span><br><span class="line"></span><br><span class="line">    selectedOptions.map((v) =&gt; &#123;</span><br><span class="line">      dataString.push(v.areaName);</span><br><span class="line">      ids.push(v.id);</span><br><span class="line">    &#125;);</span><br><span class="line">	// 选择完成后的回调，将选择地址的id,name,以及其他信息存起来备用</span><br><span class="line">    changeCallback(&#123;data: selectedOptions, ids, dataString&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 获取地址</span><br><span class="line">  loadAddressData = selectedOptions =&gt; &#123;</span><br><span class="line">    const &#123; loadData, addressOptions &#125; = this.props;</span><br><span class="line">    const targetOption = selectedOptions[selectedOptions.length - 1];</span><br><span class="line">    targetOption.loading = true;</span><br><span class="line">	// 将当前选择项的id请求后端拿到下一层级数据（加上isLeaf属性），赋给当前选择项的children，就可以显示出下一层级的数据了</span><br><span class="line">    this.getAddressOptions(targetOption.id, (list) =&gt; &#123;</span><br><span class="line">      targetOption.loading = false;</span><br><span class="line">      targetOption.children = list;</span><br><span class="line"></span><br><span class="line">      loadData(addressOptions);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">// 请求地址数据</span><br><span class="line">  getAddressOptions = (parentId, callback) =&gt; &#123;</span><br><span class="line">    const &#123; max &#125; = this.state;</span><br><span class="line">    const &#123; request, url &#125; = this.props;</span><br><span class="line">    const params = &#123;</span><br><span class="line">      &#x27;id&#x27;: parentId || &#x27;0&#x27;,	// &#x27;0&#x27;表示请求第一层级，看后端需要传什么</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    request(&#123;</span><br><span class="line">      // 拿点击的那一项的id请求下一层级的数据（也就是children）</span><br><span class="line">      url: `$&#123;url&#125;/$&#123;params.id&#125;`,</span><br><span class="line">      method: &#x27;get&#x27;,</span><br><span class="line">      data: params,</span><br><span class="line">    &#125;)</span><br><span class="line">      .then((res) =&gt; &#123;</span><br><span class="line">        if(res.code === &#x27;000000&#x27;) &#123;</span><br><span class="line">          let list = []</span><br><span class="line">          if(res.data &amp;&amp; res.data.length) &#123;</span><br><span class="line">          // 判断是否为末级，为每一项加上isLeaf属性</span><br><span class="line">            list = res.data.map(item =&gt; (&#123; ...item, isLeaf: item.areaLevel &gt; max &#125;));</span><br><span class="line">          &#125;</span><br><span class="line">		// 回调显示当前list数据</span><br><span class="line">          callback(list);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          message.error(res.msg);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-父组件中引用："><a href="#2-父组件中引用：" class="headerlink" title="2.父组件中引用："></a>2.父组件中引用：</h4><p>（1）view.jsx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 注意farmAddress为当前级联控件的唯一标识</span><br><span class="line">&lt;Form.Item &#123;...formItemLayout&#125; label=&#x27;地址&#x27;&gt;</span><br><span class="line">   &#123;getFieldDecorator(&#x27;farmAddress&#x27;, &#123;</span><br><span class="line">     initialValue: defaultAddressIds || undefined,</span><br><span class="line">     rules: [</span><br><span class="line">       &#123; required: true, message: &#x27;请输入地址&#x27; &#125;,</span><br><span class="line">     ],</span><br><span class="line">   &#125;)(</span><br><span class="line">     &lt;CascaderAddress &#123;...cascaderProps&#125;/&gt;</span><br><span class="line">   )&#125;</span><br><span class="line">&lt;/Form.Item&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// 级联数据值名称配置</span><br><span class="line">  const cascaderOptionLabel = &#123;</span><br><span class="line">    label: &#x27;areaName&#x27;,	// 显示的是label，自定义为areaName</span><br><span class="line">    value: &#x27;id&#x27;, // 传值的是value，自定义为id</span><br><span class="line">    children: &#x27;children&#x27;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 级联地址选择配置项目</span><br><span class="line">  const cascaderProps = &#123;</span><br><span class="line">    request,</span><br><span class="line">    url: `xxx`,</span><br><span class="line">    addressOptions,	// 数据源</span><br><span class="line">    defaultAddress: defaultAddressIds,	// 默认数据，</span><br><span class="line">    fieldNames: cascaderOptionLabel,	// 自定义配置项</span><br><span class="line">    loadData: (data) =&gt; &#123;	// 动态加载数据</span><br><span class="line">      dispatch(&#123; type: `$&#123;namespace&#125;/updateStore`, payload: &#123; addressOptions: [...data] &#125; &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    // 选择之后的回调，farmAddress为表单控件中存储的数据，可直接/处理之后提交~</span><br><span class="line">    changeCallback: (&#123;data, dataString, ids&#125;) =&gt; &#123;</span><br><span class="line">      setFieldsValue(&#123; farmAddress: ids &#125;); // 设置form表单数据</span><br><span class="line">      dispatch(&#123; type: `$&#123;namespace&#125;/updateStore`, payload: &#123; defaultAddressIds: ids &#125; &#125;); // 存储至mod备用</span><br><span class="line">    &#125;,</span><br><span class="line">    options: &#123;</span><br><span class="line">      placeholder: &#x27;请选择地址&#x27;,</span><br><span class="line">      changeOnSelect: true,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）mod.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">// 获取地址列表</span><br><span class="line">*getAddressOptions(&#123; payload = &#123; id: &#x27;&#x27; &#125;, callback &#125;, &#123; put, call, select &#125;) &#123;</span><br><span class="line">	...</span><br><span class="line">  // ...假设调用接口请求到数据存至res.data</span><br><span class="line">    let addressOptions = []</span><br><span class="line">    if(res.data &amp;&amp; res.data.length) &#123;</span><br><span class="line">      addressOptions = res.data.map(item =&gt; (&#123; id: item.id, value: item.id, areaName: item.areaName, isLeaf: false &#125;))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    yield put(&#123;</span><br><span class="line">      type: &#x27;updateStore&#x27;,</span><br><span class="line">      payload: &#123;</span><br><span class="line">        addressOptions,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> // 根据ID获取该地址信息包含各级数据</span><br><span class="line">* getAreaInfo(&#123; payload, callback &#125;, &#123; call, put, select &#125;) &#123;</span><br><span class="line"> ...</span><br><span class="line"> // ...</span><br><span class="line">    let addressOptions = [];</span><br><span class="line">    if(result.data &amp;&amp; result.data.length) &#123;</span><br><span class="line">      addressOptions = result.data[0].list;</span><br><span class="line"></span><br><span class="line">      addressOptions.map( v =&gt; &#123; // 省</span><br><span class="line">        v.isLeaf = false;</span><br><span class="line">        if(v.id === result.data[0].selected.id) &#123;</span><br><span class="line">          v.children = result.data[1].list;</span><br><span class="line"></span><br><span class="line">          v.children.map( v1 =&gt; &#123; // 市</span><br><span class="line">            v1.isLeaf = false;</span><br><span class="line">            if(v1.id === result.data[1].selected.id) &#123;</span><br><span class="line">              v1.children = result.data[2].list;</span><br><span class="line"></span><br><span class="line">              v1.children.map( v2 =&gt; &#123; // 区</span><br><span class="line">                v2.isLeaf = false;</span><br><span class="line">                if(v2.id === result.data[2].selected.id) &#123;</span><br><span class="line">                  v2.children = result.data[3].list;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    yield put(&#123;</span><br><span class="line">      type: &#x27;updateStore&#x27;,</span><br><span class="line">      payload: &#123;</span><br><span class="line">        addressOptions,</span><br><span class="line">        detailAddress: result.data,</span><br><span class="line">        // 后端返回的默认地址id，组成一个数组展示</span><br><span class="line">        defaultAddressIds: [detail.addressProvince, detail.addressCity, detail.addressZone, detail.addressTown]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    callback &amp;&amp; callback();</span><br><span class="line"> // ...</span><br><span class="line">&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实两个情况很类似的，都是将取到的下一级的数据，每一项都加上 isLeaf 属性，然后将这个新的数据加上 children，loading 属性，替换上一级中被选择的那一项，就可以显示下一级的数据了~~~</p>
+<h3 id="5-Table"><a href="#5-Table" class="headerlink" title="5.Table"></a>5.Table</h3><p>某些列表，后端不做分页，需要前端分页时，table 的一般配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;Table</span><br><span class="line">	bordered	// 给整个table加上边框</span><br><span class="line">	dataSource=&#123;tableList&#125;</span><br><span class="line">	columns=&#123;tableColumns&#125;</span><br><span class="line">	rowkey=&#123;record =&gt; record.id&#125;</span><br><span class="line">	pagination=&#123;&#123;</span><br><span class="line">		showQuickJumper: true,</span><br><span class="line">		showSizeChanger: true,</span><br><span class="line">		showTotal: total =&gt; `共$&#123;total&#125;条`,</span><br><span class="line">		pageSizeOptions:[&#x27;10&#x27;,&#x27;20&#x27;,&#x27;50&#x27;,&#x27;100&#x27;],</span><br><span class="line">		// pageSize: 5, // 固定5条一页，有pageSize就不用pageSizeOptions了</span><br><span class="line">	&#125;&#125;</span><br><span class="line"> /&gt;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/16/Taro-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" rel="prev" title="Taro 使用指南">
+      <i class="fa fa-chevron-left"></i> Taro 使用指南
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/16/VUE-iview-%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE-%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/" rel="next" title="VUE iview 搭建项目 - 使用总结">
+      VUE iview 搭建项目 - 使用总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ant-Design-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB"><span class="nav-number">1.</span> <span class="nav-text">Ant Design 常用命令汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">一、安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 安装脚手架工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建一个项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8%E7%BB%84%E4%BB%B6"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 使用组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 开发调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%9E%84%E5%BB%BA%E5%92%8C%E9%83%A8%E7%BD%B2"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 构建和部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Ant-Design-Pro-%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">二、Ant Design Pro 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%9B%B4%E6%8E%A5-clone-git-%E4%BB%93%E5%BA%93"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 直接 clone git 仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 使用命令行工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">三、目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91"><span class="nav-number">1.4.</span> <span class="nav-text">四、本地开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 创建一个项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 按需加载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#antd-%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">antd 常用组件的问题及实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Radio"><span class="nav-number">2.1.</span> <span class="nav-text">1.Radio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Select"><span class="nav-number">2.2.</span> <span class="nav-text">2.Select</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Switch"><span class="nav-number">2.3.</span> <span class="nav-text">3.Switch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Cascader"><span class="nav-number">2.4.</span> <span class="nav-text">4.Cascader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5%E4%B8%80%EF%BC%9A%E5%8F%AA%E6%9C%89%E4%B8%A4%E4%B8%AA%E5%B1%82%E7%BA%A7%E6%95%B0"><span class="nav-number">2.4.1.</span> <span class="nav-text">情况一：只有两个层级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5%E4%BA%8C%EF%BC%9A%E5%A4%9A%E4%B8%AA%E5%B1%82%E7%BA%A7%EF%BC%88%E4%BB%A5%E4%B8%8B%E4%BE%8B%E5%AD%90%E4%B8%BA-4-%E7%BA%A7%EF%BC%9A%E5%9C%B0%E5%9D%80%E7%9A%84%E7%9C%81-%E5%B8%82-%E5%8C%BA-%E9%95%87%EF%BC%89"><span class="nav-number">2.4.2.</span> <span class="nav-text">情况二：多个层级（以下例子为 4 级：地址的省-市-区-镇）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B8%AD%EF%BC%88%E5%B0%81%E8%A3%85-export-%E5%90%8D%E4%B8%BA-CascaderAddress-%EF%BC%89%EF%BC%9A"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">1.子组件中（封装 export 名为 CascaderAddress ）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%88%B6%E7%BB%84%E4%BB%B6%E4%B8%AD%E5%BC%95%E7%94%A8%EF%BC%9A"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">2.父组件中引用：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Table"><span class="nav-number">2.4.3.</span> <span class="nav-text">5.Table</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

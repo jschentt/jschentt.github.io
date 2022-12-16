@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="It&#39;s better to burn out than to fade away.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bruce Chen&#39;s Blog">
+<meta property="og:url" content="http://example.com/page/6/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="It&#39;s better to burn out than to fade away.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Bruce Chen">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/page/6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">数据结构有哪些，常用数据结构详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 11:12:58 / 修改时间：11:19:57" itemprop="dateCreated datePublished" datetime="2022-12-16T11:12:58+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">前端算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>数据结构大致包含以下几种存储结构：</p>
+<ul>
+<li>线性表，还可细分为顺序表、链表、栈和队列；</li>
+<li>树结构，包括普通树，二叉树，线索二叉树等；</li>
+<li>图存储结构；</li>
+</ul>
+<p>下面对各种数据结构做详细讲解。</p>
+<h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><p>线性表结构存储的数据往往是可以依次排列的，就像小朋友手拉手，每位学生的前面和后面都仅有一个小朋友和他拉手，具备这种“一对一”关系的数据就可以使用线性表来存储。</p>
+<p><img src="http://data.biancheng.net/uploads/allimg/181118/1-1Q11QH151411.gif" alt="image"></p>
+<p>例如，存储类似 {1,3,5,7,9} 这样的数据时，各元素依次排列，每个元素的前面和后边有且仅有一个元素与之相邻（除首元素和尾元素），因此可以使用线性表存储。</p>
+<p>线性表并不是一种具体的存储结构，它包含顺序存储结构和链式存储结构，是顺序表和链表的统称。</p>
+<h3 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h3><p>顺序表，简单地理解，就是常用的数组，只是换了个名字而已，例如使用顺序表存储 {1,3,5,7,9}，如图 1 所示：</p>
+<p><img src="http://data.biancheng.net/uploads/allimg/181118/1-1Q11QI9559D.gif" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于顺序表结构的底层实现借助的就是数组，因此对于初学者来说，可以把顺序表完全等价为数组，但实则不是这样。数据结构是研究数据存储方式的一门学科，它囊括的都是各种存储结构，而数组只是各种编程语言中的基本数据类型，并不属于数据结构的范畴。</span><br></pre></td></tr></table></figure>
+
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>我们知道，使用顺序表（底层实现靠数组）时，需要提前申请一定大小的存储空间，这块存储空间的物理地址是连续的，如图 1 所示。</p>
+<p>链表则完全不同，使用链表存储数据时，是随用随申请，因此数据的存储位置是相互分离的，换句话说，数据的存储位置是随机的。</p>
+<p>为了给各个数据块建立“依次排列”的关系，链表给各数据块增设一个指针，每个数据块的指针都指向下一个数据块（最后一个数据块的指针指向 NULL），就如同一个个小学生都伸手去拉住下一个小学生的手，这样，看似毫无关系的数据块就建立了“依次排列”的关系，也就形成了链表，如图 2 所示：</p>
+<p><img src="http://data.biancheng.net/uploads/allimg/181118/1-1Q11QH334H1.gif" alt="image"></p>
+<h3 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h3><p>栈和队列隶属于线性表，是特殊的线性表，因为它们对线性表中元素的进出做了明确的要求。</p>
+<p>栈中的元素只能从线性表的一端进出（另一端封死），且要遵循“先入后出”的原则，即先进栈的元素后出栈。</p>
+<p><img src="http://data.biancheng.net/uploads/allimg/181118/1-1Q11QH634D9.gif" alt="image"></p>
+<p>栈结构如图 3 所示，像一个木桶，栈中含有 3 个元素，分别是 A、B 和 C，从在栈中的状态可以看出 A 最先进的栈，然后 B 进栈，最后 C 进栈。根据“先进后出”的原则，3 个元素出栈的顺序应该是：C 最先出栈，然后 B 出栈，最后才是 A 出栈。</p>
+<p>队列中的元素只能从线性表的一端进，从另一端出，且要遵循“先入先出”的特点，即先进队列的元素也要先出队列。</p>
+<p><img src="http://data.biancheng.net/uploads/allimg/181118/1-1Q11QHIJO.gif" alt="image"></p>
+<p>队列结构如图 4 所示，队列中有 3 个元素，分别是 A、B 和 C，从在队列中的状态可以看出是 A 先进队列，然后 B 进，最后 C 进。根据“先进先出”的原则，3 个元素出队列的顺序应该是 A 最先出队列，然后 B 出，最后 C 出。</p>
+<h2 id="树存储结构"><a href="#树存储结构" class="headerlink" title="树存储结构"></a>树存储结构</h2><p>树存储结构适合存储具有“一对多”关系的数据。</p>
+<p><img src="http://data.biancheng.net/uploads/allimg/181118/1-1Q11QJJ0142.gif" alt="image"></p>
+<p>如图 5 所示，其中张平只有一个父亲，但他却有两（多）个孩子，这就是“一对多”的关系，满足这种关系的数据可以使用树存储结构。</p>
+<h2 id="图存储结构"><a href="#图存储结构" class="headerlink" title="图存储结构"></a>图存储结构</h2><p>图存储结构适合存储具有“多对多”关系的数据。</p>
+<p><img src="http://data.biancheng.net/uploads/allimg/181118/1-1Q11QIFS44.gif" alt="image"></p>
+<p>如图 6 所示，从 V1 可以到达 V2、V3、V4，同样，从 V2、V3、V4 也可以到达 V1，这就是“多对多”的关系，满足这种关系的数据可以使用图存储结构。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/JavaScript%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/16/JavaScript%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">JavaScript——链表相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 11:12:49 / 修改时间：11:19:32" itemprop="dateCreated datePublished" datetime="2022-12-16T11:12:49+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">前端算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>输入一个链表，反转链表后，输出新链表的表头。</p>
+<p>例如：</p>
+<p>输入：a-&gt;b-&gt;c-&gt;d-&gt;e</p>
+<p>输出：a&lt;-b&lt;-c&lt;-d&lt;-e</p>
+<p>反转链表示意图如下，链表的最后一个元素 next 指向 null。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190408161404713.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI3OTU0NjQz,size_16,color_FFFFFF,t_70" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/*function ListNode(x)&#123;</span><br><span class="line">    this.val = x;</span><br><span class="line">    this.next = null;</span><br><span class="line">&#125;*/</span><br><span class="line"></span><br><span class="line">function isEmptyObject(obj) &#123;// 判断输入参数链表是否为空</span><br><span class="line">  for (var name in obj) &#123;</span><br><span class="line">      return false;</span><br><span class="line">  &#125;</span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ReverseList(pHead) &#123;</span><br><span class="line">    if (isEmptyObject(pHead)) &#123;// 调用链表是否为空函数</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    var pre = null;//链表的最后一个元素</span><br><span class="line">    var next = null;//初始化next为null，下面再赋值</span><br><span class="line">    while (pHead != null) &#123;//pHead移动，直至到链表最后一个元素，指向null，结束循环</span><br><span class="line">        next = pHead.next;//pHead.next值先赋给next，以免覆盖，next移动</span><br><span class="line">        pHead.next = pre;//改变pHead指向，给pHead.next赋值，指向null</span><br><span class="line">        pre = pHead;//pre移动</span><br><span class="line">        pHead = next;//pHead移动</span><br><span class="line">    &#125;</span><br><span class="line">    return pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单链表是否有环"><a href="#单链表是否有环" class="headerlink" title="单链表是否有环"></a>单链表是否有环</h2><ol>
+<li>创建哈希表,不过会占⽤较⼤的空间,不是最佳⽅法.( 时间复杂度 O(n) )</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function judge(list)&#123;</span><br><span class="line">  var set =new Set();</span><br><span class="line">  while(list)&#123;</span><br><span class="line">    if(set.has(list))&#123;</span><br><span class="line">      return true</span><br><span class="line">    &#125;</span><br><span class="line">    set.add(list)</span><br><span class="line">    list=list.next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>给节点添加 visited 访问标记 (时间复杂度 O(n)), 不需要额外的空间</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function LinkedList()&#123;</span><br><span class="line">  var Node=function()&#123;</span><br><span class="line">    this.element=element;</span><br><span class="line">    this.next=null;</span><br><span class="line">    this.visited=0; //访问标记</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function judge(list)&#123;</span><br><span class="line">  while(list)&#123;</span><br><span class="line">    if(list.visited==1)&#123;</span><br><span class="line">     return true</span><br><span class="line">    &#125;</span><br><span class="line">    list.visited=1</span><br><span class="line">    list=list.next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>快慢指针法,设定快指针 fast,慢指针 slow,每次循环快指针 fast 移动两个位置,慢指针移动⼀个位置<br>(时间复杂度 O(n)) 需要额外的空间</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function judge(list)&#123;</span><br><span class="line">  var fast=list.next.next,</span><br><span class="line">  slow=list.next;</span><br><span class="line">  while(fast)&#123;</span><br><span class="line">    if(fast===slow)&#123;</span><br><span class="line">          return true</span><br><span class="line">    &#125;</span><br><span class="line">    fast=fast.next.next</span><br><span class="line">    slow=slow.next</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">常用算法总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 11:12:39 / 修改时间：11:19:08" itemprop="dateCreated datePublished" datetime="2022-12-16T11:12:39+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">前端算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="迭代算法-Iteration"><a href="#迭代算法-Iteration" class="headerlink" title="迭代算法(Iteration)"></a>迭代算法(Iteration)</h2><h2 id="递归算法-Recursion"><a href="#递归算法-Recursion" class="headerlink" title="递归算法(Recursion)"></a>递归算法(Recursion)</h2><ul>
+<li>二叉树的遍历算法</li>
+</ul>
+<h2 id="回溯算法-Backtrack"><a href="#回溯算法-Backtrack" class="headerlink" title="回溯算法(Backtrack)"></a>回溯算法(Backtrack)</h2><ul>
+<li>八皇后问题</li>
+</ul>
+<h2 id="深度优先-Depth-First-Search-DFS"><a href="#深度优先-Depth-First-Search-DFS" class="headerlink" title="深度优先(Depth First Search, DFS)"></a>深度优先(Depth First Search, DFS)</h2><ul>
+<li>全排列问题</li>
+</ul>
+<h2 id="广度优先-Breadth-First-Search-BFS"><a href="#广度优先-Breadth-First-Search-BFS" class="headerlink" title="广度优先(Breadth First Search, BFS)"></a>广度优先(Breadth First Search, BFS)</h2><p><strong>类型</strong></p>
+<ul>
+<li>不需要确定当前深度</li>
+<li>需要确定当前深度</li>
+</ul>
+<h2 id="动态规划-Dynamic-Programming-DP"><a href="#动态规划-Dynamic-Programming-DP" class="headerlink" title="动态规划(Dynamic Programming, DP)"></a>动态规划(Dynamic Programming, DP)</h2><ul>
+<li>斐波那契数列</li>
+<li>爬楼梯问题</li>
+<li>背包问题</li>
+<li>最长公共子序列</li>
+<li>最优二叉搜索树</li>
+</ul>
+<h2 id="分治算法-二分法-Binary-Algorithm"><a href="#分治算法-二分法-Binary-Algorithm" class="headerlink" title="分治算法(二分法, Binary Algorithm)"></a>分治算法(二分法, Binary Algorithm)</h2><ul>
+<li>二分排序</li>
+<li>二分查找</li>
+</ul>
+<h2 id="贪心算法-Greedy-Algorithm"><a href="#贪心算法-Greedy-Algorithm" class="headerlink" title="贪心算法(Greedy Algorithm)"></a>贪心算法(Greedy Algorithm)</h2><ul>
+<li>霍夫曼编码</li>
+</ul>
+<h2 id="滑动窗口-Slipping-Window"><a href="#滑动窗口-Slipping-Window" class="headerlink" title="滑动窗口(Slipping Window)"></a>滑动窗口(Slipping Window)</h2><h2 id="双指针-Double-Pointer"><a href="#双指针-Double-Pointer" class="headerlink" title="双指针(Double Pointer)"></a>双指针(Double Pointer)</h2><h2 id="位运算-Bit"><a href="#位运算-Bit" class="headerlink" title="位运算(Bit)"></a>位运算(Bit)</h2><p>要点</p>
+<ul>
+<li>异或运算（xor）</li>
+<li>任何数与 0 做异或运算，结果仍为原来的数。即：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a⊕0=a</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>任何数和其自身做异或运算，结果为 0。即：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a⊕a=0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>异或运算满足交换律和结合律。即：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a⊕b=b⊕a</span><br><span class="line">a⊕b⊕c=a⊕(b⊕c)</span><br></pre></td></tr></table></figure>
+
+<h2 id="自动机"><a href="#自动机" class="headerlink" title="自动机"></a>自动机</h2><ul>
+<li>搜索&#x2F;排序算法</li>
+<li>快速排序</li>
+<li>希尔排序</li>
+<li>插入排序</li>
+<li>拓扑排序</li>
+<li>二分排序</li>
+<li>堆排序</li>
+</ul>
+<h2 id="关于链表-List"><a href="#关于链表-List" class="headerlink" title="关于链表(List)"></a>关于链表(List)</h2><ul>
+<li>单向链表</li>
+<li>双向链表</li>
+<li>广义表</li>
+</ul>
+<h2 id="关于树-Tree"><a href="#关于树-Tree" class="headerlink" title="关于树(Tree)"></a>关于树(Tree)</h2><ul>
+<li>二叉树遍历<ul>
+<li>前序遍历</li>
+<li>中序遍历</li>
+<li>后序遍历</li>
+<li>层序遍历</li>
+</ul>
+</li>
+<li>二叉搜索树</li>
+<li>红黑树</li>
+<li>kd 树</li>
+<li>B 树</li>
+<li>堆</li>
+<li>极大堆</li>
+</ul>
+<h2 id="关于图-Graph"><a href="#关于图-Graph" class="headerlink" title="关于图(Graph)"></a>关于图(Graph)</h2><ul>
+<li>最小生成树</li>
+<li>最短路径问题</li>
+</ul>
+<h2 id="关于栈、队列、散列表-queue-stack-hashlist"><a href="#关于栈、队列、散列表-queue-stack-hashlist" class="headerlink" title="关于栈、队列、散列表(queue, stack, hashlist)"></a>关于栈、队列、散列表(queue, stack, hashlist)</h2><ul>
+<li>栈对于二叉树层序遍历的实现</li>
+<li>最大优先级队列</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">前端面试中的常见的算法问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 10:50:20 / 修改时间：11:18:36" itemprop="dateCreated datePublished" datetime="2022-12-16T10:50:20+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">前端算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Q1-判断一个单词是否是回文？"><a href="#Q1-判断一个单词是否是回文？" class="headerlink" title="Q1 判断一个单词是否是回文？"></a>Q1 判断一个单词是否是回文？</h2><blockquote>
+<p>回文是指把相同的词汇或句子，在下文中调换位置或颠倒过来，产生首尾回环的情趣，叫做回文，也叫回环。比如 mamam redivider .</p>
+</blockquote>
+<p>很多人拿到这样的题目非常容易想到用 for 将字符串颠倒字母顺序然后匹配就行了。其实重要的考察的就是对于 reverse 的实现。其实我们可以利用现成的函数，将字符串转换成数组，这个思路很重要，我们可以拥有更多的自由度去进行字符串的一些操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function checkPalindrom(str) &#123;</span><br><span class="line">    return str == str.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q2-去掉一组整型数组重复的值"><a href="#Q2-去掉一组整型数组重复的值" class="headerlink" title="Q2 去掉一组整型数组重复的值"></a>Q2 去掉一组整型数组重复的值</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如输入: [1,13,24,11,11,14,1,2]</span><br><span class="line">输出: [1,13,24,11,14,2]</span><br><span class="line">需要去掉重复的11 和 1 这两个元素。</span><br></pre></td></tr></table></figure>
+
+<p>这道问题出现在诸多的前端面试题中，主要考察个人对 Object 的使用，利用 key 来进行筛选。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* unique an array</span><br><span class="line">**/</span><br><span class="line">let unique = function(arr) &#123;</span><br><span class="line">  let hashTable = &#123;&#125;;</span><br><span class="line">  let data = [];</span><br><span class="line">  for(let i=0,l=arr.length;i&lt;l;i++) &#123;</span><br><span class="line">    if(!hashTable[arr[i]]) &#123;</span><br><span class="line">      hashTable[arr[i]] = true;</span><br><span class="line">      data.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return data</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = unique;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q3-统计一个字符串出现最多的字母"><a href="#Q3-统计一个字符串出现最多的字母" class="headerlink" title="Q3 统计一个字符串出现最多的字母"></a>Q3 统计一个字符串出现最多的字母</h2><p>给出一段英文连续的英文字符串，找出重复出现次数最多的字母</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入 ： afjghdfraaaasdenas</span><br><span class="line"></span><br><span class="line">输出 ： a</span><br></pre></td></tr></table></figure>
+
+<p>前面出现过去重的算法，这里需要是统计重复次数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function findMaxDuplicateChar(str) &#123;</span><br><span class="line">  if(str.length == 1) &#123;</span><br><span class="line">    return str;</span><br><span class="line">  &#125;</span><br><span class="line">  let charObj = &#123;&#125;;</span><br><span class="line">  for(let i=0;i&lt;str.length;i++) &#123;</span><br><span class="line">    if(!charObj[str.charAt(i)]) &#123;</span><br><span class="line">      charObj[str.charAt(i)] = 1;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      charObj[str.charAt(i)] += 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  let maxChar = &#x27;&#x27;,</span><br><span class="line">      maxValue = 1;</span><br><span class="line">  for(var k in charObj) &#123;</span><br><span class="line">    if(charObj[k] &gt;= maxValue) &#123;</span><br><span class="line">      maxChar = k;</span><br><span class="line">      maxValue = charObj[k];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return maxChar;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = findMaxDuplicateChar;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q4-排序算法"><a href="#Q4-排序算法" class="headerlink" title="Q4 排序算法"></a>Q4 排序算法</h2><p>如果抽到算法题目的话，应该大多都是比较开放的题目，不限定算法的实现，但是一定要求掌握其中的几种，所以冒泡排序，这种较为基础并且便于理解记忆的算法一定需要熟记于心。冒泡排序算法就是依次比较大小，小的的大的进行位置上的交换。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function bubbleSort(arr) &#123;</span><br><span class="line">    for(let i = 0,l=arr.length;i&lt;l-1;i++) &#123;</span><br><span class="line">        for(let j = i+1;j&lt;l;j++) &#123;</span><br><span class="line">          if(arr[i]&gt;arr[j]) &#123;</span><br><span class="line">                let tem = arr[i];</span><br><span class="line">                arr[i] = arr[j];</span><br><span class="line">                arr[j] = tem;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line">module.exports = bubbleSort;</span><br></pre></td></tr></table></figure>
+
+<p>除了冒泡排序外，其实还有很多诸如 插入排序,快速排序，希尔排序等。每一种排序算法都有各自的特点。全部掌握也不需要，但是心底一定要熟悉几种算法。 比如快速排序，其效率很高，而其基本原理如图(来自 wiki)：</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif" alt="image"></p>
+<p>算法参考某个元素值，将小于它的值，放到左数组中，大于它的值的元素就放到右数组中，然后递归进行上一次左右数组的操作，返回合并的数组就是已经排好顺序的数组了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function quickSort(arr) &#123;</span><br><span class="line"></span><br><span class="line">    if(arr.length&lt;=1) &#123;</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let leftArr = [];</span><br><span class="line">    let rightArr = [];</span><br><span class="line">    let q = arr[0];</span><br><span class="line">    for(let i = 1,l=arr.length; i&lt;l; i++) &#123;</span><br><span class="line">        if(arr[i]&gt;q) &#123;</span><br><span class="line">            rightArr.push(arr[i]);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            leftArr.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [].concat(quickSort(leftArr),[q],quickSort(rightArr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = quickSort;</span><br></pre></td></tr></table></figure>
+
+<p>安利大家一个学习的地址，通过动画演示算法的实现。<br><a target="_blank" rel="noopener" href="http://math.hws.edu/eck/jsdemo/sortlab.html">HTML5 Canvas Demo: Sorting Algorithms</a></p>
+<h2 id="Q5-不借助临时变量，进行两个整数的交换"><a href="#Q5-不借助临时变量，进行两个整数的交换" class="headerlink" title="Q5 不借助临时变量，进行两个整数的交换"></a>Q5 不借助临时变量，进行两个整数的交换</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入 a = 2, b = 4 输出 a = 4, b =2</span><br></pre></td></tr></table></figure>
+
+<p>这种问题非常巧妙，需要大家跳出惯有的思维，利用 a , b 进行置换。</p>
+<p>主要是利用 + - 去进行运算，类似 a &#x3D; a + ( b - a) 实际上等同于最后 的 a &#x3D; b;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function swap(a , b) &#123;</span><br><span class="line">  b = b - a;</span><br><span class="line">  a = a + b;</span><br><span class="line">  b = a - b;</span><br><span class="line">  return [a,b];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = swap;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q6-使用-canvas-绘制一个有限度的斐波那契数列的曲线？"><a href="#Q6-使用-canvas-绘制一个有限度的斐波那契数列的曲线？" class="headerlink" title="Q6 使用 canvas 绘制一个有限度的斐波那契数列的曲线？"></a>Q6 使用 canvas 绘制一个有限度的斐波那契数列的曲线？</h2><p><img src="http://img1.vued.vanthink.cn/vued90edf7b944ec479ee8b4203cf56e158d.png" alt="image"></p>
+<p>数列长度限定在 9.</p>
+<p>斐波那契数列，又称黄金分割数列，指的是这样一个数列：0、1、1、2、3、5、8、13、21、34、……在数学上，斐波纳契数列主要考察递归的调用。我们一般都知道定义</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibo[i] = fibo[i-1]+fibo[i-2];</span><br></pre></td></tr></table></figure>
+
+<p>生成斐波那契数组的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function getFibonacci(n) &#123;</span><br><span class="line">  var fibarr = [];</span><br><span class="line">  var i = 0;</span><br><span class="line">  while(i&lt;n) &#123;</span><br><span class="line">    if(i&lt;=1) &#123;</span><br><span class="line">      fibarr.push(i);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      fibarr.push(fibarr[i-1] + fibarr[i-2])</span><br><span class="line">    &#125;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return fibarr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>剩余的工作就是利用 canvas arc 方法进行曲线绘制了</p>
+<p><a target="_blank" rel="noopener" href="http://codepen.io/Jack_Pu/pen/LRaxZB">DEMO</a></p>
+<h2 id="Q7-找出下列正数组的最大差值比如"><a href="#Q7-找出下列正数组的最大差值比如" class="headerlink" title="Q7 找出下列正数组的最大差值比如:"></a>Q7 找出下列正数组的最大差值比如:</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入 [10,5,11,7,8,9]</span><br><span class="line"></span><br><span class="line">输出 6</span><br></pre></td></tr></table></figure>
+
+<p>这是通过一道题目去测试对于基本的数组的最大值的查找，很明显我们知道，最大差值肯定是一个数组中最大值与最小值的差。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function getMaxProfit(arr) &#123;</span><br><span class="line"></span><br><span class="line">    var minPrice = arr[0];</span><br><span class="line">    var maxProfit = 0;</span><br><span class="line"></span><br><span class="line">    for (var i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        var currentPrice = arr[i];</span><br><span class="line"></span><br><span class="line">        minPrice = Math.min(minPrice, currentPrice);</span><br><span class="line"></span><br><span class="line">        var potentialProfit = currentPrice - minPrice;</span><br><span class="line"></span><br><span class="line">        maxProfit = Math.max(maxProfit, potentialProfit);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return maxProfit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q8-随机生成指定长度的字符串"><a href="#Q8-随机生成指定长度的字符串" class="headerlink" title="Q8 随机生成指定长度的字符串"></a>Q8 随机生成指定长度的字符串</h2><p>实现一个算法，随机生成指定长度的字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如给定 长度 8  输出 4ldkfg9j</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function randomString(n) &#123;</span><br><span class="line">  let str = &#x27;abcdefghijklmnopqrstuvwxyz9876543210&#x27;;</span><br><span class="line">  let tmp = &#x27;&#x27;,</span><br><span class="line">      i = 0,</span><br><span class="line">      l = str.length;</span><br><span class="line">  for (i = 0; i &lt; n; i++) &#123;</span><br><span class="line">    tmp += str.charAt(Math.floor(Math.random() * l));</span><br><span class="line">  &#125;</span><br><span class="line">  return tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = randomString;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q9-实现类似-getElementsByClassName-的功能"><a href="#Q9-实现类似-getElementsByClassName-的功能" class="headerlink" title="Q9 实现类似 getElementsByClassName 的功能"></a>Q9 实现类似 getElementsByClassName 的功能</h2><p>自己实现一个函数，查找某个 DOM 节点下面的包含某个 class 的所有 DOM 节点？不允许使用原生提供的 getElementsByClassName querySelectorAll 等原生提供 DOM 查找函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function queryClassName(node, name) &#123;</span><br><span class="line">  var starts = &#x27;(^|[ \n\r\t\f])&#x27;,</span><br><span class="line">       ends = &#x27;([ \n\r\t\f]|$)&#x27;;</span><br><span class="line">  var array = [],</span><br><span class="line">        regex = new RegExp(starts + name + ends),</span><br><span class="line">        elements = node.getElementsByTagName(&quot;*&quot;),</span><br><span class="line">        length = elements.length,</span><br><span class="line">        i = 0,</span><br><span class="line">        element;</span><br><span class="line"></span><br><span class="line">    while (i &lt; length) &#123;</span><br><span class="line">        element = elements[i];</span><br><span class="line">        if (regex.test(element.className)) &#123;</span><br><span class="line">            array.push(element);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        i += 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q10-使用-JS-实现二叉查找树-Binary-Search-Tree"><a href="#Q10-使用-JS-实现二叉查找树-Binary-Search-Tree" class="headerlink" title="Q10 使用 JS 实现二叉查找树(Binary Search Tree)"></a>Q10 使用 JS 实现二叉查找树(Binary Search Tree)</h2><p>一般叫全部写完的概率比较少，但是重点考察你对它的理解和一些基本特点的实现。 二叉查找树，也称二叉搜索树、有序二叉树（英语：ordered binary tree）是指一棵空树或者具有下列性质的二叉树：</p>
+<ul>
+<li>任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；</li>
+<li>任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；</li>
+<li>任意节点的左、右子树也分别为二叉查找树；</li>
+<li>没有键值相等的节点。二叉查找树相比于其他数据结构的优势在于查找、插入的时间复杂度较低。为 O(log n)。二叉查找树是基础性数据结构，用于构建更为抽象的数据结构，如集合、multiset、关联数组等。</li>
+</ul>
+<p><img src="http://img1.vued.vanthink.cn/vued95685e8f89199babd6273a93651ecd8b.png" alt="image"></p>
+<p>在写的时候需要足够理解二叉搜素树的特点，需要先设定好每个节点的数据结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Node &#123;</span><br><span class="line">  constructor(data, left, right) &#123;</span><br><span class="line">    this.data = data;</span><br><span class="line">    this.left = left;</span><br><span class="line">    this.right = right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>树是有节点构成，由根节点逐渐延生到各个子节点，因此它具备基本的结构就是具备一个根节点，具备添加，查找和删除节点的方法.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">class BinarySearchTree &#123;</span><br><span class="line"></span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.root = null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  insert(data) &#123;</span><br><span class="line">    let n = new Node(data, null, null);</span><br><span class="line">    if (!this.root) &#123;</span><br><span class="line">      return this.root = n;</span><br><span class="line">    &#125;</span><br><span class="line">    let currentNode = this.root;</span><br><span class="line">    let parent = null;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">      parent = currentNode;</span><br><span class="line">      if (data &lt; currentNode.data) &#123;</span><br><span class="line">        currentNode = currentNode.left;</span><br><span class="line">        if (currentNode === null) &#123;</span><br><span class="line">          parent.left = n;</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        currentNode = currentNode.right;</span><br><span class="line">        if (currentNode === null) &#123;</span><br><span class="line">          parent.right = n;</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remove(data) &#123;</span><br><span class="line">    this.root = this.removeNode(this.root, data)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  removeNode(node, data) &#123;</span><br><span class="line">    if (node == null) &#123;</span><br><span class="line">      return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (data == node.data) &#123;</span><br><span class="line">      // no children node</span><br><span class="line">      if (node.left == null &amp;&amp; node.right == null) &#123;</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line">      if (node.left == null) &#123;</span><br><span class="line">        return node.right;</span><br><span class="line">      &#125;</span><br><span class="line">      if (node.right == null) &#123;</span><br><span class="line">        return node.left;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      let getSmallest = function(node) &#123;</span><br><span class="line">        if(node.left === null &amp;&amp; node.right == null) &#123;</span><br><span class="line">          return node;</span><br><span class="line">        &#125;</span><br><span class="line">        if(node.left != null) &#123;</span><br><span class="line">          return node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        if(node.right !== null) &#123;</span><br><span class="line">          return getSmallest(node.right);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">      let temNode = getSmallest(node.right);</span><br><span class="line">      node.data = temNode.data;</span><br><span class="line">      node.right = this.removeNode(temNode.right,temNode.data);</span><br><span class="line">      return node;</span><br><span class="line"></span><br><span class="line">    &#125; else if (data &lt; node.data) &#123;</span><br><span class="line">      node.left = this.removeNode(node.left,data);</span><br><span class="line">      return node;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      node.right = this.removeNode(node.right,data);</span><br><span class="line">      return node;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  find(data) &#123;</span><br><span class="line">    var current = this.root;</span><br><span class="line">    while (current != null) &#123;</span><br><span class="line">      if (data == current.data) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      if (data &lt; current.data) &#123;</span><br><span class="line">        current = current.left;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        current = current.right</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return current.data;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = BinarySearchTree;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Q11-数组全排列"><a href="#Q11-数组全排列" class="headerlink" title="Q11 数组全排列"></a>Q11 数组全排列</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&#x27;foo&#x27;,&#x27;bar&#x27;,&#x27;hello&#x27;,&#x27;world&#x27;];</span><br><span class="line">var count = 1;</span><br><span class="line">function getStr(a)&#123;</span><br><span class="line">	for (var i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">		// indexOf 是es6数组的方法,如果不存在返回-1，存在返回下标</span><br><span class="line">		if(a.indexOf(arr[i])&lt;0)&#123;</span><br><span class="line"></span><br><span class="line">			//数组 a 中不存在 arr[i],将arr[i]添加到数组末尾</span><br><span class="line">			a.push(arr[i]);</span><br><span class="line"></span><br><span class="line">			if(a.length==arr.length)&#123;</span><br><span class="line">				console.log(count++ + &#x27;: &#x27; +a.join(&quot;&quot;));</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				//结束一次for循环  进行了4次递归 getStr([&#x27;foo&#x27;]) getStr([&#x27;bar&#x27;]) getStr([&#x27;hello&#x27;]) getStr([&#x27;world&#x27;])</span><br><span class="line">				getStr(a);</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">			//一定从数组 a 中删除arr[i],进行下次循环，如果不删除就只能获得一种结果了</span><br><span class="line">			a.pop();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">getStr([])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>除去注释只用了 15 行代码，通过上面的方法 我们实现了单个数组全排<br><a target="_blank" rel="noopener" href="http://www.lingchenliang.com/post/134.html">更多方法阅读</a></p>
+<h2 id="Q12-最大连续子序列和"><a href="#Q12-最大连续子序列和" class="headerlink" title="Q12 最大连续子序列和"></a>Q12 最大连续子序列和</h2><blockquote>
+<p>思路： 比较若干个连续</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 6, -1, 5, 4, -7, 2, 3];</span><br><span class="line">var maxSum = arr[0],</span><br><span class="line">	sum = arr[0];</span><br><span class="line">for(var i=1;i&lt;arr.length;i++) &#123;</span><br><span class="line">	if(sum&lt; 0) &#123;</span><br><span class="line">		sum = arr[i];</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		sum += arr[i];</span><br><span class="line">	&#125;</span><br><span class="line">	if (sum &gt; maxSum) &#123;</span><br><span class="line">		maxSum = sum;</span><br><span class="line">	&#125;</span><br><span class="line"> 	console.log(sum, maxSum);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(maxSum);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function maxSeq(arr) &#123;</span><br><span class="line">    var sum=arr[0], maxSum = arr[0]</span><br><span class="line"></span><br><span class="line">    for(var i=1; i&lt; arr.length; i++) &#123;</span><br><span class="line">        if (sum &lt; 0) &#123;</span><br><span class="line">            sum = arr[i]</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            sum += arr[i]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (sum &gt; maxSum) &#123;</span><br><span class="line">            msxSum = sum</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return maxSum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q13-DOM-遍历深度优先和广度优先算法"><a href="#Q13-DOM-遍历深度优先和广度优先算法" class="headerlink" title="Q13 DOM 遍历深度优先和广度优先算法"></a>Q13 DOM 遍历深度优先和广度优先算法</h2><h3 id="1-深度优先"><a href="#1-深度优先" class="headerlink" title="1. 深度优先"></a>1. 深度优先</h3><p><img src="https://img-blog.csdnimg.cn/20191227181534979.png" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 递归</span><br><span class="line">let arr = []</span><br><span class="line">function deepTraversal(node) &#123;</span><br><span class="line">  if(!node) return;</span><br><span class="line">  arr.push(node)</span><br><span class="line">  for (var i = 0; i&lt; node.children.length; i++) &#123;</span><br><span class="line">    deepTraversal(node.children[i])</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 非递归</span><br><span class="line">let arr =[]</span><br><span class="line">function deepTraversal(node) &#123;</span><br><span class="line">  if(!node) return;</span><br><span class="line">  var stack = [node];</span><br><span class="line">  while (stack.length) &#123;</span><br><span class="line">    var item = stack.shift();</span><br><span class="line">    arr.push(item);</span><br><span class="line">    var children = item.children;</span><br><span class="line">    for (var i = children.length - 1; i &gt;= 0 ; i--) &#123;</span><br><span class="line">      stack.unshift(children[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-广度优先"><a href="#2-广度优先" class="headerlink" title="2. 广度优先"></a>2. 广度优先</h3><p><img src="https://img-blog.csdnimg.cn/2019122718211761.png" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">// 递归</span><br><span class="line">let nodes = []; //nodes可放函数中</span><br><span class="line">let i = 0;</span><br><span class="line">function wideTraversal(node) &#123;</span><br><span class="line">  if (node) &#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    wideTraversal(node.nextElementSibling);</span><br><span class="line">    node = nodes[i++];</span><br><span class="line">    wideTraversal(node.firstElementChild);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">wideTraversal(rootElement);</span><br><span class="line">console.log(nodes);</span><br><span class="line"></span><br><span class="line">let nodes = [rootElement]; //nodes可放函数中</span><br><span class="line">let stack = []</span><br><span class="line">function wideTraversal(node) &#123;</span><br><span class="line">  if (node) &#123;</span><br><span class="line">    for(var i =0; i&lt; node.children.length; i++) &#123;</span><br><span class="line">      nodes.push(node.children[i]);</span><br><span class="line">      stack.push(node.children[i])</span><br><span class="line">    &#125;</span><br><span class="line">    wideTraversal(stack.shift())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">wideTraversal(rootElement);</span><br><span class="line"></span><br><span class="line">// 非递归  先进先出</span><br><span class="line">let arr = [];</span><br><span class="line">let stack = [rootElement]</span><br><span class="line">function wideTraversal(node) &#123;</span><br><span class="line">  while(stack.length) &#123;</span><br><span class="line">    let item = stack.shift()</span><br><span class="line">    arr.push(item)</span><br><span class="line">    for (var i = 0; i &lt; item.children.length;i++) &#123;</span><br><span class="line">      stack.push(item.children[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">wideTraversal(rootElement);</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q14-JS-洗牌算法"><a href="#Q14-JS-洗牌算法" class="headerlink" title="Q14 JS 洗牌算法"></a>Q14 JS 洗牌算法</h2><p>塔罗牌</p>
+<p>举例来说，我们有一个如下图所示的数组，数组长度为 9，数组内元素的值顺次分别是 1~9：</p>
+<p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/yrpGxAD5lVSqbjgJL7E1BPzC83gibLVIHoa9RjVrBUFdCfoSJUsVXhs4CNROkszm8eibymxzR60nra3UOJwavWYg/640?wx_fmt=png" alt="image"></p>
+<p>从上面这个数组入手，我们要做的就是打乱数组内元素的顺序：</p>
+<p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/yrpGxAD5lVSqbjgJL7E1BPzC83gibLVIHR4BDaN36lLZU1BPDTjkvHqqo9aiaK1icRd7Y7riaofelVqiabdF8y6wHKA/640?wx_fmt=png" alt="image"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.shuffle = function () &#123;</span><br><span class="line">    let input = this;</span><br><span class="line">    for (let i = input.length - 1; i&gt;= 0; i--) &#123;</span><br><span class="line">        let randomIndex = Math.floor(Math.random() * (i + 1));</span><br><span class="line">        let itemAtIndex = input[randomIndex];</span><br><span class="line">        input[randomIndex] = input[i];</span><br><span class="line">        input[i] = itemAtIndex;</span><br><span class="line">    &#125;</span><br><span class="line">    return input;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们创建了一个 shuffle() 方法，该方法用于随机排列数组内的元素。</p>
+<p>此外，我们将该方法挂载在了 Array 对象的原型下面，所以任何数组都可以直接调用该方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let tempArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]</span><br><span class="line">tempArray.shuffle();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q15-假设现在有两个函数-function-A-和-function-B-，现在希望创建一个新的函数-function-C-，新函数的逻辑是将自己接收到的前两个参数传给函数-A，剩余所有参数传给函数-B，请用原生-javascript-实现函数-C"><a href="#Q15-假设现在有两个函数-function-A-和-function-B-，现在希望创建一个新的函数-function-C-，新函数的逻辑是将自己接收到的前两个参数传给函数-A，剩余所有参数传给函数-B，请用原生-javascript-实现函数-C" class="headerlink" title="Q15 假设现在有两个函数 function A()和 function B()，现在希望创建一个新的函数 function C()，新函数的逻辑是将自己接收到的前两个参数传给函数 A，剩余所有参数传给函数 B，请用原生 javascript 实现函数 C"></a>Q15 假设现在有两个函数 function A()和 function B()，现在希望创建一个新的函数 function C()，新函数的逻辑是将自己接收到的前两个参数传给函数 A，剩余所有参数传给函数 B，请用原生 javascript 实现函数 C</h2><p>举例：</p>
+<p>如果调用函数 C：C[a,b,c,d,e]</p>
+<p>相当于调用函数 A 和函数 B：A(a,b),B(c,d,e)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">function C()&#123;</span><br><span class="line">     var a_args=Array.prototype.slice.call(arguments,0,2);</span><br><span class="line">     var b_args=Array.prototype.slice.call(arguments,2);</span><br><span class="line">     A.apply(this,a_args);</span><br><span class="line">     B.apply(this,b_args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C(...s)&#123;</span><br><span class="line">      A.call(this,s[0],s[1]);</span><br><span class="line">      B.apply(this,s.slice(2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C(...s)&#123;</span><br><span class="line">      A.apply(this,s.slice(0,2));</span><br><span class="line">      B.apply(this,s.slice(2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C()&#123;</span><br><span class="line">   A(arguments[0],arguments[1]);</span><br><span class="line">   B(Array.prototype.slice.call(arguments,2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function C(a1,a2,...args) &#123;</span><br><span class="line">    A(a1,a2)</span><br><span class="line">    B(...args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Array.prototype.slice 表示数组的原型中的 slice 方法。这个 slice 方法返回的是一个 Array 类型的对象。可以把类数组对象转化成真正的数组，与 Array.from 类似。</p>
+<h2 id="Q16-请实现以下-template-方法，用于模板解析"><a href="#Q16-请实现以下-template-方法，用于模板解析" class="headerlink" title="Q16 请实现以下 template 方法，用于模板解析"></a>Q16 请实现以下 template 方法，用于模板解析</h2><p>var compiled &#x3D; template(“hello &lt;%&#x3D;user%&gt;!”);<br>compiled({“user”:”world”}); &#x3D;&gt; hello world!</p>
+<p>var compiled &#x3D; template(“welocm to &lt;%&#x3D;location%&gt;!”);<br>compiled({“location”:”CVTE”}); &#x3D;&gt; welcom to CVTE!;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function template(source)&#123;</span><br><span class="line">   var temp=source;</span><br><span class="line">   return function(obj)&#123;</span><br><span class="line">       for(var prop in obj)&#123;</span><br><span class="line">              var tpl=&quot;&lt;%=&quot;+prop+&quot;%&gt;&quot;;</span><br><span class="line">              temp=temp.replace(tpl,obj[prop]);</span><br><span class="line">       &#125;</span><br><span class="line">       console.log(temp);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Q17-写一个函数，将传进去的数组按深度展开"><a href="#Q17-写一个函数，将传进去的数组按深度展开" class="headerlink" title="Q17 写一个函数，将传进去的数组按深度展开"></a>Q17 写一个函数，将传进去的数组按深度展开</h2><p>例子：<br>list:[1,2,[3,4],[5,6,[7,8],9],10,11]<br/><br>depth 等于 1 时输出<br/><br>depth &#x3D; 1 :[1,2,3,4,5,6,[7,8],9,10,11]</p>
+<p>depth 等于 2 时输出<br/><br>depth &#x3D; 2 :[1,2,3,4,5,6,7,8,9,10,11]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function flattern(array,num = 0) &#123;</span><br><span class="line">	var newArray = array;</span><br><span class="line">	for(let i = 0; i &lt; num; i ++) &#123;</span><br><span class="line">		newArray = [].concat(...newArray)</span><br><span class="line">	&#125;</span><br><span class="line">	return newArray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(flattern([1,2,3,[4,5,[6,7]]],2))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q18-实现一个简单的模板引擎"><a href="#Q18-实现一个简单的模板引擎" class="headerlink" title="Q18 实现一个简单的模板引擎"></a>Q18 实现一个简单的模板引擎</h2><p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let template = &#x27;我是&#123;&#123;name&#125;&#125;，年龄&#123;&#123;age&#125;&#125;，性别&#123;&#123;sex&#125;&#125;&#x27;;</span><br><span class="line">let data = &#123;</span><br><span class="line">  name: &#x27;姓名&#x27;,</span><br><span class="line">  age: 18</span><br><span class="line">&#125;</span><br><span class="line">render(template, data); // 我是姓名，年龄18，性别undefined</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">方法1：先将模板与数据中均存在的属性替换掉，再将数据中不存在模板中存在的属性设置为undefined</span><br><span class="line">function render(template, data) &#123;</span><br><span class="line">	for(let key in data) &#123;</span><br><span class="line">		if(template.indexOf(key)) &#123;</span><br><span class="line">			var reg =new RegExp(&quot;&#123;&#123;&quot; + key + &quot;&#125;&#125;&quot;,&quot;g&quot;);</span><br><span class="line">			template = template.replace(reg,data[key])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	template = template.replace(/\&#123;\&#123;(\w+)\&#125;\&#125;/g,&#x27;undefined&#x27;)</span><br><span class="line"></span><br><span class="line">	return template;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">方法2 迭代，一个一个替换，注意exec匹配到的第一项是匹配字符串，第二项为分组内的字符串[&#123;&#123;name&#125;&#125;,name]</span><br><span class="line">function render(template, data) &#123;</span><br><span class="line">  const reg = /\&#123;\&#123;(\w+)\&#125;\&#125;/; // 模板字符串正则</span><br><span class="line">  if (reg.test(template)) &#123; // 判断模板里是否有模板字符串</span><br><span class="line">    const name = reg.exec(template)[1]; // 查找当前模板里第一个模板字符串的字段</span><br><span class="line">    template = template.replace(reg, data[name]); // 将第一个模板字符串渲染</span><br><span class="line">    return render(template, data); // 递归的渲染并返回渲染后的结构</span><br><span class="line">  &#125;</span><br><span class="line">  return template; // 如果模板没有模板字符串直接返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Q19-动态规划"><a href="#Q19-动态规划" class="headerlink" title="Q19 动态规划"></a>Q19 动态规划</h2><p>给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。例如，给定三角形：</p>
+<p>[[2],[3,4],[6,5,7],[4,1,8,3]]<br>自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 &#x3D; 11）。</p>
+<p>动态规划我个人的理解是：能将一个大问题分解为一个个小问题，并且这些小问题之间有共性能重复调用。那么如何判断这道题是否可以用到动态规划，首先从底往上看，[6,5,7]对应的最小路径很明显可以看出分别是[1,1,3]，那么后两层的最短路径是[7,6,10]，再往上看[3,4]的最短路径也能明显看出是[9,10]，那么 2 对应的最短路径很明显就是 11。其实从这里就能看出每层分析判断的逻辑是一致的。js 代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const minimumTotal = triangle =&gt; &#123;</span><br><span class="line">    // es6方法填充数组</span><br><span class="line">    const dp = Array.of(...triangle[triangle.length - 1])</span><br><span class="line">	for (let i = dp.length - 2; i &gt;= 0; i--) &#123;</span><br><span class="line">        for (let j = 0; j &lt; triangle[i].length; j++) &#123;</span><br><span class="line">            // 状态转移方程</span><br><span class="line">            dp[j] = Math.min(dp[j], dp[j + 1]) + triangle[i][j]</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[0]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/JavaScript%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%92%8C%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/JavaScript%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%92%8C%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87/" class="post-title-link" itemprop="url">JavaScript变量提升和函数提升</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:45:01" itemprop="dateCreated datePublished" datetime="2022-10-24T16:45:01+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="1-变量提升"><a href="#1-变量提升" class="headerlink" title="1. 变量提升"></a>1. 变量提升</h2><p>通常 JS 引擎会在正式执行之前先进行一次预编译，在这个过程中，首先将变量声明及函数声明提升至当前作用域的顶端，然后进行接下来的处理。(注：当前流行的 JS 引擎大都对源码进行了编译，由于引擎的不同，编译形式也会有所差异，我们这里说的预编译和提升其实是抽象出来的、易于理解的概念)</p>
+<p>下面的代码中，我们在函数中声明了一个变量，不过这个变量声明是在 if 语句块中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function hoistVariable() &#123;</span><br><span class="line">    if (!foo) &#123;</span><br><span class="line">        var foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>运行代码，我们会发现 foo 的值是 5，初学者可能对此不甚理解，如果外层作用域也存在一个 foo 变量，就更加困惑了，该不会是打印外层作用域中的 foo 变量吧？答案是：不会，如果当前作用域中存在此变量声明，无论它在什么地方声明，引用此变量时就会在当前作用域中查找，不会去外层作用域了。</p>
+<p>那么至于说打印结果，这要提到预编译机制了，经过一次预编译之后，上面的代码逻辑如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    if (!foo) &#123;</span><br><span class="line">        foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>是的，引擎将变量声明提升到了函数顶部，初始值为 undefined，自然，if 语句块就会被执行，foo 变量赋值为 5，下面的打印也就是预期的结果了。</p>
+<p>类似的，还有下面一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo = foo || 5;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>foo || 5 这个表达式的结果是 5 而不是 3，虽然外层作用域有个 foo 变量，但函数内是不会去引用的，因为预编译之后的代码逻辑是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">// 预编译之后</span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    foo = foo || 5;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>如果当前作用域中声明了多个同名变量，那么根据我们的推断，它们的同一个标识符会被提升至作用域顶部，其他部分按顺序执行，比如下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo = 3;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        var foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>由于 JavaScript 没有块作用域，只有全局作用域和函数作用域，所以预编译之后的代码逻辑为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    foo = 3;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-函数提升"><a href="#2-函数提升" class="headerlink" title="2. 函数提升"></a>2. 函数提升</h2><p>相信大家对下面这段代码都不陌生，实际开发当中也很常见：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function hoistFunction() &#123;</span><br><span class="line">    foo(); // output: I am hoisted</span><br><span class="line"></span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(&#x27;I am hoisted&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>为什么函数可以在声明之前就可以调用，并且跟变量声明不同的是，它还能得到正确的结果，其实引擎是把函数声明整个地提升到了当前作用域的顶部，预编译之后的代码逻辑如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(&#x27;I am hoisted&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // output: I am hoisted</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>相似的，如果在同一个作用域中存在多个同名函数声明，后面出现的将会覆盖前面的函数声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function hoistFunction() &#123;</span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // output: 2</span><br><span class="line"></span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>对于函数，除了使用上面的函数声明，更多时候，我们会使用函数表达式，下面是函数声明和函数表达式的对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 函数声明</span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(&#x27;function declaration&#x27;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 匿名函数表达式</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">    console.log(&#x27;anonymous function expression&#x27;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 具名函数表达式</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">    console.log(&#x27;named function expression&#x27;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，匿名函数表达式，其实是将一个不带名字的函数声明赋值给了一个变量，而具名函数表达式，则是带名字的函数赋值给一个变量，需要注意到是，这个函数名只能在此函数内部使用。我们也看到了，其实函数表达式可以通过变量访问，所以也存在变量提升同样的效果。</p>
+<p>那么当函数声明遇到函数表达式时，会有什么样的结果呢，先看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function hoistFunction() &#123;</span><br><span class="line">    foo(); // 2</span><br><span class="line"></span><br><span class="line">    var foo = function() &#123;</span><br><span class="line">        console.log(1);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line"></span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>运行后我们会发现，输出的结果依次是 2 1 1，为什么会有这样的结果呢？</p>
+<p>因为 JavaScript 中的函数是一等公民，函数声明的优先级最高，会被提升至当前作用域最顶端，所以第一次调用时实际执行了下面定义的函数声明，然后第二次调用时，由于前面的函数表达式与之前的函数声明同名，故将其覆盖，以后的调用也将会打印同样的结果。上面的过程经过预编译之后，代码逻辑如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    foo = function foo() &#123;</span><br><span class="line">        console.log(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // 2</span><br><span class="line"></span><br><span class="line">    foo = function() &#123;</span><br><span class="line">        console.log(1);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>我们也不难理解，下面的函数和变量重名时，会如何执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">    console.log(foo); // function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    foo = 5;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line"></span><br><span class="line">    function foo() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br><span class="line">console.log(foo);     // 3</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，函数声明被提升至作用域最顶端，然后被赋值为 5，而外层的变量并没有被覆盖，经过预编译之后，上面代码的逻辑是这样的：</p>
+<p>&#x2F;&#x2F; 预编译之后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">   var foo;</span><br><span class="line"></span><br><span class="line">   foo = function foo() &#123;&#125;;</span><br><span class="line"></span><br><span class="line">   console.log(foo); // function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">   foo = 5;</span><br><span class="line"></span><br><span class="line">   console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br><span class="line">console.log(foo);    // 3</span><br></pre></td></tr></table></figure>
+
+<p>所以，函数的优先权是最高的，它永远被提升至作用域最顶部，然后才是函数表达式和变量按顺序执行，这一点要牢记。</p>
+<h2 id="3-为什么要进行提升"><a href="#3-为什么要进行提升" class="headerlink" title="3. 为什么要进行提升"></a>3. 为什么要进行提升</h2><p>关于为什么进行变量提升和函数提升，这个问题一直没有明确的答案，不过最近读到 Dmitry Soshnikov 之前的一篇文章时，多少了解了一些，下面是 Dmitry Soshnikov 早些年的 twitter，他也对这个问题十分感兴趣：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927084830453-161910040.png" alt="image"></p>
+<p>然后 Jeremy Ashkenas 想让 Brendan Eich 聊聊这个话题：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927085003891-1035941947.png" alt="image"></p>
+<p>最后，Brendan Eich 给出了答案：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927085032422-1936451758.png" alt="image"></p>
+<p>大致的意思就是：由于第一代 JS 虚拟机中的抽象纰漏导致的，编译器将变量放到了栈槽内并编入索引，然后在（当前作用域的）入口处将变量名绑定到了栈槽内的变量。（注：这里提到的抽象是计算机术语，是对内部发生的更加复杂的事情的一种简化。）</p>
+<p>然后，Dmitry Soshnikov 又提到了函数提升，他提到了相互递归（就是 A 函数内会调用到 B 函数，而 B 函数也会调用到 A 函数）：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928082258078-892410645.png" alt="image"></p>
+<p>随后 Brendan Eich 很热心的又给出了答案：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928082526438-697971926.png" alt="image"></p>
+<p>Brendan Eich 很确定的说，函数提升就是为了解决相互递归的问题，大体上可以解决像 ML 语言这样自下而上的顺序问题。</p>
+<p>这里简单阐述一下相互递归，下面两个函数分别在自己的函数体内调用了对方：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 验证偶数</span><br><span class="line">function isEven(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return isOdd(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(isEven(2)); // true</span><br><span class="line"></span><br><span class="line">// 验证奇数</span><br><span class="line">function isOdd(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return isEven(n - 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果没有函数提升，而是按照自下而上的顺序，当 isEven 函数被调用时，isOdd 函数还未声明，所以当 isEven 内部无法调用 isOdd 函数。所以 Brendan Eich 设计了函数提升这一形式，将函数提升至当前作用域的顶部：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 验证偶数</span><br><span class="line">function isEven(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return isOdd(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 验证奇数</span><br><span class="line">function isOdd(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return isEven(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(isEven(2)); // true</span><br></pre></td></tr></table></figure>
+
+<p>这样一来，问题就迎刃而解了。</p>
+<p>最后，Brendan Eich 还对变量提升和函数提升做了总结：<br><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928084223719-96754371.png" alt="image"><br>大概是说，变量提升是人为实现的问题，而函数提升在当初设计时是有目的的。</p>
+<p>至此，关于变量提升和函数提升，相信大家已经明白其中的真相了。</p>
+<h2 id="4-最佳实践"><a href="#4-最佳实践" class="headerlink" title="4. 最佳实践"></a>4. 最佳实践</h2><p>理解变量提升和函数提升可以使我们更了解这门语言，更好地驾驭它，但是在开发中，我们不应该使用这些技巧，而是要规范我们的代码，做到可读性和可维护性。</p>
+<p>具体的做法是：无论变量还是函数，都必须先声明后使用。下面举了简单的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var name = &#x27;Scott&#x27;;</span><br><span class="line">var sayHello = function(guest) &#123;</span><br><span class="line">    console.log(name, &#x27;says hello to&#x27;, guest);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var i;</span><br><span class="line">var guest;</span><br><span class="line">var guests = [&#x27;John&#x27;, &#x27;Tom&#x27;, &#x27;Jack&#x27;];</span><br><span class="line"></span><br><span class="line">for (i = 0; i &lt; guests.length; i++) &#123;</span><br><span class="line">    guest = guests[i];</span><br><span class="line"></span><br><span class="line">    // do something on guest</span><br><span class="line"></span><br><span class="line">    sayHello(guest);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果对于新的项目，可以使用 let 替换 var，会变得更可靠，可维护性更高：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let name = &#x27;Scott&#x27;;</span><br><span class="line">let sayHello = function(guest) &#123;</span><br><span class="line">    console.log(name, &#x27;says hello to&#x27;, guest);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let guests = [&#x27;John&#x27;, &#x27;Tom&#x27;, &#x27;Jack&#x27;];</span><br><span class="line"></span><br><span class="line">for (let i = 0; i &lt; guests.length; i++) &#123;</span><br><span class="line">    let guest = guests[i];</span><br><span class="line"></span><br><span class="line">    // do something on guest</span><br><span class="line"></span><br><span class="line">    sayHello(guest);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得一提的是，ES6 中的 class 声明也存在提升，不过它和 let、const 一样，被约束和限制了，其规定，如果再声明位置之前引用，则是不合法的，会抛出一个异常。</p>
+<p>所以，无论是早期的代码，还是 ES6 中的代码，我们都需要遵循一点，先声明，后使用。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E4%BB%8B%E7%BB%8D%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%8C%E5%B9%B6%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E4%BB%8B%E7%BB%8D%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%8C%E5%B9%B6%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">介绍防抖与节流的原理，并动手实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:44:38" itemprop="dateCreated datePublished" datetime="2022-10-24T16:44:38+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const debounce = (fn,delay) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  // 介绍防抖函数原理，并实现</span><br><span class="line"></span><br><span class="line">  // your code</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const throttle = (fn,delay = 500) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  // 介绍节流函数原理，并实现</span><br><span class="line"></span><br><span class="line">   // your code</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-防抖函数"><a href="#1-防抖函数" class="headerlink" title="1)防抖函数"></a>1)防抖函数</h2><h3 id="防抖函数原理"><a href="#防抖函数原理" class="headerlink" title="防抖函数原理:"></a>防抖函数原理:</h3><p>在事件被触发 n 秒后再执行回调，如果在这 n 秒内又被触发，则重新计时。</p>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景:"></a>适用场景:</h3><p>1.按钮提交场景:防止多次提交按钮，只执行最后提交的一次。</p>
+<p>2.服务端验证场景:表单验证需要服务端配合，只执行—段连续的输入事件的最后一次，还有搜索联想词功能类似</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 手写简化版实现</span><br><span class="line"></span><br><span class="line">const debounce = (fn,delay) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  let timer = null;</span><br><span class="line"></span><br><span class="line">  return (...args) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    clearTimeout(timer);</span><br><span class="line"></span><br><span class="line">    timer = setTimeout(() =&gt; &#123;</span><br><span class="line"></span><br><span class="line">      fn.apply(this,args);</span><br><span class="line"></span><br><span class="line">    &#125;,delay)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-节流函数"><a href="#2-节流函数" class="headerlink" title="2)节流函数"></a>2)节流函数</h2><h3 id="节流函数原理"><a href="#节流函数原理" class="headerlink" title="节流函数原理:"></a>节流函数原理:</h3><p>规定在一个单位时间内，只能触发—次函数。如果这个单位时间内触发多次函数，只有一次生效。防抖是延迟执行，而节流是间隔执行，函数节流即每隔一段时间就执行一次。</p>
+<h3 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景:"></a>适用场景:</h3><p>1.拖拽场景:固定时间内只执行一次，防止超高频次触发位置变动</p>
+<p>⒉ 缩放场景:监控浏览器 resize</p>
+<p>3.动画场景:避免短时间内多次触发动画引起性能问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">// 手写简化版实现</span><br><span class="line"></span><br><span class="line">// ①定时器实现</span><br><span class="line"></span><br><span class="line">const throttle = (fn,delay = 500) =&gt;&#123;</span><br><span class="line"></span><br><span class="line">  let flag = true;</span><br><span class="line"></span><br><span class="line">  return (...args) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    if(!flag) return;</span><br><span class="line"></span><br><span class="line">    flag = false;</span><br><span class="line"></span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line"></span><br><span class="line">      fn.apply(this,args);</span><br><span class="line"></span><br><span class="line">      flag = true;</span><br><span class="line"></span><br><span class="line">    &#125;,delay);</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ②时间戳实现</span><br><span class="line"></span><br><span class="line">const throttle = (fn,delay = 500) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  let preTime = Date.now();</span><br><span class="line"></span><br><span class="line">  return (...args) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    const nowTime = Date.now();</span><br><span class="line"></span><br><span class="line">    if(nowTime - preTime &gt;= delay)&#123;</span><br><span class="line"></span><br><span class="line">          preTime = Date.now();</span><br><span class="line"></span><br><span class="line">          fn.apply(this,args);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/HTTP%E5%90%84%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB-HTTPS%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/HTTP%E5%90%84%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB-HTTPS%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">HTTP各版本的区别&HTTPS请求过程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:44:14" itemprop="dateCreated datePublished" datetime="2022-10-24T16:44:14+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HTTP-各版本的区别"><a href="#HTTP-各版本的区别" class="headerlink" title="HTTP 各版本的区别"></a>HTTP 各版本的区别</h2><h3 id="什么是-HTTP-和-HTTPS？"><a href="#什么是-HTTP-和-HTTPS？" class="headerlink" title="什么是 HTTP 和 HTTPS？"></a>什么是 HTTP 和 HTTPS？</h3><p>HTTP 是浏览器与服务器之间以明文的方式传送内容的一种互联网通信协议。</p>
+<p>HTTPS 是在 HTTP 的基础上主要基于 SPDF 协议结合 SSL&#x2F;TLS 加密协议，客户端依靠证书验证服务器身份传递加密信息的通信协议。</p>
+<ul>
+<li>1991 年　　 HTTP&#x2F;0.9 仅支持 GET 请求，不支持请求头</li>
+<li>1996 年　　 HTTP&#x2F;1.0 默认短连接（一次请求建议一次 TCP 连接，请求完就断开），支持 GET、POST、 HEAD 请求</li>
+<li>1999 年　　 HTTP&#x2F;1.1 默认长连接（一次 TCP 连接可以多次请求）；支持 PUT、DELETE、PATCH 等六种请求；增加 host 头，支持虚拟主机；支持断点续传功能</li>
+<li>2015 年　　 HTTP&#x2F;2.0 多路复用，降低开销（一次 TCP 连接可以处理多个请求）；服务器主动推送（相关资源一个请求全部推送）；解析基于二进制，解析错误少，更高效（HTTP&#x2F;1.X 解析基于文本）；报头压缩，降低开销。</li>
+</ul>
+<h2 id="HTTPS-请求过程：（一次-HTTPS-请求要进行两次-HTTP-传输）"><a href="#HTTPS-请求过程：（一次-HTTPS-请求要进行两次-HTTP-传输）" class="headerlink" title="HTTPS 请求过程：（一次 HTTPS 请求要进行两次 HTTP 传输）"></a>HTTPS 请求过程：（一次 HTTPS 请求要进行两次 HTTP 传输）</h2><p>1.客户端发出 https 请求，请求服务端建立 SSL 连接；</p>
+<p>2.服务端收到 https 请求，申请或自制数字证书，得到公钥和服务端私钥，并将公钥发送给客户端；</p>
+<p>3.客户端验证公钥，不通过验证则发出警告，通过验证则产生一个随机的客户端私钥；</p>
+<p>4.客户端将公钥与客户端私钥进行对称加密后传给服务端；</p>
+<p>5.服务端收到加密内容后，通过服务端私钥进行非对称解密，得到客户端私钥；</p>
+<p>6.服务端将客户端私钥和内容进行对称加密，并将加密内容发送给客户端；</p>
+<p>7.客户端收到加密内容后，通过客户端私钥进行对称解密，得到内容。</p>
+<h2 id="HTTPS-怎么校验证书的有效性？"><a href="#HTTPS-怎么校验证书的有效性？" class="headerlink" title="HTTPS 怎么校验证书的有效性？"></a>HTTPS 怎么校验证书的有效性？</h2><p>证书里面包含了公钥+各种信息+签名，公钥加密私钥解，私钥加密公钥解，通过私钥将签名解密后得到的信息和证书里面的信息比对就可以验证证书的合法性了。</p>
+<p>签名是私钥和各种信息加密后形成的签名。</p>
+<h2 id="为什么-HTTPS-很安全却不普及？"><a href="#为什么-HTTPS-很安全却不普及？" class="headerlink" title="为什么 HTTPS 很安全却不普及？"></a>为什么 HTTPS 很安全却不普及？</h2><p>1.加密通信与普通的文本通信，要消耗更多的 CPU 和内存，缓存慢，通信成本较大；</p>
+<p>2.HTTPS 通信需要证书，而证书不是免费的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E4%BB%8EURL%E8%BE%93%E5%85%A5%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%8E%B0%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E4%BB%8EURL%E8%BE%93%E5%85%A5%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%8E%B0%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F/" class="post-title-link" itemprop="url">从URL输入到页面展现到底发生什么？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:43:34" itemprop="dateCreated datePublished" datetime="2022-10-24T16:43:34+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://segmentfault.com/img/remote/1460000017184704" alt="image"></p>
+<p>总体来说分为以下几个过程:</p>
+<ul>
+<li>DNS 解析:将域名解析成 IP 地址</li>
+<li>TCP 连接：TCP 三次握手</li>
+<li>发送 HTTP 请求</li>
+<li>服务器处理请求并返回 HTTP 报文</li>
+<li>浏览器解析渲染页面</li>
+<li>断开连接：TCP 四次挥手</li>
+</ul>
+<h2 id="一、URL-到底是啥"><a href="#一、URL-到底是啥" class="headerlink" title="一、URL 到底是啥"></a>一、URL 到底是啥</h2><p>URL（Uniform Resource Locator），统一资源定位符，用于定位互联网上资源，俗称网址。<br>比如 <a target="_blank" rel="noopener" href="http://www.w3school.com.cn/html/index.asp">http://www.w3school.com.cn/ht...</a>，遵守以下的语法规则：</p>
+<ul>
+<li>scheme:&#x2F;&#x2F;host.domain:port&#x2F;path&#x2F;filename</li>
+<li>各部分解释如下：</li>
+<li>scheme - 定义因特网服务的类型。常见的协议有 http、https、ftp、file，其中最常见的类型是 http，而 https 则是进行加密的网络传输。</li>
+<li>host - 定义域主机（http 的默认主机是 www）</li>
+<li>domain - 定义因特网域名，比如 w3school.com.cn</li>
+<li>port - 定义主机上的端口号（http 的默认端口号是 80）</li>
+<li>path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。</li>
+<li>filename - 定义文档&#x2F;资源的名称</li>
+</ul>
+<h2 id="二、域名解析（DNS）"><a href="#二、域名解析（DNS）" class="headerlink" title="二、域名解析（DNS）"></a>二、域名解析（DNS）</h2><p>在浏览器输入网址后，首先要经过域名解析，因为浏览器并不能直接通过域名找到对应的服务器，而是要通过 IP 地址。大家这里或许会有个疑问—-计算机既可以被赋予 IP 地址，也可以被赋予主机名和域名。比如 <a target="_blank" rel="noopener" href="http://www.hackr.jp.那怎么不一开始就赋予个/">www.hackr.jp。那怎么不一开始就赋予个</a> IP 地址？这样就可以省去解析麻烦。我们先来了解下什么是 IP 地址</p>
+<h3 id="1-IP-地址"><a href="#1-IP-地址" class="headerlink" title="1.IP 地址"></a>1.IP 地址</h3><p>IP 地址是指互联网协议地址，是 IP Address 的缩写。IP 地址是 IP 协议提供的一种统一的地址格式，它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。IP 地址是一个 32 位的二进制数，比如 127.0.0.1 为本机 IP。<br><strong>域名就相当于 IP 地址乔装打扮的伪装者，带着一副面具。它的作用就是便于记忆和沟通的一组服务器的地址</strong>。用户通常使用主机名或域名来访问对方的计算机，而不是直接通过 IP 地址访问。<strong>因为与 IP 地址的一组纯数字相比，用字母配合数字的表示形式来指定计算机名更符合人类的记忆习惯。但要让计算机去理解名称，相对而言就变得困难了。因为计算机更擅长处理一长串数字。为了解决上述的问题，DNS 服务应运而生。</strong></p>
+<h3 id="2-什么是域名解析"><a href="#2-什么是域名解析" class="headerlink" title="2.什么是域名解析"></a>2.什么是域名解析</h3><p>DNS 协议提供通过域名查找 IP 地址，或逆向从 IP 地址反查域名的服务。<strong>DNS 是一个网络服务器，我们的域名解析简单来说就是在 DNS 上记录一条信息记录。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如 baidu.com  220.114.23.56（服务器外网IP地址）80（服务器端口号）</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-浏览器如何通过域名去查询-URL-对应的-IP-呢"><a href="#3-浏览器如何通过域名去查询-URL-对应的-IP-呢" class="headerlink" title="3. 浏览器如何通过域名去查询 URL 对应的 IP 呢"></a>3. 浏览器如何通过域名去查询 URL 对应的 IP 呢</h3><ul>
+<li>浏览器缓存：浏览器会按照一定的频率缓存 DNS 记录。</li>
+<li>操作系统缓存：如果浏览器缓存中找不到需要的 DNS 记录，那就去操作系统中找。</li>
+<li>路由缓存：路由器也有 DNS 缓存。</li>
+<li>ISP 的 DNS 服务器：ISP 是互联网服务提供商(Internet Service Provider)的简称，ISP 有专门的 DNS 服务器应对 DNS 查询请求。</li>
+<li>根服务器：ISP 的 DNS 服务器还找不到的话，它就会向根服务器发出请求，进行递归查询（DNS 服务器先问根域名服务器.com 域名服务器的 IP 地址，然后再问.baidu 域名服务器，依次类推）</li>
+</ul>
+<p><img src="https://segmentfault.com/img/remote/1460000017184705" alt="image"></p>
+<h3 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h3><p>浏览器通过向 DNS 服务器发送域名，DNS 服务器查询到与域名相对应的 IP 地址，然后返回给浏览器，浏览器再将 IP 地址打在协议上，同时请求参数也会在协议搭载，然后一并发送给对应的服务器。接下来介绍向服务器发送 HTTP 请求阶段，HTTP 请求分为三个部分：TCP 三次握手、http 请求响应信息、关闭 TCP 连接。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184706" alt="image"></p>
+<h2 id="三、TCP-三次握手"><a href="#三、TCP-三次握手" class="headerlink" title="三、TCP 三次握手"></a>三、TCP 三次握手</h2><p><strong>在客户端发送数据之前会发起 TCP 三次握手用以同步客户端和服务端的序列号和确认号，并交换 TCP 窗口大小信息。</strong></p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184707" alt="image"></p>
+<h3 id="1-TCP-三次握手的过程如下："><a href="#1-TCP-三次握手的过程如下：" class="headerlink" title="1.TCP 三次握手的过程如下："></a>1.TCP 三次握手的过程如下：</h3><ul>
+<li><strong>客户端发送一个带 SYN&#x3D;1，Seq&#x3D;X 的数据包到服务器端口</strong>（第一次握手，由浏览器发起，告诉服务器我要发送请求了）</li>
+<li><strong>服务器发回一个带 SYN&#x3D;1， ACK&#x3D;X+1， Seq&#x3D;Y 的响应包以示传达确认信息</strong>（第二次握手，由服务器发起，告诉浏览器我准备接受了，你赶紧发送吧）</li>
+<li><strong>客户端再回传一个带 ACK&#x3D;Y+1， Seq&#x3D;Z 的数据包，代表“握手结束”</strong>（第三次握手，由浏览器发送，告诉服务器，我马上就发了，准备接受吧）</li>
+</ul>
+<h3 id="2-为啥需要三次握手"><a href="#2-为啥需要三次握手" class="headerlink" title="2.为啥需要三次握手"></a>2.为啥需要三次握手</h3><p>谢希仁著《计算机网络》中讲“三次握手”的目的是<strong>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误</strong>。</p>
+<h2 id="四、发送-HTTP-请求"><a href="#四、发送-HTTP-请求" class="headerlink" title="四、发送 HTTP 请求"></a>四、发送 HTTP 请求</h2><p><strong>TCP 三次握手结束后，开始发送 HTTP 请求报文。</strong><br>请求报文由请求行（request line）、请求头（header）、请求体三个部分组成,如下图所示：</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184708" alt="image"></p>
+<h3 id="1-请求行包含请求方法、URL、协议版本"><a href="#1-请求行包含请求方法、URL、协议版本" class="headerlink" title="1.请求行包含请求方法、URL、协议版本"></a>1.请求行包含请求方法、URL、协议版本</h3><ul>
+<li>请求方法包含 8 种：GET、POST、PUT、DELETE、PATCH、HEAD、OPTIONS、TRACE。</li>
+<li>URL 即请求地址，由 &lt;协议&gt;：&#x2F;&#x2F;&lt;主机&gt;：&lt;端口&gt;&#x2F;&lt;路径&gt;?&lt;参数&gt; 组成</li>
+<li>协议版本即 http 版本号</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /chapter17/user.html HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p>以上代码中“POST”代表请求方法，“&#x2F;chapter17&#x2F;user.html”表示 URL，“HTTP&#x2F;1.1”代表协议和协议的版本。现在比较流行的是 Http1.1 版本</p>
+<h3 id="2-请求头包含请求的附加信息，由关键字-x2F-值对组成，每行一对，关键字和值用英文冒号“-”分隔。"><a href="#2-请求头包含请求的附加信息，由关键字-x2F-值对组成，每行一对，关键字和值用英文冒号“-”分隔。" class="headerlink" title="2.请求头包含请求的附加信息，由关键字&#x2F;值对组成，每行一对，关键字和值用英文冒号“:”分隔。"></a>2.请求头包含请求的附加信息，由关键字&#x2F;值对组成，每行一对，关键字和值用英文冒号“:”分隔。</h3><p>请求头部通知服务器有关于客户端请求的信息。它包含许多有关的客户端环境和请求正文的有用信息。其中比如：<strong>Host，表示主机名，虚拟主机；Connection,HTTP&#x2F;1.1 增加的，使用 keepalive，即持久连接，一个连接可以发多个请求；User-Agent，请求发出者，兼容性以及定制化需求。</strong></p>
+<h3 id="3-请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。"><a href="#3-请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。" class="headerlink" title="3.请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。"></a>3.请求体，可以承载多个请求参数的数据，包含回车符、换行符和请求数据，并不是所有请求都具有请求数据。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=tom&amp;password=1234&amp;realName=tomson</span><br></pre></td></tr></table></figure>
+
+<p>上面代码，承载着 name、password、realName 三个请求参数。</p>
+<h2 id="五、服务器处理请求并返回-HTTP-报文"><a href="#五、服务器处理请求并返回-HTTP-报文" class="headerlink" title="五、服务器处理请求并返回 HTTP 报文"></a>五、服务器处理请求并返回 HTTP 报文</h2><h3 id="1-服务器"><a href="#1-服务器" class="headerlink" title="1. 服务器"></a>1. 服务器</h3><p>服务器是网络环境中的高性能计算机，它侦听网络上的其他计算机（客户机）提交的服务请求，并提供相应的服务，比如网页服务、文件下载服务、邮件服务、视频服务。而客户端主要的功能是浏览网页、看视频、听音乐等等，两者截然不同。 每台服务器上都会安装处理请求的应用——web server。常见的 web server 产品有 apache、nginx、IIS 或 Lighttpd 等。<br><strong>web server 担任管控的角色</strong>，对于不同用户发送的请求，会结合配置文件，把不同请求委托给服务器上处理相应请求的程序进行处理（例如 CGI 脚本，JSP 脚本，servlets，ASP 脚本，服务器端 JavaScript，或者一些其它的服务器端技术等），然后返回后台程序处理产生的结果作为响应。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184709" alt="image"></p>
+<h3 id="2-MVC-后台处理阶段"><a href="#2-MVC-后台处理阶段" class="headerlink" title="2.MVC 后台处理阶段"></a>2.MVC 后台处理阶段</h3><p>后台开发现在有很多框架，但大部分都还是按照 MVC 设计模式进行搭建的。<br>MVC 是一个设计模式，将应用程序分成三个核心部件：模型（model）– 视图（view）–控制器（controller），它们各自处理自己的任务，实现输入、处理和输出的分离。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184710" alt="image"></p>
+<blockquote>
+<p>1、视图（view）</p>
+</blockquote>
+<p><strong>它是提供给用户的操作界面，是程序的外壳。</strong></p>
+<blockquote>
+<p>2、模型（model）</p>
+</blockquote>
+<p><strong>模型主要负责数据交互</strong>。在 MVC 的三个部件中，模型拥有最多的处理任务。一个模型能为多个视图提供数据。</p>
+<blockquote>
+<p>3、控制器（controller）</p>
+</blockquote>
+<p><strong>它负责根据用户从”视图层”输入的指令，选取”模型层”中的数据，然后对其进行相应的操作，产生最终结果</strong>。控制器属于管理者角色，从视图接收请求并决定调用哪个模型构件去处理请求，然后再确定用哪个视图来显示模型处理返回的数据。<br>这三层是紧密联系在一起的，但又是互相独立的，每一层内部的变化不影响其他层。每一层都对外提供接口（Interface），供上面一层调用。<br>至于这一阶段发生什么？简而言之，<strong>首先浏览器发送过来的请求先经过控制器，控制器进行逻辑处理和请求分发，接着会调用模型，这一阶段模型会获取 redis db 以及 MySQL 的数据，获取数据后将渲染好的页面，响应信息会以响应报文的形式返回给客户端，最后浏览器通过渲染引擎将网页呈现在用户面前。</strong></p>
+<h3 id="3-http-响应报文"><a href="#3-http-响应报文" class="headerlink" title="3.http 响应报文"></a>3.http 响应报文</h3><p>响应报文由响应行（request line）、响应头部（header）、响应主体三个部分组成。如下图所示：<br><img src="https://segmentfault.com/img/remote/1460000017184711" alt="image"></p>
+<p>(1) 响应行包含：协议版本，状态码，状态码描述</p>
+<p>状态码规则如下：</p>
+<ul>
+<li>1xx：指示信息–表示请求已接收，继续处理。</li>
+<li>2xx：成功–表示请求已被成功接收、理解、接受。</li>
+<li>3xx：重定向–要完成请求必须进行更进一步的操作。</li>
+<li>4xx：客户端错误–请求有语法错误或请求无法实现。</li>
+<li>5xx：服务器端错误–服务器未能实现合法的请求。</li>
+</ul>
+<p>(2) 响应头部包含响应报文的附加信息，由 名&#x2F;值 对组成</p>
+<p>(3) 响应主体包含回车符、换行符和响应返回数据，并不是所有响应报文都有响应数据</p>
+<h2 id="六、浏览器解析渲染页面"><a href="#六、浏览器解析渲染页面" class="headerlink" title="六、浏览器解析渲染页面"></a>六、浏览器解析渲染页面</h2><p>浏览器拿到响应文本 HTML 后，接下来介绍下浏览器渲染机制</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184712" alt="image"></p>
+<p>浏览器解析渲染页面分为以下五个步骤：</p>
+<ul>
+<li>根据 HTML 解析出 DOM 树</li>
+<li>根据 CSS 解析生成 CSS 规则树</li>
+<li>结合 DOM 树和 CSS 规则树，生成渲染树</li>
+<li>根据渲染树计算每一个节点的信息</li>
+<li>根据计算好的信息绘制页面</li>
+</ul>
+<h3 id="1-根据-HTML-解析-DOM-树"><a href="#1-根据-HTML-解析-DOM-树" class="headerlink" title="1.根据 HTML 解析 DOM 树"></a>1.根据 HTML 解析 DOM 树</h3><ul>
+<li>根据 HTML 的内容，将标签按照结构解析成为 DOM 树，DOM 树解析的过程是一个深度优先遍历。即先构建当前节点的所有子节点，再构建下一个兄弟节点。</li>
+<li>在读取 HTML 文档，构建 DOM 树的过程中，若遇到 script 标签，则 DOM 树的构建会暂停，直至脚本执行完毕。</li>
+</ul>
+<h3 id="2-根据-CSS-解析生成-CSS-规则树"><a href="#2-根据-CSS-解析生成-CSS-规则树" class="headerlink" title="2.根据 CSS 解析生成 CSS 规则树"></a>2.根据 CSS 解析生成 CSS 规则树</h3><ul>
+<li>解析 CSS 规则树时 js 执行将暂停，直至 CSS 规则树就绪。</li>
+<li>浏览器在 CSS 规则树生成之前不会进行渲染。</li>
+</ul>
+<h3 id="3-结合-DOM-树和-CSS-规则树，生成渲染树"><a href="#3-结合-DOM-树和-CSS-规则树，生成渲染树" class="headerlink" title="3.结合 DOM 树和 CSS 规则树，生成渲染树"></a>3.结合 DOM 树和 CSS 规则树，生成渲染树</h3><ul>
+<li>DOM 树和 CSS 规则树全部准备好了以后，浏览器才会开始构建渲染树。</li>
+<li>精简 CSS 并可以加快 CSS 规则树的构建，从而加快页面响应速度。</li>
+</ul>
+<h3 id="4-根据渲染树计算每一个节点的信息（布局）"><a href="#4-根据渲染树计算每一个节点的信息（布局）" class="headerlink" title="4.根据渲染树计算每一个节点的信息（布局）"></a>4.根据渲染树计算每一个节点的信息（布局）</h3><ul>
+<li>布局：通过渲染树中渲染对象的信息，计算出每一个渲染对象的位置和尺寸</li>
+<li>回流：在布局完成后，发现了某个部分发生了变化影响了布局，那就需要倒回去重新渲染。</li>
+</ul>
+<h3 id="5-根据计算好的信息绘制页面"><a href="#5-根据计算好的信息绘制页面" class="headerlink" title="5.根据计算好的信息绘制页面"></a>5.根据计算好的信息绘制页面</h3><ul>
+<li>绘制阶段，系统会遍历呈现树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。</li>
+<li>重绘：某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的重绘。</li>
+<li>回流：某个元素的尺寸发生了变化，则需重新计算渲染树，重新渲染。</li>
+</ul>
+<h2 id="七、断开连接"><a href="#七、断开连接" class="headerlink" title="七、断开连接"></a>七、断开连接</h2><p><strong>当数据传送完毕，需要断开 tcp 连接，此时发起 tcp 四次挥手。</strong></p>
+<p><img src="https://segmentfault.com/img/remote/1460000017184713" alt="image"></p>
+<ul>
+<li><strong>发起方向被动方发送报文，Fin、Ack、Seq，表示已经没有数据传输了。并进入 FIN_WAIT_1 状态。</strong>(第一次挥手：由浏览器发起的，发送给服务器，我请求报文发送完了，你准备关闭吧)</li>
+<li><strong>被动方发送报文，Ack、Seq，表示同意关闭请求。此时主机发起方进入 FIN_WAIT_2 状态。</strong>(第二次挥手：由服务器发起的，告诉浏览器，我请求报文接受完了，我准备关闭了，你也准备吧)</li>
+<li><strong>被动方向发起方发送报文段，Fin、Ack、Seq，请求关闭连接。并进入 LAST_ACK 状态。</strong>(第三次挥手：由服务器发起，告诉浏览器，我响应报文发送完了，你准备关闭吧)</li>
+<li><strong>发起方向被动方发送报文段，Ack、Seq。然后进入等待 TIME_WAIT 状态。被动方收到发起方的报文段以后关闭连接。发起方等待一定时间未收到回复，则正常关闭。</strong>(第四次挥手：由浏览器发起，告诉服务器，我响应报文接受完了，我准备关闭了，你也准备吧)</li>
+</ul>
+<p><strong>给大家推荐一个好用的 BUG 监控工具[Fundebug]<a target="_blank" rel="noopener" href="https://www.fundebug.com/?utm_source=liao)%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%85%8D%E8%B4%B9%E8%AF%95%E7%94%A8%EF%BC%81">https://www.fundebug.com/?utm_source=liao)，欢迎免费试用！</a></strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/HTTP%E5%B8%B8%E7%94%A8%E7%9A%8414%E7%A7%8D%E7%8A%B6%E6%80%81%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/HTTP%E5%B8%B8%E7%94%A8%E7%9A%8414%E7%A7%8D%E7%8A%B6%E6%80%81%E7%A0%81/" class="post-title-link" itemprop="url">HTTP常用的14种状态码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:42:56" itemprop="dateCreated datePublished" datetime="2022-10-24T16:42:56+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>状态码的职责是当客户端向服务器发送请求时，描述返回的请求结果。借助状态码，用户可以知道服务器端是正常处理了请求还是出现了错误。</p>
+<p>状态码的类别：</p>
+<table>
+<thead>
+<tr>
+<th>~</th>
+<th>类别</th>
+<th>原因短语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1XX</td>
+<td>Informational（信息性状态码）</td>
+<td>接受的请求正在处理</td>
+</tr>
+<tr>
+<td>2XX</td>
+<td>Success（成功状态码）</td>
+<td>请求正常处理完毕</td>
+</tr>
+<tr>
+<td>3XX</td>
+<td>Redirection（重定向状态码）</td>
+<td>需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td>4XX</td>
+<td>Client Error（客户端错误状态码）</td>
+<td>服务器无法处理请求</td>
+</tr>
+<tr>
+<td>5XX</td>
+<td>Server Error（服务器错误状态码）</td>
+<td>服务器处理请求出错</td>
+</tr>
+</tbody></table>
+<h2 id="2XX——表明请求被正常处理了"><a href="#2XX——表明请求被正常处理了" class="headerlink" title="2XX——表明请求被正常处理了"></a>2XX——表明请求被正常处理了</h2><p>1、200 OK：<strong>请求已正常处理</strong>。</p>
+<p>2、204 No Content：<strong>请求处理成功，但没有任何资源可以返回给客户端</strong>，一般在只需要从客户端往服务器发送信息，而对客户端不需要发送新信息内容的情况下使用。</p>
+<p>3、206 Partial Content：<strong>是对资源某一部分的请求</strong>，该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的 GET 请求。响应报文中包含由 Content-Range 指定范围的实体内容。</p>
+<h2 id="3XX——表明浏览器需要执行某些特殊的处理以正确处理请求"><a href="#3XX——表明浏览器需要执行某些特殊的处理以正确处理请求" class="headerlink" title="3XX——表明浏览器需要执行某些特殊的处理以正确处理请求"></a>3XX——表明浏览器需要执行某些特殊的处理以正确处理请求</h2><p>4、301 Moved Permanently：<strong>资源的 uri 已更新，你也更新下你的书签引用吧。永久性重定向</strong>，请求的资源已经被分配了新的 URI，以后应使用资源现在所指的 URI。</p>
+<p>5、302 Found：<strong>资源的 URI 已临时定位到其他位置了，姑且算你已经知道了这个情况了。临时性重定向</strong>。和 301 相似，但 302 代表的资源不是永久性移动，只是临时性性质的。换句话说，已移动的资源对应的 URI 将来还有可能发生改变。</p>
+<p>6、303 See Other：<strong>资源的 URI 已更新，你是否能临时按新的 URI 访问</strong>。该状态码表示由于请求对应的资源存在着另一个 URL，应使用 GET 方法定向获取请求的资源。303 状态码和 302 状态码有着相同的功能，但 303 状态码明确表示客户端应当采用 GET 方法获取资源，这点与 302 状态码有区别。</p>
+<p>当 301,302,303 响应状态码返回时，几乎所有的浏览器都会把 POST 改成 GET，并删除请求报文内的主体，之后请求会自动再次发送。</p>
+<p>7、304 Not Modified：<strong>资源已找到，但未符合条件请求</strong>。该状态码表示客户端发送附带条件的请求时（采用 GET 方法的请求报文中包含 If-Match，If-Modified-Since，If-None-Match，If-Range，If-Unmodified-Since 中任一首部）服务端允许请求访问资源，但因发生请求未满足条件的情况后，直接返回 304.。</p>
+<p>8、307 Temporary Redirect：<strong>临时重定向</strong>。与 302 有相同的含义。</p>
+<h2 id="4XX——表明客户端是发生错误的原因所在。"><a href="#4XX——表明客户端是发生错误的原因所在。" class="headerlink" title="4XX——表明客户端是发生错误的原因所在。"></a>4XX——表明客户端是发生错误的原因所在。</h2><p>9、400 Bad Request：<strong>服务器端无法理解客户端发送的请求</strong>，请求报文中可能存在语法错误。</p>
+<p>10、401 Unauthorized：<strong>该状态码表示发送的请求需要有通过 HTTP 认证（BASIC 认证，DIGEST 认证）的认证信息。</strong></p>
+<p>11、403 Forbidden：<strong>不允许访问那个资源</strong>。该状态码表明对请求资源的访问被服务器拒绝了。（权限，未授权 IP 等）</p>
+<p>12、404 Not Found：<strong>服务器上没有请求的资源</strong>。路径错误等。</p>
+<h2 id="5XX——服务器本身发生错误"><a href="#5XX——服务器本身发生错误" class="headerlink" title="5XX——服务器本身发生错误"></a>5XX——服务器本身发生错误</h2><p>13、500 Internal Server Error：<strong>貌似内部资源出故障了</strong>。该状态码表明服务器端在执行请求时发生了错误。也有可能是 web 应用存在 bug 或某些临时故障。</p>
+<p>14、503 Service Unavailable：抱歉，我现在正在忙着。该状态码表明服务器暂时处于超负载或正在停机维护，现在无法处理请求。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/XSS-%E5%92%8C-CSRF-%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%8C%BA%E5%88%AB%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/XSS-%E5%92%8C-CSRF-%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%8C%BA%E5%88%AB%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">XSS 和 CSRF 详解及区别解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:42:34" itemprop="dateCreated datePublished" datetime="2022-10-24T16:42:34+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>cross site script，跨站脚本攻击（关键字：脚本）。为了与 css 冲突取名为 xss！<br>XSS 攻击的核心原理是：不需要你做任何的登录认证，它会通过合法的操作（比如在 url 中输入、在评论框中输入），向你的页面注入脚本（可能是 js、hmtl 代码块等）。<br>恶意攻击者往 Web 页面里插入恶意 Script 代码，当用户浏览该页之时，嵌入其中 Web 里面的 Script 代码会被执行，从而达到恶意攻击用户的目的。</p>
+<p><strong>最后导致的结果可能是</strong>：</p>
+<ul>
+<li>盗用 Cookie</li>
+<li>破坏页面的正常结构，插入广告等恶意内容</li>
+<li>D-doss 攻击</li>
+</ul>
+<h3 id="XSS-的攻击方式"><a href="#XSS-的攻击方式" class="headerlink" title="XSS 的攻击方式"></a>XSS 的攻击方式</h3><p>1、反射型（临时，非持久型）<br>发出请求时，XSS 代码出现在 url 中，作为输入提交到服务器端，服务器端解析后响应，XSS 代码随响应内容一起传回给浏览器，最后浏览器解析执行 XSS 代码。这个过程像一次反射，所以叫反射型 XSS。<br>客户端提交，服务器解析后响应，到客户端再执行</p>
+<p>2、存储型（持久型）<br>存储型 XSS 和反射型 XSS 的差别在于，提交的代码会存储在服务器端（数据库、内存、文件系统等）。<br>比如先通过对一个攻击 url 进行编码(来绕过 xss filter)，然后提交该 web server(存储在 web server 中), 然后用户在浏览页面时，如果点击该 url，就会触发一个 XSS 攻击。当然用户点击该 url 时，也可能会触发一个 CSRF(Cross site request forgery)攻击。</p>
+<p>以上两种服务端参与</p>
+<p>3、DOM based XSS<br>基于 DOM 的 XSS，也就是 web server 不参与，仅仅涉及到浏览器的 XSS。比如根据用户的输入来动态构造一个 DOM 节点，如果没有对用户的输入进行过滤，那么也就导致 XSS 攻击的产生。过滤可以考虑采用 esapi4js。</p>
+<p><strong>预防</strong>：<br>简而言之：转义+过滤（<strong>输入过滤，输出转义</strong>）</p>
+<p>1、在 cookie 中设置了 HttpOnly 属性，那么通过 js 脚本将无法读取到 cookie 信息，这样能有效的防止 XSS 攻击</p>
+<p><strong>过滤</strong>：</p>
+<p>移除用户输入的和事件相关的属性。如 onerror 可以自动触发攻击，还有 onclick 等。（总而言是，过滤掉一些不安全的内容）</p>
+<p>移除用户输入的 Style 节点、Script 节点、Iframe 节点。（尤其是 Script 节点，它可是支持跨域的呀，一定要移除）。</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>用户登录 A 网站产生 cookie，此时再访问 B（危险），B 要求访问 A，并发起一个请求</p>
+<p>此时，B（危险）就利用用户的权限在 A 进行了操作。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1627906-03e225c2ab2d1d4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="image"></p>
+<p>如何预防：<br>1、Token 验证：（用的最多）</p>
+<p>（1）服务器发送给客户端一个 token；</p>
+<p>（2）客户端提交的表单中带着这个 token。</p>
+<p>（3）如果这个 token 不合法，那么服务器拒绝这个请求。</p>
+<p>2、隐藏令牌：<br>把 token 隐藏在 http 的 head 头中。</p>
+<p>响应头</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1627906-d8c2ef9a7b0c95c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1130/format/webp" alt="image"></p>
+<p>请求头</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1627906-59051e4a8516f9c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/998/format/webp" alt="image"></p>
+<p>ps：方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。</p>
+<h2 id="CSRF-和-XSS-的区别"><a href="#CSRF-和-XSS-的区别" class="headerlink" title="CSRF 和 XSS 的区别"></a>CSRF 和 XSS 的区别</h2><p>面试官还可能喜欢问二者的区别。</p>
+<p>区别一：</p>
+<p>CSRF：需要用户先登录网站 A，获取 cookie。<br>XSS：不需要登录。<br>区别二：（原理的区别）</p>
+<p>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 api。<br>XSS：是向网站 A 注入 JS 代码，然后执行 JS 里的代码，篡改网站 A 的内容。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

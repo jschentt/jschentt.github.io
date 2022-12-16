@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="It&#39;s better to burn out than to fade away.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bruce Chen&#39;s Blog">
+<meta property="og:url" content="http://example.com/page/8/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="It&#39;s better to burn out than to fade away.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Bruce Chen">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/page/8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAd-ts%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAd-ts%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">如何编写一个d.ts文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:35:55" itemprop="dateCreated datePublished" datetime="2022-10-24T16:35:55+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>这篇文章主要讲怎么写一个 typescript 的描述文件（以 d.ts 结尾的文件名，比如 xxx.d.ts)。</p>
+</blockquote>
+<p>总结一下：<br>从类型 type 角度分为：基本类型（string、number、boolean 等）及其混合；复杂类型（class、function、object）及其混合（比如说又是 class 又是 function）。<br>从代码有效范围分为：全局变量、模块变量和又是全局变量又是模块变量的。<br>从定义文件来说：自己写的.d.ts 文件和扩展别人写的.d.ts 文件。<br>以上三个角度，应该覆盖了描述文件的各个方面了。</p>
+<p>2019.09.12 更新说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.增加了用interface的方式声明函数。</span><br><span class="line">2.增加了在使用模块化导入的情况下如何声明全局变量。</span><br></pre></td></tr></table></figure>
+
+<p>2018.12.18 更新说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.增加了全局声明的原理说明。</span><br><span class="line">2.增加了es6的import、export对应的d.ts文件写法。</span><br><span class="line">3.增加了d.ts文件放置位置的说明。</span><br></pre></td></tr></table></figure>
+
+<p>发现了一个关于 typescript 比较好的入门教程：<a target="_blank" rel="noopener" href="https://ts.xcatliu.com/basics/declaration-files">https://ts.xcatliu.com/basics...</a>，这是其中的关于描述文件的文档。</p>
+<p>最近开始从 js 转 ts 了。但是要用到一些描述文件（d.ts），常用的比如 jquery 等都可以通过 npm 下载到别人已经写好的<code>npm install @types/jquery</code>。但是还是有一些小众的或者公司内部的公共库或者以前写过的公用 js 代码需要自己手动写描述文件。</p>
+<p>之前也从网上也找了一些资料，但还是看的云里雾里模糊不清，经过一段摸索，将摸索的结果记录下来，也希望可以给别人一个参考。</p>
+<p>如果你只写 js，d.ts 对你来说也是有用的，大部分编辑器能识别 d.ts 文件，当你写 js 代码的时候给你智能提示。效果像这样：</p>
+<p><img src="https://segmentfault.com/img/bVDReN?w=594&h=359" alt="image"></p>
+<p>详情可以看我以前写过的一些文章<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007110845">：https://segmentfault.com/a/11...</a></p>
+<p>通常，我们写 js 的时候有两种引入 js 的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1，在html文件中通过&lt;script&gt;标签全局引入全局变量。</span><br><span class="line">2，通过模块加载器require其他js文件：比如这样var j=require(&#x27;jquery&#x27;)。</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局类型"><a href="#全局类型" class="headerlink" title="全局类型"></a>全局类型</h2><p>首先以第一种方式举例。</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>比如现在有一个全局变量，那对应的 d.ts 文件里面这样写。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare var aaa:number</span><br></pre></td></tr></table></figure>
+
+<p>其中关键字 declare 表示声明的意思。<strong>在 d.ts 文件里面，在最外层声明变量或者函数或者类要在前面加上这个关键字。在 typescript 的规则里面，如果一个.ts、.d.ts 文件如果没有用到 import 或者 export 语法的话，那么最顶层声明的变量就是全局变量。</strong></p>
+<p>所以我们在这里声明了一个全局变量 aaa,类型是数字类型（number）。当然了也可以是 string 类型或者其他或者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare var aaa:number|string //注意这里用的是一个竖线表示&quot;或&quot;的意思</span><br></pre></td></tr></table></figure>
+
+<p>如果是常量的话用关键字 const 表示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare const max:200</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>由上面的全局变量的写法我们很自然的推断出一个全局函数的写法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/** id是用户的id，可以是number或者string */</span><br><span class="line">declare function getName(id:number|string):string</span><br></pre></td></tr></table></figure>
+
+<p>最后的那个 string 表示的是函数的返回值的类型。如果函数没有返回值可以用 void 表示。<br>在 js 里面调用的时候就会提示：</p>
+<p><img src="https://segmentfault.com/img/bVLuCP?w=579&h=122" alt="image"></p>
+<p>我们上面写的注释，写 js 的时候还可以提示。</p>
+<p>有时候同一个函数有若干种写法：</p>
+<p><img src="https://segmentfault.com/img/bVMXTD?w=431&h=107" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">get(1234)</span><br><span class="line">get(&quot;zhangsan&quot;,18)</span><br></pre></td></tr></table></figure>
+
+<p>那么 d.ts 对应的写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare function get(id: string | number): string</span><br><span class="line">declare function get(name:string,age:number): string</span><br></pre></td></tr></table></figure>
+
+<p>如果有些参数可有可无，可以加个?表示非必须。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare function render(callback?:()=&gt;void): string</span><br></pre></td></tr></table></figure>
+
+<p>js 中调用的时候，回调传不传都可以：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">render()</span><br><span class="line"></span><br><span class="line">render(function () &#123;</span><br><span class="line">    alert(&#x27;finish.&#x27;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="用-interface-声明函数"><a href="#用-interface-声明函数" class="headerlink" title="用 interface 声明函数"></a>用 interface 声明函数</h3><p>也可以用 interface 去声明函数类型：</p>
+<p><img src="https://segmentfault.com/img/bVbxExG?w=440&h=178" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//Get是一种类型</span><br><span class="line">declare interface Get&#123;</span><br><span class="line">    (id: string): string</span><br><span class="line">    (name:string,age:number):string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//get是Get类型的</span><br><span class="line">declare var get:Get</span><br></pre></td></tr></table></figure>
+
+<p>用起来长这个样子：</p>
+<p><img src="https://segmentfault.com/img/bVbxExy?w=432&h=136" alt="image"></p>
+<h3 id="class"><a href="#class" class="headerlink" title="class"></a>class</h3><p>当然除了变量和函数外，我们还有类（class）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">declare class Person &#123;</span><br><span class="line"></span><br><span class="line">    static maxAge: number //静态变量</span><br><span class="line">    static getMaxAge(): number //静态方法</span><br><span class="line"></span><br><span class="line">    constructor(name: string, age: number)  //构造函数</span><br><span class="line">    getName(id: number): string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>constructor 表示的是构造方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXy0?w=651&h=91" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXzk?w=524&h=100" alt="image"></p>
+<p>其中 static 表示静态的意思，用来表示静态变量和静态方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXAV?w=605&h=96" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXAg?w=568&h=112" alt="image"></p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declare namespace OOO&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然了这个对象上面可能有变量，可能有函数可能有类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">declare namespace OOO&#123;</span><br><span class="line">    var aaa: number | string</span><br><span class="line">    function getName(id: number | string): string</span><br><span class="line">    class Person &#123;</span><br><span class="line"></span><br><span class="line">        static maxAge: number //静态变量</span><br><span class="line">        static getMaxAge(): number //静态方法</span><br><span class="line"></span><br><span class="line">        constructor(name: string, age: number) //构造函数</span><br><span class="line">        getName(id: number): string //实例方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是把上面的那些写法放到这个 namespace 包起来的大括号里面，注意括号里面就不需要 declare 关键字了。<br>效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXBu?w=525&h=113" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXBv?w=581&h=63" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXBB?w=617&h=125" alt="image"></p>
+<p>对象里面套对象也是可以的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">declare namespace OOO&#123;</span><br><span class="line">    var aaa: number | string</span><br><span class="line">    // ...</span><br><span class="line">    namespace O2&#123;</span><br><span class="line">        let b:number</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXB5?w=547&h=67" alt="image"></p>
+<h2 id="混合类型"><a href="#混合类型" class="headerlink" title="混合类型"></a>混合类型</h2><p>有时候有些值既是函数又是 class 又是对象的复杂对象。比如我们常用的 jquery 有各种用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new $()</span><br><span class="line">$.ajax()</span><br><span class="line">$()</span><br></pre></td></tr></table></figure>
+
+<h3 id="既是函数又是对象"><a href="#既是函数又是对象" class="headerlink" title="既是函数又是对象"></a>既是函数又是对象</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare function $2(s:string): void</span><br><span class="line"></span><br><span class="line">declare namespace $2&#123;</span><br><span class="line">    let aaa:number</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p>作为函数用：</p>
+<p><img src="https://segmentfault.com/img/bVMXJ8?w=273&h=85" alt="image"></p>
+<p>作为对象用：</p>
+<p><img src="https://segmentfault.com/img/bVMXKa?w=540&h=78" alt="image"></p>
+<p>也就是 ts 会自动把同名的 namespace 和 function 合并到一起。</p>
+<h3 id="既是函数，又是类（可以-new-出来），又是对象"><a href="#既是函数，又是类（可以-new-出来），又是对象" class="headerlink" title="既是函数，又是类（可以 new 出来），又是对象"></a>既是函数，又是类（可以 new 出来），又是对象</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 实例方法</span><br><span class="line">interface People&#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">    getName(): string</span><br><span class="line">    getAge():number</span><br><span class="line">&#125;</span><br><span class="line">interface People_Static&#123;</span><br><span class="line">    /** 构造函数 */</span><br><span class="line">    new (name: string, age: number): People</span><br><span class="line">    new (id:number): People</span><br><span class="line"></span><br><span class="line">    /** 作为对象，调用对象上的方法或者变量 */</span><br><span class="line">    staticA():number</span><br><span class="line">    aaa:string</span><br><span class="line"></span><br><span class="line">    /** 作为函数使用 */</span><br><span class="line">    (w:number):number</span><br><span class="line">    (w:string):number</span><br><span class="line">&#125;</span><br><span class="line">declare var People:People_Static</span><br></pre></td></tr></table></figure>
+
+<p>ts3.6 增加了新功能，function 声明和 class 声明可以合并了，所以又有了新的写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/** 作为函数使用 */</span><br><span class="line">declare function People(w: number): number</span><br><span class="line">declare function People(w: string): number</span><br><span class="line"></span><br><span class="line">declare class People &#123;</span><br><span class="line">    /** 构造函数 */</span><br><span class="line">    constructor(name: string, age: number)</span><br><span class="line">    constructor(id: number)</span><br><span class="line"></span><br><span class="line">    // 实例属性和实例方法</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">    getName(): string</span><br><span class="line">    getAge(): number</span><br><span class="line"></span><br><span class="line">    /** 作为对象，调用对象上的方法或者变量 */</span><br><span class="line">    static staticA(): number</span><br><span class="line">    static aaa: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/** 作为对象，调用对象上的方法或者变量 */</span><br><span class="line">declare namespace People &#123;</span><br><span class="line">    export var abc: number</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数用 function，类用 class 声明，复杂对象就用 namespace，这样的对应关系简洁明了。</p>
+<p>效果：</p>
+<p>作为函数使用：</p>
+<p><img src="https://segmentfault.com/img/bVMXNA?w=369&h=77" alt="image"></p>
+<p>类的静态方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXNN?w=595&h=83" alt="image"></p>
+<p>类的构造函数：</p>
+<p><img src="https://segmentfault.com/img/bVMXNB?w=626&h=103" alt="image"></p>
+<p>类的实例方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXNE?w=508&h=165" alt="image"></p>
+<h2 id="模块化的全局变量"><a href="#模块化的全局变量" class="headerlink" title="模块化的全局变量"></a>模块化的全局变量</h2><p>这个是怎么回事呢，就是有时候我们定义全局变量的时候需要引入(别人写的)文件，比如这样的，我想声明个全局变量 req：</p>
+<p><img src="https://segmentfault.com/img/bVbxEAj?w=526&h=124" alt="image"></p>
+<p>由于我们当前的 d.ts 文件使用了 import&#x2F;export 语法，那么 ts 编译器就不把我们通过 declare var xxx:yyy 当成了全局变量了，那么我们就需要通过以下的方式声明全局变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Request,Response&#125; from &#x27;express&#x27;</span><br><span class="line"></span><br><span class="line">declare global &#123;</span><br><span class="line">    var req: Request</span><br><span class="line">    var res: Response</span><br><span class="line"></span><br><span class="line">    namespace OOO &#123;</span><br><span class="line">        var a:number</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用起来长这个样子：</p>
+<p><img src="https://segmentfault.com/img/bVbxEBp?w=430&h=214" alt="image"></p>
+<p>其他类型（number、string blabla）就不一一举例了，参照上面的例子去掉 declare 填到 global 的大括号下就行了。</p>
+<h2 id="在-Ts-中定义-window-对象"><a href="#在-Ts-中定义-window-对象" class="headerlink" title="在 Ts 中定义 window 对象"></a>在 Ts 中定义 window 对象</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare global &#123;</span><br><span class="line">  interface Window &#123;</span><br><span class="line">    _czc: any</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模块化（CommonJS）"><a href="#模块化（CommonJS）" class="headerlink" title="模块化（CommonJS）"></a>模块化（CommonJS）</h2><p>除了上面的全局的方式，我们有时候还是通过 require 的方式引入模块化的代码。</p>
+<p>比如这样的效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXOl?w=486&h=134" alt="image"></p>
+<p>对应的写法是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">declare module &quot;abcde&quot; &#123;</span><br><span class="line">    export let a: number</span><br><span class="line">    export function b(): number</span><br><span class="line">    export namespace c&#123;</span><br><span class="line">        let cd: string</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是外面套了一层 <code>module &quot;xxx&quot;</code>，里面的写法和之前其实差不多，把<code>declare</code>换成了<code>export</code>。</p>
+<p>此外，有时候我们导出去的是一个函数本身，比如这样的：</p>
+<p><img src="https://segmentfault.com/img/bVMXOU?w=358&h=110" alt="image"></p>
+<p>对应的写法很简单，长这个样子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">declare module &quot;app&quot; &#123;</span><br><span class="line">    function aaa(some:number):number</span><br><span class="line">     export=aaa</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>以此类推，导出一个变量或常量的话这么写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">declare module &quot;ccc&quot; &#123;</span><br><span class="line">    const c:400</span><br><span class="line">     export=c</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="https://segmentfault.com/img/bVMXPc?w=671&h=109" alt="image"></p>
+<h2 id="ES6-的模块化方式（import-export）"><a href="#ES6-的模块化方式（import-export）" class="headerlink" title="ES6 的模块化方式（import export）"></a>ES6 的模块化方式（import export）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare var aaa: 1</span><br><span class="line">declare var bbb: 2</span><br><span class="line">declare var ccc: 3 //因为这个文件里我们使用了import或者export语法，所以bbb和ccc在其他代码里不能访问到，即不是全局变量</span><br><span class="line"></span><br><span class="line">export &#123; aaa &#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import &#123; a1, a2 &#125; from &quot;./A&quot;</span><br><span class="line"></span><br><span class="line">console.log(a1)</span><br><span class="line">console.log(a2)</span><br></pre></td></tr></table></figure>
+
+<p>那么对应的 A.d.ts 文件是这样写的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">declare var a1: 1</span><br><span class="line">declare var a2: 2</span><br><span class="line"></span><br><span class="line">export &#123; a1,a2 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然了也能这样写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export declare var a1: 1</span><br><span class="line">export declare var a2: 2</span><br></pre></td></tr></table></figure>
+
+<p>不过建议之前的第一种写法，原因看这里<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017419857">https://segmentfault.com/a/11...</a></p>
+<p>当然了还有人经常问 default 导出的写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare var a1: 1</span><br><span class="line">export default a1</span><br></pre></td></tr></table></figure>
+
+<p>使用的时候当然就是这样用了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import a1 from &quot;./A&quot;;</span><br><span class="line"></span><br><span class="line">console.log(a1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><p>有一种代码，既可以通过全局变量访问到，也可以通过 require 的方式访问到。比如我们最常见的 jquery：</p>
+<p><img src="https://segmentfault.com/img/bVMXPg?w=539&h=174" alt="image"></p>
+<p><img src="https://segmentfault.com/img/bVMXPf?w=523&h=187" alt="image"></p>
+<p>其实就是按照全局的方式写 d.ts，写完后在最后加上<code>declare module &quot;xxx&quot;</code>的描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">declare namespace UUU&#123;</span><br><span class="line">    let a:number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare module &quot;UUU&quot; &#123;</span><br><span class="line">    export =UUU</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果这样：</p>
+<p>作为全局变量使用：</p>
+<p><img src="https://segmentfault.com/img/bVMXPB?w=520&h=86" alt="image"></p>
+<p>作为模块加载使用：</p>
+<p><img src="https://segmentfault.com/img/bVMXPM?w=513&h=104" alt="image"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>有时候我们扩展了一些内置对象。比如我们给 Date 增加了一个 format 的实例方法：</p>
+<p><img src="https://segmentfault.com/img/bVMXRR?w=517&h=103" alt="image"></p>
+<p>对应的 d.ts 描述文件这样写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface Date &#123;</span><br><span class="line">    format(f: string): string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="d-ts-文件放到哪里"><a href="#d-ts-文件放到哪里" class="headerlink" title=".d.ts 文件放到哪里"></a>.d.ts 文件放到哪里</h2><p>经常有人问写出来的 d.ts 文件（A.d.ts）文件放到哪个目录里，如果是模块化的话那就放到和源码（A.js）文件同一个目录下，如果是全局变量的话理论上放到哪里都可以————当然除非你在 tsconfig.json 文件里面特殊配置过。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/ts%E4%B8%AD%E6%B3%9B%E5%9E%8B%E3%80%81%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E3%80%81%E6%B3%9B%E5%9E%8B%E7%B1%BB%E3%80%81%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/ts%E4%B8%AD%E6%B3%9B%E5%9E%8B%E3%80%81%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E3%80%81%E6%B3%9B%E5%9E%8B%E7%B1%BB%E3%80%81%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/" class="post-title-link" itemprop="url">ts中泛型、泛型方法、泛型类、泛型接口</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:35:27" itemprop="dateCreated datePublished" datetime="2022-10-24T16:35:27+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>什么是泛型呢？我们可以理解为泛型就是在编译期间不确定方法的类型(广泛之意思)，在方法调用时，由程序员指定泛型具体指向什么类型。泛型在传统面向对象编程语言中是极为常见的，ts 中当然也执行泛型，如果你理解 c#或 java 中的泛型，相信本篇理解起来会很容易。</p>
+<h2 id="泛型函数、泛型类、泛型接口。"><a href="#泛型函数、泛型类、泛型接口。" class="headerlink" title="泛型函数、泛型类、泛型接口。"></a>泛型函数、泛型类、泛型接口。</h2><p><strong>generic.ts</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * ts中泛型</span><br><span class="line"> *    泛型就是在编译期间不确定方法的类型(广泛之意思)，在方法调用时，由程序员指定泛型具体指向什么类型</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">//1 泛型函数</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取数组中最小值 （数字）</span><br><span class="line"> * @param &#123;number[]&#125; arr</span><br><span class="line"> * @returns &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">function  getMinNumber(arr:number[]):number&#123;</span><br><span class="line">    var min=arr[0];</span><br><span class="line">    arr.forEach((value)=&gt;&#123;</span><br><span class="line">        if(value&lt;min)&#123;</span><br><span class="line">            min=value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取数组中最小值 （字符串）</span><br><span class="line"> * @param &#123;number[]&#125; arr</span><br><span class="line"> * @returns &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">function  getMinStr(arr:string[]):string&#123;</span><br><span class="line">    var min=arr[0];</span><br><span class="line">    arr.forEach((value)=&gt;&#123;</span><br><span class="line">        if(value&lt;min)&#123;</span><br><span class="line">            min=value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(getMinNumber([1, 3, 5, 7, 8]));//1</span><br><span class="line">console.log(getMinStr([&quot;tom&quot;,&quot;jerry&quot;,&quot;jack&quot;,&quot;sunny&quot;]));//jack</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取数组中最小值 (T泛型通用)</span><br><span class="line"> * @param &#123;T[]&#125; arr</span><br><span class="line"> * @returns &#123;T&#125;</span><br><span class="line"> */</span><br><span class="line">function getMin&lt;T&gt;(arr:T[]):T&#123;</span><br><span class="line">   var min=arr[0];</span><br><span class="line">   arr.forEach((value)=&gt;&#123;</span><br><span class="line">      if(value&lt;min)&#123;</span><br><span class="line">          min=value;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(getMin([1, 3, 5, 7, 8]));</span><br><span class="line">console.log(getMin([&quot;tom&quot;,&quot;jerry&quot;,&quot;jack&quot;,&quot;sunny&quot;]));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//2 泛型类</span><br><span class="line">class GetMin&lt;T&gt;&#123;</span><br><span class="line">     arr:T[]=[];</span><br><span class="line">     add(ele:T)&#123;</span><br><span class="line">         this.arr.push(ele);</span><br><span class="line">     &#125;</span><br><span class="line">    min():T&#123;</span><br><span class="line">       var min=this.arr[0];</span><br><span class="line">       this.arr.forEach(function (value) &#123;</span><br><span class="line">          if(value&lt;min)&#123;</span><br><span class="line">              min=value;</span><br><span class="line">          &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       return min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  var gm1= new  GetMin&lt;number&gt;();</span><br><span class="line">   gm1.add(5);</span><br><span class="line">   gm1.add(3);</span><br><span class="line">   gm1.add(2);</span><br><span class="line">   gm1.add(9);</span><br><span class="line">console.log(gm1.min());</span><br><span class="line"></span><br><span class="line">var gm2= new  GetMin&lt;string&gt;();</span><br><span class="line">gm2.add(&quot;tom&quot;);</span><br><span class="line">gm2.add(&quot;jerry&quot;);</span><br><span class="line">gm2.add(&quot;jack&quot;);</span><br><span class="line">gm2.add(&quot;sunny&quot;);</span><br><span class="line">console.log(gm2.min());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 3 泛型函数接口</span><br><span class="line"> */</span><br><span class="line">interface ConfigFn&#123;</span><br><span class="line">    &lt;T&gt;(value:T):T;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var getData:ConfigFn=function&lt;T&gt;(value:T):T&#123;</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br><span class="line">getData&lt;string&gt;(&#x27;张三&#x27;);</span><br><span class="line">// getData&lt;string&gt;(1243);  //错误</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 类似  Map&lt;String,Object&gt; Param  接口</span><br><span class="line">interface Param&#123;</span><br><span class="line">    [index:string]:any</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//4 泛型类接口</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * page分页对象</span><br><span class="line"> */</span><br><span class="line">class Page&#123;</span><br><span class="line">    private currentPage:number=1; //当前页码 默认1</span><br><span class="line">    private pageSize:number=10;//每页条数 默认为10</span><br><span class="line">    private sortName:string; //排序字段</span><br><span class="line">    private sortOrder:string=&quot;asc&quot;; // 排序规则 asc | desc 默认为asc正序</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     constructor(param:Param)&#123;</span><br><span class="line">         if(param[&quot;currentPage&quot;])&#123;</span><br><span class="line">             this.currentPage=param[&quot;currentPage&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;pageSize&quot;])&#123;</span><br><span class="line">             this.pageSize=param[&quot;pageSize&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;sortName&quot;])&#123;</span><br><span class="line">             this.sortName=param[&quot;sortName&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">         if(param[&quot;sortOrder&quot;])&#123;</span><br><span class="line">             this.sortOrder=param[&quot;sortOrder&quot;];</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    public    getStartNum():number&#123;</span><br><span class="line">        return   (this.currentPage-1)*this.pageSize;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class User&#123;</span><br><span class="line">     id:number;//id主键自增</span><br><span class="line">     name:string;//姓名</span><br><span class="line">     sex:number;//性别 1男 2女</span><br><span class="line">     age:number;//年龄</span><br><span class="line">     city:string;//城市</span><br><span class="line">     describe:string;//描述</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//泛型接口</span><br><span class="line">interface  BaseDao&lt;T&gt; &#123;</span><br><span class="line">     findById(id:number):T;//根据主键id查询一个实体</span><br><span class="line">     findPageList(param:Param,page:Page):T[];//查询分页列表</span><br><span class="line">     findPageCount(param:Param):number;//查询分页count</span><br><span class="line">     save(o:T):void;//保存一个实体</span><br><span class="line">     update(o:T):void;//更新一个实体</span><br><span class="line">     deleteById(id:number);//删除一个实体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 接口实现类</span><br><span class="line"> */</span><br><span class="line">class UserDao&lt;User&gt; implements BaseDao&lt;User&gt;&#123;</span><br><span class="line">     findById(id:number):User&#123;</span><br><span class="line"></span><br><span class="line">        return null;</span><br><span class="line">     &#125;</span><br><span class="line">    findPageList(param:Param,page:Page):User[]&#123;</span><br><span class="line">         return [];</span><br><span class="line">    &#125;</span><br><span class="line">    findPageCount(param:Param):number&#123;</span><br><span class="line">         return   0;</span><br><span class="line">    &#125;</span><br><span class="line">    save(o:User):void&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    update(o:User):void&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    deleteById(id:number)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3react%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM%E3%80%81diff%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3react%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM%E3%80%81diff%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">深入理解react中的虚拟DOM、diff算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:35:00" itemprop="dateCreated datePublished" datetime="2022-10-24T16:35:00+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>文章结构：</p>
+<ul>
+<li>React 中的虚拟 DOM 是什么？</li>
+<li>虚拟 DOM 的简单实现（diff 算法）</li>
+<li>虚拟 DOM 的内部工作原理</li>
+<li>React 中的虚拟 DOM 与 Vue 中的虚拟 DOM 比较</li>
+</ul>
+<h2 id="React-中的虚拟-DOM-是什么？"><a href="#React-中的虚拟-DOM-是什么？" class="headerlink" title="React 中的虚拟 DOM 是什么？"></a>React 中的虚拟 DOM 是什么？</h2><p>虽然 React 中的虚拟 DOM 很好用，但是这是一个无心插柳的结果。</p>
+<p><strong>React 的核心思想：一个 Component 拯救世界，忘掉烦恼，从此不再操心界面</strong>。</p>
+<h3 id="1-Virtual-Dom-快，有两个前提"><a href="#1-Virtual-Dom-快，有两个前提" class="headerlink" title="1. Virtual Dom 快，有两个前提"></a>1. Virtual Dom 快，有两个前提</h3><h4 id="1-1-Javascript-很快"><a href="#1-1-Javascript-很快" class="headerlink" title="1.1 Javascript 很快"></a>1.1 Javascript 很快</h4><p><strong>Chrome 刚出来的时候，在 Chrome 里跑 Javascript 非常快，给了其它浏览器很大压力</strong>。而现在经过几轮你追我赶，各主流浏览器的 Javascript 执行速度都很快了。</p>
+<p>在 <a target="_blank" rel="noopener" href="https://julialang.org/benchmarks/">https://julialang.org/benchmarks/</a> 这个网站上，我们可以看到，JavaScript 语言已经非常快了，和 C 就是几倍的关系，和 java 在同一个量级。<strong>所以说，单纯的 JavaScript 还是很快的。</strong></p>
+<h4 id="1-2-Dom-很慢"><a href="#1-2-Dom-很慢" class="headerlink" title="1.2 Dom 很慢"></a>1.2 Dom 很慢</h4><p>当创建一个元素比如 div，有以下几项内容需要实现： <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement">HTML element</a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element">Element</a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers">GlobalEventHandler</a>。简单的说，就是插入一个 Dom 元素的时候，这个元素上本身或者继承很多属性如 width、height、offsetHeight、style、title，另外还需要注册这个元素的诸多方法，比如 onfocus、onclick 等等。 这还只是一个元素，如果元素比较多的时候，还涉及到嵌套，那么元素的属性和方法等等就会很多，效率很低。</p>
+<p>比如，我们在一个空白网页的 body 中添加一个 div 元素，如下所示：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1044137/201708/1044137-20170801225429255-521935350.png" alt="image"></p>
+<p>这个元素<strong>会挂载默认的 styles、得到这个元素的 computed 属性、注册相应的 Event Listener、DOM Breakpoints 以及大量的 properties，这些属性、方法的注册肯定是需要耗费大量时间的</strong>。</p>
+<p>尤其是在 js 操作 DOM 的过程中，不仅有 dom 本身的繁重，js 的操作也需要浪费时间，我们认为 js 和 DOM 之间有一座桥，如果你频繁的在桥两边走动，显然效率是很低的，<strong>如果你的 JavaScript 操作 DOM 的方式还非常不合理，那么显然就会更糟糕了</strong>。</p>
+<p><strong>而 React 的虚拟 DOM 就是解决这个问题的！</strong> 虽然它解决不了 DOM 自身的繁重，但是<strong>虚拟 DOM 可以对 JavaScript 操作 DOM 这一部分内容进行优化</strong>。</p>
+<p>比如说，现在你的 list 是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;0&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;1&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;2&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<p>你希望把它变成下面这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;6&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;7&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;8&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;9&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;10&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>通常的操作是什么?</strong></p>
+<p>先把 0， 1，2，3 这些 Element 删掉，然后加几个新的 Element 6，7，8，9，10 进去，这里面就有 4 次 Element 删除，5 次 Element 添加。共计 9 次 DOM 操作。</p>
+<p><strong>那 React 的虚拟 DOM 可以怎么做呢？</strong></p>
+<p>而 React 会把这两个做一下 Diff，然后发现其实不用删除 0，1，2，3，而是可以直接改 innerHTML，然后只需要添加一个 Element（10）就行了，这样就是 4 次 innerHTML 操作加 1 个 Element 添加。<strong>共计 5 次操作，这样效率的提升是非常可观的。</strong></p>
+<h3 id="2、-关于-React"><a href="#2、-关于-React" class="headerlink" title="2、 关于 React"></a>2、 关于 React</h3><h4 id="2-1-接口和设计"><a href="#2-1-接口和设计" class="headerlink" title="2.1 接口和设计"></a>2.1 接口和设计</h4><p><strong>在 React 的设计中，是完全不需要你来操作 DOM 的。我们也可以认为，在 React 中根本就没有 DOM 这个概念，有的只是 Component。</strong></p>
+<p>当你写好一个 Component 以后，Component 会完全负责 UI，你不需要也不应该去也不能够指挥 Component 怎么显示，你只能告诉它你想要显示一个香蕉还是两个梨。</p>
+<p><strong>隔离 DOM 并不仅仅是因为 DOM 慢，而也是为了把界面和业务完全隔离，操作数据的只关心数据，操作界面的只关心界面</strong>。比如在 websocket 聊天室的创建房间时，我们可以首先把 Component 写好，然后当获取到数据的时候，只要把数据放在 redux 中就好，然后 Component 就自动把房间添加到页面中去，而不是你先拿到数据，然后使用 js 操作 DOM 把数据显示在页面上。</p>
+<p>即<strong>我提供一个 Component，然后你只管给我数据，界面的事情完全不用你操心，我保证会把界面变成你想要的样子。所以说 React 的着力点就在于 View 层，即 React 专注于 View 层</strong>。你可以把一个 React 的 Component 想象成一个 Pure Function，只要你给的数据是[1, 2, 3]，我保证显示的是[1, 2, 3]。没有什么删除一个 Element，添加一个 Element 这样的事情。NO。你要我显示什么就给我一个完整的列表。</p>
+<p>另外，Flux 虽然说的是单向的 Data Flow(redux 也是)，但是实际上就是单向的 Observer，Store-&gt;View-&gt;Action-&gt;Store（箭头是数据流向，实现上可以理解为 View 监听 Store，View 直接 trigger action，然后 Store 监听 Action）。</p>
+<h4 id="2-2-实现"><a href="#2-2-实现" class="headerlink" title="2.2 实现"></a>2.2 实现</h4><p>那么 react 如何实现呢？ 最简单的方法就是当数据变化时，我直接把原先的 DOM 卸载，然后把最新数据的 DOM 替换上去。 但是，虚拟 DOM 哪去了？ 这样做的效率显然是极低的。</p>
+<p>所以虚拟 DOM 就来救场了。</p>
+<p>那么虚拟 DOM 和 DOM 之间的关系是什么呢？</p>
+<p>首先，Virtual DOM 并没有完全实现 DOM，即虚拟 DOM 和真正地 DOM 是不一样的，Virtual DOM 最主要的还是保留了 Element 之间的层次关系和一些基本属性。因为真实 DOM 实在是太复杂，一个空的 Element 都复杂得能让你崩溃，并且几乎所有内容我根本不关心好吗。所以 Virtual DOM 里每一个 Element 实际上只有几个属性，即最重要的，最为有用的，并且没有那么多乱七八糟的引用，比如一些注册的属性和函数啊，这些都是默认的，创建虚拟 DOM 进行 diff 的过程中大家都一致，是不需要进行比对的。所以哪怕是直接把 Virtual DOM 删了，根据新传进来的数据重新创建一个新的 Virtual DOM 出来都非常非常非常快。（每一个 component 的 render 函数就是在做这个事情，给新的 virtual dom 提供 input）。</p>
+<p>所以，引入了 Virtual DOM 之后，React 是这么干的：你给我一个数据，我根据这个数据生成一个全新的 Virtual DOM，然后跟我上一次生成的 Virtual DOM 去 diff，得到一个 Patch，然后把这个 Patch 打到浏览器的 DOM 上去。完事。并且这里的 patch 显然不是完整的虚拟 DOM，而是新的虚拟 DOM 和上一次的虚拟 DOM 经过 diff 后的差异化的部分。</p>
+<p>假设在任意时候有，VirtualDom1 &#x3D;&#x3D; DOM1 （组织结构相同, 显然虚拟 DOM 和真实 DOM 是不可能完全相等的，这里的&#x3D;&#x3D;是 js 中非完全相等）。当有新数据来的时候，我生成 VirtualDom2，然后去和 VirtualDom1 做 diff，得到一个 Patch（差异化的结果）。然后将这个 Patch 去应用到 DOM1 上，得到 DOM2。如果一切正常，那么有 VirtualDom2 &#x3D;&#x3D; DOM2（同样是结构上的相等）。</p>
+<p>这里你可以做一些小实验，去破坏 VirtualDom1 &#x3D;&#x3D; DOM1 这个假设（手动在 DOM 里删除一些 Element，这时候 VirtualDom 里的 Element 没有被删除，所以两边不一样了）。<br>然后给新的数据，你会发现生成的界面就不是你想要的那个界面了。</p>
+<p>最后，回到为什么 Virtual Dom 快这个问题上。<br>其实是由于每次生成 virtual dom 很快，diff 生成 patch 也比较快，而在对 DOM 进行 patch 的时候，虽然 DOM 的变更比较慢，但是 React 能够根据 Patch 的内容，优化一部分 DOM 操作，比如之前的那个例子。</p>
+<p>重点就在最后，哪怕是我生成了 virtual dom(需要耗费时间)，哪怕是我跑了 diff（还需要花时间），但是我根据 patch 简化了那些 DOM 操作省下来的时间依然很可观（这个就是时间差的问题了，即节省下来的时间 &gt; 生成 virtual dom 的时间 + diff 时间）。所以总体上来说，还是比较快。</p>
+<p>简单发散一下思路，如果哪一天，DOM 本身的操作已经非常非常非常快了，并且我们手动对于 DOM 的操作都是精心设计优化过后的，那么加上了 VirtualDom 还会快吗？<br>当然不行了，毕竟你多做了这么多额外的工作。</p>
+<pre><code>    但是那一天会来到吗？
+    诶，大不了到时候不用Virtual DOM。
+</code></pre>
+<p>注： 此部分内容整理自：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/29504639/answer/44680878">https://www.zhihu.com/question/29504639/answer/44680878</a></p>
+<h2 id="虚拟-DOM-的简单实现（diff-算法）"><a href="#虚拟-DOM-的简单实现（diff-算法）" class="headerlink" title="虚拟 DOM 的简单实现（diff 算法）"></a>虚拟 DOM 的简单实现（diff 算法）</h2><p>目录</p>
+<ul>
+<li>1 前言</li>
+<li>2 对前端应用状态管理思考</li>
+<li>3 Virtual DOM 算法</li>
+<li>4 算法实现<ul>
+<li>4.1 步骤一：用 JS 对象模拟 DOM 树</li>
+<li>4.2 步骤二：比较两棵虚拟 DOM 树的差异</li>
+<li>4.3 步骤三：把差异应用到真正的 DOM 树上</li>
+</ul>
+</li>
+<li>5 结语</li>
+</ul>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在上面一部分中，我们已经简单介绍了虚拟 DOM 的答题思路和好处，这里我们将通过自己写一个虚拟 DOM 来加深对其的理解，有一些自己的思考。</p>
+<h3 id="对前端应用状态管理思考"><a href="#对前端应用状态管理思考" class="headerlink" title="对前端应用状态管理思考"></a>对前端应用状态管理思考</h3><p>维护状态，更新视图。</p>
+<h3 id="虚拟-DOM-算法"><a href="#虚拟-DOM-算法" class="headerlink" title="虚拟 DOM 算法"></a>虚拟 DOM 算法</h3><p>DOM 是很慢的，如果我们创建一个简单的 div，然后把他的所有的属性都打印出来，你会看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var div = document.createElement(&#x27;div&#x27;),</span><br><span class="line">    str = &#x27;&#x27;;</span><br><span class="line">for (var key in div) &#123;</span><br><span class="line">  str = str + &#x27; &#x27; + key;</span><br><span class="line">&#125;</span><br><span class="line">console.log(str);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://images2017.cnblogs.com/blog/1044137/201708/1044137-20170830091841171-1021895840.png" alt="image"></p>
+<p>可以看到，这些属性还是非常惊人的，包括样式的修饰特性、一般的特性、方法等等，如果我们打印出其长度，可以得到惊人的 227 个。<br>而这仅仅是一层，真正的 DOM 元素是非常庞大的，这是因为标准就是这么设计的，而且操作他们的时候你要小心翼翼，轻微的触碰就有可能导致页面发生重排，这是杀死性能的罪魁祸首。</p>
+<p>而相对于 DOM 对象，原生的 JavaScript 对象处理起来更快，而且更简单，DOM 树上的结构信息我们都可以使用 JavaScript 对象很容易的表示出来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var element = &#123;</span><br><span class="line">      tagName: &#x27;ul&#x27;,</span><br><span class="line">      props: &#123;</span><br><span class="line">        id: &#x27;list&#x27;</span><br><span class="line">      &#125;,</span><br><span class="line">      children: &#123;</span><br><span class="line">        &#123;</span><br><span class="line">          tagName: &#x27;li&#x27;,</span><br><span class="line">          props: &#123;</span><br><span class="line">            class: &#x27;item&#x27;</span><br><span class="line">          &#125;,</span><br><span class="line">          children: [&#x27;Item1&#x27;]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          tagName: &#x27;li&#x27;,</span><br><span class="line">          props: &#123;</span><br><span class="line">            class: &#x27;item&#x27;</span><br><span class="line">          &#125;,</span><br><span class="line">          children: [&#x27;Item1&#x27;]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          tagName: &#x27;li&#x27;,</span><br><span class="line">          props: &#123;</span><br><span class="line">            class: &#x27;item&#x27;</span><br><span class="line">          &#125;,</span><br><span class="line">          children: [&#x27;Item1&#x27;]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上所示，对于一个元素，我们只需要一个 JavaScript 对象就可以很容易的表示出来，这个对象中有三个属性:</p>
+<ol>
+<li>tagName: 用来表示这个元素的标签名。</li>
+<li>props: 用来表示这元素所包含的属性。</li>
+<li>children: 用来表示这元素的 children。</li>
+</ol>
+<p>而上面的这个对象使用 HTML 表示就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&#x27;list&#x27;&gt;</span><br><span class="line">  &lt;li class=&#x27;item&#x27;&gt;Item 1&lt;/li&gt;</span><br><span class="line">  &lt;li class=&#x27;item&#x27;&gt;Item 2&lt;/li&gt;</span><br><span class="line">  &lt;li class=&#x27;item&#x27;&gt;Item 3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>OK! 既然原来的 DOM 信息可以使用 JavaScript 来表示，那么反过来，我们就可以用这个 JavaScript 对象来构建一个真正的 DOM 树。</p>
+<p>所以之前所说的状态变更的时候会重新构建这个 JavaScript 对象，然后呢，用新渲染的对象和旧的对象去对比， 记录两棵树的差异，记录下来的就是我们需要改变的地方。 这就是所谓的虚拟 DOM，包括下面的几个步骤：</p>
+<ol>
+<li>用 JavaScript 对象来表示 DOM 树的结构； 然后用这个树构建一个真正的 DOM 树，插入到文档中。</li>
+<li>当状态变更的时候，重新构造一个新的对象树，然后用这个新的树和旧的树作对比，记录两个树的差异。</li>
+<li>把 2 所记录的差异应用在步骤一所构建的真正的 DOM 树上，视图就更新了。</li>
+</ol>
+<p>Virtual DOM 的本质就是在 JS 和 DOM 之间做一个缓存，可以类比 CPU 和硬盘，既然硬盘这么慢，我们就也在他们之间添加一个缓存； 既然 DOM 这么慢，我们就可以在 JS 和 DOM 之间添加一个缓存。 CPU（JS）只操作内存（虚拟 DOM），最后的时候在把变更写入硬盘（DOM）。</p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><h4 id="1、-用-JavaScript-对象模拟-DOM-树"><a href="#1、-用-JavaScript-对象模拟-DOM-树" class="headerlink" title="1、 用 JavaScript 对象模拟 DOM 树"></a>1、 用 JavaScript 对象模拟 DOM 树</h4><p>用 JavaScript 对象来模拟一个 DOM 节点并不难，你只需要记录他的节点类型（tagName）、属性（props）、子节点（children）。</p>
+<p>element.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Element(tagName, props, children) &#123;</span><br><span class="line">  this.tagName = tagName;</span><br><span class="line">  this.props = props;</span><br><span class="line">  this.children = children;</span><br><span class="line">&#125;</span><br><span class="line">module.exports = function (tagName, props, children) &#123;</span><br><span class="line">   return new Element(tagName, props, children);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过这个构造函数，我们就可以传入标签名、属性以及子节点了，tagName 可以在我们 render 的时候直接根据它来创建真实的元素，这里的 props 使用一个对象传入，可以方便我们遍历。</p>
+<p>基本使用方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var el = require(&#x27;./element&#x27;);</span><br><span class="line"></span><br><span class="line">var ul = el(&#x27;ul&#x27;, &#123;id: &#x27;list&#x27;&#125;, [</span><br><span class="line">    el(&#x27;li&#x27;, &#123;class: &#x27;item&#x27;&#125;, [&#x27;item1&#x27;]),</span><br><span class="line">    el(&#x27;li&#x27;, &#123;class: &#x27;item&#x27;&#125;, [&#x27;item2&#x27;]),</span><br><span class="line">    el(&#x27;li&#x27;, &#123;class: &#x27;item&#x27;&#125;, [&#x27;item3&#x27;])</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+
+<p>然而，现在的 ul 只是 JavaScript 表示的一个 DOM 结构，页面上并没有这个结构，所有我们可以根据 ul 构建一个真正的<code>&lt;ul&gt;</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Element.prototype.render = function () &#123;</span><br><span class="line">      // 根据tagName创建一个真实的元素</span><br><span class="line">      var el = document.createElement(this.tagName);</span><br><span class="line">      // 得到这个元素的属性对象，方便我们遍历。</span><br><span class="line">      var props = this.props;</span><br><span class="line"></span><br><span class="line">      for (var propName in props) &#123;</span><br><span class="line">        // 获取到这个元素值</span><br><span class="line">        var propValue = props[propName];</span><br><span class="line"></span><br><span class="line">        // 通过setAttribute设置元素属性。</span><br><span class="line">        el.setAttribute(propName, propValue);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // 注意： 这里的children，我们传入的是一个数组，所以，children不存在时我们用【】来替代。</span><br><span class="line">      var children = this.children || [];</span><br><span class="line"></span><br><span class="line">      //遍历children</span><br><span class="line">      children.forEach(function (child) &#123;</span><br><span class="line">        var childEl = (child instanceof Element)</span><br><span class="line">                      ? child.render()</span><br><span class="line">                      : document.createTextNode(child);</span><br><span class="line">        // 无论childEl是元素还是文字节点，都需要添加到这个元素中。</span><br><span class="line">        el.appendChild(childEl);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      return el;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以，render 方法会根据 tagName 构建一个真正的 DOM 节点，然后设置这个节点的属性，最后递归的把自己的子节点也构建起来，所以只需要调用 ul 的 render 方法，通过 document.body.appendChild 就可以挂载到真实的页面上了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;title&gt;div&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line"></span><br><span class="line">    function Element(tagName, props, children) &#123;</span><br><span class="line">      this.tagName = tagName;</span><br><span class="line">      this.props = props;</span><br><span class="line">      this.children = children;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    var ul = new Element(&#x27;ul&#x27;, &#123;id: &#x27;list&#x27;&#125;, [</span><br><span class="line">        new Element(&#x27;li&#x27;, &#123;class: &#x27;item&#x27;&#125;, [&#x27;item1&#x27;]),</span><br><span class="line">        new Element(&#x27;li&#x27;, &#123;class: &#x27;item&#x27;&#125;, [&#x27;item2&#x27;]),</span><br><span class="line">        new Element(&#x27;li&#x27;, &#123;class: &#x27;item&#x27;&#125;, [&#x27;item3&#x27;])</span><br><span class="line">      ]);</span><br><span class="line"></span><br><span class="line">    Element.prototype.render = function () &#123;</span><br><span class="line">      // 根据tagName创建一个真实的元素</span><br><span class="line">      var el = document.createElement(this.tagName);</span><br><span class="line">      // 得到这个元素的属性对象，方便我们遍历。</span><br><span class="line">      var props = this.props;</span><br><span class="line"></span><br><span class="line">      for (var propName in props) &#123;</span><br><span class="line">        // 获取到这个元素值</span><br><span class="line">        var propValue = props[propName];</span><br><span class="line"></span><br><span class="line">        // 通过setAttribute设置元素属性。</span><br><span class="line">        el.setAttribute(propName, propValue);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // 注意： 这里的children，我们传入的是一个数组，所以，children不存在时我们用【】来替代。</span><br><span class="line">      var children = this.children || [];</span><br><span class="line"></span><br><span class="line">      //遍历children</span><br><span class="line">      children.forEach(function (child) &#123;</span><br><span class="line">        var childEl = (child instanceof Element)</span><br><span class="line">                      ? child.render()</span><br><span class="line">                      : document.createTextNode(child);</span><br><span class="line">        // 无论childEl是元素还是文字节点，都需要添加到这个元素中。</span><br><span class="line">        el.appendChild(childEl);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      return el;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var ulRoot = ul.render();</span><br><span class="line">    document.body.appendChild(ulRoot);</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的这段代码，就可以渲染出下面的结果了：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1044137/201708/1044137-20170830101420718-2040904880.png" alt="image"></p>
+<h4 id="2、比较两颗虚拟-DOM-树的差异"><a href="#2、比较两颗虚拟-DOM-树的差异" class="headerlink" title="2、比较两颗虚拟 DOM 树的差异"></a>2、比较两颗虚拟 DOM 树的差异</h4><p>比较两颗 DOM 树的差异是 Virtual DOM 算法中最为核心的部分，这也就是所谓的 Virtual DOM 的 diff 算法。 两个树的完全的 diff 算法是一个时间复杂度为 O(n3) 的问题。 但是在前端中，你会很少跨层地移动 DOM 元素，所以真实的 DOM 算法会对同一个层级的元素进行对比。</p>
+<p><img src="https://images2017.cnblogs.com/blog/1044137/201708/1044137-20170830101733202-1167202046.png" alt="image"></p>
+<p>上图中，div 只会和同一层级的 div 对比，第二层级的只会和第二层级对比。 这样算法复杂度就可以达到 O(n)。</p>
+<p><strong>（1）深度遍历优先，记录差异</strong></p>
+<p>在实际的代码中，会对新旧两棵树进行一个深度优先的遍历，这样每一个节点就会有一个唯一的标记：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1044137/201708/1044137-20170830102245702-1187605690.png" alt="image"></p>
+<p>上面的这个遍历过程就是深度优先，即深度完全完成之后，再转移位置。 在深度优先遍历的时候，每遍历到一个节点就把该节点和新的树进行对比，如果有差异的话就记录到一个对象里面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// diff函数，对比两颗树</span><br><span class="line">function diff(oldTree, newTree) &#123;</span><br><span class="line">  // 当前的节点的标志。因为在深度优先遍历的过程中，每个节点都有一个index。</span><br><span class="line">  var index = 0;</span><br><span class="line"></span><br><span class="line">  // 在遍历到每个节点的时候，都需要进行对比，找到差异，并记录在下面的对象中。</span><br><span class="line">  var pathches = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  // 开始进行深度优先遍历</span><br><span class="line">  dfsWalk(oldTree, newTree, index, pathches);</span><br><span class="line"></span><br><span class="line">  // 最终diff算法返回的是一个两棵树的差异。</span><br><span class="line">  return pathches;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 对两棵树进行深度优先遍历。</span><br><span class="line">function dfsWalk(oldNode, newNode, index, pathches) &#123;</span><br><span class="line">  // 对比oldNode和newNode的不同，记录下来</span><br><span class="line">  pathches[index] = [...];</span><br><span class="line"></span><br><span class="line">  diffChildren(oldNode.children, newNode.children, index, pathches);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 遍历子节点</span><br><span class="line">function diffChildren(oldChildren, newChildren, index, pathches) &#123;</span><br><span class="line">  var leftNode = null;</span><br><span class="line">  var currentNodeIndex = index;</span><br><span class="line">  oldChildren.forEach(function (child, i) &#123;</span><br><span class="line">    var newChild = newChildren[i];</span><br><span class="line">    currentNodeIndex = (leftNode &amp;&amp; leftNode.count)</span><br><span class="line">    ? currentNodeIndex + leftNode.count + 1</span><br><span class="line">    : currentNodeIndex + 1</span><br><span class="line"></span><br><span class="line">    // 深度遍历子节点</span><br><span class="line">    dfsWalk(child, newChild, currentNodeIndex, pathches);</span><br><span class="line">    leftNode = child;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例如，上面的 div 和新的 div 有差异，当前的标记是 0， 那么我们可以使用数组来存储新旧节点的不同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patches[0] = [&#123;difference&#125;, &#123;difference&#125;, ...]</span><br></pre></td></tr></table></figure>
+
+<p>同理使用 patches[1]来记录 p，使用 patches[3]来记录 ul，以此类推。</p>
+<p><strong>（2）差异类型</strong></p>
+<p>上面说的节点的差异指的是什么呢？ 对 DOM 操作可能会：</p>
+<ol>
+<li>替换原来的节点，如把上面的 div 换成了 section。</li>
+<li>移动、删除、新增子节点， 例如上面 div 的子节点，把 p 和 ul 顺序互换。</li>
+<li>修改了节点的属性。</li>
+<li>对于文本节点，文本内容可能会改变。 例如修改上面的文本内容 2 内容为 Virtual DOM2.<br>　　所以，我们可以定义下面的几种类型：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var REPLACE = 0;</span><br><span class="line">var REORDER = 1;</span><br><span class="line">var PROPS = 2;</span><br><span class="line">var TEXT = 3;</span><br></pre></td></tr></table></figure>
+
+<p>对于节点替换，很简单，判断新旧节点的 tagName 是不是一样的，如果不一样的说明需要替换掉。 如 div 换成了 section，就记录下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">patches[0] = [&#123;</span><br><span class="line">  type: REPALCE,</span><br><span class="line">  node: newNode // el(&#x27;section&#x27;, props, children)</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，如果给 div 新增了属性 id 为 container，就记录下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pathches[0] = [</span><br><span class="line">  &#123;</span><br><span class="line">    type: REPLACE,</span><br><span class="line">    node: newNode</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    type: PROPS,</span><br><span class="line">    props: &#123;</span><br><span class="line">      id: &#x27;container&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>如果是文本节点发生了变化，那么就记录下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pathches[2] = [</span><br><span class="line">  &#123;</span><br><span class="line">    type:  TEXT,</span><br><span class="line">    content: &#x27;virtual DOM2&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么如果我们把 div 的子节点重新排序下了呢？ 比如 p、ul、div 的顺序换成了 div、p、ul，那么这个该怎么对比呢？ 如果按照同级进行顺序对比的话，他们就会被替换掉，如 p 和 div 的 tagName 不同，p 就会被 div 所代替，最终，三个节点就都会被替换，这样 DOM 开销就会非常大，而实际上是不需要替换节点的，只需要移动就可以了， 我们只需要知道怎么去移动。这里牵扯到了两个列表的对比算法，如下。</p>
+<p><strong>（3）列表对比算法</strong></p>
+<p>假设现在可以用英文字母唯一地标识每一个子节点：</p>
+<p>旧的节点顺序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a b c d e f g h i</span><br></pre></td></tr></table></figure>
+
+<p>现在对节点进行了删除、插入、移动的操作。新增 j 节点，删除 e 节点，移动 h 节点：</p>
+<p>新的节点顺序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a b c h d f g i j</span><br></pre></td></tr></table></figure>
+
+<p>现在知道了新旧的顺序，求最小的插入、删除操作（移动可以看成是删除和插入操作的结合）。这个问题抽象出来其实是字符串的最小编辑距离问题（Edition Distance），最常见的解决算法是 Levenshtein Distance，通过动态规划求解，时间复杂度为 O(M * N)。但是我们并不需要真的达到最小的操作，我们只需要优化一些比较常见的移动情况，牺牲一定 DOM 操作，让算法时间复杂度达到线性的（O(max(M, N))。具体算法细节比较多，这里不累述，有兴趣可以参考代码。</p>
+<p>我们能够获取到某个父节点的子节点的操作，就可以记录下来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">patches[0] = [&#123;</span><br><span class="line">  type: REORDER,</span><br><span class="line">  moves: [&#123;remove or insert&#125;, &#123;remove or insert&#125;, ...]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>但是要注意的是，因为 tagName 是可重复的，不能用这个来进行对比。所以需要给子节点加上唯一标识 key，列表对比的时候，使用 key 进行对比，这样才能复用老的 DOM 树上的节点。</p>
+<p>这样，我们就可以通过深度优先遍历两棵树，每层的节点进行对比，记录下每个节点的差异了。完整 diff 算法代码可见 diff.js。</p>
+<h3 id="3、把差异引用到真正的-DOM-树上"><a href="#3、把差异引用到真正的-DOM-树上" class="headerlink" title="3、把差异引用到真正的 DOM 树上"></a>3、把差异引用到真正的 DOM 树上</h3><p>因为步骤一所构建的 JavaScript 对象树和 render 出来真正的 DOM 树的信息、结构是一样的。所以我们可以对那棵 DOM 树也进行深度优先的遍历，遍历的时候从步骤二生成的 patches 对象中找出当前遍历的节点差异，然后进行 DOM 操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function patch (node, patches) &#123;</span><br><span class="line">  var walker = &#123;index: 0&#125;</span><br><span class="line">  dfsWalk(node, walker, patches)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dfsWalk (node, walker, patches) &#123;</span><br><span class="line">  var currentPatches = patches[walker.index] // 从patches拿出当前节点的差异</span><br><span class="line"></span><br><span class="line">  var len = node.childNodes</span><br><span class="line">    ? node.childNodes.length</span><br><span class="line">    : 0</span><br><span class="line">  for (var i = 0; i &lt; len; i++) &#123; // 深度遍历子节点</span><br><span class="line">    var child = node.childNodes[i]</span><br><span class="line">    walker.index++</span><br><span class="line">    dfsWalk(child, walker, patches)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (currentPatches) &#123;</span><br><span class="line">    applyPatches(node, currentPatches) // 对当前节点进行DOM操作</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>applyPatches，根据不同类型的差异对当前节点进行 DOM 操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function applyPatches (node, currentPatches) &#123;</span><br><span class="line">  currentPatches.forEach(function (currentPatch) &#123;</span><br><span class="line">    switch (currentPatch.type) &#123;</span><br><span class="line">      case REPLACE:</span><br><span class="line">        node.parentNode.replaceChild(currentPatch.node.render(), node)</span><br><span class="line">        break</span><br><span class="line">      case REORDER:</span><br><span class="line">        reorderChildren(node, currentPatch.moves)</span><br><span class="line">        break</span><br><span class="line">      case PROPS:</span><br><span class="line">        setProps(node, currentPatch.props)</span><br><span class="line">        break</span><br><span class="line">      case TEXT:</span><br><span class="line">        node.textContent = currentPatch.content</span><br><span class="line">        break</span><br><span class="line">      default:</span><br><span class="line">        throw new Error(&#x27;Unknown patch type &#x27; + currentPatch.type)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5、结语</p>
+<p>virtual DOM 算法主要实现上面步骤的三个函数： element、diff、patch，然后就可以实际的进行使用了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 1. 构建虚拟DOM</span><br><span class="line">var tree = el(&#x27;div&#x27;, &#123;&#x27;id&#x27;: &#x27;container&#x27;&#125;, [</span><br><span class="line">    el(&#x27;h1&#x27;, &#123;style: &#x27;color: blue&#x27;&#125;, [&#x27;simple virtal dom&#x27;]),</span><br><span class="line">    el(&#x27;p&#x27;, [&#x27;Hello, virtual-dom&#x27;]),</span><br><span class="line">    el(&#x27;ul&#x27;, [el(&#x27;li&#x27;)])</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">// 2. 通过虚拟DOM构建真正的DOM</span><br><span class="line">var root = tree.render()</span><br><span class="line">document.body.appendChild(root)</span><br><span class="line"></span><br><span class="line">// 3. 生成新的虚拟DOM</span><br><span class="line">var newTree = el(&#x27;div&#x27;, &#123;&#x27;id&#x27;: &#x27;container&#x27;&#125;, [</span><br><span class="line">    el(&#x27;h1&#x27;, &#123;style: &#x27;color: red&#x27;&#125;, [&#x27;simple virtal dom&#x27;]),</span><br><span class="line">    el(&#x27;p&#x27;, [&#x27;Hello, virtual-dom&#x27;]),</span><br><span class="line">    el(&#x27;ul&#x27;, [el(&#x27;li&#x27;), el(&#x27;li&#x27;)])</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">// 4. 比较两棵虚拟DOM树的不同</span><br><span class="line">var patches = diff(tree, newTree)</span><br><span class="line"></span><br><span class="line">// 5. 在真正的DOM元素上应用变更</span><br><span class="line">patch(root, patches)</span><br></pre></td></tr></table></figure>
+
+<p>当然这是非常粗糙的实践，实际中还需要处理事件监听等；生成虚拟 DOM 的时候也可以加入 JSX 语法。这些事情都做了的话，就可以构造一个简单的 ReactJS 了。</p>
+<ul>
+<li>源码地址： <a target="_blank" rel="noopener" href="https://github.com/livoras/simple-virtual-dom">https://github.com/livoras/simple-virtual-dom</a></li>
+<li>参考文章：<a target="_blank" rel="noopener" href="https://github.com/livoras/blog/issues/13">https://github.com/livoras/blog/issues/13</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">数组和链表的区别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:34:36" itemprop="dateCreated datePublished" datetime="2022-10-24T16:34:36+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>数组和链表是两种基本的数据结构，他们在内存存储上的表现不一样，所以也有各自的特点。</p>
+<p>大致总结一下特点和区别，拿几个人一起去看电影时坐座位为例。</p>
+<h2 id="数组的特点"><a href="#数组的特点" class="headerlink" title="数组的特点"></a>数组的特点</h2><ul>
+<li>在内存中，数组是一块连续的区域。 拿上面的看电影来说，这几个人在电影院必须坐在一起。</li>
+<li>数组需要预留空间，在使用前要先申请占内存的大小，可能会浪费内存空间。 比如看电影时，为了保证 10 个人能坐在一起，必须提前订好 10 个连续的位置。这样的好处就是能保证 10 个人可以在一起。但是这样的缺点是，如果来的人不够 10 个，那么剩下的位置就浪费了。如果临时又多来了个人，那么 10 个就不够用了，这时可能需要将第 11 个位置上的人挪走，或者是他们 11 个人重新去找一个 11 连坐的位置，效率都很低。如果没有找到符合要求的座位，那么就没法坐了。</li>
+<li>插入数据和删除数据效率低，插入数据时，这个位置后面的数据在内存中都要向后移。删除数据时，这个数据后面的数据都要往前移动。 比如原来去了 5 个人，然后后来又去了一个人要坐在第三个位置上，那么第三个到第五个都要往后移动一个位子，将第三个位置留给新来的人。 当这个人走了的时候，因为他们要连在一起的，所以他后面几个人要往前移动一个位置，把这个空位补上。</li>
+<li>随机读取效率很高。因为数组是连续的，知道每一个数据的内存地址，可以直接找到该地址的数据。</li>
+<li>并且不利于扩展，数组定义的空间不够时要重新定义数组。</li>
+</ul>
+<h2 id="链表的特点"><a href="#链表的特点" class="headerlink" title="链表的特点"></a>链表的特点</h2><ul>
+<li>在内存中可以存在任何地方，不要求连续。 在电影院几个人可以随便坐。</li>
+<li>每一个数据都保存了下一个数据的内存地址，通过这个地址找到下一个数据。 第一个人知道第二个人的座位号，第二个人知道第三个人的座位号……</li>
+<li>增加数据和删除数据很容易。 再来个人可以随便坐，比如来了个人要做到第三个位置，那他只需要把自己的位置告诉第二个人，然后问第二个人拿到原来第三个人的位置就行了。其他人都不用动。</li>
+<li>查找数据时效率低，因为不具有随机访问性，所以访问某个位置的数据都要从第一个数据开始访问，然后根据第一个数据保存的下一个数据的地址找到第二个数据，以此类推。 要找到第三个人，必须从第一个人开始问起。</li>
+<li>不指定大小，扩展方便。链表大小不用定义，数据随意增删。</li>
+</ul>
+<h2 id="各自的优缺点"><a href="#各自的优缺点" class="headerlink" title="各自的优缺点"></a>各自的优缺点</h2><h3 id="数组的优点"><a href="#数组的优点" class="headerlink" title="数组的优点"></a>数组的优点</h3><ul>
+<li>随机访问性强</li>
+<li>查找速度快</li>
+</ul>
+<h3 id="数组的缺点"><a href="#数组的缺点" class="headerlink" title="数组的缺点"></a>数组的缺点</h3><ul>
+<li>插入和删除效率低</li>
+<li>可能浪费内存</li>
+<li>内存空间要求高，必须有足够的连续内存空间。</li>
+<li>数组大小固定，不能动态拓展</li>
+</ul>
+<h3 id="链表的优点"><a href="#链表的优点" class="headerlink" title="链表的优点"></a>链表的优点</h3><ul>
+<li>插入删除速度快</li>
+<li>内存利用率高，不会浪费内存</li>
+<li>大小没有固定，拓展很灵活。</li>
+</ul>
+<h3 id="链表的缺点"><a href="#链表的缺点" class="headerlink" title="链表的缺点"></a>链表的缺点</h3><ul>
+<li><p>不能随机查找，必须从第一个开始遍历，查找效率低</p>
+</li>
+<li><p>| 数组 | 链表 |<br>| —- | —- | —- |<br>| 读取 | O(1) | O(n) |<br>| 插入 | O(n) | O(1) |<br>| 删除 | O(n) | O(1) |</p>
+</li>
+</ul>
+<p><img src="http://privateimage.oss-cn-hongkong.aliyuncs.com/%E6%AD%BB%E5%BE%AA%E7%8E%AF%E6%87%B5%E9%80%BC.gif" alt="image"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E4%B8%8A%E4%B8%8B%E9%AB%98%E5%BA%A6%E5%9B%BA%E5%AE%9A%EF%BC%8C%E4%B8%AD%E9%97%B4%E8%87%AA%E9%80%82%E5%BA%94%EF%BC%8C%E4%B8%94%E5%8F%AF%E4%BB%A5%E6%BB%9A%E5%8A%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E4%B8%8A%E4%B8%8B%E9%AB%98%E5%BA%A6%E5%9B%BA%E5%AE%9A%EF%BC%8C%E4%B8%AD%E9%97%B4%E8%87%AA%E9%80%82%E5%BA%94%EF%BC%8C%E4%B8%94%E5%8F%AF%E4%BB%A5%E6%BB%9A%E5%8A%A8/" class="post-title-link" itemprop="url">上下高度固定，中间自适应，且可以滚动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:34:06" itemprop="dateCreated datePublished" datetime="2022-10-24T16:34:06+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>html 布局三部分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wrap&quot;&gt;</span><br><span class="line">      &lt;div class=&quot;header&quot;&gt;header&lt;/div&gt;</span><br><span class="line">      &lt;div class=&quot;main&quot;&gt;</span><br><span class="line">       弹性滚动区域</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;div class=&quot;footer&quot;&gt;footer&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css：</p>
+<p>flex 布局方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">*&#123;</span><br><span class="line">    margin:0;</span><br><span class="line">    padding:0;</span><br><span class="line">&#125;</span><br><span class="line">html,body&#123;</span><br><span class="line">    height:100%;</span><br><span class="line">&#125;</span><br><span class="line">.wrap&#123;</span><br><span class="line">    display:-webkit-box;</span><br><span class="line">    display:-webkit-flex;</span><br><span class="line">    display:-ms-flexbox;</span><br><span class="line">    display:flex;</span><br><span class="line">    -webkit-box-orient:vertical;</span><br><span class="line">    -webkit-flex-direction:column;</span><br><span class="line">    -ms-flex-direction:column;</span><br><span class="line">    flex-direction:column;</span><br><span class="line">    width:100%;</span><br><span class="line">    height:100%;</span><br><span class="line">&#125;</span><br><span class="line">.header,.footer&#123;</span><br><span class="line">    height:40px;</span><br><span class="line">    line-height:40px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    background-color:#D8D8D8;</span><br><span class="line">&#125;</span><br><span class="line">.main&#123;</span><br><span class="line">    -webkit-box-flex:1;</span><br><span class="line">    -webkit-flex:1;</span><br><span class="line">    -ms-flex:1;</span><br><span class="line">    flex:1;</span><br><span class="line">    width:100%;</span><br><span class="line">    padding:10px;</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>absolute 布局方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">*&#123; padding:0; margin:0; &#125;</span><br><span class="line">html,body&#123;height:100%;&#125;</span><br><span class="line">.wrap&#123;width:100%;&#125;</span><br><span class="line">.header,.footer&#123;height:40px;line-height:40px;background-color:#D8D8D8;text-align:center;&#125;</span><br><span class="line">.header&#123;position: absolute;top:0;left:0;width:100%;&#125;</span><br><span class="line">.footer&#123;position: absolute;bottom:0;left:0;width:100%;&#125;</span><br><span class="line">.main&#123;position:absolute;z-index:1;top:40px;left:0;bottom:40px;width:100%;&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E5%88%A9%E7%94%A8js%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E5%88%A9%E7%94%A8js%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="post-title-link" itemprop="url">利用js实现文件上传</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:33:33" itemprop="dateCreated datePublished" datetime="2022-10-24T16:33:33+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、前端-HTML-部分"><a href="#一、前端-HTML-部分" class="headerlink" title="一、前端 HTML 部分"></a>一、前端 HTML 部分</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&#x27;main&#x27;&gt;</span><br><span class="line">	&lt;input type=&#x27;file&#x27; class=&#x27;filebutton&#x27; style=&#x27;display:none&#x27; οnchange=&#x27;fileSelected()&#x27;  /&gt; &lt;br&gt;</span><br><span class="line">	&lt;button class=&quot;upload&quot; οnclick=&#x27;openFileDialog()&#x27; &gt; 选择文件上传 &lt;/button&gt;</span><br><span class="line">	&lt;div class=&quot;img&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、js-部分"><a href="#二、js-部分" class="headerlink" title="二、js 部分"></a>二、js 部分</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">//点击普通按钮,打开文件选择框</span><br><span class="line">function openFileDialog()</span><br><span class="line">&#123;</span><br><span class="line">	$(&quot;.filebutton&quot;).click();</span><br><span class="line">&#125;</span><br><span class="line">//选择一个文件时onchange事件被触发</span><br><span class="line">function fileSelected()</span><br><span class="line">&#123;</span><br><span class="line">	var fbutton = $(&quot;.filebutton&quot;)[0];//dom元素</span><br><span class="line">	//读取文件</span><br><span class="line">	var reader = new FileReader();</span><br><span class="line">	reader.onload = function(e)</span><br><span class="line">	&#123;</span><br><span class="line">		var dataURL = e.target.result;//&#x27;data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...&#x27;</span><br><span class="line">		//alert(data);</span><br><span class="line">		var htmlImg = &quot;&lt;img src = &#x27;&quot; + dataURL + &quot;&#x27;/&gt;&quot;;</span><br><span class="line">    	$(&quot;.img&quot;).html(htmlImg);</span><br><span class="line">	&#125;</span><br><span class="line">	var file = fbutton.files[0];</span><br><span class="line">	reader.readAsDataURL(file);</span><br><span class="line"></span><br><span class="line">	startFileUpload(file);</span><br><span class="line">&#125;</span><br><span class="line">//开始上传</span><br><span class="line">function startFileUpload(file)</span><br><span class="line">&#123;</span><br><span class="line">	var uploadURL = &quot;FileUploadServer&quot;;</span><br><span class="line"></span><br><span class="line">	//手工构造一个form对象</span><br><span class="line">	var formData = new FormData();</span><br><span class="line">	formData.append(&quot;file&quot; , file);// &#x27;file&#x27; 为HTTP Post里的字段名, file 对浏览器里的File对象</span><br><span class="line">	//手工构造一个请求对象，用这个对象发送表单数据</span><br><span class="line">	//设置 progress, load, error, abort 4个事件处理器</span><br><span class="line">	var request = new XMLHttpRequest();</span><br><span class="line">	request.upload.addEventListener(&quot;progress&quot; , window.evt_upload_progress , false);</span><br><span class="line">    request.addEventListener(&quot;load&quot;, window.evt_upload_complete, false);</span><br><span class="line">    request.addEventListener(&quot;error&quot;, window.evt_upload_failed, false);</span><br><span class="line">    request.addEventListener(&quot;abort&quot;, window.evt_upload_cancel, false);</span><br><span class="line">	request.open(&quot;POST&quot;, uploadURL ); // 设置服务URL</span><br><span class="line">    request.send(formData);  // 发送表单数据</span><br><span class="line">&#125;</span><br><span class="line">window.evt_upload_progress = function(evt)</span><br><span class="line">&#123;</span><br><span class="line">	if(evt.lengthComputable)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		var progress = Math.round(evt.loaded * 100 / evt.total);</span><br><span class="line">		console.log(&quot;上传进度&quot; + progress);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">window.evt_upload_complete = function (evt)</span><br><span class="line">&#123;</span><br><span class="line">	if(evt.loaded == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		console.log (&quot;上传失败!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		console.log (&quot;上传完成!&quot;);</span><br><span class="line">    	var response = JSON.parse(evt.target.responseText);</span><br><span class="line">    	console.log (response);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">window.evt_upload_failed = function (evt)</span><br><span class="line">&#123;</span><br><span class="line">	console.log  (&quot;上传出错&quot;);</span><br><span class="line">&#125;;</span><br><span class="line">window.evt_upload_cancel = function (evt)</span><br><span class="line">&#123;</span><br><span class="line">	console.log( &quot;上传中止!&quot;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、后端部分，需要两个-jar-包的支持，他们分别是：commons-fileupload-1-3-1-jar-commons-io-2-4-jar"><a href="#三、后端部分，需要两个-jar-包的支持，他们分别是：commons-fileupload-1-3-1-jar-commons-io-2-4-jar" class="headerlink" title="三、后端部分，需要两个 jar 包的支持，他们分别是：commons-fileupload-1.3.1.jar commons-io-2.4.jar"></a>三、后端部分，需要两个 jar 包的支持，他们分别是：<code>commons-fileupload-1.3.1.jar</code> <code>commons-io-2.4.jar</code></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line">package my.fileUpload;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.UUID;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.fileupload.FileItemIterator;</span><br><span class="line">import org.apache.commons.fileupload.FileItemStream;</span><br><span class="line">import org.apache.commons.fileupload.servlet.ServletFileUpload;</span><br><span class="line">import org.apache.commons.fileupload.util.Streams;</span><br><span class="line">import org.json.JSONObject;</span><br><span class="line"></span><br><span class="line">public class FileUploadServer extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">	File tmpDir;//文件保存的临时目录</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void init() throws ServletException &#123;</span><br><span class="line">		System.out.println(&quot;初始化&quot;);</span><br><span class="line">	   File webRoot = new File(getServletContext().getRealPath(&quot;/&quot;));</span><br><span class="line">	   tmpDir = new File(webRoot , &quot;upload&quot;);</span><br><span class="line">	   if(!tmpDir.exists()) tmpDir.mkdirs();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		doPost(request , response);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void doPost(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">			throws ServletException, IOException &#123;</span><br><span class="line">		System.out.println(&quot;进入&quot;);</span><br><span class="line">		int error = 0;</span><br><span class="line">		String reason = &quot;OK&quot;;</span><br><span class="line">		String data = null;</span><br><span class="line">		try &#123;</span><br><span class="line">			 data = doUpload(request , response);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			error = -1;</span><br><span class="line">			reason = e.getMessage();</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		JSONObject jreq = new JSONObject();</span><br><span class="line">		jreq.put(&quot;error&quot;, error);</span><br><span class="line">		jreq.put(&quot;reason&quot;, reason);</span><br><span class="line">		if(data != null) jreq.put(&quot;data&quot;, data);</span><br><span class="line">		response.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">		response.setContentType(&quot;text/plain&quot;);</span><br><span class="line">		PrintWriter out = response.getWriter();</span><br><span class="line">		out.write(jreq.toString(2));</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private String doUpload(HttpServletRequest request, HttpServletResponse response) throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		String result = null;</span><br><span class="line">		boolean isMultipart = ServletFileUpload.isMultipartContent(request);</span><br><span class="line">		if(!isMultipart)</span><br><span class="line">			throw new Exception(&quot;请求编码必须为: multipart/form-data !&quot;);</span><br><span class="line">		request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">		ServletFileUpload upload = new ServletFileUpload();</span><br><span class="line">		FileItemIterator iter = upload.getItemIterator(request);</span><br><span class="line">		while(iter.hasNext())</span><br><span class="line">		&#123;</span><br><span class="line">			//表单域</span><br><span class="line">			FileItemStream item = iter.next();</span><br><span class="line">			String fieldName = item.getFieldName();</span><br><span class="line">			InputStream fieldStream = item.openStream();</span><br><span class="line">			if(item.isFormField())</span><br><span class="line">			&#123;</span><br><span class="line">				//普通表单域直接读取</span><br><span class="line">				String fieldValue = Streams.asString(fieldStream , &quot;utf-8&quot;);</span><br><span class="line">				System.out.println(&quot;表单域:&quot; + fieldName + &quot;=&quot; + fieldValue);</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				String realName = item.getName();//原始文件名</span><br><span class="line">				//文件的后缀名</span><br><span class="line">				String suffix = realName.substring(realName.lastIndexOf(&quot;.&quot;)+1);</span><br><span class="line">				System.out.println(&quot;文件名：&quot; + realName + &quot;.....&quot; + &quot;后缀名：&quot; + suffix);</span><br><span class="line"></span><br><span class="line">				//创建已个临时文件名</span><br><span class="line">				String s = UUID.randomUUID().toString();</span><br><span class="line">				String s2 = s.substring(0,8)+s.substring(9,13)+s.substring(14,18)+s.substring(19,23)+s.substring(24);</span><br><span class="line">				s2 = s2.toUpperCase();</span><br><span class="line">				SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMdd-HHmmss&quot;);</span><br><span class="line">				String dateStr = sdf.format(new Date());</span><br><span class="line">				String fileName = dateStr +&quot;-&quot; + s2 + &quot;.&quot; + suffix;</span><br><span class="line">				result = fileName;</span><br><span class="line">				System.out.println(&quot;文件名：&quot; + fileName);</span><br><span class="line">				File file = new File(tmpDir , fileName);</span><br><span class="line">				long fileSsize = 0;//文件大小</span><br><span class="line">				System.out.println(&quot;===========文件开始上传=============&quot;);</span><br><span class="line">				//从FieldStream读取数据，保存到目标文件</span><br><span class="line">				file.getParentFile().mkdirs();</span><br><span class="line">				FileOutputStream fileStream = new FileOutputStream(file);</span><br><span class="line">				try</span><br><span class="line">				&#123;</span><br><span class="line">					byte[] buf = new byte[1024];</span><br><span class="line">					while(true)</span><br><span class="line">					&#123;</span><br><span class="line">						int n = fieldStream.read(buf);</span><br><span class="line">						if(n &lt; 0) break;</span><br><span class="line">						if(n == 0) continue;</span><br><span class="line">						fileStream.write(buf, 0, n);</span><br><span class="line"></span><br><span class="line">						fileSsize += n;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;finally</span><br><span class="line">				&#123;</span><br><span class="line">					fileStream.close();</span><br><span class="line">					fieldStream.close();</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.println(&quot;上传完成！&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/try-catch-%E8%83%BD%E6%8A%9B%E5%87%BA-promise-%E7%9A%84%E5%BC%82%E5%B8%B8%E5%90%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/try-catch-%E8%83%BD%E6%8A%9B%E5%87%BA-promise-%E7%9A%84%E5%BC%82%E5%B8%B8%E5%90%97/" class="post-title-link" itemprop="url">try-catch 能抛出 promise 的异常吗</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:33:04" itemprop="dateCreated datePublished" datetime="2022-10-24T16:33:04+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="try-catch-能抛出-promise-的异常吗？"><a href="#try-catch-能抛出-promise-的异常吗？" class="headerlink" title="try-catch 能抛出 promise 的异常吗？"></a>try-catch 能抛出 promise 的异常吗？</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	throw new Error(&#x27;1&#x27;)</span><br><span class="line">&#125; catch(error) &#123;</span><br><span class="line">	console.log(error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是最常见的 try-catch，会 log 下面的内容：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwMzkxOS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<p>注意，这里并不是红色的，因为 js 异常被捕获后，js 是能够正常往下执行的，如果没有被捕获的话，那么 js 将抛出异常，js 执行将会停止！</p>
+<p>例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 异步，宏任务</span><br><span class="line">try &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(b);</span><br><span class="line">	&#125;, 0);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error); // 这里是不会执行的</span><br><span class="line">&#125;</span><br><span class="line">console.log(&#x27;out try catch&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjA5NTY0OS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<p>此时 js 会抛出异常，catch 后面的代码都不会执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 异步，微任务</span><br><span class="line">try &#123;</span><br><span class="line">	new Promise(() =&gt; &#123;</span><br><span class="line">		throw new Error(&#x27;new promise throw error&#x27;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwMzQ1MS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><p>try-catch 主要用于捕获异常，注意，这里的异常，是指同步函数的异常，如果 try 里面的异步方法出现了异常，此时<strong>catch 是无法捕获到异常的</strong>，原因是因为：当异步函数抛出异常时，对于宏任务而言，执行函数时已经将该函数推入栈，此时并不在 try-catch 所在的栈，所以 try-catch 并不能捕获到错误。对于微任务而言，比如 promise，promise 的构造函数的异常只能被自带的 reject 也就是.catch 函数捕获到。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="对于同步函数"><a href="#对于同步函数" class="headerlink" title="对于同步函数"></a>对于同步函数</h3><p>放心用 try-catch 即可</p>
+<h3 id="对于异步函数-宏任务"><a href="#对于异步函数-宏任务" class="headerlink" title="对于异步函数-宏任务"></a>对于异步函数-宏任务</h3><p>window 有全局的错误捕获函数 onerror</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(b);</span><br><span class="line">	&#125;, 0);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">	console.log(error); // 这里是不会执行的</span><br><span class="line">&#125;</span><br><span class="line">window.onerror = function() &#123;</span><br><span class="line">	console.log(...arguments)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时，是可以捕获到比如 setTimeout 的回调函数异常的，这里可以针对全局的异常做一些处理，比如数据上报等</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjEwNTA1MS5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="对于异步函数-微任务"><a href="#对于异步函数-微任务" class="headerlink" title="对于异步函数-微任务"></a>对于异步函数-微任务</h2><p>对于微任务，js 有专门捕获没有写 catch 的 promise，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&#x27;unhandledrejection&#x27;, function() &#123;</span><br><span class="line">	console.log(...arguments)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3Fpbml1Lmx1b3R1eGl1LmNuL2ltZy8yMDIwMDcxMjExMzM1NC5wbmc?x-oss-process=image/format,png" alt="image"></p>
+<h2 id="更多知识点"><a href="#更多知识点" class="headerlink" title="更多知识点"></a>更多知识点</h2><p>try-catch 中的异常只会抛出一层，即不会冒泡，也就是如果你有多层的 try-catch 然后异常已经被内层的 catch 捕获了，外层的 catch 是捕获不到异常的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    throw new Error(&#x27;oops&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">  catch (ex) &#123;</span><br><span class="line">    console.error(&#x27;inner&#x27;, ex.message);</span><br><span class="line">  &#125;</span><br><span class="line">  finally &#123;</span><br><span class="line">    console.log(&#x27;finally&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">catch (ex) &#123;</span><br><span class="line">  console.error(&#x27;outer&#x27;, ex.message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Output:</span><br><span class="line">// &quot;inner&quot; &quot;oops&quot;</span><br><span class="line">// &quot;finally&quot;</span><br></pre></td></tr></table></figure>
+
+<p>解决方案是可以在内层的 catch 再手动 throw 出异常</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/promise-%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7-%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/promise-%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7-%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">promise 中的异常捕获_前端异常处理方式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:32:33" itemprop="dateCreated datePublished" datetime="2022-10-24T16:32:33+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、为什么要处理异常？"><a href="#一、为什么要处理异常？" class="headerlink" title="一、为什么要处理异常？"></a>一、为什么要处理异常？</h2><p>异常是不可控的，会影响最终的呈现结果，但是我们有充分的理由去做这样的事情。</p>
+<ol>
+<li>增强用户体验；</li>
+<li>远程定位问题；</li>
+<li>未雨绸缪，及早发现问题；</li>
+<li>无法复现问题，尤其是移动端，机型，系统都是问题；</li>
+<li>完善的前端方案，前端监控系统；</li>
+</ol>
+<p>对于 JS 而言，我们面对的仅仅只是异常，异常的出现不会直接导致 JS 引擎崩溃，最多只会使当前执行的任务终止。</p>
+<h2 id="二、需要处理哪些异常？"><a href="#二、需要处理哪些异常？" class="headerlink" title="二、需要处理哪些异常？"></a>二、需要处理哪些异常？</h2><p>对于前端来说，我们可做的异常捕获还真不少。总结一下，大概如下：</p>
+<ul>
+<li>JS 语法错误、代码异常</li>
+<li>AJAX 请求异常</li>
+<li>静态资源加载异常</li>
+<li>Promise 异常</li>
+<li>Iframe 异常</li>
+<li>跨域 Script error</li>
+<li>崩溃和卡顿</li>
+</ul>
+<p>下面我会针对每种具体情况来说明如何处理这些异常。</p>
+<h2 id="三、Try-Catch-的误区"><a href="#三、Try-Catch-的误区" class="headerlink" title="三、Try-Catch 的误区"></a>三、Try-Catch 的误区</h2><p>try-catch 只能捕获到同步的运行时错误，对语法和异步错误却无能为力，捕获不到。</p>
+<ol>
+<li>同步运行时错误：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  let name = &quot;jartto&quot;;</span><br><span class="line">  console.log(nam);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">捕获到异常：ReferenceError: nam is not defined    at :3:15</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>不能捕获到具体的语法错误，只有一个语法错误提示。我们修改一下代码，删掉一个单引号：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  let name = &#x27;jartto</span><br><span class="line">  console.log(nam);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught SyntaxError: Invalid or unexpected token不过语法错误在我们开发阶段就可以看到，应该不会顺利上到线上环境。</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>异步错误</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    undefined.map((v) =&gt; v);</span><br><span class="line">  &#125;, 1000);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们看看日志：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught TypeError: Cannot read property &#x27;map&#x27; of undefined    at setTimeout (:3:11)</span><br></pre></td></tr></table></figure>
+
+<p>并没有捕获到异常，这是需要我们特别注意的地方。</p>
+<h2 id="四、window-onerror-不是万能的"><a href="#四、window-onerror-不是万能的" class="headerlink" title="四、window.onerror 不是万能的"></a>四、window.onerror 不是万能的</h2><p>当 JS 运行时错误发生时，window 会触发一个 ErrorEvent 接口的 error 事件，并执行 window.onerror()。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**@param &#123;String&#125;  message    错误信息</span><br><span class="line"> * @param &#123;String&#125;  source    出错文件</span><br><span class="line"> * @param &#123;Number&#125;  lineno    行号</span><br><span class="line"> * @param &#123;Number&#125;  colno    列号</span><br><span class="line"> * @param &#123;Object&#125;  error  Error对象(对象)</span><br><span class="line"> * */</span><br><span class="line">window.onerror = function (message, source, lineno, colno, error) &#123;</span><br><span class="line">  console.log(&quot;捕获到异常：&quot;, &#123; message, source, lineno, colno, error &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>首先试试同步运行时错误</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror = function(message, source, lineno, colno, error) &#123;// message：错误信息(字符串)。// source：发生错误的脚本URL(字符串)// lineno：发生错误的行号(数字)// colno：发生错误的列号(数字)// error：Error对象(对象)console.log(&#x27;捕获到异常：&#x27;,&#123;message, source, lineno, colno, error&#125;);&#125;Jartto;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们捕获到了异常：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c507fb59c15171a328fb7e53d5c6671d.png" alt="image"></p>
+<ol start="2">
+<li>再试试语法错误呢？</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.onerror = function(message, source, lineno, colno, error) &#123;console.log(&#x27;捕获到异常：&#x27;,&#123;message, source, lineno, colno, error&#125;);&#125;</span><br><span class="line"></span><br><span class="line">let name = &#x27;Jartto</span><br></pre></td></tr></table></figure>
+
+<p>控制台打印出了这样的异常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught SyntaxError: Invalid or unexpected token</span><br></pre></td></tr></table></figure>
+
+<p>什么，竟然没有捕获到语法错误？</p>
+<ol start="3">
+<li>怀着忐忑的心，我们最后来试试异步运行时错误：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror = function(message, source, lineno, colno, error) &#123;    console.log(&#x27;捕获到异常：&#x27;,&#123;message, source, lineno, colno, error&#125;);&#125;setTimeout(() =&gt; &#123;    Jartto;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">捕获到异常：&#123;message: &quot;Uncaught ReferenceError: Jartto is not defined&quot;, source: &quot;http://127.0.0.1:8001/&quot;, lineno: 36, colno: 5, error: ReferenceError: Jartto is not defined    at setTimeout (http://127.0.0.1:8001/:36:5)&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>接着，我们试试网络请求异常的情况：</li>
+</ol>
+<p><strong>我们发现，不论是静态资源异常，或者接口异常，错误都无法捕获到。</strong></p>
+<p>补充一点：window.onerror 函数只有在返回 true 的时候，异常才不会向上抛出，否则即使是知道异常的发生控制台还是会显示 Uncaught Error: xxxxx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror = function(message, source, lineno, colno, error) &#123;    console.log(&#x27;捕获到异常：&#x27;,&#123;message, source, lineno, colno, error&#125;);    return true;&#125;setTimeout(() =&gt; &#123;    Jartto;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>控制台就不会再有这样的错误了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught ReferenceError: Jartto is not defined    at setTimeout ((index):36)</span><br></pre></td></tr></table></figure>
+
+<p>需要注意：</p>
+<ul>
+<li>onerror 最好写在所有 JS 脚本的前面，否则有可能捕获不到错误；</li>
+<li>onerror 无法捕获语法错误；</li>
+</ul>
+<p>到这里基本就清晰了：在实际的使用过程中，onerror 主要是来捕获预料之外的错误，而 try-catch 则是用来在可预见情况下监控特定的错误，两者结合使用更加高效。</p>
+<p>问题又来了，捕获不到静态资源加载异常怎么办？</p>
+<h2 id="五、window-addEventListener"><a href="#五、window-addEventListener" class="headerlink" title="五、window.addEventListener"></a>五、window.addEventListener</h2><p>当一项资源(如图片或脚本)加载失败，加载资源的元素会触发一个 Event 接口的 error 事件，并执行该元素上的 onerror() 处理函数。这些 error 事件不会向上冒泡到 window ，不过(至少在 Firefox 中)能被单一的 window.addEventListener 捕获。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&#x27;error&#x27;, (error) =&gt; &#123;    console.log(&#x27;捕获到异常：&#x27;, error);&#125;, true)</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c2c41ee8e8ee6be523b3f48eaf511d84.png" alt="image"></p>
+<p>由于网络请求异常不会事件冒泡，因此必须在捕获阶段将其捕捉到才行，但是这种方式虽然可以捕捉到网络请求的异常，但是无法判断 HTTP 的状态是 404 还是其他比如 500 等等，所以还需要配合服务端日志再进行排查分析才可以。</p>
+<p><strong>需要注意</strong>：</p>
+<ul>
+<li>不同浏览器下返回的 error 对象可能不同，需要注意兼容处理。</li>
+<li>需要注意避免 addEventListener 重复监听。</li>
+</ul>
+<h2 id="六、Promise-Catch"><a href="#六、Promise-Catch" class="headerlink" title="六、Promise Catch"></a>六、Promise Catch</h2><p>在 promise 中使用 catch 可以非常方便的捕获到异步 error ，这个很简单。</p>
+<p>没有写 catch 的 Promise 中抛出的错误无法被 onerror 或 try-catch 捕获到，所以我们务必要在 Promise 中不要忘记写 catch 处理抛出的异常。</p>
+<p>解决方案：为了防止有漏掉的 Promise 异常，建议在全局增加一个对 unhandledrejection 的监听，用来全局监听 Uncaught Promise Error。使用方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;unhandledrejection&quot;, function(e)&#123;  console.log(e);&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>我们继续来尝试一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;unhandledrejection&quot;, function(e)&#123;  e.preventDefault()  console.log(&#x27;捕获到异常：&#x27;, e);  return true;&#125;);Promise.reject(&#x27;promise error&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到如下输出：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/cff9879d9b5a8785cddaddfff81f763c.png" alt="image"></p>
+<p>那如果对 Promise 不进行 catch 呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;unhandledrejection&quot;, function(e)&#123;  e.preventDefault()  console.log(&#x27;捕获到异常：&#x27;, e);  return true;&#125;);new Promise((resolve, reject) =&gt; &#123;  reject(&#x27;jartto: promise error&#x27;);&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>嗯，事实证明，也是会被正常捕获到的。</p>
+<p>所以，正如我们上面所说，为了防止有漏掉的 Promise 异常，建议在全局增加一个对 unhandledrejection 的监听，用来全局监听 Uncaught Promise Error。</p>
+<p>补充一点：如果去掉控制台的异常显示，需要加上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event.preventDefault();</span><br></pre></td></tr></table></figure>
+
+<h2 id="七、VUE-errorHandler"><a href="#七、VUE-errorHandler" class="headerlink" title="七、VUE errorHandler"></a>七、VUE errorHandler</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.config.errorHandler = (err, vm, info) =&gt; &#123;  console.error(&#x27;通过vue errorHandler捕获的错误&#x27;);  console.error(err);  console.error(vm);  console.error(info);&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="八、React-异常捕获-React-16-提供了一个内置函数-componentDidCatch，使用它可以非常简单的获取到-react-下的错误信息"><a href="#八、React-异常捕获-React-16-提供了一个内置函数-componentDidCatch，使用它可以非常简单的获取到-react-下的错误信息" class="headerlink" title="八、React 异常捕获 React 16 提供了一个内置函数 componentDidCatch，使用它可以非常简单的获取到 react 下的错误信息"></a>八、React 异常捕获 React 16 提供了一个内置函数 componentDidCatch，使用它可以非常简单的获取到 react 下的错误信息</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentDidCatch(error, info) &#123;    console.log(error, info);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，我们可以了解一下：error boundary UI 的某部分引起的 JS 错误不应该破坏整个程序，为了帮 React 的使用者解决这个问题，React 16 介绍了一种关于错误边界(error boundary)的新观念。</p>
+<p>需要注意的是：error boundaries 并不会捕捉下面这些错误。</p>
+<ol>
+<li>事件处理器</li>
+<li>异步代码</li>
+<li>服务端的渲染代码</li>
+<li>在 error boundaries 区域内的错误<br>我们来举一个小例子，在下面这个 componentDIdCatch(error,info) 里的类会变成一个 error boundary：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class ErrorBoundary extends React.Component &#123;  constructor(props) &#123;    super(props);    this.state = &#123; hasError: false &#125;;  &#125;   componentDidCatch(error, info) &#123;    // Display fallback UI    this.setState(&#123; hasError: true &#125;);    // You can also log the error to an error reporting service    logErrorToMyService(error, info);  &#125;   render() &#123;    if (this.state.hasError) &#123;      // You can render any custom fallback UI      return</span><br></pre></td></tr></table></figure>
+
+<h3 id="Something-went-wrong"><a href="#Something-went-wrong" class="headerlink" title="Something went wrong."></a>Something went wrong.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">; &#125; return this.props.children; &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们像使用普通组件那样使用它：</p>
+<p>componentDidCatch() 方法像 JS 的 catch{} 模块一样工作，但是对于组件，只有 class 类型的组件(class component )可以成为一个 error boundaries 。</p>
+<p>实际上，大多数情况下我们可以在整个程序中定义一个 error boundary 组件，之后就可以一直使用它了！</p>
+<h2 id="九、iframe-异常"><a href="#九、iframe-异常" class="headerlink" title="九、iframe 异常"></a>九、iframe 异常</h2><p>对于 iframe 的异常捕获，我们还得借力 window.onerror：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.onerror = function(message, source, lineno, colno, error) &#123;  console.log(&#x27;捕获到异常：&#x27;,&#123;message, source, lineno, colno, error&#125;);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个简单的例子可能如下：</p>
+<h2 id="十、Script-error"><a href="#十、Script-error" class="headerlink" title="十、Script error"></a>十、Script error</h2><p>一般情况，如果出现 Script error 这样的错误，基本上可以确定是出现了跨域问题。这时候，是不会有其他太多辅助信息的，但是解决思路无非如下：</p>
+<p>跨源资源共享机制( CORS )：我们为 script 标签添加 crossOrigin 属性。</p>
+<p>或者动态去添加 js 脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const script = document.createElement(&#x27;script&#x27;);script.crossOrigin = &#x27;anonymous&#x27;;script.src = url;document.body.appendChild(script);</span><br></pre></td></tr></table></figure>
+
+<p>特别注意，服务器端需要设置：Access-Control-Allow-Origin</p>
+<p>此外，我们也可以试试这个-解决 Script Error 的另类思路：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const originAddEventListener = EventTarget.prototype.addEventListener;EventTarget.prototype.addEventListener = function (type, listener, options) &#123;  const wrappedListener = function (...args) &#123;    try &#123;      return listener.apply(this, args);    &#125;    catch (err) &#123;      throw err;    &#125;  &#125;  return originAddEventListener.call(this, type, wrappedListener, options);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单解释一下：</p>
+<p>改写了 EventTarget 的 addEventListener 方法；对传入的 listener 进行包装，返回包装过的 listener，对其执行进行 try-catch；浏览器不会对 try-catch 起来的异常进行跨域拦截，所以 catch 到的时候，是有堆栈信息的；重新 throw 出来异常的时候，执行的是同域代码，所以 window.onerror 捕获的时候不会丢失堆栈信息；利用包装 addEventListener，我们还可以达到「扩展堆栈」的效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(() =&gt; &#123;   const originAddEventListener = EventTarget.prototype.addEventListener;   EventTarget.prototype.addEventListener = function (type, listener, options) &#123;+    // 捕获添加事件时的堆栈+    const addStack = new Error(`Event ($&#123;type&#125;)`).stack;     const wrappedListener = function (...args) &#123;       try &#123;         return listener.apply(this, args);       &#125;       catch (err) &#123;+        // 异常发生时，扩展堆栈+        err.stack += &#x27;&#x27; + addStack;         throw err;       &#125;     &#125;     return originAddEventListener.call(this, type, wrappedListener, options);   &#125; &#125;)();</span><br></pre></td></tr></table></figure>
+
+<h2 id="十一、崩溃和卡顿"><a href="#十一、崩溃和卡顿" class="headerlink" title="十一、崩溃和卡顿"></a>十一、崩溃和卡顿</h2><p>卡顿也就是网页暂时响应比较慢， JS 可能无法及时执行。但崩溃就不一样了，网页都崩溃了，JS 都不运行了，还有什么办法可以监控网页的崩溃，并将网页崩溃上报呢？</p>
+<p>崩溃和卡顿也是不可忽视的，也许会导致你的用户流失。</p>
+<ol>
+<li>利用 window 对象的 load 和 beforeunload 事件实现了网页崩溃的监控。不错的文章，推荐阅读：Logging Information on Browser Crashes。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;load&quot;, function () &#123;</span><br><span class="line">  sessionStorage.setItem(&quot;good_exit&quot;, &quot;pending&quot;);</span><br><span class="line">  setInterval(function () &#123;</span><br><span class="line">    sessionStorage.setItem(&quot;time_before_crash&quot;, new Date().toString());</span><br><span class="line">  &#125;, 1000);</span><br><span class="line">&#125;);</span><br><span class="line">window.addEventListener(&quot;beforeunload&quot;, function () &#123;</span><br><span class="line">  sessionStorage.setItem(&quot;good_exit&quot;, &quot;true&quot;);</span><br><span class="line">&#125;);</span><br><span class="line">if (</span><br><span class="line">  sessionStorage.getItem(&quot;good_exit&quot;) &amp;&amp;</span><br><span class="line">  sessionStorage.getItem(&quot;good_exit&quot;) !== &quot;true&quot;</span><br><span class="line">) &#123;</span><br><span class="line">  /* insert crash logging code here   */</span><br><span class="line"></span><br><span class="line">  alert(</span><br><span class="line">    &quot;Hey, welcome back from your crash, looks like you crashed on: &quot; +</span><br><span class="line">      sessionStorage.getItem(&quot;time_before_crash&quot;)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>基于以下原因，我们可以使用 Service Worker 来实现网页崩溃的监控：</li>
+</ol>
+<p>Service Worker 有自己独立的工作线程，与网页区分开，网页崩溃了，Service Worker 一般情况下不会崩溃；Service Worker 生命周期一般要比网页还要长，可以用来监控网页的状态；网页可以通过 navigator.serviceWorker.controller.postMessage API 向掌管自己的 SW 发送消息。</p>
+<h2 id="十二、错误上报"><a href="#十二、错误上报" class="headerlink" title="十二、错误上报"></a>十二、错误上报</h2><p>1.通过 Ajax 发送数据 因为 Ajax 请求本身也有可能会发生异常，而且有可能会引发跨域问题，一般情况下更推荐使用动态创建 img 标签的形式进行上报。</p>
+<p>2.动态创建 img 标签的形式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function report(error) &#123;  let reportUrl = &#x27;http://jartto.wang/report&#x27;;  new Image().src = `$&#123;reportUrl&#125;?logs=$&#123;error&#125;`;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>收集异常信息量太多，怎么办？实际中，我们不得不考虑这样一种情况：如果你的网站访问量很大，那么一个必然的错误发送的信息就有很多条，这时候，我们需要设置采集率，从而减缓服务器的压力：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Reporter.send = function(data) &#123;  // 只采集 30%  if(Math.random() &lt; 0.3) &#123;    send(data)      // 上报错误信息  &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>采集率应该通过实际情况来设定，随机数，或者某些用户特征都是不错的选择。</p>
+<h2 id="十三、总结"><a href="#十三、总结" class="headerlink" title="十三、总结"></a>十三、总结</h2><p>回到我们开头提出的那个问题，如何优雅的处理异常呢？</p>
+<ol>
+<li>可疑区域增加 Try-Catch</li>
+<li>全局监控 JS 异常 window.onerror</li>
+<li>全局监控静态资源异常 window.addEventListener</li>
+<li>捕获没有 Catch 的 Promise 异常：unhandledrejection</li>
+<li>VUE errorHandler 和 React componentDidCatch</li>
+<li>监控网页崩溃：window 对象的 load 和 beforeunload</li>
+<li>跨域 crossOrigin 解决</li>
+</ol>
+<p>其实很简单，正如上文所说：采用组合方案，分类型的去捕获异常，这样基本 80%-90% 的问题都化于无形。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/js-%E8%BE%93%E5%87%BA100-200%E4%B9%8B%E9%97%B4%E6%89%80%E6%9C%89%E7%9A%84%E7%B4%A0%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/js-%E8%BE%93%E5%87%BA100-200%E4%B9%8B%E9%97%B4%E6%89%80%E6%9C%89%E7%9A%84%E7%B4%A0%E6%95%B0/" class="post-title-link" itemprop="url">js---输出100-200之间所有的素数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:31:37" itemprop="dateCreated datePublished" datetime="2022-10-24T16:31:37+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>采用两种方式，第一种是标记法，第二种是计数法，两种方法原理是相同的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> //标记法</span><br><span class="line">function fn(m, n) &#123;</span><br><span class="line">    var count = &quot;&quot;;</span><br><span class="line">    for (i = m; i &lt;= n; i++) &#123;//第一次循环</span><br><span class="line">        var flage = true;//设一个标记</span><br><span class="line">        for (j = 2; j &lt; i; j++) &#123;</span><br><span class="line">            if (i % j === 0) &#123;//第二次循环</span><br><span class="line">                flage = false;//不满足条件改变标记，</span><br><span class="line">                break;//跳出循环</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (flage) &#123;//满足条件，也就是为true时</span><br><span class="line">            count += i + &quot;,&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return count</span><br><span class="line">&#125;</span><br><span class="line">console.log(fn(100, 200)) //调用函数，输出值</span><br><span class="line"></span><br><span class="line">//计数法</span><br><span class="line">function fn(m, n) &#123;</span><br><span class="line">    var sun = &quot;&quot;;</span><br><span class="line">    for (i = m; i &lt;= n; i++) &#123;//第一次循环</span><br><span class="line">        var count = 0;//初值为零</span><br><span class="line">        for (j = 2; j &lt; i; j++) &#123;//第二次循环</span><br><span class="line">            if (i % j === 0) &#123;//不满足条件加1</span><br><span class="line">                count+=1</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (count === 0) &#123;</span><br><span class="line">            sun += i + &quot;,&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sun</span><br><span class="line">&#125;</span><br><span class="line">console.log(fn(100, 200))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/%E5%BD%BB%E5%BA%95%E5%BC%84%E6%87%82%E5%BC%BA%E7%BC%93%E5%AD%98%E4%B8%8E%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/%E5%BD%BB%E5%BA%95%E5%BC%84%E6%87%82%E5%BC%BA%E7%BC%93%E5%AD%98%E4%B8%8E%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">彻底弄懂强缓存与协商缓存</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:31:28" itemprop="dateCreated datePublished" datetime="2022-10-24T16:31:28+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在工作中，前端代码打包之后生成的静态资源就要发布到静态服务器上，这时候就要对这些静态资源做一些运维配置，其中，gzip 和设置缓存是必不可少的。这两项是最直接影响到网站性能和用户体验的。</p>
+<p>缓存的优点：</p>
+<ul>
+<li>减少了不必要的数据传输，节省带宽</li>
+<li>减少服务器的负担，提升网站性能</li>
+<li>加快了客户端加载网页的速度</li>
+<li>用户体验友好</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>资源如果有更改但是客户端不及时更新会造成用户获取信息滞后，如果老版本有 bug 的话，情况会更加糟糕。</li>
+</ul>
+<p><strong>所以，为了避免设置缓存错误，掌握缓存的原理对于我们工作中去更加合理的配置缓存是非常重要的。</strong></p>
+<h2 id="一、强缓存"><a href="#一、强缓存" class="headerlink" title="一、强缓存"></a>一、强缓存</h2><p>到底什么是强缓存？强在哪？其实强是强制的意思。当浏览器去请求某个文件的时候，服务端就在 response header 里面对该文件做了缓存配置。缓存的时间、缓存类型都由服务端控制，具体表现为：<br>response header 的 cache-control，常见的设置是 max-age public private no-cache no-store 等</p>
+<p>如下图,<br>设置了<strong>cache-control:max-age&#x3D;31536000,public,immutable</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6782944-2953183b0a2ab1dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/751/format/webp" alt="image"></p>
+<p>max-age 表示缓存的时间是 31536000 秒（1 年），public 表示可以被浏览器和代理服务器缓存，代理服务器一般可用 nginx 来做。immutable 表示该资源永远不变，但是实际上该资源并不是永远不变，它这么设置的意思是为了让用户在刷新页面的时候不要去请求服务器！啥意思？就是说，如果你只设置了 cache-control:max-age&#x3D;31536000,public 这属于强缓存，每次用户正常打开这个页面，浏览器会判断缓存是否过期，没有过期就从缓存中读取数据；但是有一些 “聪明” 的用户会点击浏览器左上角的刷新按钮去刷新页面，这时候就算资源没有过期（1 年没这么快过），浏览器也会直接去请求服务器，这就是额外的请求消耗了，这时候就相当于是走协商缓存的流程了（下面会讲到）。如果 cache-control:max-age&#x3D;315360000,public 再加个 immutable 的话，就算用户刷新页面，浏览器也不会发起请求去服务器，浏览器会直接从本地磁盘或者内存中读取缓存并返回 200 状态，看上图的红色框（from memory cache）。这是 2015 年 facebook 团队向制定 HTTP 标准的 IETF 工作组提到的建议：他们希望 HTTP 协议能给 Cache-Control 响应头增加一个属性字段表明该资源永不过期，浏览器就没必要再为这些资源发送条件请求了。</p>
+<h3 id="强缓存总结"><a href="#强缓存总结" class="headerlink" title="强缓存总结"></a>强缓存总结</h3><ol>
+<li><p>cache-control: max-age&#x3D;xxxx，public<br>客户端和代理服务器都可以缓存该资源；<br>客户端在 xxx 秒的有效期内，如果有请求该资源的需求的话就直接读取缓存,status code:200 ，如果用户做了刷新操作，就向服务器发起 http 请求</p>
+</li>
+<li><p>cache-control: max-age&#x3D;xxxx，private<br>只让客户端可以缓存该资源；代理服务器不缓存<br>客户端在 xxx 秒内直接读取缓存,status code:200</p>
+</li>
+<li><p>cache-control: max-age&#x3D;xxxx，immutable<br>客户端在 xxx 秒的有效期内，如果有请求该资源的需求的话就直接读取缓存,statu code:200 ，即使用户做了刷新操作，也不向服务器发起 http 请求</p>
+</li>
+<li><p>cache-control: no-cache<br>跳过设置强缓存，但是不妨碍设置协商缓存；一般如果你做了强缓存，只有在强缓存失效了才走协商缓存的，设置了 no-cache 就不会走强缓存了，每次请求都会询问服务端。</p>
+</li>
+<li><p>cache-control: no-store<br>不缓存，这个会让客户端、服务器都不缓存，也就没有所谓的强缓存、协商缓存了。</p>
+</li>
+</ol>
+<h2 id="二、协商缓存"><a href="#二、协商缓存" class="headerlink" title="二、协商缓存"></a>二、协商缓存</h2><p>上面说到的强缓存就是给资源设置个过期时间，客户端每次请求资源时都会看是否过期；只有在过期才会去询问服务器。所以，强缓存就是为了给客户端自给自足用的。而当某天，客户端请求该资源时发现其过期了，这时就会去请求服务器了，而这时候去请求服务器的这过程就可以设置协商缓存。这时候，协商缓存就是需要客户端和服务器两端进行交互的。</p>
+<p><strong>怎么设置协商缓存？</strong></p>
+<p>response header 里面的设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">etag: &#x27;5c20abbd-e2e8&#x27;</span><br><span class="line">last-modified: Mon, 24 Dec 2018 09:49:49 GMT</span><br></pre></td></tr></table></figure>
+
+<p>etag：每个文件有一个，改动文件了就变了，就是个文件 hash，每个文件唯一，就像用 webpack 打包的时候，每个资源都会有这个东西，如： app.js 打包后变为 app.c20abbde.js，加个唯一 hash，也是为了解决缓存问题。</p>
+<p>last-modified：文件的修改时间，精确到秒</p>
+<p>也就是说，每次请求返回来 response header 中的 etag 和 last-modified，在下次请求时在 request header 就把这两个带上，服务端把你带过来的标识进行对比，然后判断资源是否更改了，如果更改就直接返回新的资源，和更新对应的 response header 的标识 etag、last-modified。如果资源没有变，那就不变 etag、last-modified，这时候对客户端来说，每次请求都是要进行协商缓存了，即：</p>
+<p>发请求–&gt;看资源是否过期–&gt;过期–&gt;请求服务器–&gt;服务器对比资源是否真的过期–&gt;没过期–&gt;返回 304 状态码–&gt;客户端用缓存的老资源。</p>
+<p>这就是一条完整的协商缓存的过程。</p>
+<p>当然，当服务端发现资源真的过期的时候，会走如下流程：</p>
+<p>发请求–&gt;看资源是否过期–&gt;过期–&gt;请求服务器–&gt;服务器对比资源是否真的过期–&gt;过期–&gt;返回 200 状态码–&gt;客户端如第一次接收该资源一样，记下它的 cache-control 中的 max-age、etag、last-modified 等。</p>
+<p>所以协商缓存步骤总结：</p>
+<p>请求资源时，把用户本地该资源的 etag 同时带到服务端，服务端和最新资源做对比。<br>如果资源没更改，返回 304，浏览器读取本地缓存。<br>如果资源有更改，返回 200，返回最新的资源。</p>
+<p>补充一点，response header 中的 etag、last-modified 在客户端重新向服务端发起请求时，会在 request header 中换个 key 名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// response header</span><br><span class="line">etag: &#x27;5c20abbd-e2e8&#x27;</span><br><span class="line">last-modified: Mon, 24 Dec 2018 09:49:49 GMT</span><br><span class="line"></span><br><span class="line">// request header 变为</span><br><span class="line">if-none-matched: &#x27;5c20abbd-e2e8&#x27;</span><br><span class="line">if-modified-since: Mon, 24 Dec 2018 09:49:49 GMT</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么要有 etag？</strong></p>
+<p>你可能会觉得使用 last-modified 已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要 etag 呢？HTTP1.1 中 etag 的出现（也就是说，etag 是新增的，为了解决之前只有 If-Modified 的缺点）主要是为了解决几个 last-modified 比较难解决的问题：</p>
+<ol>
+<li><p>一些文件也许会周期性的更改，但是他的内容并不改变(仅仅改变的修改时间)，这个时候我们并不希望客户端认为这个文件被修改了，而重新 get；</p>
+</li>
+<li><p>某些文件修改非常频繁，比如在秒以下的时间内进行修改，(比方说 1s 内修改了 N 次)，if-modified-since 能检查到的粒度是秒级的，这种修改无法判断(或者说 UNIX 记录 MIME 只能精确到秒)；</p>
+</li>
+<li><p>某些服务器不能精确的得到文件的最后修改时间。</p>
+</li>
+</ol>
+<p><strong>怎么设置强缓存与协商缓存</strong></p>
+<ol>
+<li>后端服务器如 nodejs:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">res.setHeader(&#x27;max-age&#x27;: &#x27;3600 public&#x27;)</span><br><span class="line">res.setHeader(etag: &#x27;5c20abbd-e2e8&#x27;)</span><br><span class="line">res.setHeader(&#x27;last-modified&#x27;: Mon, 24 Dec 2018 09:49:49 GMT)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>nginx 配置</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/6782944-b8701adefe6341e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/583/format/webp" alt="image"></p>
+<p>偶尔自己折腾一番非前端的东西时，若心中有数，自然不会手忙脚乱。</p>
+<p><strong>怎么去用？</strong></p>
+<p>举个例子，像目前用 vue-cli 打包后生成的单页文件是有一个 html，与及一堆 js css img 资源，怎么去设置这些文件呢，核心需求是</p>
+<ol>
+<li>要有缓存，毋庸置疑</li>
+<li>当发新包的时候，要避免加载老的缓存资源</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/6782944-618911ae2fbba06c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/236/format/webp" alt="image"></p>
+<p><strong>我的做法是：</strong></p>
+<p>index.html 文件采用协商缓存，理由就是要用户每次请求 index.html 不拿浏览器缓存，直接请求服务器，这样就保证资源更新了，用户能马上访问到新资源，如果服务端返回 304，这时候再拿浏览器的缓存的 index.html，<strong>切记不要设置强缓存！！！</strong></p>
+<p>其他资源采用强缓存 + 协商缓存,理由就不多说了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

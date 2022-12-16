@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="一、新的组件生命周期钩子 React 的生命周期钩子允许开发者在组件实例化、完成渲染、属性、更新、销毁等不同阶段操作组件。这给我们的开发带来更多的灵活性； 但是，如果开发者对各个生命周期的理解错误，很容易造成对它的滥用，就会造成性能上的浪费等问题。 比如：componentWillMount 对组件进行 setState、dom 操作、添加事件监听、获取数据等。这些都是不安全的操作。 react1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React16的新特性">
+<meta property="og:url" content="http://example.com/2022/12/16/React16%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="一、新的组件生命周期钩子 React 的生命周期钩子允许开发者在组件实例化、完成渲染、属性、更新、销毁等不同阶段操作组件。这给我们的开发带来更多的灵活性； 但是，如果开发者对各个生命周期的理解错误，很容易造成对它的滥用，就会造成性能上的浪费等问题。 比如：componentWillMount 对组件进行 setState、dom 操作、添加事件监听、获取数据等。这些都是不安全的操作。 react1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12185313-85b3010f0b8b7d16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-1a9c7f5ce089376d9371238930a0173c_720w.jpg">
+<meta property="article:published_time" content="2022-12-16T06:17:19.000Z">
+<meta property="article:modified_time" content="2022-12-16T06:22:18.404Z">
+<meta property="article:author" content="Bruce Chen">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/12185313-85b3010f0b8b7d16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+
+<link rel="canonical" href="http://example.com/2022/12/16/React16%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>React16的新特性 | Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/React16%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React16的新特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 14:17:19 / 修改时间：14:22:18" itemprop="dateCreated datePublished" datetime="2022-12-16T14:17:19+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">前端框架总结</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="一、新的组件生命周期钩子"><a href="#一、新的组件生命周期钩子" class="headerlink" title="一、新的组件生命周期钩子"></a>一、新的组件生命周期钩子</h1><p><img src="https://upload-images.jianshu.io/upload_images/12185313-85b3010f0b8b7d16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="image"></p>
+<p>React 的生命周期钩子允许开发者在组件实例化、完成渲染、属性、更新、销毁等不同阶段操作组件。这给我们的开发带来更多的灵活性；</p>
+<p>但是，如果开发者对各个生命周期的理解错误，很容易造成对它的滥用，就会造成性能上的浪费等问题。</p>
+<p>比如：componentWillMount 对组件进行 setState、dom 操作、添加事件监听、获取数据等。这些都是不安全的操作。</p>
+<p>react16 对组件的生命周期做了优化，”移除”容易被大家误解的钩子，添加更加容易理解、安全的钩子。</p>
+<p>“删除”了以下钩子（17 版本中将真的删除）：</p>
+<p><code>componentWillMount()</code></p>
+<p><code>componentWillReceiveProps(nextProps, nextState)</code></p>
+<p><code>componentWillUpdate()</code></p>
+<p>新增了以下钩子：</p>
+<p><code>static getDerivedStateFromProps(nextProps, prevState)</code></p>
+<p><code>getSnapshotBeforeUpdate(prevProps, prevState)</code></p>
+<p><code>componentDidCatch(error, info)</code></p>
+<h2 id="a-如何理解-static-getDerivedStateFromProps-nextProps-prevState-？"><a href="#a-如何理解-static-getDerivedStateFromProps-nextProps-prevState-？" class="headerlink" title="a. 如何理解 static getDerivedStateFromProps(nextProps, prevState)？"></a>a. 如何理解 static getDerivedStateFromProps(nextProps, prevState)？</h2><blockquote>
+<p>首先，需要对静态方法做一个理解。static 静态方法，在 es5 中怎么实现呢？<br>function Person() {}<br>Person.getCount &#x3D; function () {}<br>以上就是 static 静态方法的原理。由于“this”只能获取属性是根据原型链，而静态方法不在原型链上，所以，在组件实例内无法通过 this 调用 static 方法，static 方法也无法根据”this”调用实例的其他方法。<br>就防止在 getDerivedStateFromProps 对组件实例的错误操作。<br>再次，getDerivedStateFromProps 用来做什么用呢？<br>当组件实例化、接收到新的 props 时，会调用该方法。方法返回一个对象，这个对象会被更新到组件的 state 上。如果返回空，那么不对 state 做更新。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 以下代码实现，更新name属性到state上；</span><br><span class="line">static getDerivedStateFromProps (nextProps, prevState) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        name: nextProps.name</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 上面的代码在以前版本中</span><br><span class="line">// 你可能会用以下这样做，虽然这样做看起来也没问题，用上面的方法更加安全，不会对this做误操作</span><br><span class="line">componentWillReceiveProps (nextProps) &#123;</span><br><span class="line">    if (this.state.name !== nextProps.name) &#123;</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            name: nextProps.name</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>这个生命周期函数是为了替代 componentWillReceiveProps 存在的，所以在你需要使用 componentWillReceiveProps 的时候，就可以考虑使用 getDerivedStateFromProps 来进行替代了。</p>
+<p>两者的参数是不相同的，而 getDerivedStateFromProps 是一个静态函数，也就是这个函数不能通过 this 访问到 class 的属性，也并不推荐直接访问属性。而是应该通过参数提供的 nextProps 以及 prevState 来进行判断，根据新传入的 props 来映射到 state。</p>
+<p>需要注意的是，如果 props 传入的内容不需要影响到你的 state，那么就需要返回一个 null，这个返回值是必须的，所以尽量将其写到函数的末尾。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static getDerivedStateFromProps(nextProps, prevState) &#123;</span><br><span class="line">    const &#123;type&#125; = nextProps;</span><br><span class="line">    // 当传入的type发生变化的时候，更新state</span><br><span class="line">    if (type !== prevState.type) &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            type,</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    // 否则，对于state不进行任何操作</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="b-如何理解-getSnapshotBeforeUpdate-prevProps-prevState-？"><a href="#b-如何理解-getSnapshotBeforeUpdate-prevProps-prevState-？" class="headerlink" title="b. 如何理解 getSnapshotBeforeUpdate(prevProps, prevState)？"></a>b. 如何理解 getSnapshotBeforeUpdate(prevProps, prevState)？</h2><blockquote>
+<p>首先，从字面来理解“snapshot”是快照的意思。在 dom 更新之前调用。返回的值将被传给 componentDidUpdate(prevProps, prevState, snaphot)。<br>这个会比较少用到，但对于处理比如数据更新后的滚动条的差异滚动，对用户体验，很有帮助。</p>
+</blockquote>
+<h2 id="c-如何理解-componentDidCatch-error-info-？"><a href="#c-如何理解-componentDidCatch-error-info-？" class="headerlink" title="c. 如何理解 componentDidCatch(error, info)？"></a>c. 如何理解 componentDidCatch(error, info)？</h2><blockquote>
+<p>以往，当组件发生错误（可以用 throw new Error 模拟）时，会导致整个 react 程序死掉，这对于程序的稳定性来说非常不好。<br>componentDidCatch 可以捕获子组件中任何一个错误，捕获到错误后可以对错误进行处理。<br>如果发生错误的组件的父组件没有设置 componentDidCatch 错误捕获，将继续递归父组件的父组件中的 componentDidCatch，找到则停止。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 简单的错误捕获</span><br><span class="line">componentDidCatch (error, info) &#123;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">        error: true</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render () &#123;</span><br><span class="line">    if (this.state.error) &#123;</span><br><span class="line">        return &lt;div&gt;子组件发生异常了&lt;/div&gt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 其他代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="二、优化了哪些语法"><a href="#二、优化了哪些语法" class="headerlink" title="二、优化了哪些语法"></a>二、优化了哪些语法</h1><h2 id="1-ref-优化"><a href="#1-ref-优化" class="headerlink" title="1. ref 优化"></a>1. ref 优化</h2><p>ref 有很多作用，通过 ref 父组件可以调用子组件内的方法，配合<code>ReactDOM.findDOMNode(ref)</code> 可以获取到组件对应的 dom。ref 与 key 一样无法通过 this.props.ref 获取；</p>
+<p>以前版本的 react，给子组件添加 ref&#x3D;“inputName”，就可以通过 this.refs[‘inputName’]获取子组件实例。然后可以进行一些操作。</p>
+<p>React16 中有两种创建 Ref 的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">constructor () &#123;</span><br><span class="line">    this.inputNameRef = React.createRef();</span><br><span class="line">    this.switchRef = React.createRef();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render () &#123;</span><br><span class="line">    // 通过this.inputNameRef.current 可以获取到input实例</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">             &lt;input ref=&#123;this.inputNameRef&#125; /&gt;</span><br><span class="line">             &lt;Switch ref=&#123;this.switchRef&#125; /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">    // 通过回调ref的方式实现</span><br><span class="line">    // 通过this.inputNameRef 可以获取到input实例</span><br><span class="line">    // this.switchRef可以获取Switch的实例</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">             &lt;input ref=&#123;(ref) =&gt; this.inputNameRef = ref&#125; /&gt;</span><br><span class="line">             &lt;Switch ref=&#123;(ref) =&gt; this.switchRef = ref&#125; /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，既然 ref 和 key 可以一样不能用 this.props 获取，有没有办法传给子组件呢？这样就可以实现在组件中调用子子组件（比如子组件中的 input）了。</p>
+<p>答案是肯定的。</p>
+<p>也有两种方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">    // 假设this.switchRef已经在constructor里创建了，那么可以通过其他属性传递。</span><br><span class="line">    // 在子组件中可以通过this.props.forRef。</span><br><span class="line">    // 注：forRef 为随便名只要不是react内置的名称就行</span><br><span class="line">    return (</span><br><span class="line">        &lt;Switch forRef=&#123;this.switchRef&#125; /&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 通过React.forwardRef 传递</span><br><span class="line">export default React.forwardRef((props, ref) =&gt; &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;OtherChild /&gt;</span><br><span class="line">            &lt;Switch ref=&#123;ref&#125; /&gt;</span><br><span class="line">            &lt;OtherChild2 /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-将组件实例化到其他-dom-下，可以优化吗？"><a href="#2-将组件实例化到其他-dom-下，可以优化吗？" class="headerlink" title="2. 将组件实例化到其他 dom 下，可以优化吗？"></a>2. 将组件实例化到其他 dom 下，可以优化吗？</h2><p>React 渲染时，默认是将节点渲染到父组件中，这样能满足我们大部分的需求，but，有这样的组件，比如 Dialog，在组件渲染时，需要能定义组件弹出的 dom 位置，如 Dialog 中的 appendToBody 为 true 时，渲染到 body 节点下。</p>
+<p>以前我们的做法是，通过 ref 和 ReactDOM.findDomNode 获取 dom 在 dialog open 时通过 document.body.appendChild(dom)，将 append 到 body 下，在 componentWillUnmount 时，document.body.removeChild(dom)，移除没用的 dom。</p>
+<p>这样来做就有点麻烦，需要 ref、ReactDOM 等。</p>
+<p>React16 提供了一种优雅的方式 createPortal，Portals 提供了一种很好的将子节点渲染到父组件以外的 DOM 节点的方式。</p>
+<p>createPortal，渲染子节点到目标节点，并返回元素。</p>
+<p>我们知道 ReactDOM.render 也可以将子节点渲染到目标节点，区别是 ReactDOM.render 并没有元素，因此不作为 render 方法的 return</p>
+<p>我直接贴 react 的 Demo。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const modalRoot = document.body;</span><br><span class="line"></span><br><span class="line">class Modal extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.el = document.createElement(&#x27;div&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        modalRoot.appendChild(this.el);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentWillUnmount() &#123;</span><br><span class="line">        modalRoot.removeChild(this.el);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return ReactDOM.createPortal(</span><br><span class="line">            this.props.children,</span><br><span class="line">            this.el,</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-需要传递的多层的-props，可以优化吗？"><a href="#3-需要传递的多层的-props，可以优化吗？" class="headerlink" title="3. 需要传递的多层的 props，可以优化吗？"></a>3. 需要传递的多层的 props，可以优化吗？</h2><p>在实际开发中，我们经常会碰到，一个值需要被传递到多层的子组件中，我们不得不通过 props 一层一层的传递。</p>
+<p>react16 同样提供了优雅的方式。</p>
+<p>React.createContext</p>
+<h1 id="三、性能方面的优化"><a href="#三、性能方面的优化" class="headerlink" title="三、性能方面的优化"></a>三、性能方面的优化</h1><h2 id="1-React-Fragment"><a href="#1-React-Fragment" class="headerlink" title="1. React.Fragment"></a>1. React.Fragment</h2><p>React 渲染时，要求 JSX 元素是 tree 结构，因为 JSX 原理还是调用 <code>React.createElement(Component, attrs, [...children])</code>，这样好理解。但这样在组件开发过程中，就有所限制，比如：Table Tr 组件，需要渲染同时多个 Tr，在以前我们就需要包一层<code>&lt;div&gt;</code>，造成了浪费。</p>
+<p>react16 提供了<code>Fragment</code>，可以让我们渲染一个子元素列表，并且不在 DOM 中增加额外节点。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;&gt;   // 也可以用 &lt;React.Fragment&gt;</span><br><span class="line">            &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;</span><br><span class="line">            &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;</span><br><span class="line">        &lt;/&gt;   // 也可以用 &lt;/React.Fragment&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-React-memo"><a href="#2-React-memo" class="headerlink" title="2. React.memo"></a>2. React.memo</h2><p>用在函数组件的性能优化上，会对函数组件实现和 PureComponent 一样的功能，对 props 和 prevProps 做一次 shallowEqual 浅比较。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">React.memo((props) =&gt; &#123;</span><br><span class="line">   // codes</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-React-lazy-amp-React-Suspense"><a href="#3-React-lazy-amp-React-Suspense" class="headerlink" title="3.React.lazy &amp; React.Suspense"></a>3.React.lazy &amp; React.Suspense</h2><p>实现 React 的 Code Spliting 对 React 代码进行拆包，有效的减少一次性加载太多代码的问题。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const IconDemo = lazy(() =&gt; import(&#x27;./icon&#x27;));</span><br><span class="line"></span><br><span class="line">&lt;Suspense fallback=&#123;&lt;div className=&quot;loading&quot;&gt;Loading...&lt;/div&gt;&#125;&gt;</span><br><span class="line">    &lt;Route path=&quot;/&quot; component=&#123;Home&#125; exact /&gt;</span><br><span class="line">    &lt;Route path=&quot;/icon&quot; component=&#123;IconDemo&#125; /&gt;</span><br><span class="line">&lt;/Suspense&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、hooks"><a href="#四、hooks" class="headerlink" title="四、hooks"></a>四、hooks</h1><p><img src="https://pic1.zhimg.com/80/v2-1a9c7f5ce089376d9371238930a0173c_720w.jpg" alt="image"></p>
+<p>我们知道，React 创建组件有 3 中方式【extends React.Component &#x2F; PureComponent】、【React.createClass】，纯函数(无副作用，只接受参数，不对参数做任何处理)。</p>
+<p>extends React.Component、React.createClass 创建的组件，拥有完成 react 声明周期、状态，可以开发较为复杂的组件。</p>
+<p>而，纯函数组件，只能做渲染，绑定的属性都是通过 props 决定的。没有声明周期、状态的概念。如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function UserInfo (props) &#123;</span><br><span class="line">   // 这里可以写一些操作</span><br><span class="line">   return (</span><br><span class="line">       &lt;div&gt;&#123;this.props.name&#125;&lt;/div&gt;</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>React v16.7.0-alpha 对函数组件做了以下扩展。</p>
+<h2 id="a-针对没有-state-做的扩展"><a href="#a-针对没有-state-做的扩展" class="headerlink" title="a. 针对没有 state 做的扩展"></a>a. 针对没有 state 做的扩展</h2><p>useState，可以将 state 添加到函数组件中，允许函数组件操作 state。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import &#123;useState&#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">function UserInfo(props) &#123;</span><br><span class="line">    // useState 接收一个参数（当做初始的state)</span><br><span class="line">    // 返回一个初始state值，和修改state的方法</span><br><span class="line">    // 允许多次使用，因此传给useState的参数应该尽可能是简单的数字、字符串等。</span><br><span class="line">    let [count, setCount] = useState(0);</span><br><span class="line">    let [checked, setChecked] = useState(props.checked || false);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;Clicked &#123;count&#125; times&lt;/p&gt;</span><br><span class="line">            &lt;Switch onClick=&#123;() =&gt; setChecked(!checked)&#125;&gt;&#123; checked ?  &#x27;开&#x27; : &#x27;关&#x27; &#125;&lt;/Switch&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="b-针对没有生命周期钩子的扩展"><a href="#b-针对没有生命周期钩子的扩展" class="headerlink" title="b. 针对没有生命周期钩子的扩展"></a>b. 针对没有生命周期钩子的扩展</h2><p>useEffect，可以将 componentDidMount、componentDidUpdate、componentWillUnmount 钩子添加到函数组件中。</p>
+<p>注意：区分有返回值，和没有返回值的情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">import &#123;useState, useEffect&#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">function UserInfo(props) &#123;</span><br><span class="line">    let [count, setCount] = useState(0);</span><br><span class="line">    let [checked, setChecked] = useState(props.checked || false);</span><br><span class="line"></span><br><span class="line">    function handleStatusChange(checked) &#123;</span><br><span class="line">        setChecked(checked);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 返回值的情况</span><br><span class="line">    useEffect(() =&gt; &#123;</span><br><span class="line">        // 组件Mount是添加监听，componentDidMount</span><br><span class="line">        // subscribe原理是，callbacks.push(handleStatusChange)</span><br><span class="line">        // 当值status值变化是，对遍历callbacks数组，调用内方法</span><br><span class="line">        // callbacks.map((fn) =&gt; &#123; fn(status) &#125;);</span><br><span class="line">        ChatAPI.subscribeToFriendStatus(props.id, handleStatusChange);</span><br><span class="line"></span><br><span class="line">        // 组件销毁是移除监听(componentWillUnmount，时执行return的内方法)</span><br><span class="line">        // unsubscribe的原理是</span><br><span class="line">        // let index = callbacks.indexOf(fn);</span><br><span class="line">        // callbacks.splice(index, 1);</span><br><span class="line">        return function cleanup() &#123;</span><br><span class="line">            ChatAPI.unsubscribeFromFriendStatus(props.id, handleStatusChange);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // 没有返回值的情况</span><br><span class="line">    useEffect(() =&gt; &#123;</span><br><span class="line">        // 组件Mount是调用，componentDidMount、componentDidUpdate1</span><br><span class="line">        document.title = `Clicked $&#123;count&#125;`;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;Clicked &#123;count&#125; times&lt;/p&gt;</span><br><span class="line">            &lt;Switch onClick=&#123;() =&gt; setChecked(!checked)&#125;&gt;&#123; checked ?  &#x27;开&#x27; : &#x27;关&#x27; &#125;&lt;/Switch&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="c-one-more-thing"><a href="#c-one-more-thing" class="headerlink" title="c. one more thing"></a>c. one more thing</h2><p>出于不至于滥用的目的，react 指定了一些 hooks 的使用规则。如命名、代码位置等。当然还很友好的除了代码检测 eslint 插件（<a href="https://link.zhihu.com/?target=https://www.npmjs.com/package/eslint-plugin-react-hooks">eslint-plugin-react-hooks</a>），可以检测开发者写的 hooks 是否合法。</p>
+<p>规则如下：</p>
+<ul>
+<li>在函数组件的顶层使用 hooks，不要在函数组件内的 for、if、匿名函数内使用 useState、useEffect，这将会报错。</li>
+<li>关于 hooks 组件的使用，你可以在 react 组件内使用，也可以在 custom Hooks 内使用。<br>什么是自定义 hook（custom Hooks）呢？就是对 hook 的一个封装，我们可以封装特定功能的 hook，比如：用户状态的 hook、在线人数的 hook，这样在其他地方也可以使用。建议以 useXxxxx 的规范命名。</li>
+</ul>
+<p>如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">function useSetState (initial) &#123;</span><br><span class="line">    const [state, set] = useState(initial);</span><br><span class="line">    const setState = (patch) =&gt; &#123;</span><br><span class="line">        if (patch instanceof Function) &#123;</span><br><span class="line">            set((prevState) =&gt; &#123;</span><br><span class="line">                return Object.assign(state, patch(prevState));</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Object.assign(state, patch);</span><br><span class="line">            set(state);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return [state, setState];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 调用</span><br><span class="line">const Demo = () =&gt; &#123;</span><br><span class="line">    const [state, setState] = useSetState(&#123;&#125;);</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;div&gt;&#123; JSON.stringify(state, null, 2) &#125;&lt;/div&gt;</span><br><span class="line">            &lt;button onClick=&#123;() =&gt; setState(&#123;foo: &#x27;bar&#x27;&#125;)&#125;&gt;foo&lt;/button&gt;</span><br><span class="line">            &lt;button</span><br><span class="line">                onClick=&#123;() =&gt; &#123;</span><br><span class="line">                    setState((prevState) =&gt; (&#123;</span><br><span class="line">                        count: (prevState.count || 0) + 1,</span><br><span class="line">                    &#125;));</span><br><span class="line">                &#125;&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                count</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/16/React-Hooks-%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" rel="prev" title="React Hooks 用法详解">
+      <i class="fa fa-chevron-left"></i> React Hooks 用法详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/16/React%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86Redux%E3%80%81Redux-Thunk%E3%80%81Redux-Sagas%E3%80%81React-Redux%E5%B0%8F%E7%BB%93/" rel="next" title="React状态管理Redux、Redux-Thunk、Redux-Sagas、React-Redux小结">
+      React状态管理Redux、Redux-Thunk、Redux-Sagas、React-Redux小结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%96%B0%E7%9A%84%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">一、新的组件生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#a-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3-static-getDerivedStateFromProps-nextProps-prevState-%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">a. 如何理解 static getDerivedStateFromProps(nextProps, prevState)？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#b-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3-getSnapshotBeforeUpdate-prevProps-prevState-%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">b. 如何理解 getSnapshotBeforeUpdate(prevProps, prevState)？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3-componentDidCatch-error-info-%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">c. 如何理解 componentDidCatch(error, info)？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BC%98%E5%8C%96%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二、优化了哪些语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ref-%E4%BC%98%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">1. ref 优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B0%86%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%88%B0%E5%85%B6%E4%BB%96-dom-%E4%B8%8B%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BC%98%E5%8C%96%E5%90%97%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 将组件实例化到其他 dom 下，可以优化吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%9C%80%E8%A6%81%E4%BC%A0%E9%80%92%E7%9A%84%E5%A4%9A%E5%B1%82%E7%9A%84-props%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BC%98%E5%8C%96%E5%90%97%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">3. 需要传递的多层的 props，可以优化吗？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">三、性能方面的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-React-Fragment"><span class="nav-number">3.1.</span> <span class="nav-text">1. React.Fragment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-React-memo"><span class="nav-number">3.2.</span> <span class="nav-text">2. React.memo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-React-lazy-amp-React-Suspense"><span class="nav-number">3.3.</span> <span class="nav-text">3.React.lazy &amp; React.Suspense</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81hooks"><span class="nav-number">4.</span> <span class="nav-text">四、hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#a-%E9%92%88%E5%AF%B9%E6%B2%A1%E6%9C%89-state-%E5%81%9A%E7%9A%84%E6%89%A9%E5%B1%95"><span class="nav-number">4.1.</span> <span class="nav-text">a. 针对没有 state 做的扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#b-%E9%92%88%E5%AF%B9%E6%B2%A1%E6%9C%89%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90%E7%9A%84%E6%89%A9%E5%B1%95"><span class="nav-number">4.2.</span> <span class="nav-text">b. 针对没有生命周期钩子的扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-one-more-thing"><span class="nav-number">4.3.</span> <span class="nav-text">c. one more thing</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

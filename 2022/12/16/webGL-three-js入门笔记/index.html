@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="webGL 的 3D 世界主要由三大要素构成：场景（scene）、相机（camera）和渲染器（renderer），三者缺一不可。渲染的原理是：我们将创建的物体，添加到场景中，再通过相机（可以理解为人的视角）渲染到渲染器，从而呈现在网页中。three.js 是 webGL 一款比较热门的类库，本文以”three.js”: “^0.77.1”为例，通过网上教程和自身实践整理成这篇笔记。 1.场景(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webGL-three.js入门笔记">
+<meta property="og:url" content="http://example.com/2022/12/16/webGL-three-js%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="webGL 的 3D 世界主要由三大要素构成：场景（scene）、相机（camera）和渲染器（renderer），三者缺一不可。渲染的原理是：我们将创建的物体，添加到场景中，再通过相机（可以理解为人的视角）渲染到渲染器，从而呈现在网页中。three.js 是 webGL 一款比较热门的类库，本文以”three.js”: “^0.77.1”为例，通过网上教程和自身实践整理成这篇笔记。 1.场景(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4923775-9126a81a4cf5c49c.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/614/format/webp">
+<meta property="article:published_time" content="2022-12-16T07:04:04.000Z">
+<meta property="article:modified_time" content="2022-12-16T07:09:04.026Z">
+<meta property="article:author" content="Bruce Chen">
+<meta property="article:tag" content="webGL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4923775-9126a81a4cf5c49c.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/614/format/webp">
+
+<link rel="canonical" href="http://example.com/2022/12/16/webGL-three-js%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>webGL-three.js入门笔记 | Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/webGL-three-js%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          webGL-three.js入门笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 15:04:04 / 修改时间：15:09:04" itemprop="dateCreated datePublished" datetime="2022-12-16T15:04:04+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webGL%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">webGL总结</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/4923775-9126a81a4cf5c49c.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/614/format/webp" alt="image"></p>
+<p>webGL 的 3D 世界主要由三大要素构成：场景（scene）、相机（camera）和渲染器（renderer），三者缺一不可。渲染的原理是：我们将创建的物体，添加到场景中，再通过相机（可以理解为人的视角）渲染到渲染器，从而呈现在网页中。three.js 是 webGL 一款比较热门的类库，本文以”three.js”: “^0.77.1”为例，通过网上教程和自身实践整理成这篇笔记。</p>
+<h2 id="1-场景-scene"><a href="#1-场景-scene" class="headerlink" title="1.场景(scene)"></a>1.场景(scene)</h2><p>场景就是所有物体的容器，只需创建一个。假设我们要显示一个苹果，那么就将苹果加入到场景中即可，多个物体可加入到一个场景。<br>构造函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var scene = new THREE.Scene();</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-相机-camera"><a href="#2-相机-camera" class="headerlink" title="2.相机(camera)"></a>2.相机(camera)</h2><p>相机决定了场景中哪个角度的景色会显示出来，就像人的视角，分为正投影相机(THREE.OrthographicCamera)和透视投影相机(THREE.PerspectiveCamera)，正投影和透视投影的区别是：透视投影有一个基本点，就是远处的物体比近处的物体小，一般我们采用透视投影相机的情况比较多。<br>构造函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//正投影相机</span><br><span class="line">var camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far);</span><br><span class="line">//参数详解：</span><br><span class="line">//left：左平面距离相机中心点的垂直距离</span><br><span class="line">//right：右平面距离相机中心点的垂直距离</span><br><span class="line">//top：顶平面距离相机中心点的垂直距离</span><br><span class="line">//bottom：底平面距离相机中心点的垂直距离</span><br><span class="line">//near：近平面距离相机中心点的垂直距离</span><br><span class="line">//far：远平面距离相机中心点的垂直距离</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//透视投影相机</span><br><span class="line">var camera = new THREE.PerspectiveCamera(fov, aspect, near, far)</span><br><span class="line">//参数详解：</span><br><span class="line">//视角fov：可以理解为视角的大小，如果设置为0，相当于没有了视角，什么也看不到；如果为180，那么可以认为你的视界很广阔，但在180度的时候，往往物体很小，因为物体在你整个可视区域中的比例变小了</span><br><span class="line">//近平面near：表示近处的裁面的距离，也可以认为是眼睛到近处的距离，不能为负数</span><br><span class="line">//远平面far：表示远处的裁面的距离</span><br><span class="line">//纵横比aspect：实际窗口的纵横比，即宽度除以高度，这个值越大，说明宽度越大</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-渲染器-renderer"><a href="#3-渲染器-renderer" class="headerlink" title="3.渲染器(renderer)"></a>3.渲染器(renderer)</h2><p>渲染器决定了渲染结果应挂接在页面的什么元素上，并以怎样的方式绘制。<br>构造函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var renderer = new THREE.WebGLRenderer();</span><br><span class="line">renderer.setSize(window.innerWidth, window.innerHeight);//设置渲染区域大小</span><br><span class="line">document.body.appendChild(renderer, domElement);//渲染在domElement并挂接到body下</span><br><span class="line">renderer.render(scene, camera); //将场景通过相机视角渲染出来</span><br></pre></td></tr></table></figure>
+
+<p>如果要让物体动起来，那么我们可以利用循环渲染：requestAnimationFrame</p>
+<h2 id="4-光源"><a href="#4-光源" class="headerlink" title="4.光源"></a>4.光源</h2><p>光是我们看见物体的关键，用 Light 表示，是所有光源的基类，底下还有很多分类，我举几个最常用的：</p>
+<p>环境光：环境光是经过多次反射惹来的光，无法确定其最初的方向，是一种无处不在的光。环境光源放出的光线被认为来自任何方向。因此，当你仅为场景设定环境光时，所有的物体无论法向量如何，都将表现为同样的明暗程度。<br>构造函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.AmbientLight(hex); //hex为一个16进制的颜色值</span><br></pre></td></tr></table></figure>
+
+<p>平行光：是一组没有衰减的平行的光线，类似太阳光的效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.DirectionalLight(hex, intensity)</span><br></pre></td></tr></table></figure>
+
+<p>点光源：由这种光源放出的光线来自同一点，且方向辐射自四面八方</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">THREE.PointLight(color, intensity, distance)；</span><br><span class="line">//color代表光的颜色</span><br><span class="line">//intensity：代表光的强度，默认1.0，表示100%强度的灯光</span><br><span class="line">//distance：代表光的距离，从光源所在的位置，经过distance这段距离之后，光的强度将从Intensity衰减为0，默认0.0，表示光源强度不衰减</span><br></pre></td></tr></table></figure>
+
+<p>聚光灯：这种光源的光线从一个椎体中射出，在被照射的物体上产生聚光的效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">THREE.SpotLight(hex, intensity, distance, angle, exponent)</span><br><span class="line">//angle：聚光灯着色的角度，用弧度作为单位，这个角度是和光源的方向形成的角度</span><br><span class="line">//exponent：光源模型中，衰减的一个参数，越大衰减越快</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-物体"><a href="#5-物体" class="headerlink" title="5.物体"></a>5.物体</h2><p>创建一个物体可以包含多种元素，几何体，材质，纹理等，创建一个小球的简单示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let geometry =new THREE.SphereGeometry(3, 16, 16);   //球体</span><br><span class="line">let material = new THREE.MeshPhongMaterial(&#123;color:0x48D1CC,specular:0xffffff,shininess:100&#125;);     //材质</span><br><span class="line">var ball = new THREE.Mesh(geometry, material); //两者共同组成一个球体</span><br><span class="line">scene.add(ball); //将球体添加至场景中</span><br></pre></td></tr></table></figure>
+
+<p>关于几何体，材质等种类非常多，具体可以参考[three.js 源码]：<a target="_blank" rel="noopener" href="https://github.com/mrdoob/three.js/">https://github.com/mrdoob/three.js/</a></p>
+<h2 id="6-动画"><a href="#6-动画" class="headerlink" title="6.动画"></a>6.动画</h2><p>总结上述步骤：</p>
+<blockquote>
+<ul>
+<li>创建场景、相机、渲染器</li>
+<li>创建光源</li>
+<li>创建物体并添加至场景中</li>
+<li>渲染出场景</li>
+</ul>
+</blockquote>
+<p>这样就构成了一个完整的但也是最基础的流程，网页中能看到我们创造的物体，接下来说到动画，3D 世界中的运动方式总结为三种：移动，旋转和缩放。<br>运动是相对的，场景动起来有两种方式：</p>
+<h3 id="1-物体在坐标系中移动，相机不动"><a href="#1-物体在坐标系中移动，相机不动" class="headerlink" title="1). 物体在坐标系中移动，相机不动"></a>1). 物体在坐标系中移动，相机不动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function animate()&#123;</span><br><span class="line">  ball.position.x += 1;</span><br><span class="line">  renderer.render(scene, camera);</span><br><span class="line">  requestAnimationFrame(animation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-相机在坐标系中移动，物体不动"><a href="#2-相机在坐标系中移动，物体不动" class="headerlink" title="2). 相机在坐标系中移动，物体不动"></a>2). 相机在坐标系中移动，物体不动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function animate()&#123;</span><br><span class="line">  camera.position.x += 1;</span><br><span class="line">  renderer.render(scene, camera);</span><br><span class="line">  requestAnimationFrame(animation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>[demo 展示中心]：<a target="_blank" rel="noopener" href="https://yomonah.github.io/project/app.html#/webGL-icosahedron">https://yomonah.github.io/project/app.html#/webGL-icosahedron</a></li>
+<li>[源码]：<a target="_blank" rel="noopener" href="https://github.com/yomonah/react-demo/tree/master/src/components/webGL_ball">https://github.com/yomonah/react-demo/tree/master/src/components/webGL_ball</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/webGL/" rel="tag"># webGL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/16/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" rel="prev" title="百度地图使用笔记">
+      <i class="fa fa-chevron-left"></i> 百度地图使用笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/16/Highcharts%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/" rel="next" title="Highcharts工作笔记">
+      Highcharts工作笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9C%BA%E6%99%AF-scene"><span class="nav-number">1.</span> <span class="nav-text">1.场景(scene)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%9B%B8%E6%9C%BA-camera"><span class="nav-number">2.</span> <span class="nav-text">2.相机(camera)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%B8%B2%E6%9F%93%E5%99%A8-renderer"><span class="nav-number">3.</span> <span class="nav-text">3.渲染器(renderer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%85%89%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">4.光源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%89%A9%E4%BD%93"><span class="nav-number">5.</span> <span class="nav-text">5.物体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%8A%A8%E7%94%BB"><span class="nav-number">6.</span> <span class="nav-text">6.动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%89%A9%E4%BD%93%E5%9C%A8%E5%9D%90%E6%A0%87%E7%B3%BB%E4%B8%AD%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%9B%B8%E6%9C%BA%E4%B8%8D%E5%8A%A8"><span class="nav-number">6.1.</span> <span class="nav-text">1). 物体在坐标系中移动，相机不动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%9B%B8%E6%9C%BA%E5%9C%A8%E5%9D%90%E6%A0%87%E7%B3%BB%E4%B8%AD%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%89%A9%E4%BD%93%E4%B8%8D%E5%8A%A8"><span class="nav-number">6.2.</span> <span class="nav-text">2). 相机在坐标系中移动，物体不动</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
