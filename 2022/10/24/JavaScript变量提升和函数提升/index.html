@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="1. 变量提升通常 JS 引擎会在正式执行之前先进行一次预编译，在这个过程中，首先将变量声明及函数声明提升至当前作用域的顶端，然后进行接下来的处理。(注：当前流行的 JS 引擎大都对源码进行了编译，由于引擎的不同，编译形式也会有所差异，我们这里说的预编译和提升其实是抽象出来的、易于理解的概念) 下面的代码中，我们在函数中声明了一个变量，不过这个变量声明是在 if 语句块中： 12345678fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript变量提升和函数提升">
+<meta property="og:url" content="http://example.com/2022/10/24/JavaScript%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%92%8C%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="1. 变量提升通常 JS 引擎会在正式执行之前先进行一次预编译，在这个过程中，首先将变量声明及函数声明提升至当前作用域的顶端，然后进行接下来的处理。(注：当前流行的 JS 引擎大都对源码进行了编译，由于引擎的不同，编译形式也会有所差异，我们这里说的预编译和提升其实是抽象出来的、易于理解的概念) 下面的代码中，我们在函数中声明了一个变量，不过这个变量声明是在 if 语句块中： 12345678fun">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927084830453-161910040.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927085003891-1035941947.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927085032422-1936451758.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928082258078-892410645.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928082526438-697971926.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928084223719-96754371.png">
+<meta property="article:published_time" content="2022-10-24T08:45:01.000Z">
+<meta property="article:modified_time" content="2022-11-08T08:04:38.778Z">
+<meta property="article:author" content="Bruce Chen">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927084830453-161910040.png">
+
+<link rel="canonical" href="http://example.com/2022/10/24/JavaScript%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%92%8C%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JavaScript变量提升和函数提升 | Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/JavaScript%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%92%8C%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript变量提升和函数提升
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:45:01" itemprop="dateCreated datePublished" datetime="2022-10-24T16:45:01+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-变量提升"><a href="#1-变量提升" class="headerlink" title="1. 变量提升"></a>1. 变量提升</h2><p>通常 JS 引擎会在正式执行之前先进行一次预编译，在这个过程中，首先将变量声明及函数声明提升至当前作用域的顶端，然后进行接下来的处理。(注：当前流行的 JS 引擎大都对源码进行了编译，由于引擎的不同，编译形式也会有所差异，我们这里说的预编译和提升其实是抽象出来的、易于理解的概念)</p>
+<p>下面的代码中，我们在函数中声明了一个变量，不过这个变量声明是在 if 语句块中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function hoistVariable() &#123;</span><br><span class="line">    if (!foo) &#123;</span><br><span class="line">        var foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>运行代码，我们会发现 foo 的值是 5，初学者可能对此不甚理解，如果外层作用域也存在一个 foo 变量，就更加困惑了，该不会是打印外层作用域中的 foo 变量吧？答案是：不会，如果当前作用域中存在此变量声明，无论它在什么地方声明，引用此变量时就会在当前作用域中查找，不会去外层作用域了。</p>
+<p>那么至于说打印结果，这要提到预编译机制了，经过一次预编译之后，上面的代码逻辑如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    if (!foo) &#123;</span><br><span class="line">        foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>是的，引擎将变量声明提升到了函数顶部，初始值为 undefined，自然，if 语句块就会被执行，foo 变量赋值为 5，下面的打印也就是预期的结果了。</p>
+<p>类似的，还有下面一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo = foo || 5;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>foo || 5 这个表达式的结果是 5 而不是 3，虽然外层作用域有个 foo 变量，但函数内是不会去引用的，因为预编译之后的代码逻辑是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">// 预编译之后</span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    foo = foo || 5;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>如果当前作用域中声明了多个同名变量，那么根据我们的推断，它们的同一个标识符会被提升至作用域顶部，其他部分按顺序执行，比如下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo = 3;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        var foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<p>由于 JavaScript 没有块作用域，只有全局作用域和函数作用域，所以预编译之后的代码逻辑为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistVariable() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    foo = 3;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        foo = 5;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistVariable();</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-函数提升"><a href="#2-函数提升" class="headerlink" title="2. 函数提升"></a>2. 函数提升</h2><p>相信大家对下面这段代码都不陌生，实际开发当中也很常见：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function hoistFunction() &#123;</span><br><span class="line">    foo(); // output: I am hoisted</span><br><span class="line"></span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(&#x27;I am hoisted&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>为什么函数可以在声明之前就可以调用，并且跟变量声明不同的是，它还能得到正确的结果，其实引擎是把函数声明整个地提升到了当前作用域的顶部，预编译之后的代码逻辑如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(&#x27;I am hoisted&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // output: I am hoisted</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>相似的，如果在同一个作用域中存在多个同名函数声明，后面出现的将会覆盖前面的函数声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function hoistFunction() &#123;</span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // output: 2</span><br><span class="line"></span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>对于函数，除了使用上面的函数声明，更多时候，我们会使用函数表达式，下面是函数声明和函数表达式的对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 函数声明</span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(&#x27;function declaration&#x27;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 匿名函数表达式</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">    console.log(&#x27;anonymous function expression&#x27;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 具名函数表达式</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">    console.log(&#x27;named function expression&#x27;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，匿名函数表达式，其实是将一个不带名字的函数声明赋值给了一个变量，而具名函数表达式，则是带名字的函数赋值给一个变量，需要注意到是，这个函数名只能在此函数内部使用。我们也看到了，其实函数表达式可以通过变量访问，所以也存在变量提升同样的效果。</p>
+<p>那么当函数声明遇到函数表达式时，会有什么样的结果呢，先看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function hoistFunction() &#123;</span><br><span class="line">    foo(); // 2</span><br><span class="line"></span><br><span class="line">    var foo = function() &#123;</span><br><span class="line">        console.log(1);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line"></span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>运行后我们会发现，输出的结果依次是 2 1 1，为什么会有这样的结果呢？</p>
+<p>因为 JavaScript 中的函数是一等公民，函数声明的优先级最高，会被提升至当前作用域最顶端，所以第一次调用时实际执行了下面定义的函数声明，然后第二次调用时，由于前面的函数表达式与之前的函数声明同名，故将其覆盖，以后的调用也将会打印同样的结果。上面的过程经过预编译之后，代码逻辑如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 预编译之后</span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">    var foo;</span><br><span class="line"></span><br><span class="line">    foo = function foo() &#123;</span><br><span class="line">        console.log(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foo(); // 2</span><br><span class="line"></span><br><span class="line">    foo = function() &#123;</span><br><span class="line">        console.log(1);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line"></span><br><span class="line">    foo(); // 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br></pre></td></tr></table></figure>
+
+<p>我们也不难理解，下面的函数和变量重名时，会如何执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">    console.log(foo); // function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    foo = 5;</span><br><span class="line"></span><br><span class="line">    console.log(foo); // 5</span><br><span class="line"></span><br><span class="line">    function foo() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br><span class="line">console.log(foo);     // 3</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，函数声明被提升至作用域最顶端，然后被赋值为 5，而外层的变量并没有被覆盖，经过预编译之后，上面代码的逻辑是这样的：</p>
+<p>&#x2F;&#x2F; 预编译之后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var foo = 3;</span><br><span class="line"></span><br><span class="line">function hoistFunction() &#123;</span><br><span class="line">   var foo;</span><br><span class="line"></span><br><span class="line">   foo = function foo() &#123;&#125;;</span><br><span class="line"></span><br><span class="line">   console.log(foo); // function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">   foo = 5;</span><br><span class="line"></span><br><span class="line">   console.log(foo); // 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hoistFunction();</span><br><span class="line">console.log(foo);    // 3</span><br></pre></td></tr></table></figure>
+
+<p>所以，函数的优先权是最高的，它永远被提升至作用域最顶部，然后才是函数表达式和变量按顺序执行，这一点要牢记。</p>
+<h2 id="3-为什么要进行提升"><a href="#3-为什么要进行提升" class="headerlink" title="3. 为什么要进行提升"></a>3. 为什么要进行提升</h2><p>关于为什么进行变量提升和函数提升，这个问题一直没有明确的答案，不过最近读到 Dmitry Soshnikov 之前的一篇文章时，多少了解了一些，下面是 Dmitry Soshnikov 早些年的 twitter，他也对这个问题十分感兴趣：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927084830453-161910040.png" alt="image"></p>
+<p>然后 Jeremy Ashkenas 想让 Brendan Eich 聊聊这个话题：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927085003891-1035941947.png" alt="image"></p>
+<p>最后，Brendan Eich 给出了答案：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160927085032422-1936451758.png" alt="image"></p>
+<p>大致的意思就是：由于第一代 JS 虚拟机中的抽象纰漏导致的，编译器将变量放到了栈槽内并编入索引，然后在（当前作用域的）入口处将变量名绑定到了栈槽内的变量。（注：这里提到的抽象是计算机术语，是对内部发生的更加复杂的事情的一种简化。）</p>
+<p>然后，Dmitry Soshnikov 又提到了函数提升，他提到了相互递归（就是 A 函数内会调用到 B 函数，而 B 函数也会调用到 A 函数）：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928082258078-892410645.png" alt="image"></p>
+<p>随后 Brendan Eich 很热心的又给出了答案：</p>
+<p><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928082526438-697971926.png" alt="image"></p>
+<p>Brendan Eich 很确定的说，函数提升就是为了解决相互递归的问题，大体上可以解决像 ML 语言这样自下而上的顺序问题。</p>
+<p>这里简单阐述一下相互递归，下面两个函数分别在自己的函数体内调用了对方：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 验证偶数</span><br><span class="line">function isEven(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return isOdd(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(isEven(2)); // true</span><br><span class="line"></span><br><span class="line">// 验证奇数</span><br><span class="line">function isOdd(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return isEven(n - 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果没有函数提升，而是按照自下而上的顺序，当 isEven 函数被调用时，isOdd 函数还未声明，所以当 isEven 内部无法调用 isOdd 函数。所以 Brendan Eich 设计了函数提升这一形式，将函数提升至当前作用域的顶部：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 验证偶数</span><br><span class="line">function isEven(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return isOdd(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 验证奇数</span><br><span class="line">function isOdd(n) &#123;</span><br><span class="line">    if (n === 0) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return isEven(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(isEven(2)); // true</span><br></pre></td></tr></table></figure>
+
+<p>这样一来，问题就迎刃而解了。</p>
+<p>最后，Brendan Eich 还对变量提升和函数提升做了总结：<br><img src="https://images2015.cnblogs.com/blog/317749/201609/317749-20160928084223719-96754371.png" alt="image"><br>大概是说，变量提升是人为实现的问题，而函数提升在当初设计时是有目的的。</p>
+<p>至此，关于变量提升和函数提升，相信大家已经明白其中的真相了。</p>
+<h2 id="4-最佳实践"><a href="#4-最佳实践" class="headerlink" title="4. 最佳实践"></a>4. 最佳实践</h2><p>理解变量提升和函数提升可以使我们更了解这门语言，更好地驾驭它，但是在开发中，我们不应该使用这些技巧，而是要规范我们的代码，做到可读性和可维护性。</p>
+<p>具体的做法是：无论变量还是函数，都必须先声明后使用。下面举了简单的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var name = &#x27;Scott&#x27;;</span><br><span class="line">var sayHello = function(guest) &#123;</span><br><span class="line">    console.log(name, &#x27;says hello to&#x27;, guest);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var i;</span><br><span class="line">var guest;</span><br><span class="line">var guests = [&#x27;John&#x27;, &#x27;Tom&#x27;, &#x27;Jack&#x27;];</span><br><span class="line"></span><br><span class="line">for (i = 0; i &lt; guests.length; i++) &#123;</span><br><span class="line">    guest = guests[i];</span><br><span class="line"></span><br><span class="line">    // do something on guest</span><br><span class="line"></span><br><span class="line">    sayHello(guest);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果对于新的项目，可以使用 let 替换 var，会变得更可靠，可维护性更高：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let name = &#x27;Scott&#x27;;</span><br><span class="line">let sayHello = function(guest) &#123;</span><br><span class="line">    console.log(name, &#x27;says hello to&#x27;, guest);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let guests = [&#x27;John&#x27;, &#x27;Tom&#x27;, &#x27;Jack&#x27;];</span><br><span class="line"></span><br><span class="line">for (let i = 0; i &lt; guests.length; i++) &#123;</span><br><span class="line">    let guest = guests[i];</span><br><span class="line"></span><br><span class="line">    // do something on guest</span><br><span class="line"></span><br><span class="line">    sayHello(guest);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得一提的是，ES6 中的 class 声明也存在提升，不过它和 let、const 一样，被约束和限制了，其规定，如果再声明位置之前引用，则是不合法的，会抛出一个异常。</p>
+<p>所以，无论是早期的代码，还是 ES6 中的代码，我们都需要遵循一点，先声明，后使用。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/24/%E4%BB%8B%E7%BB%8D%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%8C%E5%B9%B6%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0/" rel="prev" title="介绍防抖与节流的原理，并动手实现">
+      <i class="fa fa-chevron-left"></i> 介绍防抖与节流的原理，并动手实现
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/16/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E9%97%AE%E9%A2%98/" rel="next" title="前端面试中的常见的算法问题">
+      前端面试中的常见的算法问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-number">1.</span> <span class="nav-text">1. 变量提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87"><span class="nav-number">2.</span> <span class="nav-text">2. 函数提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%8F%90%E5%8D%87"><span class="nav-number">3.</span> <span class="nav-text">3. 为什么要进行提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">4.</span> <span class="nav-text">4. 最佳实践</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

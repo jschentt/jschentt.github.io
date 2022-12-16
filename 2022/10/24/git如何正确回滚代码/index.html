@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="git 如何正确回滚代码  方法一，删除远程分支再提交① 首先保证当前工作区是干净的，并且和远程分支代码一致123$ git co currentBranch$ git pull origin currentBranch$ git co .&#x2F;  ② 备份当前分支（如有必要）1$ git branch currentBranchBackUp  ③ 恢复到指定的 commit hash1$ git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git如何正确回滚代码">
+<meta property="og:url" content="http://example.com/2022/10/24/git%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9B%9E%E6%BB%9A%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="git 如何正确回滚代码  方法一，删除远程分支再提交① 首先保证当前工作区是干净的，并且和远程分支代码一致123$ git co currentBranch$ git pull origin currentBranch$ git co .&#x2F;  ② 备份当前分支（如有必要）1$ git branch currentBranchBackUp  ③ 恢复到指定的 commit hash1$ git">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://gtms04.alicdn.com/tps/i4/TB1Q0yyLpXXXXXpXXXXPw.CWFXX-632-320.png">
+<meta property="og:image" content="http://gtms04.alicdn.com/tps/i4/TB1VdurLpXXXXcuXXXX_mKs_XXX-873-308.png">
+<meta property="article:published_time" content="2022-10-24T08:38:45.000Z">
+<meta property="article:modified_time" content="2022-11-08T08:04:38.779Z">
+<meta property="article:author" content="Bruce Chen">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gtms04.alicdn.com/tps/i4/TB1Q0yyLpXXXXXpXXXXPw.CWFXX-632-320.png">
+
+<link rel="canonical" href="http://example.com/2022/10/24/git%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9B%9E%E6%BB%9A%E4%BB%A3%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>git如何正确回滚代码 | Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/git%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9B%9E%E6%BB%9A%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git如何正确回滚代码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:38:45" itemprop="dateCreated datePublished" datetime="2022-10-24T16:38:45+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>git 如何正确回滚代码</p>
+</blockquote>
+<h2 id="方法一，删除远程分支再提交"><a href="#方法一，删除远程分支再提交" class="headerlink" title="方法一，删除远程分支再提交"></a>方法一，删除远程分支再提交</h2><h3 id="①-首先保证当前工作区是干净的，并且和远程分支代码一致"><a href="#①-首先保证当前工作区是干净的，并且和远程分支代码一致" class="headerlink" title="① 首先保证当前工作区是干净的，并且和远程分支代码一致"></a>① 首先保证当前工作区是干净的，并且和远程分支代码一致</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git co currentBranch</span><br><span class="line">$ git pull origin currentBranch</span><br><span class="line">$ git co ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="②-备份当前分支（如有必要）"><a href="#②-备份当前分支（如有必要）" class="headerlink" title="② 备份当前分支（如有必要）"></a>② 备份当前分支（如有必要）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch currentBranchBackUp</span><br></pre></td></tr></table></figure>
+
+<h3 id="③-恢复到指定的-commit-hash"><a href="#③-恢复到指定的-commit-hash" class="headerlink" title="③ 恢复到指定的 commit hash"></a>③ 恢复到指定的 commit hash</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard resetVersionHash //将当前branch的HEAD指针指向commit hash</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://gtms04.alicdn.com/tps/i4/TB1Q0yyLpXXXXXpXXXXPw.CWFXX-632-320.png" alt="image"></p>
+<h3 id="④-删除当前分支的远程分支"><a href="#④-删除当前分支的远程分支" class="headerlink" title="④ 删除当前分支的远程分支"></a>④ 删除当前分支的远程分支</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin :currentBranch</span><br><span class="line">$ //或者这么写git push origin --delete currentBranch</span><br></pre></td></tr></table></figure>
+
+<h3 id="⑤-把当前分支提交到远程"><a href="#⑤-把当前分支提交到远程" class="headerlink" title="⑤ 把当前分支提交到远程"></a>⑤ 把当前分支提交到远程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin currentBranch</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二，强制-push-远程分支"><a href="#方法二，强制-push-远程分支" class="headerlink" title="方法二，强制 push 远程分支"></a>方法二，强制 push 远程分支</h2><h3 id="①-首先保证当前工作区是干净的，并且和远程分支代码一致-1"><a href="#①-首先保证当前工作区是干净的，并且和远程分支代码一致-1" class="headerlink" title="① 首先保证当前工作区是干净的，并且和远程分支代码一致"></a>① 首先保证当前工作区是干净的，并且和远程分支代码一致</h3><h3 id="②-备份当前分支（如有必要）-1"><a href="#②-备份当前分支（如有必要）-1" class="headerlink" title="② 备份当前分支（如有必要）"></a>② 备份当前分支（如有必要）</h3><h3 id="③-恢复到指定的-commit-hash-1"><a href="#③-恢复到指定的-commit-hash-1" class="headerlink" title="③ 恢复到指定的 commit hash"></a>③ 恢复到指定的 commit hash</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard resetVersionHash</span><br></pre></td></tr></table></figure>
+
+<h3 id="④-把当前分支强制提交到远程"><a href="#④-把当前分支强制提交到远程" class="headerlink" title="④ 把当前分支强制提交到远程"></a>④ 把当前分支强制提交到远程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -f origin currentBranch</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法三，从回滚位置生成新的-commit-hash"><a href="#方法三，从回滚位置生成新的-commit-hash" class="headerlink" title="方法三，从回滚位置生成新的 commit hash"></a>方法三，从回滚位置生成新的 commit hash</h2><h3 id="①-首先保证当前工作区是干净的，并且和远程分支代码一致-2"><a href="#①-首先保证当前工作区是干净的，并且和远程分支代码一致-2" class="headerlink" title="① 首先保证当前工作区是干净的，并且和远程分支代码一致"></a>① 首先保证当前工作区是干净的，并且和远程分支代码一致</h3><h4 id="②-备份当前分支（如有必要）-2"><a href="#②-备份当前分支（如有必要）-2" class="headerlink" title="② 备份当前分支（如有必要）"></a>② 备份当前分支（如有必要）</h4><h3 id="③-使用-git-revert-恢复到指定的-commit-hash，当前分支恢复到-a-gt-3-版本（见下图）"><a href="#③-使用-git-revert-恢复到指定的-commit-hash，当前分支恢复到-a-gt-3-版本（见下图）" class="headerlink" title="③ 使用 git revert 恢复到指定的 commit hash，当前分支恢复到 a&gt;3 版本（见下图）"></a>③ 使用 git revert 恢复到指定的 commit hash，当前分支恢复到 a&gt;3 版本（见下图）</h3><h4 id="a）此方法会产生一条多余的-commit-hash-amp-log，其实-1c0ce98-和-01592eb-内容上是一致的"><a href="#a）此方法会产生一条多余的-commit-hash-amp-log，其实-1c0ce98-和-01592eb-内容上是一致的" class="headerlink" title="a）此方法会产生一条多余的 commit hash&amp;log，其实 1c0ce98 和 01592eb 内容上是一致的"></a>a）此方法会产生一条多余的 commit hash&amp;log，其实 1c0ce98 和 01592eb 内容上是一致的</h4><h4 id="b）git-revert-是以要回滚的-commit-hash-1c0ce98-为基础，新生成一个-commit-hash-01592eb"><a href="#b）git-revert-是以要回滚的-commit-hash-1c0ce98-为基础，新生成一个-commit-hash-01592eb" class="headerlink" title="b）git revert 是以要回滚的 commit hash(1c0ce98)为基础，新生成一个 commit hash(01592eb)"></a>b）git revert 是以要回滚的 commit hash(1c0ce98)为基础，新生成一个 commit hash(01592eb)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git revert resetVersionHash</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://gtms04.alicdn.com/tps/i4/TB1VdurLpXXXXcuXXXX_mKs_XXX-873-308.png" alt="image"></p>
+<h3 id="④-提交远程分支"><a href="#④-提交远程分支" class="headerlink" title="④ 提交远程分支"></a>④ 提交远程分支</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin currentBranch</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法四，从回滚位置生成新的分支-merge"><a href="#方法四，从回滚位置生成新的分支-merge" class="headerlink" title="方法四，从回滚位置生成新的分支 merge"></a>方法四，从回滚位置生成新的分支 merge</h2><h3 id="①-首先保证当前工作区是干净的，并且和远程分支代码一致-3"><a href="#①-首先保证当前工作区是干净的，并且和远程分支代码一致-3" class="headerlink" title="① 首先保证当前工作区是干净的，并且和远程分支代码一致"></a>① 首先保证当前工作区是干净的，并且和远程分支代码一致</h3><h3 id="②-备份当前分支（如有必要）-3"><a href="#②-备份当前分支（如有必要）-3" class="headerlink" title="② 备份当前分支（如有必要）"></a>② 备份当前分支（如有必要）</h3><h3 id="③-把当前工作区的-HEAD-指针指向回滚的-commit-hash-注意不是-branch-的-HEAD-指针"><a href="#③-把当前工作区的-HEAD-指针指向回滚的-commit-hash-注意不是-branch-的-HEAD-指针" class="headerlink" title="③ 把当前工作区的 HEAD 指针指向回滚的 commit hash(注意不是 branch 的 HEAD 指针)"></a>③ 把当前工作区的 HEAD 指针指向回滚的 commit hash(注意不是 branch 的 HEAD 指针)</h3><p><strong>Notice:这个时候工作区 HEAD 没有指向分支，称为匿名分支 detached HEAD</strong>。</p>
+<p>这个时候提交 commit 后无法保存状态，git 中的任何提交必须是在当前工作区 HEAD 所在分支的 HEAD 上进行 push hash 入栈，所以 HEAD 必须是属于某个分支的 HEAD 位置，提交才生效。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git co resetVersionHash</span><br></pre></td></tr></table></figure>
+
+<h3 id="④-以该-commit-hash-创建一个新的分支"><a href="#④-以该-commit-hash-创建一个新的分支" class="headerlink" title="④ 以该 commit hash 创建一个新的分支"></a>④ 以该 commit hash 创建一个新的分支</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git co -b newRevertedHash</span><br></pre></td></tr></table></figure>
+
+<h3 id="⑤-切换到当前分支，合并-newRevertedHash。"><a href="#⑤-切换到当前分支，合并-newRevertedHash。" class="headerlink" title="⑤ 切换到当前分支，合并 newRevertedHash。"></a>⑤ 切换到当前分支，合并 newRevertedHash。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git co currentBranch</span><br><span class="line">$ git merge newRevertedHash</span><br></pre></td></tr></table></figure>
+
+<h3 id="⑥-进行代码-diff，完成代码回滚，push-到远程-currentBranch"><a href="#⑥-进行代码-diff，完成代码回滚，push-到远程-currentBranch" class="headerlink" title="⑥ 进行代码 diff，完成代码回滚，push 到远程 currentBranch"></a>⑥ 进行代码 diff，完成代码回滚，push 到远程 currentBranch</h3><p><strong>Notice: 也可以直接 hotfix，从要回滚的地方直接重新打包一个新 tag 包，发版本 hotFixVersion 即可。</strong></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/24/%E6%B5%85%E6%9E%90koa%E7%9A%84%E6%B4%8B%E8%91%B1%E6%A8%A1%E5%9E%8B%E5%AE%9E%E7%8E%B0/" rel="prev" title="浅析koa的洋葱模型实现">
+      <i class="fa fa-chevron-left"></i> 浅析koa的洋葱模型实现
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/24/merge%E5%92%8Crebase%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="next" title="merge和rebase的区别">
+      merge和rebase的区别 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%8C%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%86%8D%E6%8F%90%E4%BA%A4"><span class="nav-number">1.</span> <span class="nav-text">方法一，删除远程分支再提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0-%E9%A6%96%E5%85%88%E4%BF%9D%E8%AF%81%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%98%AF%E5%B9%B2%E5%87%80%E7%9A%84%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%92%8C%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E4%BB%A3%E7%A0%81%E4%B8%80%E8%87%B4"><span class="nav-number">1.1.</span> <span class="nav-text">① 首先保证当前工作区是干净的，并且和远程分支代码一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A1-%E5%A4%87%E4%BB%BD%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%EF%BC%88%E5%A6%82%E6%9C%89%E5%BF%85%E8%A6%81%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">② 备份当前分支（如有必要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A2-%E6%81%A2%E5%A4%8D%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84-commit-hash"><span class="nav-number">1.3.</span> <span class="nav-text">③ 恢复到指定的 commit hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A3-%E5%88%A0%E9%99%A4%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">1.4.</span> <span class="nav-text">④ 删除当前分支的远程分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A4-%E6%8A%8A%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E6%8F%90%E4%BA%A4%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">1.5.</span> <span class="nav-text">⑤ 把当前分支提交到远程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%8C%E5%BC%BA%E5%88%B6-push-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">2.</span> <span class="nav-text">方法二，强制 push 远程分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0-%E9%A6%96%E5%85%88%E4%BF%9D%E8%AF%81%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%98%AF%E5%B9%B2%E5%87%80%E7%9A%84%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%92%8C%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E4%BB%A3%E7%A0%81%E4%B8%80%E8%87%B4-1"><span class="nav-number">2.1.</span> <span class="nav-text">① 首先保证当前工作区是干净的，并且和远程分支代码一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A1-%E5%A4%87%E4%BB%BD%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%EF%BC%88%E5%A6%82%E6%9C%89%E5%BF%85%E8%A6%81%EF%BC%89-1"><span class="nav-number">2.2.</span> <span class="nav-text">② 备份当前分支（如有必要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A2-%E6%81%A2%E5%A4%8D%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84-commit-hash-1"><span class="nav-number">2.3.</span> <span class="nav-text">③ 恢复到指定的 commit hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A3-%E6%8A%8A%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E5%BC%BA%E5%88%B6%E6%8F%90%E4%BA%A4%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">④ 把当前分支强制提交到远程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%8C%E4%BB%8E%E5%9B%9E%E6%BB%9A%E4%BD%8D%E7%BD%AE%E7%94%9F%E6%88%90%E6%96%B0%E7%9A%84-commit-hash"><span class="nav-number">3.</span> <span class="nav-text">方法三，从回滚位置生成新的 commit hash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0-%E9%A6%96%E5%85%88%E4%BF%9D%E8%AF%81%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%98%AF%E5%B9%B2%E5%87%80%E7%9A%84%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%92%8C%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E4%BB%A3%E7%A0%81%E4%B8%80%E8%87%B4-2"><span class="nav-number">3.1.</span> <span class="nav-text">① 首先保证当前工作区是干净的，并且和远程分支代码一致</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A1-%E5%A4%87%E4%BB%BD%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%EF%BC%88%E5%A6%82%E6%9C%89%E5%BF%85%E8%A6%81%EF%BC%89-2"><span class="nav-number">3.1.1.</span> <span class="nav-text">② 备份当前分支（如有必要）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A2-%E4%BD%BF%E7%94%A8-git-revert-%E6%81%A2%E5%A4%8D%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84-commit-hash%EF%BC%8C%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%E6%81%A2%E5%A4%8D%E5%88%B0-a-gt-3-%E7%89%88%E6%9C%AC%EF%BC%88%E8%A7%81%E4%B8%8B%E5%9B%BE%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">③ 使用 git revert 恢复到指定的 commit hash，当前分支恢复到 a&gt;3 版本（见下图）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a%EF%BC%89%E6%AD%A4%E6%96%B9%E6%B3%95%E4%BC%9A%E4%BA%A7%E7%94%9F%E4%B8%80%E6%9D%A1%E5%A4%9A%E4%BD%99%E7%9A%84-commit-hash-amp-log%EF%BC%8C%E5%85%B6%E5%AE%9E-1c0ce98-%E5%92%8C-01592eb-%E5%86%85%E5%AE%B9%E4%B8%8A%E6%98%AF%E4%B8%80%E8%87%B4%E7%9A%84"><span class="nav-number">3.2.1.</span> <span class="nav-text">a）此方法会产生一条多余的 commit hash&amp;log，其实 1c0ce98 和 01592eb 内容上是一致的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b%EF%BC%89git-revert-%E6%98%AF%E4%BB%A5%E8%A6%81%E5%9B%9E%E6%BB%9A%E7%9A%84-commit-hash-1c0ce98-%E4%B8%BA%E5%9F%BA%E7%A1%80%EF%BC%8C%E6%96%B0%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA-commit-hash-01592eb"><span class="nav-number">3.2.2.</span> <span class="nav-text">b）git revert 是以要回滚的 commit hash(1c0ce98)为基础，新生成一个 commit hash(01592eb)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A3-%E6%8F%90%E4%BA%A4%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">3.3.</span> <span class="nav-text">④ 提交远程分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%8C%E4%BB%8E%E5%9B%9E%E6%BB%9A%E4%BD%8D%E7%BD%AE%E7%94%9F%E6%88%90%E6%96%B0%E7%9A%84%E5%88%86%E6%94%AF-merge"><span class="nav-number">4.</span> <span class="nav-text">方法四，从回滚位置生成新的分支 merge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0-%E9%A6%96%E5%85%88%E4%BF%9D%E8%AF%81%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%98%AF%E5%B9%B2%E5%87%80%E7%9A%84%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%92%8C%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E4%BB%A3%E7%A0%81%E4%B8%80%E8%87%B4-3"><span class="nav-number">4.1.</span> <span class="nav-text">① 首先保证当前工作区是干净的，并且和远程分支代码一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A1-%E5%A4%87%E4%BB%BD%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%EF%BC%88%E5%A6%82%E6%9C%89%E5%BF%85%E8%A6%81%EF%BC%89-3"><span class="nav-number">4.2.</span> <span class="nav-text">② 备份当前分支（如有必要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A2-%E6%8A%8A%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E5%8C%BA%E7%9A%84-HEAD-%E6%8C%87%E9%92%88%E6%8C%87%E5%90%91%E5%9B%9E%E6%BB%9A%E7%9A%84-commit-hash-%E6%B3%A8%E6%84%8F%E4%B8%8D%E6%98%AF-branch-%E7%9A%84-HEAD-%E6%8C%87%E9%92%88"><span class="nav-number">4.3.</span> <span class="nav-text">③ 把当前工作区的 HEAD 指针指向回滚的 commit hash(注意不是 branch 的 HEAD 指针)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A3-%E4%BB%A5%E8%AF%A5-commit-hash-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%88%86%E6%94%AF"><span class="nav-number">4.4.</span> <span class="nav-text">④ 以该 commit hash 创建一个新的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A4-%E5%88%87%E6%8D%A2%E5%88%B0%E5%BD%93%E5%89%8D%E5%88%86%E6%94%AF%EF%BC%8C%E5%90%88%E5%B9%B6-newRevertedHash%E3%80%82"><span class="nav-number">4.5.</span> <span class="nav-text">⑤ 切换到当前分支，合并 newRevertedHash。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A5-%E8%BF%9B%E8%A1%8C%E4%BB%A3%E7%A0%81-diff%EF%BC%8C%E5%AE%8C%E6%88%90%E4%BB%A3%E7%A0%81%E5%9B%9E%E6%BB%9A%EF%BC%8Cpush-%E5%88%B0%E8%BF%9C%E7%A8%8B-currentBranch"><span class="nav-number">4.6.</span> <span class="nav-text">⑥ 进行代码 diff，完成代码回滚，push 到远程 currentBranch</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

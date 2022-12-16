@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="前言Performance 一个在前端开发领域中，无法被忽视的存在。使用 Chrome DevTools 的 performance 面板可以记录和分析页面在运行时的所有活动。本文将详细介绍如何使用 performance 面板解决性能瓶颈。 一、Performance 工具优点1234567- 可视化图形界面- 每毫秒做的事情- 文件的执行加载的顺序- 每毫秒界面展示的效果- 每个方法执行的顺序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome Devtool — Performance">
+<meta property="og:url" content="http://example.com/2022/10/24/Chrome-Devtool-%E2%80%94-Performance/index.html">
+<meta property="og:site_name" content="Bruce Chen&#39;s Blog">
+<meta property="og:description" content="前言Performance 一个在前端开发领域中，无法被忽视的存在。使用 Chrome DevTools 的 performance 面板可以记录和分析页面在运行时的所有活动。本文将详细介绍如何使用 performance 面板解决性能瓶颈。 一、Performance 工具优点1234567- 可视化图形界面- 每毫秒做的事情- 文件的执行加载的顺序- 每毫秒界面展示的效果- 每个方法执行的顺序">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225113413787.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225141647281.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225142026718.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225142049962.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020022514210719.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225151854312.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225155545507.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225160433232.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225160516378.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200225160545704.png">
+<meta property="article:published_time" content="2022-10-24T08:18:36.000Z">
+<meta property="article:modified_time" content="2022-11-08T08:04:38.777Z">
+<meta property="article:author" content="Bruce Chen">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200225113413787.png">
+
+<link rel="canonical" href="http://example.com/2022/10/24/Chrome-Devtool-%E2%80%94-Performance/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Chrome Devtool — Performance | Bruce Chen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband">
+    <a target="_blank" rel="noopener" href="https://github.com/jschentt" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bruce Chen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/Chrome-Devtool-%E2%80%94-Performance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portal.jpg">
+      <meta itemprop="name" content="Bruce Chen">
+      <meta itemprop="description" content="It's better to burn out than to fade away.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bruce Chen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Chrome Devtool — Performance
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-24 16:18:36" itemprop="dateCreated datePublished" datetime="2022-10-24T16:18:36+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-08 16:04:38" itemprop="dateModified" datetime="2022-11-08T16:04:38+08:00">2022-11-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">前端易混知识点</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Performance 一个在前端开发领域中，无法被忽视的存在。使用 Chrome DevTools 的 performance 面板可以记录和分析页面在运行时的所有活动。本文将详细介绍如何使用 performance 面板解决性能瓶颈。</p>
+<h3 id="一、Performance-工具优点"><a href="#一、Performance-工具优点" class="headerlink" title="一、Performance 工具优点"></a>一、Performance 工具优点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- 可视化图形界面</span><br><span class="line">- 每毫秒做的事情</span><br><span class="line">- 文件的执行加载的顺序</span><br><span class="line">- 每毫秒界面展示的效果</span><br><span class="line">- 每个方法执行的顺序和时间（由下至上）</span><br><span class="line">- 倒置的事件火焰图（由下至上）</span><br><span class="line">- 数据总结</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、熟悉-Performance-面板"><a href="#二、熟悉-Performance-面板" class="headerlink" title="二、熟悉 Performance 面板"></a>二、熟悉 Performance 面板</h3><p><img src="https://img-blog.csdnimg.cn/20200225113413787.png" alt="image"></p>
+<h3 id="三、工具栏"><a href="#三、工具栏" class="headerlink" title="三、工具栏"></a>三、工具栏</h3><blockquote>
+<p>【3.1】录制: 点击 Record （按 Ctrl+E），这时候 Devtools 就开始录制各种性能指标。记录时，Record 按钮会变成红色。然后按 Record 按钮或再次键入键盘快捷键停止记录；</p>
+<p>【3.2】刷新: 刷新页面分析；</p>
+<p>【3.3】清除: 清除页面分析结果；</p>
+<p>【3.4】上下箭头: 用来上传和下载每一次性能检测报告；</p>
+<p>【3.5】Screendshots: 显示屏幕快照，是用来查看在每个时间段界面的变化；</p>
+<p>【3.6】Memory: 存储调用栈的大小，在不同时间段的不同大小；</p>
+<p>【3.7】Disable Javascript samples: 禁用 JavaScript 调用栈；</p>
+<p>【3.8】Enable advanced paint instrumentation(slow): 记录渲染事件的细节；</p>
+<p>【3.9】Network: 模拟不同的网络环境；</p>
+<p>【3.10】CPU: 模拟不同的 CPU 运行速度；</p>
+</blockquote>
+<h3 id="四、overview-页面性能高级汇总"><a href="#四、overview-页面性能高级汇总" class="headerlink" title="四、overview(页面性能高级汇总)"></a>四、overview(页面性能高级汇总)</h3><p>这里最主要是整体的界面渲染的时候，每个时间段执行的事件顺序，我们就能知道我们每个时间段（精确到毫秒）都做了什么，当鼠标放上去的时候，我们还可以大图的形式去查看我们每个时间段界面的渲染情况：</p>
+<p><strong>【4.1】FPS</strong>: 全称 Frames Per Second，表示每秒传输帧数，是速度单位，用来分析动画的一个主要性能指标。如果能够达到 &gt;&#x3D;60fps(帧)&#x2F;s 的刷新频率，就可以避免出现卡顿。能保持在 60 的 FPS 的话，那么用户体验就是不错的。</p>
+<blockquote>
+<p><strong>为什么是 60fps?</strong></p>
+<p>我们的目标是保证页面要有高于每秒 60fps(帧)的刷新频率，这和目前大多数显示器的刷新率相吻合(60Hz)。如果网页动画能够做到每秒 60 帧，就会跟显示器同步刷新，达到最佳的视觉效果。这意味着，一秒之内进行 60 次重新渲染，每次重新渲染的时间不能超过 1&#x2F;60&#x3D;0.01666s（秒）， 0.01666s*1000&#x3D;16.66ms（毫秒）。</p>
+</blockquote>
+<blockquote>
+<p><strong>不同帧的体验</strong>：<br>帧率能够达到 50 ～ 60 FPS 的动画将会相当流畅，让人倍感舒适；<br>帧率在 30 ～ 50 FPS 之间的动画，因各人敏感程度不同，舒适度因人而异；<br>帧率在 30 FPS 以下的动画，让人感觉到明显的卡顿和不适感；<br>帧率波动很大的动画，亦会使人感觉到卡顿。</p>
+</blockquote>
+<p>如下图所示，绿色的长条越高，说明 FPS 越高，用户体验越好。 如果你发现了一个红色的长条，那么就说明这些帧存在严重问题，有可能导致非常差的用户体验。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200225141647281.png" alt="image"></p>
+<p><strong>【4.2】CPU</strong>: CPU 资源。CPU 图表中的各种颜色代表着在这个时间段内，CPU 在各种处理上所花费的时间。如果你看到了某个处理占用了大量的时间，那么这可能就是一个可以找到性能瓶颈的线索。</p>
+<blockquote>
+<p>**下图中颜色分别为(与 Summary 面板里的颜色是相互对应的)**：</p>
+<p><strong>蓝色(Loading)</strong>: 表示网络通信和 HTML 解析时间<br><strong>黄色(Scripting)</strong>: 表示 JavaScript 执行时间<br><strong>紫色(Rendering)</strong>: 表示样式计算和布局（重排）时间<br><strong>绿色(Painting</strong>): 表示重绘时间<br><strong>灰色(other)</strong>: 表示其它事件花费的时间<br><strong>白色(Idle)</strong>: 表示空闲时间</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200225142026718.png" alt="image"></p>
+<p><strong>【4.3】NET</strong>: 每条彩色横杠表示一种资源。横杠越长，检索资源所需的时间越长。 每个横杠的浅色部分表示等待时间（从请求资源到第一个字节下载完成的时间）。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200225142049962.png" alt="image"></p>
+<p><strong>【4.4】HEAP</strong>: JavaScript 执行的时间分布。</p>
+<p><img src="https://img-blog.csdnimg.cn/2020022514210719.png" alt="image"></p>
+<h3 id="五、火焰图-CPU-堆叠追踪的可视化"><a href="#五、火焰图-CPU-堆叠追踪的可视化" class="headerlink" title="五、火焰图(CPU 堆叠追踪的可视化)"></a>五、火焰图(CPU 堆叠追踪的可视化)</h3><p><img src="https://img-blog.csdnimg.cn/20200225151854312.png" alt="image"></p>
+<p><strong>【5.1】Network</strong>: 表示每个服务器资源的加载情况，什么时间加载了什么资源，通过这里，我们更直观的可以知道，资源是并行加载的</p>
+<p><strong>【5.2】Frames</strong>: 表示每幅帧的运行情况</p>
+<p><strong>【5.3】Timings</strong>: 上图中有 4 条虚线，分别表示如下：</p>
+<blockquote>
+<ul>
+<li><strong>DCL(DOMContentLoaded)</strong>: 表示 HTML 文档加载完成事件。当初始 HTML 文档完全加载并解析之后触发，无需等待样式、图片、子 frame 结束。作为明显的对比，load 事件是当个页面完全被加载时才触发</li>
+<li><strong>FP(First Paint)</strong>: 首屏绘制，页面刚开始渲染的时间</li>
+<li><strong>FCP(First Contentful Paint)</strong>: 首屏内容绘制，首次绘制任何文本，图像，非空白 canvas 或 SVG 的时间点</li>
+<li><strong>FMP(First Meaningful Paint)</strong>: 首屏有意义的内容绘制，这个“有意义”没有权威的规定，本质上是通过一种算法来猜测某个时间点可能是 FMP。有的理解为是最大元素绘制的时间，即同 LCP(Largest Contentful Paint）</li>
+<li><strong>L(Onload)</strong>: 页面所有资源加载完成事件。</li>
+<li><strong>LCP(Largest Contentful Paint)</strong>: 最大内容绘制，页面上尺寸最大的元素绘制时间。<br>其中 FP、FCP、FMP 是同一条虚线，三者时间不一致。比如首次渲染过后，有可能出现 JS 阻塞，这种情况下 FCP 就会大于 FP</li>
+</ul>
+</blockquote>
+<p><strong>【5.4】Main</strong>: 表示主线程</p>
+<blockquote>
+<p><strong>主要负责</strong>：</p>
+<ul>
+<li>Javascript 的计算与执行</li>
+<li>CSS 样式计算</li>
+<li>Layout 布局计算</li>
+<li>将页面元素绘制成位图（paint），也就是光栅化（Raster）</li>
+<li>将位图给合成线程</li>
+</ul>
+</blockquote>
+<p><strong>【5.5】Raster</strong>: 光栅化（处理光栅图，即位图）</p>
+<p><strong>【5.6】GPU</strong>: 表示 GPU 占用情况</p>
+<p><strong>【5.7】Chrome_childIOThread</strong>: 子线程</p>
+<p><strong>【5.8】Compositor</strong>: 合成线程</p>
+<blockquote>
+<p><strong>主要负责</strong>：</p>
+<ul>
+<li>将位图（GraphicsLayer 层）以纹理（texture）的形式上传给 GPU</li>
+<li>计算页面的可见部分和即将可见部分（滚动）</li>
+<li>CSS 动画处理</li>
+<li>通知 GPU 绘制位图到屏幕上</li>
+</ul>
+</blockquote>
+<p><strong>【5.9】Memory</strong>: 上面有提到 Memory 选项，在勾选后，就会显示该事件折线图，通过该图，可以看出我们在不同的时间段，不同事件的执行情况</p>
+<blockquote>
+<ul>
+<li><strong>JS Heap:</strong> 表示 JS 占用的内存大小。</li>
+<li><strong>Documents</strong>: 表示文档数。</li>
+<li><strong>Nodes:</strong> 表示 Node 节点数</li>
+<li><strong>Listeners:</strong> 表示监听数。</li>
+<li><strong>GPU Memory:</strong> 表示 GPU 占用数<br>4 条折线图是以上 4 个指标（没有 GPU 消耗）对应的时间消耗的内存大小与节点数量。若将某项指标前面的勾选去掉则不会出现对应的折线。注意这个折线图只有在点击 Main 主线程的时候才会有，选择其他的指标时折线图区域是空白。</li>
+</ul>
+</blockquote>
+<h3 id="六、统计汇总-以图表的形式汇总数据"><a href="#六、统计汇总-以图表的形式汇总数据" class="headerlink" title="六、统计汇总(以图表的形式汇总数据)"></a>六、统计汇总(以图表的形式汇总数据)</h3><p><img src="https://img-blog.csdnimg.cn/20200225155545507.png" alt="image"></p>
+<p><strong>【6.1】Summary</strong>: 表示各指标时间占用统计报表</p>
+<blockquote>
+<ul>
+<li>Loading: 加载时间</li>
+<li>Scripting: js 计算时间</li>
+<li>Rendering: 渲染时间</li>
+<li>Painting: 绘制时间</li>
+<li>Other: 其他时间</li>
+<li>Idle: 浏览器闲置时间</li>
+</ul>
+</blockquote>
+<p><strong>【6.2】Bottom-Up</strong>: 表示事件时长排序列表（倒序）</p>
+<p>这里和 Main 里面看见的，其实是一个对应着的关系，从这里，我们可以看见所有的事件列表，还有每个事件的 Self Time(自己调用的时间） 、Total Time(总调用时间，包括子项调用时间） 、Activity(行为，包括调用该事件的位置）</p>
+<p><img src="https://img-blog.csdnimg.cn/20200225160433232.png" alt="image"></p>
+<p><strong>【6.3】Call Tree</strong>: 表示事件调用顺序列表</p>
+<p>其实这里和 Bottom-Up 部分是一样的，就不做太多的说明了</p>
+<p><img src="https://img-blog.csdnimg.cn/20200225160516378.png" alt="image"></p>
+<p><strong>【6.4】Event Log</strong>: 表示事件发生的顺序列表</p>
+<p>这里比前面的 Bottom-Up 和 Call Tree 相比，多了一个 Start Time 属性，这个属性其实就是开始的时间，从什么时间开始执行的什么事件</p>
+<p><img src="https://img-blog.csdnimg.cn/20200225160545704.png" alt="image"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/24/web-worker%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8/" rel="next" title="web worker的介绍和使用">
+      web worker的介绍和使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Performance-%E5%B7%A5%E5%85%B7%E4%BC%98%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">一、Performance 工具优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%86%9F%E6%82%89-Performance-%E9%9D%A2%E6%9D%BF"><span class="nav-number">1.2.</span> <span class="nav-text">二、熟悉 Performance 面板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%B7%A5%E5%85%B7%E6%A0%8F"><span class="nav-number">1.3.</span> <span class="nav-text">三、工具栏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81overview-%E9%A1%B5%E9%9D%A2%E6%80%A7%E8%83%BD%E9%AB%98%E7%BA%A7%E6%B1%87%E6%80%BB"><span class="nav-number">1.4.</span> <span class="nav-text">四、overview(页面性能高级汇总)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%81%AB%E7%84%B0%E5%9B%BE-CPU-%E5%A0%86%E5%8F%A0%E8%BF%BD%E8%B8%AA%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">五、火焰图(CPU 堆叠追踪的可视化)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BB%9F%E8%AE%A1%E6%B1%87%E6%80%BB-%E4%BB%A5%E5%9B%BE%E8%A1%A8%E7%9A%84%E5%BD%A2%E5%BC%8F%E6%B1%87%E6%80%BB%E6%95%B0%E6%8D%AE"><span class="nav-number">1.6.</span> <span class="nav-text">六、统计汇总(以图表的形式汇总数据)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bruce Chen"
+      src="/images/portal.jpg">
+  <p class="site-author-name" itemprop="name">Bruce Chen</p>
+  <div class="site-description" itemprop="description">It's better to burn out than to fade away.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1440429303&auto=1&height=66"></iframe>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jschentt" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jschentt" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jschentt@gmail.com" title="E-Mail → mailto:jschentt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/BruceCh56742806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;BruceCh56742806" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/jinsheng.chen.5439" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;jinsheng.chen.5439" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+
+
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bruce Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
